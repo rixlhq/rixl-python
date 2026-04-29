@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.2](https://github.com/rixlhq/rixl-python/compare/v0.1.1...v0.1.2) (2026-04-29)
+
+
+### Documentation
+
+* update sdk readme for better pypi description ([1490b30](https://github.com/rixlhq/rixl-python/commit/1490b30300d42fb7cc23ebb6f0d51b4d71dc9275))
+
 ## [0.1.1](https://github.com/rixlhq/rixl-python/compare/v0.1.0...v0.1.1) (2026-04-29)
 
 
