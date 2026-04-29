@@ -1,9 +1,10 @@
 {
     "$schema": "https://raw.githubusercontent.com/googleapis/release-please-action/v4/schema.json",
     "packages": {
-        "sdk": {
+        ".": {
             "release-type": "python",
-            "package-name": "rixl-python"
+            "package-name": "rixl-python",
+            "include-component-in-tag": false
         }
     }
 }
