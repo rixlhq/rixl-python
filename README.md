@@ -2,8 +2,8 @@
 
 The official Python client for the [RIXL](https://rixl.com) API.
 
-[![PyPI](https://img.shields.io/pypi/v/rixl-sdk-python.svg)](https://pypi.org/project/rixl-sdk-python/)
-[![Python](https://img.shields.io/pypi/pyversions/rixl-sdk-python.svg)](https://pypi.org/project/rixl-sdk-python/)
+[![PyPI](https://img.shields.io/pypi/v/rixl-python.svg)](https://pypi.org/project/rixl-python/)
+[![Python](https://img.shields.io/pypi/pyversions/rixl-python.svg)](https://pypi.org/project/rixl-python/)
 
 [Installation](#installation) • [Quick start](#quick-start) • [Authentication](#authentication) • [Resources](#resources) • [Pagination](#pagination) • [Errors](#errors)
 
@@ -23,7 +23,7 @@ The official Python client for the [RIXL](https://rixl.com) API.
 ## Installation
 
 ```bash
-pip install rixl-sdk-python
+pip install rixl-python
 ```
 
 `microsoft-kiota-bundle` is pulled in as a dependency and provides the HTTP transport, serializers, and `RequestAdapter` implementation.
@@ -243,4 +243,4 @@ python auth/main.py                          # works with either credential type
 
 ## Support
 
-Open an issue at [github.com/rixlhq/sdk-python](https://github.com/rixlhq/sdk-python/issues).
+Open an issue at [github.com/rixlhq/rixl-python](https://github.com/rixlhq/rixl-python/issues).

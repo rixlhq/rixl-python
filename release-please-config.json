@@ -3,7 +3,7 @@
     "packages": {
         "sdk": {
             "release-type": "python",
-            "package-name": "rixl-sdk-python"
+            "package-name": "rixl-python"
         }
     }
 }
