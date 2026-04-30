@@ -6,7 +6,8 @@
         "sdk": {
             "release-type": "python",
             "package-name": "rixl-python",
-            "include-component-in-tag": false
+            "include-component-in-tag": false,
+            "skip-github-release": true
         }
     }
 }
