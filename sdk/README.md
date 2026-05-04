@@ -2,12 +2,12 @@
 
 Python client for the [RIXL](https://rixl.com) API.
 
-[![PyPI](https://img.shields.io/pypi/v/rixl-python.svg)](https://pypi.org/project/rixl-python/)
+[![PyPI](https://img.shields.io/pypi/v/rixl.svg)](https://pypi.org/project/rixl/)
 
 ## Install
 
 ```bash
-pip install rixl-python
+pip install rixl
 ```
 
 Requires Python 3.10+. `microsoft-kiota-bundle` is pulled in transitively (HTTP transport, serializers, request adapter).
