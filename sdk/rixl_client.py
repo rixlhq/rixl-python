@@ -15,9 +15,7 @@ from kiota_serialization_text.text_serialization_writer_factory import TextSeria
 from typing import Any, Optional, TYPE_CHECKING, Union
 
 if TYPE_CHECKING:
-    from .feeds.feeds_request_builder import FeedsRequestBuilder
-    from .images.images_request_builder import ImagesRequestBuilder
-    from .videos.videos_request_builder import VideosRequestBuilder
+    from .media.media_request_builder import MediaRequestBuilder
 
 class RixlClient(BaseRequestBuilder):
     """
@@ -44,30 +42,12 @@ class RixlClient(BaseRequestBuilder):
         self.path_parameters["base_url"] = self.request_adapter.base_url
     
     @property
-    def feeds(self) -> FeedsRequestBuilder:
+    def media(self) -> MediaRequestBuilder:
         """
-        The feeds property
+        The media property
         """
-        from .feeds.feeds_request_builder import FeedsRequestBuilder
+        from .media.media_request_builder import MediaRequestBuilder
 
-        return FeedsRequestBuilder(self.request_adapter, self.path_parameters)
-    
-    @property
-    def images(self) -> ImagesRequestBuilder:
-        """
-        The images property
-        """
-        from .images.images_request_builder import ImagesRequestBuilder
-
-        return ImagesRequestBuilder(self.request_adapter, self.path_parameters)
-    
-    @property
-    def videos(self) -> VideosRequestBuilder:
-        """
-        The videos property
-        """
-        from .videos.videos_request_builder import VideosRequestBuilder
-
-        return VideosRequestBuilder(self.request_adapter, self.path_parameters)
+        return MediaRequestBuilder(self.request_adapter, self.path_parameters)
     
 
