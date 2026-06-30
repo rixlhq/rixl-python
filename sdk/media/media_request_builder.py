@@ -6,9 +6,7 @@ from kiota_abstractions.request_adapter import RequestAdapter
 from typing import Any, Optional, TYPE_CHECKING, Union
 
 if TYPE_CHECKING:
-    from .feeds.feeds_request_builder import FeedsRequestBuilder
-    from .images.images_request_builder import ImagesRequestBuilder
-    from .videos.videos_request_builder import VideosRequestBuilder
+    from .v1.v1_request_builder import V1RequestBuilder
 
 class MediaRequestBuilder(BaseRequestBuilder):
     """
@@ -24,30 +22,12 @@ class MediaRequestBuilder(BaseRequestBuilder):
         super().__init__(request_adapter, "{+baseurl}/media", path_parameters)
     
     @property
-    def feeds(self) -> FeedsRequestBuilder:
+    def v1(self) -> V1RequestBuilder:
         """
-        The feeds property
+        The v1 property
         """
-        from .feeds.feeds_request_builder import FeedsRequestBuilder
+        from .v1.v1_request_builder import V1RequestBuilder
 
-        return FeedsRequestBuilder(self.request_adapter, self.path_parameters)
-    
-    @property
-    def images(self) -> ImagesRequestBuilder:
-        """
-        The images property
-        """
-        from .images.images_request_builder import ImagesRequestBuilder
-
-        return ImagesRequestBuilder(self.request_adapter, self.path_parameters)
-    
-    @property
-    def videos(self) -> VideosRequestBuilder:
-        """
-        The videos property
-        """
-        from .videos.videos_request_builder import VideosRequestBuilder
-
-        return VideosRequestBuilder(self.request_adapter, self.path_parameters)
+        return V1RequestBuilder(self.request_adapter, self.path_parameters)
     
 
