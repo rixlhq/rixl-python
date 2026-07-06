@@ -11,17 +11,21 @@ class LoginResponse(AdditionalDataHolder, Parsable):
 
     # The access_token property
     access_token: Optional[str] = None
+    # authentication lists the 2FA methods the user has configured whenstatus is "2fa_required". The public API renders these as lowercasestrings: "passkey", "totp".
+    authentication: Optional[list[int]] = None
     # The email property
     email: Optional[str] = None
     # The expires_in property
     expires_in: Optional[int] = None
+    # passkey_options is the WebAuthn PublicKeyCredentialRequestOptions as JSON,present only when "passkey" is one of the authentication methods.
+    passkey_options: Optional[list[int]] = None
     # The refresh_token property
     refresh_token: Optional[str] = None
     # The requires_action property
     requires_action: Optional[str] = None
     # The session_id property
     session_id: Optional[str] = None
-    # "ok" | "otp_required" | "email_not_verified"
+    # "ok" | "2fa_required" | "email_not_verified"
     status: Optional[str] = None
     # The token_type property
     token_type: Optional[str] = None
@@ -44,8 +48,10 @@ class LoginResponse(AdditionalDataHolder, Parsable):
         """
         fields: dict[str, Callable[[Any], None]] = {
             "access_token": lambda n : setattr(self, 'access_token', n.get_str_value()),
+            "authentication": lambda n : setattr(self, 'authentication', n.get_collection_of_primitive_values(int)),
             "email": lambda n : setattr(self, 'email', n.get_str_value()),
             "expires_in": lambda n : setattr(self, 'expires_in', n.get_int_value()),
+            "passkey_options": lambda n : setattr(self, 'passkey_options', n.get_collection_of_primitive_values(int)),
             "refresh_token": lambda n : setattr(self, 'refresh_token', n.get_str_value()),
             "requires_action": lambda n : setattr(self, 'requires_action', n.get_str_value()),
             "session_id": lambda n : setattr(self, 'session_id', n.get_str_value()),
@@ -63,8 +69,10 @@ class LoginResponse(AdditionalDataHolder, Parsable):
         if writer is None:
             raise TypeError("writer cannot be null.")
         writer.write_str_value("access_token", self.access_token)
+        writer.write_collection_of_primitive_values("authentication", self.authentication)
         writer.write_str_value("email", self.email)
         writer.write_int_value("expires_in", self.expires_in)
+        writer.write_collection_of_primitive_values("passkey_options", self.passkey_options)
         writer.write_str_value("refresh_token", self.refresh_token)
         writer.write_str_value("requires_action", self.requires_action)
         writer.write_str_value("session_id", self.session_id)

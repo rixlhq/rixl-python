@@ -20,6 +20,7 @@ if TYPE_CHECKING:
     from .token.token_request_builder import TokenRequestBuilder
     from .userinfo.userinfo_request_builder import UserinfoRequestBuilder
     from .users.users_request_builder import UsersRequestBuilder
+    from .verify_passkey.verify_passkey_request_builder import VerifyPasskeyRequestBuilder
     from .verify_totp.verify_totp_request_builder import VerifyTotpRequestBuilder
 
 class V1RequestBuilder(BaseRequestBuilder):
@@ -160,6 +161,15 @@ class V1RequestBuilder(BaseRequestBuilder):
         from .users.users_request_builder import UsersRequestBuilder
 
         return UsersRequestBuilder(self.request_adapter, self.path_parameters)
+    
+    @property
+    def verify_passkey(self) -> VerifyPasskeyRequestBuilder:
+        """
+        The verifyPasskey property
+        """
+        from .verify_passkey.verify_passkey_request_builder import VerifyPasskeyRequestBuilder
+
+        return VerifyPasskeyRequestBuilder(self.request_adapter, self.path_parameters)
     
     @property
     def verify_totp(self) -> VerifyTotpRequestBuilder:
