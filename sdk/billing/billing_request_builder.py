@@ -7,7 +7,6 @@ from typing import Any, Optional, TYPE_CHECKING, Union
 
 if TYPE_CHECKING:
     from .v1.v1_request_builder import V1RequestBuilder
-    from .webhooks.webhooks_request_builder import WebhooksRequestBuilder
 
 class BillingRequestBuilder(BaseRequestBuilder):
     """
@@ -30,14 +29,5 @@ class BillingRequestBuilder(BaseRequestBuilder):
         from .v1.v1_request_builder import V1RequestBuilder
 
         return V1RequestBuilder(self.request_adapter, self.path_parameters)
-    
-    @property
-    def webhooks(self) -> WebhooksRequestBuilder:
-        """
-        The webhooks property
-        """
-        from .webhooks.webhooks_request_builder import WebhooksRequestBuilder
-
-        return WebhooksRequestBuilder(self.request_adapter, self.path_parameters)
     
 

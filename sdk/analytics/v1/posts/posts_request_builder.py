@@ -6,7 +6,7 @@ from kiota_abstractions.request_adapter import RequestAdapter
 from typing import Any, Optional, TYPE_CHECKING, Union
 
 if TYPE_CHECKING:
-    from .item.with_post_item_request_builder import WithPostItemRequestBuilder
+    from .item.with_post_item_request_builder import WithPost_ItemRequestBuilder
 
 class PostsRequestBuilder(BaseRequestBuilder):
     """
@@ -21,18 +21,18 @@ class PostsRequestBuilder(BaseRequestBuilder):
         """
         super().__init__(request_adapter, "{+baseurl}/analytics/v1/posts", path_parameters)
     
-    def by_post_id(self,post_id: str) -> WithPostItemRequestBuilder:
+    def by_post_id(self,post_id: str) -> WithPost_ItemRequestBuilder:
         """
         Gets an item from the rixl_sdk.analytics.v1.posts.item collection
-        param post_id: Post ID
-        Returns: WithPostItemRequestBuilder
+        param post_id: Unique identifier of the item
+        Returns: WithPost_ItemRequestBuilder
         """
         if post_id is None:
             raise TypeError("post_id cannot be null.")
-        from .item.with_post_item_request_builder import WithPostItemRequestBuilder
+        from .item.with_post_item_request_builder import WithPost_ItemRequestBuilder
 
         url_tpl_params = get_path_parameters(self.path_parameters)
-        url_tpl_params["postId"] = post_id
-        return WithPostItemRequestBuilder(self.request_adapter, url_tpl_params)
+        url_tpl_params["post_id"] = post_id
+        return WithPost_ItemRequestBuilder(self.request_adapter, url_tpl_params)
     
 

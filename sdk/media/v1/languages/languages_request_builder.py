@@ -14,7 +14,7 @@ from typing import Any, Optional, TYPE_CHECKING, Union
 from warnings import warn
 
 if TYPE_CHECKING:
-    from ....models.videosv1.list_languages_response import ListLanguagesResponse
+    from ....models.videos.v1.list_languages_response import ListLanguagesResponse
 
 class LanguagesRequestBuilder(BaseRequestBuilder):
     """
@@ -31,7 +31,7 @@ class LanguagesRequestBuilder(BaseRequestBuilder):
     
     async def get(self,request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> Optional[ListLanguagesResponse]:
         """
-        Returns the language codes supported for audio tracks and subtitles.
+        ListLanguages
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
         Returns: Optional[ListLanguagesResponse]
         """
@@ -40,13 +40,13 @@ class LanguagesRequestBuilder(BaseRequestBuilder):
         )
         if not self.request_adapter:
             raise Exception("Http core is null") 
-        from ....models.videosv1.list_languages_response import ListLanguagesResponse
+        from ....models.videos.v1.list_languages_response import ListLanguagesResponse
 
         return await self.request_adapter.send_async(request_info, ListLanguagesResponse, None)
     
     def to_get_request_information(self,request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> RequestInformation:
         """
-        Returns the language codes supported for audio tracks and subtitles.
+        ListLanguages
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
         Returns: RequestInformation
         """

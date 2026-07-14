@@ -14,7 +14,8 @@ from typing import Any, Optional, TYPE_CHECKING, Union
 from warnings import warn
 
 if TYPE_CHECKING:
-    from ....models.analyticsv1.track_events_request import TrackEventsRequest
+    from ....models.analytics.v1.track_events_request import TrackEventsRequest
+    from ....models.google.protobuf.empty import Empty
 
 class EventsRequestBuilder(BaseRequestBuilder):
     """
@@ -29,12 +30,12 @@ class EventsRequestBuilder(BaseRequestBuilder):
         """
         super().__init__(request_adapter, "{+baseurl}/analytics/v1/events", path_parameters)
     
-    async def post(self,body: TrackEventsRequest, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> None:
+    async def post(self,body: TrackEventsRequest, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> Optional[Empty]:
         """
-        Ingest a batch of analytics events for the authenticated organization
-        param body: Analytics events
+        TrackEvents
+        param body: The request body
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
-        Returns: None
+        Returns: Optional[Empty]
         """
         if body is None:
             raise TypeError("body cannot be null.")
@@ -43,12 +44,14 @@ class EventsRequestBuilder(BaseRequestBuilder):
         )
         if not self.request_adapter:
             raise Exception("Http core is null") 
-        return await self.request_adapter.send_no_response_content_async(request_info, None)
+        from ....models.google.protobuf.empty import Empty
+
+        return await self.request_adapter.send_async(request_info, Empty, None)
     
     def to_post_request_information(self,body: TrackEventsRequest, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> RequestInformation:
         """
-        Ingest a batch of analytics events for the authenticated organization
-        param body: Analytics events
+        TrackEvents
+        param body: The request body
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
         Returns: RequestInformation
         """
@@ -56,6 +59,7 @@ class EventsRequestBuilder(BaseRequestBuilder):
             raise TypeError("body cannot be null.")
         request_info = RequestInformation(Method.POST, self.url_template, self.path_parameters)
         request_info.configure(request_configuration)
+        request_info.headers.try_add("Accept", "application/json")
         request_info.set_content_from_parsable(self.request_adapter, "application/json", body)
         return request_info
     

@@ -7,19 +7,20 @@ from typing import Any, Optional, TYPE_CHECKING, Union
 
 if TYPE_CHECKING:
     from .feeds.feeds_request_builder import FeedsRequestBuilder
+    from .posts.posts_request_builder import PostsRequestBuilder
 
-class WithProjectItemRequestBuilder(BaseRequestBuilder):
+class WithProject_ItemRequestBuilder(BaseRequestBuilder):
     """
-    Builds and executes requests for operations under /posts/v1/projects/{projectId}
+    Builds and executes requests for operations under /posts/v1/projects/{project_id}
     """
     def __init__(self,request_adapter: RequestAdapter, path_parameters: Union[str, dict[str, Any]]) -> None:
         """
-        Instantiates a new WithProjectItemRequestBuilder and sets the default values.
+        Instantiates a new WithProject_ItemRequestBuilder and sets the default values.
         param path_parameters: The raw url or the url-template parameters for the request.
         param request_adapter: The request adapter to use to execute the requests.
         Returns: None
         """
-        super().__init__(request_adapter, "{+baseurl}/posts/v1/projects/{projectId}", path_parameters)
+        super().__init__(request_adapter, "{+baseurl}/posts/v1/projects/{project_id}", path_parameters)
     
     @property
     def feeds(self) -> FeedsRequestBuilder:
@@ -29,5 +30,14 @@ class WithProjectItemRequestBuilder(BaseRequestBuilder):
         from .feeds.feeds_request_builder import FeedsRequestBuilder
 
         return FeedsRequestBuilder(self.request_adapter, self.path_parameters)
+    
+    @property
+    def posts(self) -> PostsRequestBuilder:
+        """
+        The posts property
+        """
+        from .posts.posts_request_builder import PostsRequestBuilder
+
+        return PostsRequestBuilder(self.request_adapter, self.path_parameters)
     
 

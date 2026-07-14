@@ -14,8 +14,8 @@ from typing import Any, Optional, TYPE_CHECKING, Union
 from warnings import warn
 
 if TYPE_CHECKING:
-    from ....models.billingv1.hosted_checkout_session_response import HostedCheckoutSessionResponse
-    from ....models.gateway.checkout_body import CheckoutBody
+    from ....models.billing.v1.create_checkout_session_request import CreateCheckoutSessionRequest
+    from ....models.billing.v1.hosted_checkout_session_response import HostedCheckoutSessionResponse
 
 class CheckoutRequestBuilder(BaseRequestBuilder):
     """
@@ -30,10 +30,10 @@ class CheckoutRequestBuilder(BaseRequestBuilder):
         """
         super().__init__(request_adapter, "{+baseurl}/billing/v1/checkout", path_parameters)
     
-    async def post(self,body: CheckoutBody, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> Optional[HostedCheckoutSessionResponse]:
+    async def post(self,body: CreateCheckoutSessionRequest, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> Optional[HostedCheckoutSessionResponse]:
         """
-        Create a Stripe hosted checkout session
-        param body: Checkout request
+        CreateCheckoutSession
+        param body: The request body
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
         Returns: Optional[HostedCheckoutSessionResponse]
         """
@@ -44,14 +44,14 @@ class CheckoutRequestBuilder(BaseRequestBuilder):
         )
         if not self.request_adapter:
             raise Exception("Http core is null") 
-        from ....models.billingv1.hosted_checkout_session_response import HostedCheckoutSessionResponse
+        from ....models.billing.v1.hosted_checkout_session_response import HostedCheckoutSessionResponse
 
         return await self.request_adapter.send_async(request_info, HostedCheckoutSessionResponse, None)
     
-    def to_post_request_information(self,body: CheckoutBody, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> RequestInformation:
+    def to_post_request_information(self,body: CreateCheckoutSessionRequest, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> RequestInformation:
         """
-        Create a Stripe hosted checkout session
-        param body: Checkout request
+        CreateCheckoutSession
+        param body: The request body
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
         Returns: RequestInformation
         """

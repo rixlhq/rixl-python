@@ -14,14 +14,15 @@ from typing import Any, Optional, TYPE_CHECKING, Union
 from warnings import warn
 
 if TYPE_CHECKING:
-    from ......models.authv1.list_policies_response import ListPoliciesResponse
-    from ......models.authv1.policy import Policy
-    from ......models.gateway.policy_body import PolicyBody
-    from .item.with_policy_item_request_builder import WithPolicyItemRequestBuilder
+    from ......models.auth.v1.list_policies_response import ListPoliciesResponse
+    from ......models.auth.v1.policy import Policy
+    from .attachments.attachments_request_builder import AttachmentsRequestBuilder
+    from .item.with_policy_item_request_builder import WithPolicy_ItemRequestBuilder
+    from .policies_post_request_body import PoliciesPostRequestBody
 
 class PoliciesRequestBuilder(BaseRequestBuilder):
     """
-    Builds and executes requests for operations under /auth/v1/memberships/{orgId}/policies
+    Builds and executes requests for operations under /auth/v1/memberships/{org_-id}/policies
     """
     def __init__(self,request_adapter: RequestAdapter, path_parameters: Union[str, dict[str, Any]]) -> None:
         """
@@ -30,25 +31,25 @@ class PoliciesRequestBuilder(BaseRequestBuilder):
         param request_adapter: The request adapter to use to execute the requests.
         Returns: None
         """
-        super().__init__(request_adapter, "{+baseurl}/auth/v1/memberships/{orgId}/policies", path_parameters)
+        super().__init__(request_adapter, "{+baseurl}/auth/v1/memberships/{org_%2Did}/policies{?userId*}", path_parameters)
     
-    def by_policy_id(self,policy_id: str) -> WithPolicyItemRequestBuilder:
+    def by_policy_id(self,policy_id: str) -> WithPolicy_ItemRequestBuilder:
         """
         Gets an item from the rixl_sdk.auth.v1.memberships.item.policies.item collection
-        param policy_id: Policy ID
-        Returns: WithPolicyItemRequestBuilder
+        param policy_id: Unique identifier of the item
+        Returns: WithPolicy_ItemRequestBuilder
         """
         if policy_id is None:
             raise TypeError("policy_id cannot be null.")
-        from .item.with_policy_item_request_builder import WithPolicyItemRequestBuilder
+        from .item.with_policy_item_request_builder import WithPolicy_ItemRequestBuilder
 
         url_tpl_params = get_path_parameters(self.path_parameters)
-        url_tpl_params["policyId"] = policy_id
-        return WithPolicyItemRequestBuilder(self.request_adapter, url_tpl_params)
+        url_tpl_params["policy_id"] = policy_id
+        return WithPolicy_ItemRequestBuilder(self.request_adapter, url_tpl_params)
     
-    async def get(self,request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> Optional[ListPoliciesResponse]:
+    async def get(self,request_configuration: Optional[RequestConfiguration[PoliciesRequestBuilderGetQueryParameters]] = None) -> Optional[ListPoliciesResponse]:
         """
-        Returns all authorization policies defined in the organization.
+        ListPolicies
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
         Returns: Optional[ListPoliciesResponse]
         """
@@ -57,14 +58,14 @@ class PoliciesRequestBuilder(BaseRequestBuilder):
         )
         if not self.request_adapter:
             raise Exception("Http core is null") 
-        from ......models.authv1.list_policies_response import ListPoliciesResponse
+        from ......models.auth.v1.list_policies_response import ListPoliciesResponse
 
         return await self.request_adapter.send_async(request_info, ListPoliciesResponse, None)
     
-    async def post(self,body: PolicyBody, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> Optional[Policy]:
+    async def post(self,body: PoliciesPostRequestBody, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> Optional[Policy]:
         """
-        Creates a new authorization policy in the organization with the given name, description, and permissions.
-        param body: Policy
+        CreatePolicy
+        param body: The request body
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
         Returns: Optional[Policy]
         """
@@ -75,13 +76,13 @@ class PoliciesRequestBuilder(BaseRequestBuilder):
         )
         if not self.request_adapter:
             raise Exception("Http core is null") 
-        from ......models.authv1.policy import Policy
+        from ......models.auth.v1.policy import Policy
 
         return await self.request_adapter.send_async(request_info, Policy, None)
     
-    def to_get_request_information(self,request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> RequestInformation:
+    def to_get_request_information(self,request_configuration: Optional[RequestConfiguration[PoliciesRequestBuilderGetQueryParameters]] = None) -> RequestInformation:
         """
-        Returns all authorization policies defined in the organization.
+        ListPolicies
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
         Returns: RequestInformation
         """
@@ -90,10 +91,10 @@ class PoliciesRequestBuilder(BaseRequestBuilder):
         request_info.headers.try_add("Accept", "application/json")
         return request_info
     
-    def to_post_request_information(self,body: PolicyBody, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> RequestInformation:
+    def to_post_request_information(self,body: PoliciesPostRequestBody, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> RequestInformation:
         """
-        Creates a new authorization policy in the organization with the given name, description, and permissions.
-        param body: Policy
+        CreatePolicy
+        param body: The request body
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
         Returns: RequestInformation
         """
@@ -115,8 +116,37 @@ class PoliciesRequestBuilder(BaseRequestBuilder):
             raise TypeError("raw_url cannot be null.")
         return PoliciesRequestBuilder(self.request_adapter, raw_url)
     
+    @property
+    def attachments(self) -> AttachmentsRequestBuilder:
+        """
+        The attachments property
+        """
+        from .attachments.attachments_request_builder import AttachmentsRequestBuilder
+
+        return AttachmentsRequestBuilder(self.request_adapter, self.path_parameters)
+    
     @dataclass
-    class PoliciesRequestBuilderGetRequestConfiguration(RequestConfiguration[QueryParameters]):
+    class PoliciesRequestBuilderGetQueryParameters():
+        """
+        ListPolicies
+        """
+        def get_query_parameter(self,original_name: str) -> str:
+            """
+            Maps the query parameters names to their encoded names for the URI template parsing.
+            param original_name: The original query parameter name in the class.
+            Returns: str
+            """
+            if original_name is None:
+                raise TypeError("original_name cannot be null.")
+            if original_name == "user_id":
+                return "userId"
+            return original_name
+        
+        user_id: Optional[str] = None
+
+    
+    @dataclass
+    class PoliciesRequestBuilderGetRequestConfiguration(RequestConfiguration[PoliciesRequestBuilderGetQueryParameters]):
         """
         Configuration for the request such as headers, query parameters, and middleware options.
         """

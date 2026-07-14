@@ -14,13 +14,12 @@ from typing import Any, Optional, TYPE_CHECKING, Union
 from warnings import warn
 
 if TYPE_CHECKING:
-    from ........models.gateway.update_chapters_body import UpdateChaptersBody
-    from ........models.videosv1.video_chapters import VideoChapters
-    from .item.with_start_time_sec_item_request_builder import WithStartTimeSecItemRequestBuilder
+    from ........models.videos.v1.video_chapters import VideoChapters
+    from .item.with_start_time_sec_item_request_builder import WithStart_time_secItemRequestBuilder
 
 class ChaptersRequestBuilder(BaseRequestBuilder):
     """
-    Builds and executes requests for operations under /media/v1/projects/{projectId}/videos/{videoId}/chapters
+    Builds and executes requests for operations under /media/v1/projects/{project_id}/videos/{video_id}/chapters
     """
     def __init__(self,request_adapter: RequestAdapter, path_parameters: Union[str, dict[str, Any]]) -> None:
         """
@@ -29,25 +28,25 @@ class ChaptersRequestBuilder(BaseRequestBuilder):
         param request_adapter: The request adapter to use to execute the requests.
         Returns: None
         """
-        super().__init__(request_adapter, "{+baseurl}/media/v1/projects/{projectId}/videos/{videoId}/chapters", path_parameters)
+        super().__init__(request_adapter, "{+baseurl}/media/v1/projects/{project_id}/videos/{video_id}/chapters{?chapters%2EstartTimeSec*,chapters%2Etitle*}", path_parameters)
     
-    def by_start_time_sec(self,start_time_sec: int) -> WithStartTimeSecItemRequestBuilder:
+    def by_start_time_sec(self,start_time_sec: str) -> WithStart_time_secItemRequestBuilder:
         """
         Gets an item from the rixl_sdk.media.v1.projects.item.videos.item.chapters.item collection
-        param start_time_sec: Chapter start time (seconds)
-        Returns: WithStartTimeSecItemRequestBuilder
+        param start_time_sec: Unique identifier of the item
+        Returns: WithStart_time_secItemRequestBuilder
         """
         if start_time_sec is None:
             raise TypeError("start_time_sec cannot be null.")
-        from .item.with_start_time_sec_item_request_builder import WithStartTimeSecItemRequestBuilder
+        from .item.with_start_time_sec_item_request_builder import WithStart_time_secItemRequestBuilder
 
         url_tpl_params = get_path_parameters(self.path_parameters)
-        url_tpl_params["startTimeSec"] = start_time_sec
-        return WithStartTimeSecItemRequestBuilder(self.request_adapter, url_tpl_params)
+        url_tpl_params["start_time_sec"] = start_time_sec
+        return WithStart_time_secItemRequestBuilder(self.request_adapter, url_tpl_params)
     
-    async def delete(self,request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> Optional[VideoChapters]:
+    async def delete(self,request_configuration: Optional[RequestConfiguration[ChaptersRequestBuilderDeleteQueryParameters]] = None) -> Optional[VideoChapters]:
         """
-        Removes every chapter from a video.
+        UpdateVideoChapters
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
         Returns: Optional[VideoChapters]
         """
@@ -56,13 +55,13 @@ class ChaptersRequestBuilder(BaseRequestBuilder):
         )
         if not self.request_adapter:
             raise Exception("Http core is null") 
-        from ........models.videosv1.video_chapters import VideoChapters
+        from ........models.videos.v1.video_chapters import VideoChapters
 
         return await self.request_adapter.send_async(request_info, VideoChapters, None)
     
     async def get(self,request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> Optional[VideoChapters]:
         """
-        Returns the chapters of a video.
+        GetVideoChapters
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
         Returns: Optional[VideoChapters]
         """
@@ -71,31 +70,13 @@ class ChaptersRequestBuilder(BaseRequestBuilder):
         )
         if not self.request_adapter:
             raise Exception("Http core is null") 
-        from ........models.videosv1.video_chapters import VideoChapters
+        from ........models.videos.v1.video_chapters import VideoChapters
 
         return await self.request_adapter.send_async(request_info, VideoChapters, None)
     
-    async def put(self,body: UpdateChaptersBody, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> Optional[VideoChapters]:
+    def to_delete_request_information(self,request_configuration: Optional[RequestConfiguration[ChaptersRequestBuilderDeleteQueryParameters]] = None) -> RequestInformation:
         """
-        Replaces the chapters of a video.
-        param body: Chapters to set
-        param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
-        Returns: Optional[VideoChapters]
-        """
-        if body is None:
-            raise TypeError("body cannot be null.")
-        request_info = self.to_put_request_information(
-            body, request_configuration
-        )
-        if not self.request_adapter:
-            raise Exception("Http core is null") 
-        from ........models.videosv1.video_chapters import VideoChapters
-
-        return await self.request_adapter.send_async(request_info, VideoChapters, None)
-    
-    def to_delete_request_information(self,request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> RequestInformation:
-        """
-        Removes every chapter from a video.
+        UpdateVideoChapters
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
         Returns: RequestInformation
         """
@@ -106,28 +87,13 @@ class ChaptersRequestBuilder(BaseRequestBuilder):
     
     def to_get_request_information(self,request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> RequestInformation:
         """
-        Returns the chapters of a video.
+        GetVideoChapters
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
         Returns: RequestInformation
         """
         request_info = RequestInformation(Method.GET, self.url_template, self.path_parameters)
         request_info.configure(request_configuration)
         request_info.headers.try_add("Accept", "application/json")
-        return request_info
-    
-    def to_put_request_information(self,body: UpdateChaptersBody, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> RequestInformation:
-        """
-        Replaces the chapters of a video.
-        param body: Chapters to set
-        param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
-        Returns: RequestInformation
-        """
-        if body is None:
-            raise TypeError("body cannot be null.")
-        request_info = RequestInformation(Method.PUT, self.url_template, self.path_parameters)
-        request_info.configure(request_configuration)
-        request_info.headers.try_add("Accept", "application/json")
-        request_info.set_content_from_parsable(self.request_adapter, "application/json", body)
         return request_info
     
     def with_url(self,raw_url: str) -> ChaptersRequestBuilder:
@@ -141,7 +107,31 @@ class ChaptersRequestBuilder(BaseRequestBuilder):
         return ChaptersRequestBuilder(self.request_adapter, raw_url)
     
     @dataclass
-    class ChaptersRequestBuilderDeleteRequestConfiguration(RequestConfiguration[QueryParameters]):
+    class ChaptersRequestBuilderDeleteQueryParameters():
+        """
+        UpdateVideoChapters
+        """
+        def get_query_parameter(self,original_name: str) -> str:
+            """
+            Maps the query parameters names to their encoded names for the URI template parsing.
+            param original_name: The original query parameter name in the class.
+            Returns: str
+            """
+            if original_name is None:
+                raise TypeError("original_name cannot be null.")
+            if original_name == "chapters_start_time_sec":
+                return "chapters%2EstartTimeSec"
+            if original_name == "chapters_title":
+                return "chapters%2Etitle"
+            return original_name
+        
+        chapters_start_time_sec: Optional[float] = None
+
+        chapters_title: Optional[str] = None
+
+    
+    @dataclass
+    class ChaptersRequestBuilderDeleteRequestConfiguration(RequestConfiguration[ChaptersRequestBuilderDeleteQueryParameters]):
         """
         Configuration for the request such as headers, query parameters, and middleware options.
         """
@@ -149,13 +139,6 @@ class ChaptersRequestBuilder(BaseRequestBuilder):
     
     @dataclass
     class ChaptersRequestBuilderGetRequestConfiguration(RequestConfiguration[QueryParameters]):
-        """
-        Configuration for the request such as headers, query parameters, and middleware options.
-        """
-        warn("This class is deprecated. Please use the generic RequestConfiguration class generated by the generator.", DeprecationWarning)
-    
-    @dataclass
-    class ChaptersRequestBuilderPutRequestConfiguration(RequestConfiguration[QueryParameters]):
         """
         Configuration for the request such as headers, query parameters, and middleware options.
         """

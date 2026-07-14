@@ -14,7 +14,8 @@ from typing import Any, Optional, TYPE_CHECKING, Union
 from warnings import warn
 
 if TYPE_CHECKING:
-    from ......models.gateway.unsubscribe_blog_by_email_body import UnsubscribeBlogByEmailBody
+    from ......models.auth.v1.unsubscribe_blog_by_email_request import UnsubscribeBlogByEmailRequest
+    from ......models.google.protobuf.empty import Empty
 
 class EmailRequestBuilder(BaseRequestBuilder):
     """
@@ -29,12 +30,12 @@ class EmailRequestBuilder(BaseRequestBuilder):
         """
         super().__init__(request_adapter, "{+baseurl}/auth/v1/blog/unsubscribe/email", path_parameters)
     
-    async def post(self,body: UnsubscribeBlogByEmailBody, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> None:
+    async def post(self,body: UnsubscribeBlogByEmailRequest, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> Optional[Empty]:
         """
-        Unsubscribes a recipient using the user id and email from an email-footer link. No authentication required.
-        param body: Unsubscribe request
+        UnsubscribeBlogByEmail
+        param body: The request body
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
-        Returns: None
+        Returns: Optional[Empty]
         """
         if body is None:
             raise TypeError("body cannot be null.")
@@ -43,12 +44,14 @@ class EmailRequestBuilder(BaseRequestBuilder):
         )
         if not self.request_adapter:
             raise Exception("Http core is null") 
-        return await self.request_adapter.send_no_response_content_async(request_info, None)
+        from ......models.google.protobuf.empty import Empty
+
+        return await self.request_adapter.send_async(request_info, Empty, None)
     
-    def to_post_request_information(self,body: UnsubscribeBlogByEmailBody, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> RequestInformation:
+    def to_post_request_information(self,body: UnsubscribeBlogByEmailRequest, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> RequestInformation:
         """
-        Unsubscribes a recipient using the user id and email from an email-footer link. No authentication required.
-        param body: Unsubscribe request
+        UnsubscribeBlogByEmail
+        param body: The request body
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
         Returns: RequestInformation
         """
@@ -56,6 +59,7 @@ class EmailRequestBuilder(BaseRequestBuilder):
             raise TypeError("body cannot be null.")
         request_info = RequestInformation(Method.POST, self.url_template, self.path_parameters)
         request_info.configure(request_configuration)
+        request_info.headers.try_add("Accept", "application/json")
         request_info.set_content_from_parsable(self.request_adapter, "application/json", body)
         return request_info
     

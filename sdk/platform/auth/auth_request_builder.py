@@ -6,8 +6,7 @@ from kiota_abstractions.request_adapter import RequestAdapter
 from typing import Any, Optional, TYPE_CHECKING, Union
 
 if TYPE_CHECKING:
-    from .refresh.refresh_request_builder import RefreshRequestBuilder
-    from .token.token_request_builder import TokenRequestBuilder
+    from .v1.v1_request_builder import V1RequestBuilder
 
 class AuthRequestBuilder(BaseRequestBuilder):
     """
@@ -23,21 +22,12 @@ class AuthRequestBuilder(BaseRequestBuilder):
         super().__init__(request_adapter, "{+baseurl}/platform/auth", path_parameters)
     
     @property
-    def refresh(self) -> RefreshRequestBuilder:
+    def v1(self) -> V1RequestBuilder:
         """
-        The refresh property
+        The v1 property
         """
-        from .refresh.refresh_request_builder import RefreshRequestBuilder
+        from .v1.v1_request_builder import V1RequestBuilder
 
-        return RefreshRequestBuilder(self.request_adapter, self.path_parameters)
-    
-    @property
-    def token(self) -> TokenRequestBuilder:
-        """
-        The token property
-        """
-        from .token.token_request_builder import TokenRequestBuilder
-
-        return TokenRequestBuilder(self.request_adapter, self.path_parameters)
+        return V1RequestBuilder(self.request_adapter, self.path_parameters)
     
 

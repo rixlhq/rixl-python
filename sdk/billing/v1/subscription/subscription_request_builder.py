@@ -14,9 +14,9 @@ from typing import Any, Optional, TYPE_CHECKING, Union
 from warnings import warn
 
 if TYPE_CHECKING:
-    from ....models.billingv1.create_subscription_response import CreateSubscriptionResponse
-    from ....models.billingv1.subscription import Subscription
-    from ....models.gateway.create_subscription_body import CreateSubscriptionBody
+    from ....models.billing.v1.create_subscription_request import CreateSubscriptionRequest
+    from ....models.billing.v1.create_subscription_response import CreateSubscriptionResponse
+    from ....models.billing.v1.subscription import Subscription
     from .cancel.cancel_request_builder import CancelRequestBuilder
     from .history.history_request_builder import HistoryRequestBuilder
     from .reactivate.reactivate_request_builder import ReactivateRequestBuilder
@@ -33,11 +33,11 @@ class SubscriptionRequestBuilder(BaseRequestBuilder):
         param request_adapter: The request adapter to use to execute the requests.
         Returns: None
         """
-        super().__init__(request_adapter, "{+baseurl}/billing/v1/subscription", path_parameters)
+        super().__init__(request_adapter, "{+baseurl}/billing/v1/subscription{?orgId*}", path_parameters)
     
-    async def get(self,request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> Optional[Subscription]:
+    async def get(self,request_configuration: Optional[RequestConfiguration[SubscriptionRequestBuilderGetQueryParameters]] = None) -> Optional[Subscription]:
         """
-        Returns the current organization subscription.
+        GetSubscription
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
         Returns: Optional[Subscription]
         """
@@ -46,14 +46,14 @@ class SubscriptionRequestBuilder(BaseRequestBuilder):
         )
         if not self.request_adapter:
             raise Exception("Http core is null") 
-        from ....models.billingv1.subscription import Subscription
+        from ....models.billing.v1.subscription import Subscription
 
         return await self.request_adapter.send_async(request_info, Subscription, None)
     
-    async def post(self,body: CreateSubscriptionBody, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> Optional[CreateSubscriptionResponse]:
+    async def post(self,body: CreateSubscriptionRequest, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> Optional[CreateSubscriptionResponse]:
         """
-        Create a subscription for the authenticated organization
-        param body: Subscription request
+        CreateSubscription
+        param body: The request body
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
         Returns: Optional[CreateSubscriptionResponse]
         """
@@ -64,13 +64,13 @@ class SubscriptionRequestBuilder(BaseRequestBuilder):
         )
         if not self.request_adapter:
             raise Exception("Http core is null") 
-        from ....models.billingv1.create_subscription_response import CreateSubscriptionResponse
+        from ....models.billing.v1.create_subscription_response import CreateSubscriptionResponse
 
         return await self.request_adapter.send_async(request_info, CreateSubscriptionResponse, None)
     
-    def to_get_request_information(self,request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> RequestInformation:
+    def to_get_request_information(self,request_configuration: Optional[RequestConfiguration[SubscriptionRequestBuilderGetQueryParameters]] = None) -> RequestInformation:
         """
-        Returns the current organization subscription.
+        GetSubscription
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
         Returns: RequestInformation
         """
@@ -79,10 +79,10 @@ class SubscriptionRequestBuilder(BaseRequestBuilder):
         request_info.headers.try_add("Accept", "application/json")
         return request_info
     
-    def to_post_request_information(self,body: CreateSubscriptionBody, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> RequestInformation:
+    def to_post_request_information(self,body: CreateSubscriptionRequest, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> RequestInformation:
         """
-        Create a subscription for the authenticated organization
-        param body: Subscription request
+        CreateSubscription
+        param body: The request body
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
         Returns: RequestInformation
         """
@@ -141,7 +141,27 @@ class SubscriptionRequestBuilder(BaseRequestBuilder):
         return UpgradeRequestBuilder(self.request_adapter, self.path_parameters)
     
     @dataclass
-    class SubscriptionRequestBuilderGetRequestConfiguration(RequestConfiguration[QueryParameters]):
+    class SubscriptionRequestBuilderGetQueryParameters():
+        """
+        GetSubscription
+        """
+        def get_query_parameter(self,original_name: str) -> str:
+            """
+            Maps the query parameters names to their encoded names for the URI template parsing.
+            param original_name: The original query parameter name in the class.
+            Returns: str
+            """
+            if original_name is None:
+                raise TypeError("original_name cannot be null.")
+            if original_name == "org_id":
+                return "orgId"
+            return original_name
+        
+        org_id: Optional[str] = None
+
+    
+    @dataclass
+    class SubscriptionRequestBuilderGetRequestConfiguration(RequestConfiguration[SubscriptionRequestBuilderGetQueryParameters]):
         """
         Configuration for the request such as headers, query parameters, and middleware options.
         """

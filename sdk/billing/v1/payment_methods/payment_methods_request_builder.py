@@ -14,12 +14,12 @@ from typing import Any, Optional, TYPE_CHECKING, Union
 from warnings import warn
 
 if TYPE_CHECKING:
-    from ....models.billingv1.list_payment_methods_response import ListPaymentMethodsResponse
-    from ....models.billingv1.payment_method_details import PaymentMethodDetails
-    from ....models.gateway.upsert_payment_method_body import UpsertPaymentMethodBody
+    from ....models.billing.v1.list_payment_methods_response import ListPaymentMethodsResponse
+    from ....models.billing.v1.payment_method_details import PaymentMethodDetails
+    from ....models.billing.v1.upsert_payment_method_request import UpsertPaymentMethodRequest
     from .from_payment_intent.from_payment_intent_request_builder import FromPaymentIntentRequestBuilder
     from .from_setup_intent.from_setup_intent_request_builder import FromSetupIntentRequestBuilder
-    from .item.with_payment_method_item_request_builder import WithPaymentMethodItemRequestBuilder
+    from .item.with_payment_method_item_request_builder import WithPayment_method_ItemRequestBuilder
 
 class PaymentMethodsRequestBuilder(BaseRequestBuilder):
     """
@@ -32,25 +32,25 @@ class PaymentMethodsRequestBuilder(BaseRequestBuilder):
         param request_adapter: The request adapter to use to execute the requests.
         Returns: None
         """
-        super().__init__(request_adapter, "{+baseurl}/billing/v1/payment-methods", path_parameters)
+        super().__init__(request_adapter, "{+baseurl}/billing/v1/payment-methods{?orgId*,refresh*}", path_parameters)
     
-    def by_payment_method_id(self,payment_method_id: str) -> WithPaymentMethodItemRequestBuilder:
+    def by_payment_method_id(self,payment_method_id: str) -> WithPayment_method_ItemRequestBuilder:
         """
         Gets an item from the rixl_sdk.billing.v1.paymentMethods.item collection
-        param payment_method_id: Payment method ID
-        Returns: WithPaymentMethodItemRequestBuilder
+        param payment_method_id: Unique identifier of the item
+        Returns: WithPayment_method_ItemRequestBuilder
         """
         if payment_method_id is None:
             raise TypeError("payment_method_id cannot be null.")
-        from .item.with_payment_method_item_request_builder import WithPaymentMethodItemRequestBuilder
+        from .item.with_payment_method_item_request_builder import WithPayment_method_ItemRequestBuilder
 
         url_tpl_params = get_path_parameters(self.path_parameters)
-        url_tpl_params["paymentMethodId"] = payment_method_id
-        return WithPaymentMethodItemRequestBuilder(self.request_adapter, url_tpl_params)
+        url_tpl_params["payment_method_id"] = payment_method_id
+        return WithPayment_method_ItemRequestBuilder(self.request_adapter, url_tpl_params)
     
-    async def get(self,request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> Optional[ListPaymentMethodsResponse]:
+    async def get(self,request_configuration: Optional[RequestConfiguration[PaymentMethodsRequestBuilderGetQueryParameters]] = None) -> Optional[ListPaymentMethodsResponse]:
         """
-        Returns the organization's payment methods.
+        ListPaymentMethods
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
         Returns: Optional[ListPaymentMethodsResponse]
         """
@@ -59,31 +59,31 @@ class PaymentMethodsRequestBuilder(BaseRequestBuilder):
         )
         if not self.request_adapter:
             raise Exception("Http core is null") 
-        from ....models.billingv1.list_payment_methods_response import ListPaymentMethodsResponse
+        from ....models.billing.v1.list_payment_methods_response import ListPaymentMethodsResponse
 
         return await self.request_adapter.send_async(request_info, ListPaymentMethodsResponse, None)
     
-    async def post(self,body: UpsertPaymentMethodBody, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> Optional[PaymentMethodDetails]:
+    async def put(self,body: UpsertPaymentMethodRequest, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> Optional[PaymentMethodDetails]:
         """
-        Attach a payment method to the organization
-        param body: Payment method request
+        UpsertPaymentMethod
+        param body: The request body
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
         Returns: Optional[PaymentMethodDetails]
         """
         if body is None:
             raise TypeError("body cannot be null.")
-        request_info = self.to_post_request_information(
+        request_info = self.to_put_request_information(
             body, request_configuration
         )
         if not self.request_adapter:
             raise Exception("Http core is null") 
-        from ....models.billingv1.payment_method_details import PaymentMethodDetails
+        from ....models.billing.v1.payment_method_details import PaymentMethodDetails
 
         return await self.request_adapter.send_async(request_info, PaymentMethodDetails, None)
     
-    def to_get_request_information(self,request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> RequestInformation:
+    def to_get_request_information(self,request_configuration: Optional[RequestConfiguration[PaymentMethodsRequestBuilderGetQueryParameters]] = None) -> RequestInformation:
         """
-        Returns the organization's payment methods.
+        ListPaymentMethods
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
         Returns: RequestInformation
         """
@@ -92,16 +92,16 @@ class PaymentMethodsRequestBuilder(BaseRequestBuilder):
         request_info.headers.try_add("Accept", "application/json")
         return request_info
     
-    def to_post_request_information(self,body: UpsertPaymentMethodBody, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> RequestInformation:
+    def to_put_request_information(self,body: UpsertPaymentMethodRequest, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> RequestInformation:
         """
-        Attach a payment method to the organization
-        param body: Payment method request
+        UpsertPaymentMethod
+        param body: The request body
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
         Returns: RequestInformation
         """
         if body is None:
             raise TypeError("body cannot be null.")
-        request_info = RequestInformation(Method.POST, self.url_template, self.path_parameters)
+        request_info = RequestInformation(Method.PUT, self.url_template, self.path_parameters)
         request_info.configure(request_configuration)
         request_info.headers.try_add("Accept", "application/json")
         request_info.set_content_from_parsable(self.request_adapter, "application/json", body)
@@ -136,14 +136,38 @@ class PaymentMethodsRequestBuilder(BaseRequestBuilder):
         return FromSetupIntentRequestBuilder(self.request_adapter, self.path_parameters)
     
     @dataclass
-    class PaymentMethodsRequestBuilderGetRequestConfiguration(RequestConfiguration[QueryParameters]):
+    class PaymentMethodsRequestBuilderGetQueryParameters():
+        """
+        ListPaymentMethods
+        """
+        def get_query_parameter(self,original_name: str) -> str:
+            """
+            Maps the query parameters names to their encoded names for the URI template parsing.
+            param original_name: The original query parameter name in the class.
+            Returns: str
+            """
+            if original_name is None:
+                raise TypeError("original_name cannot be null.")
+            if original_name == "org_id":
+                return "orgId"
+            if original_name == "refresh":
+                return "refresh"
+            return original_name
+        
+        org_id: Optional[str] = None
+
+        refresh: Optional[bool] = None
+
+    
+    @dataclass
+    class PaymentMethodsRequestBuilderGetRequestConfiguration(RequestConfiguration[PaymentMethodsRequestBuilderGetQueryParameters]):
         """
         Configuration for the request such as headers, query parameters, and middleware options.
         """
         warn("This class is deprecated. Please use the generic RequestConfiguration class generated by the generator.", DeprecationWarning)
     
     @dataclass
-    class PaymentMethodsRequestBuilderPostRequestConfiguration(RequestConfiguration[QueryParameters]):
+    class PaymentMethodsRequestBuilderPutRequestConfiguration(RequestConfiguration[QueryParameters]):
         """
         Configuration for the request such as headers, query parameters, and middleware options.
         """

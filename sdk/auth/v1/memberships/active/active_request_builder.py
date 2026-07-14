@@ -14,7 +14,8 @@ from typing import Any, Optional, TYPE_CHECKING, Union
 from warnings import warn
 
 if TYPE_CHECKING:
-    from .....models.authv1.list_memberships_response import ListMembershipsResponse
+    from .....models.auth.v1.membership_mutation import MembershipMutation
+    from .....models.auth.v1.update_active_membership_request import UpdateActiveMembershipRequest
 
 class ActiveRequestBuilder(BaseRequestBuilder):
     """
@@ -27,32 +28,39 @@ class ActiveRequestBuilder(BaseRequestBuilder):
         param request_adapter: The request adapter to use to execute the requests.
         Returns: None
         """
-        super().__init__(request_adapter, "{+baseurl}/auth/v1/memberships/active{?limit*,offset*}", path_parameters)
+        super().__init__(request_adapter, "{+baseurl}/auth/v1/memberships/active", path_parameters)
     
-    async def get(self,request_configuration: Optional[RequestConfiguration[ActiveRequestBuilderGetQueryParameters]] = None) -> Optional[ListMembershipsResponse]:
+    async def patch(self,body: UpdateActiveMembershipRequest, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> Optional[MembershipMutation]:
         """
-        Returns a paginated list of the organizations in which the authenticated user holds an active membership.
+        UpdateActiveMembership
+        param body: The request body
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
-        Returns: Optional[ListMembershipsResponse]
+        Returns: Optional[MembershipMutation]
         """
-        request_info = self.to_get_request_information(
-            request_configuration
+        if body is None:
+            raise TypeError("body cannot be null.")
+        request_info = self.to_patch_request_information(
+            body, request_configuration
         )
         if not self.request_adapter:
             raise Exception("Http core is null") 
-        from .....models.authv1.list_memberships_response import ListMembershipsResponse
+        from .....models.auth.v1.membership_mutation import MembershipMutation
 
-        return await self.request_adapter.send_async(request_info, ListMembershipsResponse, None)
+        return await self.request_adapter.send_async(request_info, MembershipMutation, None)
     
-    def to_get_request_information(self,request_configuration: Optional[RequestConfiguration[ActiveRequestBuilderGetQueryParameters]] = None) -> RequestInformation:
+    def to_patch_request_information(self,body: UpdateActiveMembershipRequest, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> RequestInformation:
         """
-        Returns a paginated list of the organizations in which the authenticated user holds an active membership.
+        UpdateActiveMembership
+        param body: The request body
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
         Returns: RequestInformation
         """
-        request_info = RequestInformation(Method.GET, self.url_template, self.path_parameters)
+        if body is None:
+            raise TypeError("body cannot be null.")
+        request_info = RequestInformation(Method.PATCH, self.url_template, self.path_parameters)
         request_info.configure(request_configuration)
         request_info.headers.try_add("Accept", "application/json")
+        request_info.set_content_from_parsable(self.request_adapter, "application/json", body)
         return request_info
     
     def with_url(self,raw_url: str) -> ActiveRequestBuilder:
@@ -66,19 +74,7 @@ class ActiveRequestBuilder(BaseRequestBuilder):
         return ActiveRequestBuilder(self.request_adapter, raw_url)
     
     @dataclass
-    class ActiveRequestBuilderGetQueryParameters():
-        """
-        Returns a paginated list of the organizations in which the authenticated user holds an active membership.
-        """
-        # Limit
-        limit: Optional[int] = None
-
-        # Offset
-        offset: Optional[int] = None
-
-    
-    @dataclass
-    class ActiveRequestBuilderGetRequestConfiguration(RequestConfiguration[ActiveRequestBuilderGetQueryParameters]):
+    class ActiveRequestBuilderPatchRequestConfiguration(RequestConfiguration[QueryParameters]):
         """
         Configuration for the request such as headers, query parameters, and middleware options.
         """

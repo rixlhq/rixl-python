@@ -14,40 +14,40 @@ from typing import Any, Optional, TYPE_CHECKING, Union
 from warnings import warn
 
 if TYPE_CHECKING:
-    from .........models.postsv1.delete_result import DeleteResult
-    from .........models.postsv1.post import Post
+    from .........models.google.protobuf.empty import Empty
+    from .........models.posts.v1.post import Post
 
-class WithPostItemRequestBuilder(BaseRequestBuilder):
+class WithPost_ItemRequestBuilder(BaseRequestBuilder):
     """
-    Builds and executes requests for operations under /posts/v1/projects/{projectId}/feeds/{feedId}/posts/{postId}
+    Builds and executes requests for operations under /posts/v1/projects/{project_id}/feeds/{feed_id}/posts/{post_id}
     """
     def __init__(self,request_adapter: RequestAdapter, path_parameters: Union[str, dict[str, Any]]) -> None:
         """
-        Instantiates a new WithPostItemRequestBuilder and sets the default values.
+        Instantiates a new WithPost_ItemRequestBuilder and sets the default values.
         param path_parameters: The raw url or the url-template parameters for the request.
         param request_adapter: The request adapter to use to execute the requests.
         Returns: None
         """
-        super().__init__(request_adapter, "{+baseurl}/posts/v1/projects/{projectId}/feeds/{feedId}/posts/{postId}", path_parameters)
+        super().__init__(request_adapter, "{+baseurl}/posts/v1/projects/{project_id}/feeds/{feed_id}/posts/{post_id}", path_parameters)
     
-    async def delete(self,request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> Optional[DeleteResult]:
+    async def delete(self,request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> Optional[Empty]:
         """
-        Delete a post by ID
+        DeletePost
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
-        Returns: Optional[DeleteResult]
+        Returns: Optional[Empty]
         """
         request_info = self.to_delete_request_information(
             request_configuration
         )
         if not self.request_adapter:
             raise Exception("Http core is null") 
-        from .........models.postsv1.delete_result import DeleteResult
+        from .........models.google.protobuf.empty import Empty
 
-        return await self.request_adapter.send_async(request_info, DeleteResult, None)
+        return await self.request_adapter.send_async(request_info, Empty, None)
     
     async def get(self,request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> Optional[Post]:
         """
-        Get a single post by ID
+        GetPost
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
         Returns: Optional[Post]
         """
@@ -56,13 +56,13 @@ class WithPostItemRequestBuilder(BaseRequestBuilder):
         )
         if not self.request_adapter:
             raise Exception("Http core is null") 
-        from .........models.postsv1.post import Post
+        from .........models.posts.v1.post import Post
 
         return await self.request_adapter.send_async(request_info, Post, None)
     
     def to_delete_request_information(self,request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> RequestInformation:
         """
-        Delete a post by ID
+        DeletePost
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
         Returns: RequestInformation
         """
@@ -73,7 +73,7 @@ class WithPostItemRequestBuilder(BaseRequestBuilder):
     
     def to_get_request_information(self,request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> RequestInformation:
         """
-        Get a single post by ID
+        GetPost
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
         Returns: RequestInformation
         """
@@ -82,25 +82,25 @@ class WithPostItemRequestBuilder(BaseRequestBuilder):
         request_info.headers.try_add("Accept", "application/json")
         return request_info
     
-    def with_url(self,raw_url: str) -> WithPostItemRequestBuilder:
+    def with_url(self,raw_url: str) -> WithPost_ItemRequestBuilder:
         """
         Returns a request builder with the provided arbitrary URL. Using this method means any other path or query parameters are ignored.
         param raw_url: The raw URL to use for the request builder.
-        Returns: WithPostItemRequestBuilder
+        Returns: WithPost_ItemRequestBuilder
         """
         if raw_url is None:
             raise TypeError("raw_url cannot be null.")
-        return WithPostItemRequestBuilder(self.request_adapter, raw_url)
+        return WithPost_ItemRequestBuilder(self.request_adapter, raw_url)
     
     @dataclass
-    class WithPostItemRequestBuilderDeleteRequestConfiguration(RequestConfiguration[QueryParameters]):
+    class WithPost_ItemRequestBuilderDeleteRequestConfiguration(RequestConfiguration[QueryParameters]):
         """
         Configuration for the request such as headers, query parameters, and middleware options.
         """
         warn("This class is deprecated. Please use the generic RequestConfiguration class generated by the generator.", DeprecationWarning)
     
     @dataclass
-    class WithPostItemRequestBuilderGetRequestConfiguration(RequestConfiguration[QueryParameters]):
+    class WithPost_ItemRequestBuilderGetRequestConfiguration(RequestConfiguration[QueryParameters]):
         """
         Configuration for the request such as headers, query parameters, and middleware options.
         """

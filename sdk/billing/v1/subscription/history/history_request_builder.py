@@ -14,7 +14,7 @@ from typing import Any, Optional, TYPE_CHECKING, Union
 from warnings import warn
 
 if TYPE_CHECKING:
-    from .....models.billingv1.get_subscription_history_response import GetSubscriptionHistoryResponse
+    from .....models.billing.v1.get_subscription_history_response import GetSubscriptionHistoryResponse
 
 class HistoryRequestBuilder(BaseRequestBuilder):
     """
@@ -27,11 +27,11 @@ class HistoryRequestBuilder(BaseRequestBuilder):
         param request_adapter: The request adapter to use to execute the requests.
         Returns: None
         """
-        super().__init__(request_adapter, "{+baseurl}/billing/v1/subscription/history", path_parameters)
+        super().__init__(request_adapter, "{+baseurl}/billing/v1/subscription/history{?orgId*,pagination%2Elimit*,pagination%2Eoffset*}", path_parameters)
     
-    async def get(self,request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> Optional[GetSubscriptionHistoryResponse]:
+    async def get(self,request_configuration: Optional[RequestConfiguration[HistoryRequestBuilderGetQueryParameters]] = None) -> Optional[GetSubscriptionHistoryResponse]:
         """
-        Returns the organization's subscription history.
+        GetSubscriptionHistory
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
         Returns: Optional[GetSubscriptionHistoryResponse]
         """
@@ -40,13 +40,13 @@ class HistoryRequestBuilder(BaseRequestBuilder):
         )
         if not self.request_adapter:
             raise Exception("Http core is null") 
-        from .....models.billingv1.get_subscription_history_response import GetSubscriptionHistoryResponse
+        from .....models.billing.v1.get_subscription_history_response import GetSubscriptionHistoryResponse
 
         return await self.request_adapter.send_async(request_info, GetSubscriptionHistoryResponse, None)
     
-    def to_get_request_information(self,request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> RequestInformation:
+    def to_get_request_information(self,request_configuration: Optional[RequestConfiguration[HistoryRequestBuilderGetQueryParameters]] = None) -> RequestInformation:
         """
-        Returns the organization's subscription history.
+        GetSubscriptionHistory
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
         Returns: RequestInformation
         """
@@ -66,7 +66,37 @@ class HistoryRequestBuilder(BaseRequestBuilder):
         return HistoryRequestBuilder(self.request_adapter, raw_url)
     
     @dataclass
-    class HistoryRequestBuilderGetRequestConfiguration(RequestConfiguration[QueryParameters]):
+    class HistoryRequestBuilderGetQueryParameters():
+        """
+        GetSubscriptionHistory
+        """
+        def get_query_parameter(self,original_name: str) -> str:
+            """
+            Maps the query parameters names to their encoded names for the URI template parsing.
+            param original_name: The original query parameter name in the class.
+            Returns: str
+            """
+            if original_name is None:
+                raise TypeError("original_name cannot be null.")
+            if original_name == "org_id":
+                return "orgId"
+            if original_name == "pagination_limit":
+                return "pagination%2Elimit"
+            if original_name == "pagination_offset":
+                return "pagination%2Eoffset"
+            return original_name
+        
+        org_id: Optional[str] = None
+
+        # Maximum number of items to return.
+        pagination_limit: Optional[int] = None
+
+        # Number of items to skip before collecting the result set.
+        pagination_offset: Optional[int] = None
+
+    
+    @dataclass
+    class HistoryRequestBuilderGetRequestConfiguration(RequestConfiguration[HistoryRequestBuilderGetQueryParameters]):
         """
         Configuration for the request such as headers, query parameters, and middleware options.
         """

@@ -6,7 +6,7 @@ from kiota_abstractions.request_adapter import RequestAdapter
 from typing import Any, Optional, TYPE_CHECKING, Union
 
 if TYPE_CHECKING:
-    from .item.with_image_item_request_builder import WithImageItemRequestBuilder
+    from .item.with_image_item_request_builder import WithImage_ItemRequestBuilder
 
 class ImagesRequestBuilder(BaseRequestBuilder):
     """
@@ -21,18 +21,18 @@ class ImagesRequestBuilder(BaseRequestBuilder):
         """
         super().__init__(request_adapter, "{+baseurl}/media/v1/images", path_parameters)
     
-    def by_image_id(self,image_id: str) -> WithImageItemRequestBuilder:
+    def by_image_id(self,image_id: str) -> WithImage_ItemRequestBuilder:
         """
         Gets an item from the rixl_sdk.media.v1.images.item collection
-        param image_id: Image ID
-        Returns: WithImageItemRequestBuilder
+        param image_id: Unique identifier of the item
+        Returns: WithImage_ItemRequestBuilder
         """
         if image_id is None:
             raise TypeError("image_id cannot be null.")
-        from .item.with_image_item_request_builder import WithImageItemRequestBuilder
+        from .item.with_image_item_request_builder import WithImage_ItemRequestBuilder
 
         url_tpl_params = get_path_parameters(self.path_parameters)
-        url_tpl_params["imageId"] = image_id
-        return WithImageItemRequestBuilder(self.request_adapter, url_tpl_params)
+        url_tpl_params["image_id"] = image_id
+        return WithImage_ItemRequestBuilder(self.request_adapter, url_tpl_params)
     
 

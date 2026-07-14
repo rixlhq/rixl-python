@@ -14,8 +14,8 @@ from typing import Any, Optional, TYPE_CHECKING, Union
 from warnings import warn
 
 if TYPE_CHECKING:
-    from ....models.billingv1.list_invoices_response import ListInvoicesResponse
-    from .item.with_invoice_item_request_builder import WithInvoiceItemRequestBuilder
+    from ....models.billing.v1.list_invoices_response import ListInvoicesResponse
+    from .item.with_invoice_item_request_builder import WithInvoice_ItemRequestBuilder
 
 class InvoicesRequestBuilder(BaseRequestBuilder):
     """
@@ -28,25 +28,25 @@ class InvoicesRequestBuilder(BaseRequestBuilder):
         param request_adapter: The request adapter to use to execute the requests.
         Returns: None
         """
-        super().__init__(request_adapter, "{+baseurl}/billing/v1/invoices", path_parameters)
+        super().__init__(request_adapter, "{+baseurl}/billing/v1/invoices{?orgId*,pagination%2Elimit*,pagination%2Eoffset*}", path_parameters)
     
-    def by_invoice_id(self,invoice_id: str) -> WithInvoiceItemRequestBuilder:
+    def by_invoice_id(self,invoice_id: str) -> WithInvoice_ItemRequestBuilder:
         """
         Gets an item from the rixl_sdk.billing.v1.invoices.item collection
-        param invoice_id: Invoice ID
-        Returns: WithInvoiceItemRequestBuilder
+        param invoice_id: Unique identifier of the item
+        Returns: WithInvoice_ItemRequestBuilder
         """
         if invoice_id is None:
             raise TypeError("invoice_id cannot be null.")
-        from .item.with_invoice_item_request_builder import WithInvoiceItemRequestBuilder
+        from .item.with_invoice_item_request_builder import WithInvoice_ItemRequestBuilder
 
         url_tpl_params = get_path_parameters(self.path_parameters)
-        url_tpl_params["invoiceId"] = invoice_id
-        return WithInvoiceItemRequestBuilder(self.request_adapter, url_tpl_params)
+        url_tpl_params["invoice_id"] = invoice_id
+        return WithInvoice_ItemRequestBuilder(self.request_adapter, url_tpl_params)
     
-    async def get(self,request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> Optional[ListInvoicesResponse]:
+    async def get(self,request_configuration: Optional[RequestConfiguration[InvoicesRequestBuilderGetQueryParameters]] = None) -> Optional[ListInvoicesResponse]:
         """
-        Returns the organization's invoices.
+        ListInvoices
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
         Returns: Optional[ListInvoicesResponse]
         """
@@ -55,13 +55,13 @@ class InvoicesRequestBuilder(BaseRequestBuilder):
         )
         if not self.request_adapter:
             raise Exception("Http core is null") 
-        from ....models.billingv1.list_invoices_response import ListInvoicesResponse
+        from ....models.billing.v1.list_invoices_response import ListInvoicesResponse
 
         return await self.request_adapter.send_async(request_info, ListInvoicesResponse, None)
     
-    def to_get_request_information(self,request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> RequestInformation:
+    def to_get_request_information(self,request_configuration: Optional[RequestConfiguration[InvoicesRequestBuilderGetQueryParameters]] = None) -> RequestInformation:
         """
-        Returns the organization's invoices.
+        ListInvoices
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
         Returns: RequestInformation
         """
@@ -81,7 +81,37 @@ class InvoicesRequestBuilder(BaseRequestBuilder):
         return InvoicesRequestBuilder(self.request_adapter, raw_url)
     
     @dataclass
-    class InvoicesRequestBuilderGetRequestConfiguration(RequestConfiguration[QueryParameters]):
+    class InvoicesRequestBuilderGetQueryParameters():
+        """
+        ListInvoices
+        """
+        def get_query_parameter(self,original_name: str) -> str:
+            """
+            Maps the query parameters names to their encoded names for the URI template parsing.
+            param original_name: The original query parameter name in the class.
+            Returns: str
+            """
+            if original_name is None:
+                raise TypeError("original_name cannot be null.")
+            if original_name == "org_id":
+                return "orgId"
+            if original_name == "pagination_limit":
+                return "pagination%2Elimit"
+            if original_name == "pagination_offset":
+                return "pagination%2Eoffset"
+            return original_name
+        
+        org_id: Optional[str] = None
+
+        # Maximum number of items to return.
+        pagination_limit: Optional[int] = None
+
+        # Number of items to skip before collecting the result set.
+        pagination_offset: Optional[int] = None
+
+    
+    @dataclass
+    class InvoicesRequestBuilderGetRequestConfiguration(RequestConfiguration[InvoicesRequestBuilderGetQueryParameters]):
         """
         Configuration for the request such as headers, query parameters, and middleware options.
         """

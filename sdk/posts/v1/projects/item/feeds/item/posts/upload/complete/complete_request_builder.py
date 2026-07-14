@@ -14,12 +14,12 @@ from typing import Any, Optional, TYPE_CHECKING, Union
 from warnings import warn
 
 if TYPE_CHECKING:
-    from ..........models.gateway.complete_upload_body import CompleteUploadBody
-    from ..........models.postsv1.post import Post
+    from ..........models.posts.v1.post import Post
+    from .complete_post_request_body import CompletePostRequestBody
 
 class CompleteRequestBuilder(BaseRequestBuilder):
     """
-    Builds and executes requests for operations under /posts/v1/projects/{projectId}/feeds/{feedId}/posts/upload/complete
+    Builds and executes requests for operations under /posts/v1/projects/{project_id}/feeds/{feed_id}/posts/upload/complete
     """
     def __init__(self,request_adapter: RequestAdapter, path_parameters: Union[str, dict[str, Any]]) -> None:
         """
@@ -28,12 +28,12 @@ class CompleteRequestBuilder(BaseRequestBuilder):
         param request_adapter: The request adapter to use to execute the requests.
         Returns: None
         """
-        super().__init__(request_adapter, "{+baseurl}/posts/v1/projects/{projectId}/feeds/{feedId}/posts/upload/complete", path_parameters)
+        super().__init__(request_adapter, "{+baseurl}/posts/v1/projects/{project_id}/feeds/{feed_id}/posts/upload/complete", path_parameters)
     
-    async def post(self,body: CompleteUploadBody, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> Optional[Post]:
+    async def post(self,body: CompletePostRequestBody, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> Optional[Post]:
         """
-        Finalize a media upload and publish the post
-        param body: Upload completion request
+        CompletePostUpload
+        param body: The request body
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
         Returns: Optional[Post]
         """
@@ -44,14 +44,14 @@ class CompleteRequestBuilder(BaseRequestBuilder):
         )
         if not self.request_adapter:
             raise Exception("Http core is null") 
-        from ..........models.postsv1.post import Post
+        from ..........models.posts.v1.post import Post
 
         return await self.request_adapter.send_async(request_info, Post, None)
     
-    def to_post_request_information(self,body: CompleteUploadBody, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> RequestInformation:
+    def to_post_request_information(self,body: CompletePostRequestBody, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> RequestInformation:
         """
-        Finalize a media upload and publish the post
-        param body: Upload completion request
+        CompletePostUpload
+        param body: The request body
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
         Returns: RequestInformation
         """

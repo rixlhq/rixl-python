@@ -14,8 +14,8 @@ from typing import Any, Optional, TYPE_CHECKING, Union
 from warnings import warn
 
 if TYPE_CHECKING:
-    from ......models.authv1.verification_sent_response import VerificationSentResponse
-    from ......models.gateway.add_email_body import AddEmailBody
+    from ......models.auth.v1.add_email_request import AddEmailRequest
+    from ......models.auth.v1.verification_sent_response import VerificationSentResponse
     from .change.change_request_builder import ChangeRequestBuilder
     from .status.status_request_builder import StatusRequestBuilder
 
@@ -32,10 +32,10 @@ class EmailsRequestBuilder(BaseRequestBuilder):
         """
         super().__init__(request_adapter, "{+baseurl}/auth/v1/users/current/emails", path_parameters)
     
-    async def post(self,body: AddEmailBody, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> Optional[VerificationSentResponse]:
+    async def post(self,body: AddEmailRequest, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> Optional[VerificationSentResponse]:
         """
-        Adds an email address to the authenticated account and sends a verificationcode to it. The address becomes active only once it has been verified via`POST /auth/v1/email/verify`. Subject to rate limiting per account.
-        param body: Email address to add
+        AddEmail
+        param body: The request body
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
         Returns: Optional[VerificationSentResponse]
         """
@@ -46,14 +46,14 @@ class EmailsRequestBuilder(BaseRequestBuilder):
         )
         if not self.request_adapter:
             raise Exception("Http core is null") 
-        from ......models.authv1.verification_sent_response import VerificationSentResponse
+        from ......models.auth.v1.verification_sent_response import VerificationSentResponse
 
         return await self.request_adapter.send_async(request_info, VerificationSentResponse, None)
     
-    def to_post_request_information(self,body: AddEmailBody, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> RequestInformation:
+    def to_post_request_information(self,body: AddEmailRequest, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> RequestInformation:
         """
-        Adds an email address to the authenticated account and sends a verificationcode to it. The address becomes active only once it has been verified via`POST /auth/v1/email/verify`. Subject to rate limiting per account.
-        param body: Email address to add
+        AddEmail
+        param body: The request body
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
         Returns: RequestInformation
         """

@@ -14,8 +14,8 @@ from typing import Any, Optional, TYPE_CHECKING, Union
 from warnings import warn
 
 if TYPE_CHECKING:
-    from ......models.authv1.resend_verification_response import ResendVerificationResponse
-    from ......models.gateway.email_body import EmailBody
+    from ......models.auth.v1.resend_verification_request import ResendVerificationRequest
+    from ......models.auth.v1.resend_verification_response import ResendVerificationResponse
 
 class ResendRequestBuilder(BaseRequestBuilder):
     """
@@ -30,10 +30,10 @@ class ResendRequestBuilder(BaseRequestBuilder):
         """
         super().__init__(request_adapter, "{+baseurl}/auth/v1/email/verify/resend", path_parameters)
     
-    async def post(self,body: EmailBody, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> Optional[ResendVerificationResponse]:
+    async def post(self,body: ResendVerificationRequest, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> Optional[ResendVerificationResponse]:
         """
-        Resends the email verification message to the given email address.
-        param body: Email address
+        ResendVerification
+        param body: The request body
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
         Returns: Optional[ResendVerificationResponse]
         """
@@ -44,14 +44,14 @@ class ResendRequestBuilder(BaseRequestBuilder):
         )
         if not self.request_adapter:
             raise Exception("Http core is null") 
-        from ......models.authv1.resend_verification_response import ResendVerificationResponse
+        from ......models.auth.v1.resend_verification_response import ResendVerificationResponse
 
         return await self.request_adapter.send_async(request_info, ResendVerificationResponse, None)
     
-    def to_post_request_information(self,body: EmailBody, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> RequestInformation:
+    def to_post_request_information(self,body: ResendVerificationRequest, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> RequestInformation:
         """
-        Resends the email verification message to the given email address.
-        param body: Email address
+        ResendVerification
+        param body: The request body
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
         Returns: RequestInformation
         """

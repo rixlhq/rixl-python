@@ -14,13 +14,13 @@ from typing import Any, Optional, TYPE_CHECKING, Union
 from warnings import warn
 
 if TYPE_CHECKING:
-    from .........models.gateway.init_track_upload_body import InitTrackUploadBody
-    from .........models.videosv1.track_upload_init import TrackUploadInit
+    from .........models.videos.v1.track_upload_init import TrackUploadInit
     from .complete.complete_request_builder import CompleteRequestBuilder
+    from .upload_post_request_body import UploadPostRequestBody
 
 class UploadRequestBuilder(BaseRequestBuilder):
     """
-    Builds and executes requests for operations under /media/v1/projects/{projectId}/videos/{videoId}/subtitles/upload
+    Builds and executes requests for operations under /media/v1/projects/{project_id}/videos/{video_id}/subtitles/upload
     """
     def __init__(self,request_adapter: RequestAdapter, path_parameters: Union[str, dict[str, Any]]) -> None:
         """
@@ -29,12 +29,12 @@ class UploadRequestBuilder(BaseRequestBuilder):
         param request_adapter: The request adapter to use to execute the requests.
         Returns: None
         """
-        super().__init__(request_adapter, "{+baseurl}/media/v1/projects/{projectId}/videos/{videoId}/subtitles/upload", path_parameters)
+        super().__init__(request_adapter, "{+baseurl}/media/v1/projects/{project_id}/videos/{video_id}/subtitles/upload", path_parameters)
     
-    async def post(self,body: InitTrackUploadBody, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> Optional[TrackUploadInit]:
+    async def post(self,body: UploadPostRequestBody, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> Optional[TrackUploadInit]:
         """
-        Initiates one or more subtitle uploads for a video.
-        param body: Subtitles to upload
+        InitSubtitleUpload
+        param body: The request body
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
         Returns: Optional[TrackUploadInit]
         """
@@ -45,14 +45,14 @@ class UploadRequestBuilder(BaseRequestBuilder):
         )
         if not self.request_adapter:
             raise Exception("Http core is null") 
-        from .........models.videosv1.track_upload_init import TrackUploadInit
+        from .........models.videos.v1.track_upload_init import TrackUploadInit
 
         return await self.request_adapter.send_async(request_info, TrackUploadInit, None)
     
-    def to_post_request_information(self,body: InitTrackUploadBody, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> RequestInformation:
+    def to_post_request_information(self,body: UploadPostRequestBody, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> RequestInformation:
         """
-        Initiates one or more subtitle uploads for a video.
-        param body: Subtitles to upload
+        InitSubtitleUpload
+        param body: The request body
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
         Returns: RequestInformation
         """

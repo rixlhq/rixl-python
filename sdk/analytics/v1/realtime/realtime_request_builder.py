@@ -14,7 +14,7 @@ from typing import Any, Optional, TYPE_CHECKING, Union
 from warnings import warn
 
 if TYPE_CHECKING:
-    from ....models.analyticsv1.realtime_stats import RealtimeStats
+    from ....models.analytics.v1.realtime_stats import RealtimeStats
 
 class RealtimeRequestBuilder(BaseRequestBuilder):
     """
@@ -31,7 +31,7 @@ class RealtimeRequestBuilder(BaseRequestBuilder):
     
     async def get(self,request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> Optional[RealtimeStats]:
         """
-        Returns real-time analytics snapshot
+        GetRealtimeStats
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
         Returns: Optional[RealtimeStats]
         """
@@ -40,13 +40,13 @@ class RealtimeRequestBuilder(BaseRequestBuilder):
         )
         if not self.request_adapter:
             raise Exception("Http core is null") 
-        from ....models.analyticsv1.realtime_stats import RealtimeStats
+        from ....models.analytics.v1.realtime_stats import RealtimeStats
 
         return await self.request_adapter.send_async(request_info, RealtimeStats, None)
     
     def to_get_request_information(self,request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> RequestInformation:
         """
-        Returns real-time analytics snapshot
+        GetRealtimeStats
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
         Returns: RequestInformation
         """

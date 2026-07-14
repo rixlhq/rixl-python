@@ -14,13 +14,13 @@ from typing import Any, Optional, TYPE_CHECKING, Union
 from warnings import warn
 
 if TYPE_CHECKING:
-    from ......models.imagesv1.list_images_response import ListImagesResponse
-    from .item.with_image_item_request_builder import WithImageItemRequestBuilder
+    from ......models.images.v1.list_images_response import ListImagesResponse
+    from .item.with_image_item_request_builder import WithImage_ItemRequestBuilder
     from .upload.upload_request_builder import UploadRequestBuilder
 
 class ImagesRequestBuilder(BaseRequestBuilder):
     """
-    Builds and executes requests for operations under /media/v1/projects/{projectId}/images
+    Builds and executes requests for operations under /media/v1/projects/{project_id}/images
     """
     def __init__(self,request_adapter: RequestAdapter, path_parameters: Union[str, dict[str, Any]]) -> None:
         """
@@ -29,25 +29,25 @@ class ImagesRequestBuilder(BaseRequestBuilder):
         param request_adapter: The request adapter to use to execute the requests.
         Returns: None
         """
-        super().__init__(request_adapter, "{+baseurl}/media/v1/projects/{projectId}/images", path_parameters)
+        super().__init__(request_adapter, "{+baseurl}/media/v1/projects/{project_id}/images{?pagination%2Elimit*,pagination%2Eoffset*,sortDirection*,sortField*}", path_parameters)
     
-    def by_image_id(self,image_id: str) -> WithImageItemRequestBuilder:
+    def by_image_id(self,image_id: str) -> WithImage_ItemRequestBuilder:
         """
         Gets an item from the rixl_sdk.media.v1.projects.item.images.item collection
-        param image_id: Image ID
-        Returns: WithImageItemRequestBuilder
+        param image_id: Unique identifier of the item
+        Returns: WithImage_ItemRequestBuilder
         """
         if image_id is None:
             raise TypeError("image_id cannot be null.")
-        from .item.with_image_item_request_builder import WithImageItemRequestBuilder
+        from .item.with_image_item_request_builder import WithImage_ItemRequestBuilder
 
         url_tpl_params = get_path_parameters(self.path_parameters)
-        url_tpl_params["imageId"] = image_id
-        return WithImageItemRequestBuilder(self.request_adapter, url_tpl_params)
+        url_tpl_params["image_id"] = image_id
+        return WithImage_ItemRequestBuilder(self.request_adapter, url_tpl_params)
     
-    async def get(self,request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> Optional[ListImagesResponse]:
+    async def get(self,request_configuration: Optional[RequestConfiguration[ImagesRequestBuilderGetQueryParameters]] = None) -> Optional[ListImagesResponse]:
         """
-        Returns the images in a project.
+        ListImages
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
         Returns: Optional[ListImagesResponse]
         """
@@ -56,13 +56,13 @@ class ImagesRequestBuilder(BaseRequestBuilder):
         )
         if not self.request_adapter:
             raise Exception("Http core is null") 
-        from ......models.imagesv1.list_images_response import ListImagesResponse
+        from ......models.images.v1.list_images_response import ListImagesResponse
 
         return await self.request_adapter.send_async(request_info, ListImagesResponse, None)
     
-    def to_get_request_information(self,request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> RequestInformation:
+    def to_get_request_information(self,request_configuration: Optional[RequestConfiguration[ImagesRequestBuilderGetQueryParameters]] = None) -> RequestInformation:
         """
-        Returns the images in a project.
+        ListImages
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
         Returns: RequestInformation
         """
@@ -91,7 +91,41 @@ class ImagesRequestBuilder(BaseRequestBuilder):
         return UploadRequestBuilder(self.request_adapter, self.path_parameters)
     
     @dataclass
-    class ImagesRequestBuilderGetRequestConfiguration(RequestConfiguration[QueryParameters]):
+    class ImagesRequestBuilderGetQueryParameters():
+        """
+        ListImages
+        """
+        def get_query_parameter(self,original_name: str) -> str:
+            """
+            Maps the query parameters names to their encoded names for the URI template parsing.
+            param original_name: The original query parameter name in the class.
+            Returns: str
+            """
+            if original_name is None:
+                raise TypeError("original_name cannot be null.")
+            if original_name == "pagination_limit":
+                return "pagination%2Elimit"
+            if original_name == "pagination_offset":
+                return "pagination%2Eoffset"
+            if original_name == "sort_direction":
+                return "sortDirection"
+            if original_name == "sort_field":
+                return "sortField"
+            return original_name
+        
+        # Maximum number of items to return.
+        pagination_limit: Optional[int] = None
+
+        # Number of items to skip before collecting the result set.
+        pagination_offset: Optional[int] = None
+
+        sort_direction: Optional[str] = None
+
+        sort_field: Optional[str] = None
+
+    
+    @dataclass
+    class ImagesRequestBuilderGetRequestConfiguration(RequestConfiguration[ImagesRequestBuilderGetQueryParameters]):
         """
         Configuration for the request such as headers, query parameters, and middleware options.
         """

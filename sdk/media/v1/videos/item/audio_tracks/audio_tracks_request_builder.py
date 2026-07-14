@@ -14,11 +14,11 @@ from typing import Any, Optional, TYPE_CHECKING, Union
 from warnings import warn
 
 if TYPE_CHECKING:
-    from ......models.videosv1.list_audio_tracks_response import ListAudioTracksResponse
+    from ......models.videos.v1.list_audio_tracks_response import ListAudioTracksResponse
 
 class AudioTracksRequestBuilder(BaseRequestBuilder):
     """
-    Builds and executes requests for operations under /media/v1/videos/{videoId}/audio-tracks
+    Builds and executes requests for operations under /media/v1/videos/{video_id}/audio-tracks
     """
     def __init__(self,request_adapter: RequestAdapter, path_parameters: Union[str, dict[str, Any]]) -> None:
         """
@@ -27,11 +27,11 @@ class AudioTracksRequestBuilder(BaseRequestBuilder):
         param request_adapter: The request adapter to use to execute the requests.
         Returns: None
         """
-        super().__init__(request_adapter, "{+baseurl}/media/v1/videos/{videoId}/audio-tracks", path_parameters)
+        super().__init__(request_adapter, "{+baseurl}/media/v1/videos/{video_id}/audio-tracks", path_parameters)
     
     async def get(self,request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> Optional[ListAudioTracksResponse]:
         """
-        Returns the audio tracks associated with a video.
+        ListAudioTracks
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
         Returns: Optional[ListAudioTracksResponse]
         """
@@ -40,13 +40,13 @@ class AudioTracksRequestBuilder(BaseRequestBuilder):
         )
         if not self.request_adapter:
             raise Exception("Http core is null") 
-        from ......models.videosv1.list_audio_tracks_response import ListAudioTracksResponse
+        from ......models.videos.v1.list_audio_tracks_response import ListAudioTracksResponse
 
         return await self.request_adapter.send_async(request_info, ListAudioTracksResponse, None)
     
     def to_get_request_information(self,request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> RequestInformation:
         """
-        Returns the audio tracks associated with a video.
+        ListAudioTracks
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
         Returns: RequestInformation
         """

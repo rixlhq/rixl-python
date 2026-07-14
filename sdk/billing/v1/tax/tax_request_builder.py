@@ -7,6 +7,7 @@ from typing import Any, Optional, TYPE_CHECKING, Union
 
 if TYPE_CHECKING:
     from .calculate.calculate_request_builder import CalculateRequestBuilder
+    from .calculate_generic.calculate_generic_request_builder import CalculateGenericRequestBuilder
 
 class TaxRequestBuilder(BaseRequestBuilder):
     """
@@ -29,5 +30,14 @@ class TaxRequestBuilder(BaseRequestBuilder):
         from .calculate.calculate_request_builder import CalculateRequestBuilder
 
         return CalculateRequestBuilder(self.request_adapter, self.path_parameters)
+    
+    @property
+    def calculate_generic(self) -> CalculateGenericRequestBuilder:
+        """
+        The calculateGeneric property
+        """
+        from .calculate_generic.calculate_generic_request_builder import CalculateGenericRequestBuilder
+
+        return CalculateGenericRequestBuilder(self.request_adapter, self.path_parameters)
     
 

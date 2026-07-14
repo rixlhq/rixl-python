@@ -14,7 +14,7 @@ from typing import Any, Optional, TYPE_CHECKING, Union
 from warnings import warn
 
 if TYPE_CHECKING:
-    from ....models.analyticsv1.dashboard_stats_response import DashboardStatsResponse
+    from ....models.analytics.v1.dashboard_stats_response import DashboardStatsResponse
 
 class DashboardRequestBuilder(BaseRequestBuilder):
     """
@@ -27,11 +27,11 @@ class DashboardRequestBuilder(BaseRequestBuilder):
         param request_adapter: The request adapter to use to execute the requests.
         Returns: None
         """
-        super().__init__(request_adapter, "{+baseurl}/analytics/v1/dashboard?end_time={end_time}&interval={interval}&start_time={start_time}", path_parameters)
+        super().__init__(request_adapter, "{+baseurl}/analytics/v1/dashboard?timeEnd={timeEnd}&timeStart={timeStart}{&interval*}", path_parameters)
     
     async def get(self,request_configuration: Optional[RequestConfiguration[DashboardRequestBuilderGetQueryParameters]] = None) -> Optional[DashboardStatsResponse]:
         """
-        Returns time-bucketed dashboard statistics
+        GetDashboardStats
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
         Returns: Optional[DashboardStatsResponse]
         """
@@ -40,13 +40,13 @@ class DashboardRequestBuilder(BaseRequestBuilder):
         )
         if not self.request_adapter:
             raise Exception("Http core is null") 
-        from ....models.analyticsv1.dashboard_stats_response import DashboardStatsResponse
+        from ....models.analytics.v1.dashboard_stats_response import DashboardStatsResponse
 
         return await self.request_adapter.send_async(request_info, DashboardStatsResponse, None)
     
     def to_get_request_information(self,request_configuration: Optional[RequestConfiguration[DashboardRequestBuilderGetQueryParameters]] = None) -> RequestInformation:
         """
-        Returns time-bucketed dashboard statistics
+        GetDashboardStats
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
         Returns: RequestInformation
         """
@@ -68,16 +68,29 @@ class DashboardRequestBuilder(BaseRequestBuilder):
     @dataclass
     class DashboardRequestBuilderGetQueryParameters():
         """
-        Returns time-bucketed dashboard statistics
+        GetDashboardStats
         """
-        # End time (RFC3339)
-        end_time: Optional[str] = None
-
-        # Bucket interval (1m, 1h, 1d)
+        def get_query_parameter(self,original_name: str) -> str:
+            """
+            Maps the query parameters names to their encoded names for the URI template parsing.
+            param original_name: The original query parameter name in the class.
+            Returns: str
+            """
+            if original_name is None:
+                raise TypeError("original_name cannot be null.")
+            if original_name == "time_end":
+                return "timeEnd"
+            if original_name == "time_start":
+                return "timeStart"
+            if original_name == "interval":
+                return "interval"
+            return original_name
+        
         interval: Optional[str] = None
 
-        # Start time (RFC3339)
-        start_time: Optional[str] = None
+        time_end: Optional[str] = None
+
+        time_start: Optional[str] = None
 
     
     @dataclass

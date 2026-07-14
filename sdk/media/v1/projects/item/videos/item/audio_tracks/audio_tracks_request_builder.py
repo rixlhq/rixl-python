@@ -14,15 +14,14 @@ from typing import Any, Optional, TYPE_CHECKING, Union
 from warnings import warn
 
 if TYPE_CHECKING:
-    from ........models.videosv1.delete_result import DeleteResult
-    from ........models.videosv1.list_audio_tracks_response import ListAudioTracksResponse
-    from .item.with_track_item_request_builder import WithTrackItemRequestBuilder
+    from ........models.google.protobuf.empty import Empty
+    from .item.with_track_item_request_builder import WithTrack_ItemRequestBuilder
     from .language.language_request_builder import LanguageRequestBuilder
     from .upload.upload_request_builder import UploadRequestBuilder
 
 class AudioTracksRequestBuilder(BaseRequestBuilder):
     """
-    Builds and executes requests for operations under /media/v1/projects/{projectId}/videos/{videoId}/audio-tracks
+    Builds and executes requests for operations under /media/v1/projects/{project_id}/videos/{video_id}/audio-tracks
     """
     def __init__(self,request_adapter: RequestAdapter, path_parameters: Union[str, dict[str, Any]]) -> None:
         """
@@ -31,70 +30,44 @@ class AudioTracksRequestBuilder(BaseRequestBuilder):
         param request_adapter: The request adapter to use to execute the requests.
         Returns: None
         """
-        super().__init__(request_adapter, "{+baseurl}/media/v1/projects/{projectId}/videos/{videoId}/audio-tracks", path_parameters)
+        super().__init__(request_adapter, "{+baseurl}/media/v1/projects/{project_id}/videos/{video_id}/audio-tracks", path_parameters)
     
-    def by_track_id(self,track_id: str) -> WithTrackItemRequestBuilder:
+    def by_track_id(self,track_id: str) -> WithTrack_ItemRequestBuilder:
         """
         Gets an item from the rixl_sdk.media.v1.projects.item.videos.item.audioTracks.item collection
-        param track_id: Audio track ID
-        Returns: WithTrackItemRequestBuilder
+        param track_id: Unique identifier of the item
+        Returns: WithTrack_ItemRequestBuilder
         """
         if track_id is None:
             raise TypeError("track_id cannot be null.")
-        from .item.with_track_item_request_builder import WithTrackItemRequestBuilder
+        from .item.with_track_item_request_builder import WithTrack_ItemRequestBuilder
 
         url_tpl_params = get_path_parameters(self.path_parameters)
-        url_tpl_params["trackId"] = track_id
-        return WithTrackItemRequestBuilder(self.request_adapter, url_tpl_params)
+        url_tpl_params["track_id"] = track_id
+        return WithTrack_ItemRequestBuilder(self.request_adapter, url_tpl_params)
     
-    async def delete(self,request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> Optional[DeleteResult]:
+    async def delete(self,request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> Optional[Empty]:
         """
-        Deletes all audio tracks for a video.
+        DeleteAllAudioTracks
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
-        Returns: Optional[DeleteResult]
+        Returns: Optional[Empty]
         """
         request_info = self.to_delete_request_information(
             request_configuration
         )
         if not self.request_adapter:
             raise Exception("Http core is null") 
-        from ........models.videosv1.delete_result import DeleteResult
+        from ........models.google.protobuf.empty import Empty
 
-        return await self.request_adapter.send_async(request_info, DeleteResult, None)
-    
-    async def get(self,request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> Optional[ListAudioTracksResponse]:
-        """
-        Returns a video's audio tracks within a project, including for private media. Requires project access.
-        param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
-        Returns: Optional[ListAudioTracksResponse]
-        """
-        request_info = self.to_get_request_information(
-            request_configuration
-        )
-        if not self.request_adapter:
-            raise Exception("Http core is null") 
-        from ........models.videosv1.list_audio_tracks_response import ListAudioTracksResponse
-
-        return await self.request_adapter.send_async(request_info, ListAudioTracksResponse, None)
+        return await self.request_adapter.send_async(request_info, Empty, None)
     
     def to_delete_request_information(self,request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> RequestInformation:
         """
-        Deletes all audio tracks for a video.
+        DeleteAllAudioTracks
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
         Returns: RequestInformation
         """
         request_info = RequestInformation(Method.DELETE, self.url_template, self.path_parameters)
-        request_info.configure(request_configuration)
-        request_info.headers.try_add("Accept", "application/json")
-        return request_info
-    
-    def to_get_request_information(self,request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> RequestInformation:
-        """
-        Returns a video's audio tracks within a project, including for private media. Requires project access.
-        param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
-        Returns: RequestInformation
-        """
-        request_info = RequestInformation(Method.GET, self.url_template, self.path_parameters)
         request_info.configure(request_configuration)
         request_info.headers.try_add("Accept", "application/json")
         return request_info
@@ -129,13 +102,6 @@ class AudioTracksRequestBuilder(BaseRequestBuilder):
     
     @dataclass
     class AudioTracksRequestBuilderDeleteRequestConfiguration(RequestConfiguration[QueryParameters]):
-        """
-        Configuration for the request such as headers, query parameters, and middleware options.
-        """
-        warn("This class is deprecated. Please use the generic RequestConfiguration class generated by the generator.", DeprecationWarning)
-    
-    @dataclass
-    class AudioTracksRequestBuilderGetRequestConfiguration(RequestConfiguration[QueryParameters]):
         """
         Configuration for the request such as headers, query parameters, and middleware options.
         """

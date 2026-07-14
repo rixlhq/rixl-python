@@ -14,12 +14,12 @@ from typing import Any, Optional, TYPE_CHECKING, Union
 from warnings import warn
 
 if TYPE_CHECKING:
-    from ........models.gateway.update_visibility_body import UpdateVisibilityBody
-    from ........models.imagesv1.get_image_response import GetImageResponse
+    from ........models.images.v1.get_image_response import GetImageResponse
+    from .visibility_patch_request_body import VisibilityPatchRequestBody
 
 class VisibilityRequestBuilder(BaseRequestBuilder):
     """
-    Builds and executes requests for operations under /media/v1/projects/{projectId}/images/{imageId}/visibility
+    Builds and executes requests for operations under /media/v1/projects/{project_id}/images/{image_id}/visibility
     """
     def __init__(self,request_adapter: RequestAdapter, path_parameters: Union[str, dict[str, Any]]) -> None:
         """
@@ -28,36 +28,36 @@ class VisibilityRequestBuilder(BaseRequestBuilder):
         param request_adapter: The request adapter to use to execute the requests.
         Returns: None
         """
-        super().__init__(request_adapter, "{+baseurl}/media/v1/projects/{projectId}/images/{imageId}/visibility", path_parameters)
+        super().__init__(request_adapter, "{+baseurl}/media/v1/projects/{project_id}/images/{image_id}/visibility", path_parameters)
     
-    async def put(self,body: UpdateVisibilityBody, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> Optional[GetImageResponse]:
+    async def patch(self,body: VisibilityPatchRequestBody, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> Optional[GetImageResponse]:
         """
-        Updates an image's visibility (public, unlisted, or private). Requires project access.
-        param body: Visibility
+        UpdateImageVisibility
+        param body: The request body
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
         Returns: Optional[GetImageResponse]
         """
         if body is None:
             raise TypeError("body cannot be null.")
-        request_info = self.to_put_request_information(
+        request_info = self.to_patch_request_information(
             body, request_configuration
         )
         if not self.request_adapter:
             raise Exception("Http core is null") 
-        from ........models.imagesv1.get_image_response import GetImageResponse
+        from ........models.images.v1.get_image_response import GetImageResponse
 
         return await self.request_adapter.send_async(request_info, GetImageResponse, None)
     
-    def to_put_request_information(self,body: UpdateVisibilityBody, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> RequestInformation:
+    def to_patch_request_information(self,body: VisibilityPatchRequestBody, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> RequestInformation:
         """
-        Updates an image's visibility (public, unlisted, or private). Requires project access.
-        param body: Visibility
+        UpdateImageVisibility
+        param body: The request body
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
         Returns: RequestInformation
         """
         if body is None:
             raise TypeError("body cannot be null.")
-        request_info = RequestInformation(Method.PUT, self.url_template, self.path_parameters)
+        request_info = RequestInformation(Method.PATCH, self.url_template, self.path_parameters)
         request_info.configure(request_configuration)
         request_info.headers.try_add("Accept", "application/json")
         request_info.set_content_from_parsable(self.request_adapter, "application/json", body)
@@ -74,7 +74,7 @@ class VisibilityRequestBuilder(BaseRequestBuilder):
         return VisibilityRequestBuilder(self.request_adapter, raw_url)
     
     @dataclass
-    class VisibilityRequestBuilderPutRequestConfiguration(RequestConfiguration[QueryParameters]):
+    class VisibilityRequestBuilderPatchRequestConfiguration(RequestConfiguration[QueryParameters]):
         """
         Configuration for the request such as headers, query parameters, and middleware options.
         """

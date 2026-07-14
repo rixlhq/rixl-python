@@ -14,11 +14,12 @@ from typing import Any, Optional, TYPE_CHECKING, Union
 from warnings import warn
 
 if TYPE_CHECKING:
-    from .........models.imagesv1.get_image_response import GetImageResponse
+    from .........models.images.v1.get_image_response import GetImageResponse
+    from .complete_post_request_body import CompletePostRequestBody
 
 class CompleteRequestBuilder(BaseRequestBuilder):
     """
-    Builds and executes requests for operations under /media/v1/projects/{projectId}/images/{imageId}/upload/complete
+    Builds and executes requests for operations under /media/v1/projects/{project_id}/images/{image_id}/upload/complete
     """
     def __init__(self,request_adapter: RequestAdapter, path_parameters: Union[str, dict[str, Any]]) -> None:
         """
@@ -27,32 +28,39 @@ class CompleteRequestBuilder(BaseRequestBuilder):
         param request_adapter: The request adapter to use to execute the requests.
         Returns: None
         """
-        super().__init__(request_adapter, "{+baseurl}/media/v1/projects/{projectId}/images/{imageId}/upload/complete", path_parameters)
+        super().__init__(request_adapter, "{+baseurl}/media/v1/projects/{project_id}/images/{image_id}/upload/complete", path_parameters)
     
-    async def post(self,request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> Optional[GetImageResponse]:
+    async def post(self,body: CompletePostRequestBody, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> Optional[GetImageResponse]:
         """
-        Finalizes a previously initiated image upload.
+        CompleteImageUpload
+        param body: The request body
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
         Returns: Optional[GetImageResponse]
         """
+        if body is None:
+            raise TypeError("body cannot be null.")
         request_info = self.to_post_request_information(
-            request_configuration
+            body, request_configuration
         )
         if not self.request_adapter:
             raise Exception("Http core is null") 
-        from .........models.imagesv1.get_image_response import GetImageResponse
+        from .........models.images.v1.get_image_response import GetImageResponse
 
         return await self.request_adapter.send_async(request_info, GetImageResponse, None)
     
-    def to_post_request_information(self,request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> RequestInformation:
+    def to_post_request_information(self,body: CompletePostRequestBody, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> RequestInformation:
         """
-        Finalizes a previously initiated image upload.
+        CompleteImageUpload
+        param body: The request body
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
         Returns: RequestInformation
         """
+        if body is None:
+            raise TypeError("body cannot be null.")
         request_info = RequestInformation(Method.POST, self.url_template, self.path_parameters)
         request_info.configure(request_configuration)
         request_info.headers.try_add("Accept", "application/json")
+        request_info.set_content_from_parsable(self.request_adapter, "application/json", body)
         return request_info
     
     def with_url(self,raw_url: str) -> CompleteRequestBuilder:

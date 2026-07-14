@@ -14,12 +14,12 @@ from typing import Any, Optional, TYPE_CHECKING, Union
 from warnings import warn
 
 if TYPE_CHECKING:
-    from ......models.authv1.update_org_username_response import UpdateOrgUsernameResponse
-    from ......models.gateway.update_org_username_body import UpdateOrgUsernameBody
+    from ......models.auth.v1.update_org_username_response import UpdateOrgUsernameResponse
+    from .username_patch_request_body import UsernamePatchRequestBody
 
 class UsernameRequestBuilder(BaseRequestBuilder):
     """
-    Builds and executes requests for operations under /auth/v1/memberships/{orgId}/username
+    Builds and executes requests for operations under /auth/v1/memberships/{org_-id}/username
     """
     def __init__(self,request_adapter: RequestAdapter, path_parameters: Union[str, dict[str, Any]]) -> None:
         """
@@ -28,36 +28,36 @@ class UsernameRequestBuilder(BaseRequestBuilder):
         param request_adapter: The request adapter to use to execute the requests.
         Returns: None
         """
-        super().__init__(request_adapter, "{+baseurl}/auth/v1/memberships/{orgId}/username", path_parameters)
+        super().__init__(request_adapter, "{+baseurl}/auth/v1/memberships/{org_%2Did}/username", path_parameters)
     
-    async def put(self,body: UpdateOrgUsernameBody, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> Optional[UpdateOrgUsernameResponse]:
+    async def patch(self,body: UsernamePatchRequestBody, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> Optional[UpdateOrgUsernameResponse]:
         """
-        Updates the unique username handle of the specified organization.
-        param body: New username
+        UpdateOrgUsername
+        param body: The request body
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
         Returns: Optional[UpdateOrgUsernameResponse]
         """
         if body is None:
             raise TypeError("body cannot be null.")
-        request_info = self.to_put_request_information(
+        request_info = self.to_patch_request_information(
             body, request_configuration
         )
         if not self.request_adapter:
             raise Exception("Http core is null") 
-        from ......models.authv1.update_org_username_response import UpdateOrgUsernameResponse
+        from ......models.auth.v1.update_org_username_response import UpdateOrgUsernameResponse
 
         return await self.request_adapter.send_async(request_info, UpdateOrgUsernameResponse, None)
     
-    def to_put_request_information(self,body: UpdateOrgUsernameBody, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> RequestInformation:
+    def to_patch_request_information(self,body: UsernamePatchRequestBody, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> RequestInformation:
         """
-        Updates the unique username handle of the specified organization.
-        param body: New username
+        UpdateOrgUsername
+        param body: The request body
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
         Returns: RequestInformation
         """
         if body is None:
             raise TypeError("body cannot be null.")
-        request_info = RequestInformation(Method.PUT, self.url_template, self.path_parameters)
+        request_info = RequestInformation(Method.PATCH, self.url_template, self.path_parameters)
         request_info.configure(request_configuration)
         request_info.headers.try_add("Accept", "application/json")
         request_info.set_content_from_parsable(self.request_adapter, "application/json", body)
@@ -74,7 +74,7 @@ class UsernameRequestBuilder(BaseRequestBuilder):
         return UsernameRequestBuilder(self.request_adapter, raw_url)
     
     @dataclass
-    class UsernameRequestBuilderPutRequestConfiguration(RequestConfiguration[QueryParameters]):
+    class UsernameRequestBuilderPatchRequestConfiguration(RequestConfiguration[QueryParameters]):
         """
         Configuration for the request such as headers, query parameters, and middleware options.
         """

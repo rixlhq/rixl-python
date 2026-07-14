@@ -14,8 +14,8 @@ from typing import Any, Optional, TYPE_CHECKING, Union
 from warnings import warn
 
 if TYPE_CHECKING:
-    from .....models.billingv1.upgrade_subscription_response import UpgradeSubscriptionResponse
-    from .....models.gateway.upgrade_subscription_body import UpgradeSubscriptionBody
+    from .....models.billing.v1.upgrade_subscription_request import UpgradeSubscriptionRequest
+    from .....models.billing.v1.upgrade_subscription_response import UpgradeSubscriptionResponse
 
 class UpgradeRequestBuilder(BaseRequestBuilder):
     """
@@ -30,10 +30,10 @@ class UpgradeRequestBuilder(BaseRequestBuilder):
         """
         super().__init__(request_adapter, "{+baseurl}/billing/v1/subscription/upgrade", path_parameters)
     
-    async def post(self,body: UpgradeSubscriptionBody, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> Optional[UpgradeSubscriptionResponse]:
+    async def post(self,body: UpgradeSubscriptionRequest, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> Optional[UpgradeSubscriptionResponse]:
         """
-        Upgrade the organization's subscription to a new plan
-        param body: Upgrade request
+        UpgradeSubscription
+        param body: The request body
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
         Returns: Optional[UpgradeSubscriptionResponse]
         """
@@ -44,14 +44,14 @@ class UpgradeRequestBuilder(BaseRequestBuilder):
         )
         if not self.request_adapter:
             raise Exception("Http core is null") 
-        from .....models.billingv1.upgrade_subscription_response import UpgradeSubscriptionResponse
+        from .....models.billing.v1.upgrade_subscription_response import UpgradeSubscriptionResponse
 
         return await self.request_adapter.send_async(request_info, UpgradeSubscriptionResponse, None)
     
-    def to_post_request_information(self,body: UpgradeSubscriptionBody, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> RequestInformation:
+    def to_post_request_information(self,body: UpgradeSubscriptionRequest, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> RequestInformation:
         """
-        Upgrade the organization's subscription to a new plan
-        param body: Upgrade request
+        UpgradeSubscription
+        param body: The request body
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
         Returns: RequestInformation
         """

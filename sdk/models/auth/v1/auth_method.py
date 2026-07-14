@@ -1,0 +1,7 @@
+from enum import Enum
+
+class AuthMethod(str, Enum):
+    AUTH_METHOD_UNSPECIFIED = "AUTH_METHOD_UNSPECIFIED",
+    AUTH_METHOD_PASSKEY = "AUTH_METHOD_PASSKEY",
+    AUTH_METHOD_TOTP = "AUTH_METHOD_TOTP",
+

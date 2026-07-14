@@ -14,8 +14,8 @@ from typing import Any, Optional, TYPE_CHECKING, Union
 from warnings import warn
 
 if TYPE_CHECKING:
-    from ........models.authv1.passkey_register_finish_response import PasskeyRegisterFinishResponse
-    from ........models.gateway.passkey_register_finish_body import PasskeyRegisterFinishBody
+    from ........models.auth.v1.passkey_register_finish_request import PasskeyRegisterFinishRequest
+    from ........models.auth.v1.passkey_register_finish_response import PasskeyRegisterFinishResponse
 
 class FinishRequestBuilder(BaseRequestBuilder):
     """
@@ -30,10 +30,10 @@ class FinishRequestBuilder(BaseRequestBuilder):
         """
         super().__init__(request_adapter, "{+baseurl}/auth/v1/users/current/passkeys/register/finish", path_parameters)
     
-    async def post(self,body: PasskeyRegisterFinishBody, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> Optional[PasskeyRegisterFinishResponse]:
+    async def post(self,body: PasskeyRegisterFinishRequest, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> Optional[PasskeyRegisterFinishResponse]:
         """
-        Completes passkey registration by verifying the signed WebAuthn credential and storing it under the given name for the authenticated user.
-        param body: session_id, name and WebAuthn credential
+        PasskeyRegisterFinish
+        param body: The request body
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
         Returns: Optional[PasskeyRegisterFinishResponse]
         """
@@ -44,14 +44,14 @@ class FinishRequestBuilder(BaseRequestBuilder):
         )
         if not self.request_adapter:
             raise Exception("Http core is null") 
-        from ........models.authv1.passkey_register_finish_response import PasskeyRegisterFinishResponse
+        from ........models.auth.v1.passkey_register_finish_response import PasskeyRegisterFinishResponse
 
         return await self.request_adapter.send_async(request_info, PasskeyRegisterFinishResponse, None)
     
-    def to_post_request_information(self,body: PasskeyRegisterFinishBody, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> RequestInformation:
+    def to_post_request_information(self,body: PasskeyRegisterFinishRequest, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> RequestInformation:
         """
-        Completes passkey registration by verifying the signed WebAuthn credential and storing it under the given name for the authenticated user.
-        param body: session_id, name and WebAuthn credential
+        PasskeyRegisterFinish
+        param body: The request body
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
         Returns: RequestInformation
         """

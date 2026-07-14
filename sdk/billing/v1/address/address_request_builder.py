@@ -14,8 +14,8 @@ from typing import Any, Optional, TYPE_CHECKING, Union
 from warnings import warn
 
 if TYPE_CHECKING:
-    from ....models.billingv1.billing_address import BillingAddress
-    from ....models.gateway.billing_address_body import BillingAddressBody
+    from ....models.billing.v1.billing_address import BillingAddress
+    from ....models.billing.v1.upsert_billing_address_request import UpsertBillingAddressRequest
 
 class AddressRequestBuilder(BaseRequestBuilder):
     """
@@ -28,11 +28,11 @@ class AddressRequestBuilder(BaseRequestBuilder):
         param request_adapter: The request adapter to use to execute the requests.
         Returns: None
         """
-        super().__init__(request_adapter, "{+baseurl}/billing/v1/address", path_parameters)
+        super().__init__(request_adapter, "{+baseurl}/billing/v1/address{?orgId*}", path_parameters)
     
-    async def get(self,request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> Optional[BillingAddress]:
+    async def get(self,request_configuration: Optional[RequestConfiguration[AddressRequestBuilderGetQueryParameters]] = None) -> Optional[BillingAddress]:
         """
-        Returns the organization's billing address
+        GetBillingAddress
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
         Returns: Optional[BillingAddress]
         """
@@ -41,31 +41,31 @@ class AddressRequestBuilder(BaseRequestBuilder):
         )
         if not self.request_adapter:
             raise Exception("Http core is null") 
-        from ....models.billingv1.billing_address import BillingAddress
+        from ....models.billing.v1.billing_address import BillingAddress
 
         return await self.request_adapter.send_async(request_info, BillingAddress, None)
     
-    async def post(self,body: BillingAddressBody, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> Optional[BillingAddress]:
+    async def put(self,body: UpsertBillingAddressRequest, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> Optional[BillingAddress]:
         """
-        Create or update the organization's billing address
-        param body: Billing address
+        UpsertBillingAddress
+        param body: The request body
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
         Returns: Optional[BillingAddress]
         """
         if body is None:
             raise TypeError("body cannot be null.")
-        request_info = self.to_post_request_information(
+        request_info = self.to_put_request_information(
             body, request_configuration
         )
         if not self.request_adapter:
             raise Exception("Http core is null") 
-        from ....models.billingv1.billing_address import BillingAddress
+        from ....models.billing.v1.billing_address import BillingAddress
 
         return await self.request_adapter.send_async(request_info, BillingAddress, None)
     
-    def to_get_request_information(self,request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> RequestInformation:
+    def to_get_request_information(self,request_configuration: Optional[RequestConfiguration[AddressRequestBuilderGetQueryParameters]] = None) -> RequestInformation:
         """
-        Returns the organization's billing address
+        GetBillingAddress
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
         Returns: RequestInformation
         """
@@ -74,16 +74,16 @@ class AddressRequestBuilder(BaseRequestBuilder):
         request_info.headers.try_add("Accept", "application/json")
         return request_info
     
-    def to_post_request_information(self,body: BillingAddressBody, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> RequestInformation:
+    def to_put_request_information(self,body: UpsertBillingAddressRequest, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> RequestInformation:
         """
-        Create or update the organization's billing address
-        param body: Billing address
+        UpsertBillingAddress
+        param body: The request body
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
         Returns: RequestInformation
         """
         if body is None:
             raise TypeError("body cannot be null.")
-        request_info = RequestInformation(Method.POST, self.url_template, self.path_parameters)
+        request_info = RequestInformation(Method.PUT, self.url_template, self.path_parameters)
         request_info.configure(request_configuration)
         request_info.headers.try_add("Accept", "application/json")
         request_info.set_content_from_parsable(self.request_adapter, "application/json", body)
@@ -100,14 +100,34 @@ class AddressRequestBuilder(BaseRequestBuilder):
         return AddressRequestBuilder(self.request_adapter, raw_url)
     
     @dataclass
-    class AddressRequestBuilderGetRequestConfiguration(RequestConfiguration[QueryParameters]):
+    class AddressRequestBuilderGetQueryParameters():
+        """
+        GetBillingAddress
+        """
+        def get_query_parameter(self,original_name: str) -> str:
+            """
+            Maps the query parameters names to their encoded names for the URI template parsing.
+            param original_name: The original query parameter name in the class.
+            Returns: str
+            """
+            if original_name is None:
+                raise TypeError("original_name cannot be null.")
+            if original_name == "org_id":
+                return "orgId"
+            return original_name
+        
+        org_id: Optional[str] = None
+
+    
+    @dataclass
+    class AddressRequestBuilderGetRequestConfiguration(RequestConfiguration[AddressRequestBuilderGetQueryParameters]):
         """
         Configuration for the request such as headers, query parameters, and middleware options.
         """
         warn("This class is deprecated. Please use the generic RequestConfiguration class generated by the generator.", DeprecationWarning)
     
     @dataclass
-    class AddressRequestBuilderPostRequestConfiguration(RequestConfiguration[QueryParameters]):
+    class AddressRequestBuilderPutRequestConfiguration(RequestConfiguration[QueryParameters]):
         """
         Configuration for the request such as headers, query parameters, and middleware options.
         """

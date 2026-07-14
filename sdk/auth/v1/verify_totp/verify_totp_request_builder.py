@@ -14,8 +14,8 @@ from typing import Any, Optional, TYPE_CHECKING, Union
 from warnings import warn
 
 if TYPE_CHECKING:
-    from ....models.authv1.token_response import TokenResponse
-    from ....models.gateway.verify_t_o_t_p_login_body import VerifyTOTPLoginBody
+    from ....models.auth.v1.token_response import TokenResponse
+    from ....models.auth.v1.verify_t_o_t_p_for_login_request import VerifyTOTPForLoginRequest
 
 class VerifyTotpRequestBuilder(BaseRequestBuilder):
     """
@@ -30,10 +30,10 @@ class VerifyTotpRequestBuilder(BaseRequestBuilder):
         """
         super().__init__(request_adapter, "{+baseurl}/auth/v1/verify-totp", path_parameters)
     
-    async def post(self,body: VerifyTOTPLoginBody, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> Optional[TokenResponse]:
+    async def post(self,body: VerifyTOTPForLoginRequest, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> Optional[TokenResponse]:
         """
-        Verifies the submitted TOTP code for a pending login session and, if valid, completes authentication and returns access tokens.
-        param body: TOTP code and login session id
+        VerifyTOTPForLogin
+        param body: The request body
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
         Returns: Optional[TokenResponse]
         """
@@ -44,14 +44,14 @@ class VerifyTotpRequestBuilder(BaseRequestBuilder):
         )
         if not self.request_adapter:
             raise Exception("Http core is null") 
-        from ....models.authv1.token_response import TokenResponse
+        from ....models.auth.v1.token_response import TokenResponse
 
         return await self.request_adapter.send_async(request_info, TokenResponse, None)
     
-    def to_post_request_information(self,body: VerifyTOTPLoginBody, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> RequestInformation:
+    def to_post_request_information(self,body: VerifyTOTPForLoginRequest, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> RequestInformation:
         """
-        Verifies the submitted TOTP code for a pending login session and, if valid, completes authentication and returns access tokens.
-        param body: TOTP code and login session id
+        VerifyTOTPForLogin
+        param body: The request body
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
         Returns: RequestInformation
         """

@@ -14,7 +14,7 @@ from typing import Any, Optional, TYPE_CHECKING, Union
 from warnings import warn
 
 if TYPE_CHECKING:
-    from .....models.billingv1.storage_usage import StorageUsage
+    from .....models.billing.v1.storage_usage import StorageUsage
 
 class RefreshRequestBuilder(BaseRequestBuilder):
     """
@@ -27,11 +27,11 @@ class RefreshRequestBuilder(BaseRequestBuilder):
         param request_adapter: The request adapter to use to execute the requests.
         Returns: None
         """
-        super().__init__(request_adapter, "{+baseurl}/billing/v1/storage-usage/refresh", path_parameters)
+        super().__init__(request_adapter, "{+baseurl}/billing/v1/storage-usage/refresh{?orgId*}", path_parameters)
     
-    async def post(self,request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> Optional[StorageUsage]:
+    async def post(self,request_configuration: Optional[RequestConfiguration[RefreshRequestBuilderPostQueryParameters]] = None) -> Optional[StorageUsage]:
         """
-        Recalculate and persist the organization's storage usage
+        RefreshStorageUsage
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
         Returns: Optional[StorageUsage]
         """
@@ -40,13 +40,13 @@ class RefreshRequestBuilder(BaseRequestBuilder):
         )
         if not self.request_adapter:
             raise Exception("Http core is null") 
-        from .....models.billingv1.storage_usage import StorageUsage
+        from .....models.billing.v1.storage_usage import StorageUsage
 
         return await self.request_adapter.send_async(request_info, StorageUsage, None)
     
-    def to_post_request_information(self,request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> RequestInformation:
+    def to_post_request_information(self,request_configuration: Optional[RequestConfiguration[RefreshRequestBuilderPostQueryParameters]] = None) -> RequestInformation:
         """
-        Recalculate and persist the organization's storage usage
+        RefreshStorageUsage
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
         Returns: RequestInformation
         """
@@ -66,7 +66,27 @@ class RefreshRequestBuilder(BaseRequestBuilder):
         return RefreshRequestBuilder(self.request_adapter, raw_url)
     
     @dataclass
-    class RefreshRequestBuilderPostRequestConfiguration(RequestConfiguration[QueryParameters]):
+    class RefreshRequestBuilderPostQueryParameters():
+        """
+        RefreshStorageUsage
+        """
+        def get_query_parameter(self,original_name: str) -> str:
+            """
+            Maps the query parameters names to their encoded names for the URI template parsing.
+            param original_name: The original query parameter name in the class.
+            Returns: str
+            """
+            if original_name is None:
+                raise TypeError("original_name cannot be null.")
+            if original_name == "org_id":
+                return "orgId"
+            return original_name
+        
+        org_id: Optional[str] = None
+
+    
+    @dataclass
+    class RefreshRequestBuilderPostRequestConfiguration(RequestConfiguration[RefreshRequestBuilderPostQueryParameters]):
         """
         Configuration for the request such as headers, query parameters, and middleware options.
         """

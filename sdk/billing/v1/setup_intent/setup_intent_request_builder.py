@@ -14,7 +14,8 @@ from typing import Any, Optional, TYPE_CHECKING, Union
 from warnings import warn
 
 if TYPE_CHECKING:
-    from ....models.billingv1.setup_intent_response import SetupIntentResponse
+    from ....models.billing.v1.create_setup_intent_request import CreateSetupIntentRequest
+    from ....models.billing.v1.setup_intent_response import SetupIntentResponse
 
 class SetupIntentRequestBuilder(BaseRequestBuilder):
     """
@@ -29,30 +30,37 @@ class SetupIntentRequestBuilder(BaseRequestBuilder):
         """
         super().__init__(request_adapter, "{+baseurl}/billing/v1/setup-intent", path_parameters)
     
-    async def post(self,request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> Optional[SetupIntentResponse]:
+    async def post(self,body: CreateSetupIntentRequest, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> Optional[SetupIntentResponse]:
         """
-        Create a Stripe setup intent for adding a payment method
+        CreateSetupIntent
+        param body: The request body
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
         Returns: Optional[SetupIntentResponse]
         """
+        if body is None:
+            raise TypeError("body cannot be null.")
         request_info = self.to_post_request_information(
-            request_configuration
+            body, request_configuration
         )
         if not self.request_adapter:
             raise Exception("Http core is null") 
-        from ....models.billingv1.setup_intent_response import SetupIntentResponse
+        from ....models.billing.v1.setup_intent_response import SetupIntentResponse
 
         return await self.request_adapter.send_async(request_info, SetupIntentResponse, None)
     
-    def to_post_request_information(self,request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> RequestInformation:
+    def to_post_request_information(self,body: CreateSetupIntentRequest, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> RequestInformation:
         """
-        Create a Stripe setup intent for adding a payment method
+        CreateSetupIntent
+        param body: The request body
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
         Returns: RequestInformation
         """
+        if body is None:
+            raise TypeError("body cannot be null.")
         request_info = RequestInformation(Method.POST, self.url_template, self.path_parameters)
         request_info.configure(request_configuration)
         request_info.headers.try_add("Accept", "application/json")
+        request_info.set_content_from_parsable(self.request_adapter, "application/json", body)
         return request_info
     
     def with_url(self,raw_url: str) -> SetupIntentRequestBuilder:

@@ -14,8 +14,8 @@ from typing import Any, Optional, TYPE_CHECKING, Union
 from warnings import warn
 
 if TYPE_CHECKING:
-    from ....models.authv1.token_response import TokenResponse
-    from ....models.gateway.passkey_verify_body import PasskeyVerifyBody
+    from ....models.auth.v1.token_response import TokenResponse
+    from ....models.auth.v1.verify_passkey_for_login_request import VerifyPasskeyForLoginRequest
 
 class VerifyPasskeyRequestBuilder(BaseRequestBuilder):
     """
@@ -30,10 +30,10 @@ class VerifyPasskeyRequestBuilder(BaseRequestBuilder):
         """
         super().__init__(request_adapter, "{+baseurl}/auth/v1/verify-passkey", path_parameters)
     
-    async def post(self,body: PasskeyVerifyBody, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> Optional[TokenResponse]:
+    async def post(self,body: VerifyPasskeyForLoginRequest, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> Optional[TokenResponse]:
         """
-        Completes the passkey step of a password login's 2FA challenge. Verifies the signed WebAuthn assertion against the challenge stored in the login session (from POST /auth/v1/login with status "2fa_required") and returns authentication tokens.
-        param body: session_id and WebAuthn credential
+        VerifyPasskeyForLogin
+        param body: The request body
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
         Returns: Optional[TokenResponse]
         """
@@ -44,14 +44,14 @@ class VerifyPasskeyRequestBuilder(BaseRequestBuilder):
         )
         if not self.request_adapter:
             raise Exception("Http core is null") 
-        from ....models.authv1.token_response import TokenResponse
+        from ....models.auth.v1.token_response import TokenResponse
 
         return await self.request_adapter.send_async(request_info, TokenResponse, None)
     
-    def to_post_request_information(self,body: PasskeyVerifyBody, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> RequestInformation:
+    def to_post_request_information(self,body: VerifyPasskeyForLoginRequest, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> RequestInformation:
         """
-        Completes the passkey step of a password login's 2FA challenge. Verifies the signed WebAuthn assertion against the challenge stored in the login session (from POST /auth/v1/login with status "2fa_required") and returns authentication tokens.
-        param body: session_id and WebAuthn credential
+        VerifyPasskeyForLogin
+        param body: The request body
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
         Returns: RequestInformation
         """

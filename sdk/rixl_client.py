@@ -18,11 +18,12 @@ if TYPE_CHECKING:
     from .analytics.analytics_request_builder import AnalyticsRequestBuilder
     from .auth.auth_request_builder import AuthRequestBuilder
     from .billing.billing_request_builder import BillingRequestBuilder
+    from .feeds.feeds_request_builder import FeedsRequestBuilder
+    from .internal.internal_request_builder import InternalRequestBuilder
     from .media.media_request_builder import MediaRequestBuilder
-    from .organization.organization_request_builder import OrganizationRequestBuilder
+    from .organizations.organizations_request_builder import OrganizationsRequestBuilder
     from .platform.platform_request_builder import PlatformRequestBuilder
     from .posts.posts_request_builder import PostsRequestBuilder
-    from .projects.projects_request_builder import ProjectsRequestBuilder
 
 class RixlClient(BaseRequestBuilder):
     """
@@ -44,9 +45,6 @@ class RixlClient(BaseRequestBuilder):
         register_default_deserializer(JsonParseNodeFactory)
         register_default_deserializer(TextParseNodeFactory)
         register_default_deserializer(FormParseNodeFactory)
-        if not self.request_adapter.base_url:
-            self.request_adapter.base_url = "https://raw.githubusercontent.com"
-        self.path_parameters["base_url"] = self.request_adapter.base_url
     
     @property
     def analytics(self) -> AnalyticsRequestBuilder:
@@ -76,6 +74,24 @@ class RixlClient(BaseRequestBuilder):
         return BillingRequestBuilder(self.request_adapter, self.path_parameters)
     
     @property
+    def feeds(self) -> FeedsRequestBuilder:
+        """
+        The feeds property
+        """
+        from .feeds.feeds_request_builder import FeedsRequestBuilder
+
+        return FeedsRequestBuilder(self.request_adapter, self.path_parameters)
+    
+    @property
+    def internal(self) -> InternalRequestBuilder:
+        """
+        The internal property
+        """
+        from .internal.internal_request_builder import InternalRequestBuilder
+
+        return InternalRequestBuilder(self.request_adapter, self.path_parameters)
+    
+    @property
     def media(self) -> MediaRequestBuilder:
         """
         The media property
@@ -85,13 +101,13 @@ class RixlClient(BaseRequestBuilder):
         return MediaRequestBuilder(self.request_adapter, self.path_parameters)
     
     @property
-    def organization(self) -> OrganizationRequestBuilder:
+    def organizations(self) -> OrganizationsRequestBuilder:
         """
-        The organization property
+        The organizations property
         """
-        from .organization.organization_request_builder import OrganizationRequestBuilder
+        from .organizations.organizations_request_builder import OrganizationsRequestBuilder
 
-        return OrganizationRequestBuilder(self.request_adapter, self.path_parameters)
+        return OrganizationsRequestBuilder(self.request_adapter, self.path_parameters)
     
     @property
     def platform(self) -> PlatformRequestBuilder:
@@ -110,14 +126,5 @@ class RixlClient(BaseRequestBuilder):
         from .posts.posts_request_builder import PostsRequestBuilder
 
         return PostsRequestBuilder(self.request_adapter, self.path_parameters)
-    
-    @property
-    def projects(self) -> ProjectsRequestBuilder:
-        """
-        The projects property
-        """
-        from .projects.projects_request_builder import ProjectsRequestBuilder
-
-        return ProjectsRequestBuilder(self.request_adapter, self.path_parameters)
     
 

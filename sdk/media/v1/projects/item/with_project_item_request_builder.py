@@ -9,18 +9,18 @@ if TYPE_CHECKING:
     from .images.images_request_builder import ImagesRequestBuilder
     from .videos.videos_request_builder import VideosRequestBuilder
 
-class WithProjectItemRequestBuilder(BaseRequestBuilder):
+class WithProject_ItemRequestBuilder(BaseRequestBuilder):
     """
-    Builds and executes requests for operations under /media/v1/projects/{projectId}
+    Builds and executes requests for operations under /media/v1/projects/{project_id}
     """
     def __init__(self,request_adapter: RequestAdapter, path_parameters: Union[str, dict[str, Any]]) -> None:
         """
-        Instantiates a new WithProjectItemRequestBuilder and sets the default values.
+        Instantiates a new WithProject_ItemRequestBuilder and sets the default values.
         param path_parameters: The raw url or the url-template parameters for the request.
         param request_adapter: The request adapter to use to execute the requests.
         Returns: None
         """
-        super().__init__(request_adapter, "{+baseurl}/media/v1/projects/{projectId}", path_parameters)
+        super().__init__(request_adapter, "{+baseurl}/media/v1/projects/{project_id}", path_parameters)
     
     @property
     def images(self) -> ImagesRequestBuilder:

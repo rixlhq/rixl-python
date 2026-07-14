@@ -14,14 +14,13 @@ from typing import Any, Optional, TYPE_CHECKING, Union
 from warnings import warn
 
 if TYPE_CHECKING:
-    from ........models.authv1.list_attachments_response import ListAttachmentsResponse
-    from ........models.authv1.policy_attachment import PolicyAttachment
-    from ........models.gateway.attach_policy_body import AttachPolicyBody
-    from .item.with_attachment_item_request_builder import WithAttachmentItemRequestBuilder
+    from ........models.auth.v1.list_attachments_response import ListAttachmentsResponse
+    from ........models.auth.v1.policy_attachment import PolicyAttachment
+    from .attachments_post_request_body import AttachmentsPostRequestBody
 
 class AttachmentsRequestBuilder(BaseRequestBuilder):
     """
-    Builds and executes requests for operations under /auth/v1/memberships/{orgId}/policies/{policyId}/attachments
+    Builds and executes requests for operations under /auth/v1/memberships/{org_-id}/policies/{policy_id}/attachments
     """
     def __init__(self,request_adapter: RequestAdapter, path_parameters: Union[str, dict[str, Any]]) -> None:
         """
@@ -30,25 +29,11 @@ class AttachmentsRequestBuilder(BaseRequestBuilder):
         param request_adapter: The request adapter to use to execute the requests.
         Returns: None
         """
-        super().__init__(request_adapter, "{+baseurl}/auth/v1/memberships/{orgId}/policies/{policyId}/attachments", path_parameters)
+        super().__init__(request_adapter, "{+baseurl}/auth/v1/memberships/{org_%2Did}/policies/{policy_id}/attachments{?user%2EuserId*}", path_parameters)
     
-    def by_attachment_id(self,attachment_id: str) -> WithAttachmentItemRequestBuilder:
+    async def get(self,request_configuration: Optional[RequestConfiguration[AttachmentsRequestBuilderGetQueryParameters]] = None) -> Optional[ListAttachmentsResponse]:
         """
-        Gets an item from the rixl_sdk.auth.v1.memberships.item.policies.item.attachments.item collection
-        param attachment_id: Attachment ID
-        Returns: WithAttachmentItemRequestBuilder
-        """
-        if attachment_id is None:
-            raise TypeError("attachment_id cannot be null.")
-        from .item.with_attachment_item_request_builder import WithAttachmentItemRequestBuilder
-
-        url_tpl_params = get_path_parameters(self.path_parameters)
-        url_tpl_params["attachmentId"] = attachment_id
-        return WithAttachmentItemRequestBuilder(self.request_adapter, url_tpl_params)
-    
-    async def get(self,request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> Optional[ListAttachmentsResponse]:
-        """
-        Returns all identities that the given policy is attached to within the organization.
+        ListPolicyAttachments
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
         Returns: Optional[ListAttachmentsResponse]
         """
@@ -57,14 +42,14 @@ class AttachmentsRequestBuilder(BaseRequestBuilder):
         )
         if not self.request_adapter:
             raise Exception("Http core is null") 
-        from ........models.authv1.list_attachments_response import ListAttachmentsResponse
+        from ........models.auth.v1.list_attachments_response import ListAttachmentsResponse
 
         return await self.request_adapter.send_async(request_info, ListAttachmentsResponse, None)
     
-    async def post(self,body: AttachPolicyBody, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> Optional[PolicyAttachment]:
+    async def post(self,body: AttachmentsPostRequestBody, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> Optional[PolicyAttachment]:
         """
-        Attaches the given policy to an identity so the policy's permissions apply to that identity.
-        param body: Identity
+        AttachPolicy
+        param body: The request body
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
         Returns: Optional[PolicyAttachment]
         """
@@ -75,13 +60,13 @@ class AttachmentsRequestBuilder(BaseRequestBuilder):
         )
         if not self.request_adapter:
             raise Exception("Http core is null") 
-        from ........models.authv1.policy_attachment import PolicyAttachment
+        from ........models.auth.v1.policy_attachment import PolicyAttachment
 
         return await self.request_adapter.send_async(request_info, PolicyAttachment, None)
     
-    def to_get_request_information(self,request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> RequestInformation:
+    def to_get_request_information(self,request_configuration: Optional[RequestConfiguration[AttachmentsRequestBuilderGetQueryParameters]] = None) -> RequestInformation:
         """
-        Returns all identities that the given policy is attached to within the organization.
+        ListPolicyAttachments
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
         Returns: RequestInformation
         """
@@ -90,10 +75,10 @@ class AttachmentsRequestBuilder(BaseRequestBuilder):
         request_info.headers.try_add("Accept", "application/json")
         return request_info
     
-    def to_post_request_information(self,body: AttachPolicyBody, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> RequestInformation:
+    def to_post_request_information(self,body: AttachmentsPostRequestBody, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> RequestInformation:
         """
-        Attaches the given policy to an identity so the policy's permissions apply to that identity.
-        param body: Identity
+        AttachPolicy
+        param body: The request body
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
         Returns: RequestInformation
         """
@@ -116,7 +101,27 @@ class AttachmentsRequestBuilder(BaseRequestBuilder):
         return AttachmentsRequestBuilder(self.request_adapter, raw_url)
     
     @dataclass
-    class AttachmentsRequestBuilderGetRequestConfiguration(RequestConfiguration[QueryParameters]):
+    class AttachmentsRequestBuilderGetQueryParameters():
+        """
+        ListPolicyAttachments
+        """
+        def get_query_parameter(self,original_name: str) -> str:
+            """
+            Maps the query parameters names to their encoded names for the URI template parsing.
+            param original_name: The original query parameter name in the class.
+            Returns: str
+            """
+            if original_name is None:
+                raise TypeError("original_name cannot be null.")
+            if original_name == "user_user_id":
+                return "user%2EuserId"
+            return original_name
+        
+        user_user_id: Optional[str] = None
+
+    
+    @dataclass
+    class AttachmentsRequestBuilderGetRequestConfiguration(RequestConfiguration[AttachmentsRequestBuilderGetQueryParameters]):
         """
         Configuration for the request such as headers, query parameters, and middleware options.
         """

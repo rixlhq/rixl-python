@@ -14,8 +14,8 @@ from typing import Any, Optional, TYPE_CHECKING, Union
 from warnings import warn
 
 if TYPE_CHECKING:
-    from ....models.billingv1.list_plans_response import ListPlansResponse
-    from .item.with_plan_item_request_builder import WithPlanItemRequestBuilder
+    from ....models.billing.v1.list_plans_response import ListPlansResponse
+    from .item.with_plan_item_request_builder import WithPlan_ItemRequestBuilder
 
 class PlansRequestBuilder(BaseRequestBuilder):
     """
@@ -28,25 +28,25 @@ class PlansRequestBuilder(BaseRequestBuilder):
         param request_adapter: The request adapter to use to execute the requests.
         Returns: None
         """
-        super().__init__(request_adapter, "{+baseurl}/billing/v1/plans", path_parameters)
+        super().__init__(request_adapter, "{+baseurl}/billing/v1/plans{?currency*,free*,interval*}", path_parameters)
     
-    def by_plan_id(self,plan_id: str) -> WithPlanItemRequestBuilder:
+    def by_plan_id(self,plan_id: str) -> WithPlan_ItemRequestBuilder:
         """
         Gets an item from the rixl_sdk.billing.v1.plans.item collection
-        param plan_id: Plan ID
-        Returns: WithPlanItemRequestBuilder
+        param plan_id: string.prefix = "price_"
+        Returns: WithPlan_ItemRequestBuilder
         """
         if plan_id is None:
             raise TypeError("plan_id cannot be null.")
-        from .item.with_plan_item_request_builder import WithPlanItemRequestBuilder
+        from .item.with_plan_item_request_builder import WithPlan_ItemRequestBuilder
 
         url_tpl_params = get_path_parameters(self.path_parameters)
-        url_tpl_params["planId"] = plan_id
-        return WithPlanItemRequestBuilder(self.request_adapter, url_tpl_params)
+        url_tpl_params["plan_id"] = plan_id
+        return WithPlan_ItemRequestBuilder(self.request_adapter, url_tpl_params)
     
-    async def get(self,request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> Optional[ListPlansResponse]:
+    async def get(self,request_configuration: Optional[RequestConfiguration[PlansRequestBuilderGetQueryParameters]] = None) -> Optional[ListPlansResponse]:
         """
-        Returns the available billing plans.
+        ListPlans
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
         Returns: Optional[ListPlansResponse]
         """
@@ -55,13 +55,13 @@ class PlansRequestBuilder(BaseRequestBuilder):
         )
         if not self.request_adapter:
             raise Exception("Http core is null") 
-        from ....models.billingv1.list_plans_response import ListPlansResponse
+        from ....models.billing.v1.list_plans_response import ListPlansResponse
 
         return await self.request_adapter.send_async(request_info, ListPlansResponse, None)
     
-    def to_get_request_information(self,request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> RequestInformation:
+    def to_get_request_information(self,request_configuration: Optional[RequestConfiguration[PlansRequestBuilderGetQueryParameters]] = None) -> RequestInformation:
         """
-        Returns the available billing plans.
+        ListPlans
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
         Returns: RequestInformation
         """
@@ -81,7 +81,19 @@ class PlansRequestBuilder(BaseRequestBuilder):
         return PlansRequestBuilder(self.request_adapter, raw_url)
     
     @dataclass
-    class PlansRequestBuilderGetRequestConfiguration(RequestConfiguration[QueryParameters]):
+    class PlansRequestBuilderGetQueryParameters():
+        """
+        ListPlans
+        """
+        currency: Optional[str] = None
+
+        free: Optional[str] = None
+
+        interval: Optional[str] = None
+
+    
+    @dataclass
+    class PlansRequestBuilderGetRequestConfiguration(RequestConfiguration[PlansRequestBuilderGetQueryParameters]):
         """
         Configuration for the request such as headers, query parameters, and middleware options.
         """

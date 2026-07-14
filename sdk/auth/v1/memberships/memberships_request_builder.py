@@ -1,14 +1,23 @@
 from __future__ import annotations
 from collections.abc import Callable
+from dataclasses import dataclass, field
 from kiota_abstractions.base_request_builder import BaseRequestBuilder
+from kiota_abstractions.base_request_configuration import RequestConfiguration
+from kiota_abstractions.default_query_parameters import QueryParameters
 from kiota_abstractions.get_path_parameters import get_path_parameters
+from kiota_abstractions.method import Method
 from kiota_abstractions.request_adapter import RequestAdapter
+from kiota_abstractions.request_information import RequestInformation
+from kiota_abstractions.request_option import RequestOption
+from kiota_abstractions.serialization import Parsable, ParsableFactory
 from typing import Any, Optional, TYPE_CHECKING, Union
+from warnings import warn
 
 if TYPE_CHECKING:
+    from ....models.auth.v1.list_memberships_response import ListMembershipsResponse
+    from ....models.auth.v1.membership_state import MembershipState
     from .active.active_request_builder import ActiveRequestBuilder
-    from .item.with_org_item_request_builder import WithOrgItemRequestBuilder
-    from .pending.pending_request_builder import PendingRequestBuilder
+    from .item.org_item_request_builder import Org_ItemRequestBuilder
 
 class MembershipsRequestBuilder(BaseRequestBuilder):
     """
@@ -21,21 +30,57 @@ class MembershipsRequestBuilder(BaseRequestBuilder):
         param request_adapter: The request adapter to use to execute the requests.
         Returns: None
         """
-        super().__init__(request_adapter, "{+baseurl}/auth/v1/memberships", path_parameters)
+        super().__init__(request_adapter, "{+baseurl}/auth/v1/memberships{?limit*,offset*,state*,user%2EuserId*}", path_parameters)
     
-    def by_org_id(self,org_id: str) -> WithOrgItemRequestBuilder:
+    def by_org_id(self,org_id: str) -> Org_ItemRequestBuilder:
         """
         Gets an item from the rixl_sdk.auth.v1.memberships.item collection
-        param org_id: Membership/organization ID
-        Returns: WithOrgItemRequestBuilder
+        param org_id: Unique identifier of the item
+        Returns: Org_ItemRequestBuilder
         """
         if org_id is None:
             raise TypeError("org_id cannot be null.")
-        from .item.with_org_item_request_builder import WithOrgItemRequestBuilder
+        from .item.org_item_request_builder import Org_ItemRequestBuilder
 
         url_tpl_params = get_path_parameters(self.path_parameters)
-        url_tpl_params["orgId"] = org_id
-        return WithOrgItemRequestBuilder(self.request_adapter, url_tpl_params)
+        url_tpl_params["org_%2Did"] = org_id
+        return Org_ItemRequestBuilder(self.request_adapter, url_tpl_params)
+    
+    async def get(self,request_configuration: Optional[RequestConfiguration[MembershipsRequestBuilderGetQueryParameters]] = None) -> Optional[ListMembershipsResponse]:
+        """
+        ListMemberships
+        param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
+        Returns: Optional[ListMembershipsResponse]
+        """
+        request_info = self.to_get_request_information(
+            request_configuration
+        )
+        if not self.request_adapter:
+            raise Exception("Http core is null") 
+        from ....models.auth.v1.list_memberships_response import ListMembershipsResponse
+
+        return await self.request_adapter.send_async(request_info, ListMembershipsResponse, None)
+    
+    def to_get_request_information(self,request_configuration: Optional[RequestConfiguration[MembershipsRequestBuilderGetQueryParameters]] = None) -> RequestInformation:
+        """
+        ListMemberships
+        param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
+        Returns: RequestInformation
+        """
+        request_info = RequestInformation(Method.GET, self.url_template, self.path_parameters)
+        request_info.configure(request_configuration)
+        request_info.headers.try_add("Accept", "application/json")
+        return request_info
+    
+    def with_url(self,raw_url: str) -> MembershipsRequestBuilder:
+        """
+        Returns a request builder with the provided arbitrary URL. Using this method means any other path or query parameters are ignored.
+        param raw_url: The raw URL to use for the request builder.
+        Returns: MembershipsRequestBuilder
+        """
+        if raw_url is None:
+            raise TypeError("raw_url cannot be null.")
+        return MembershipsRequestBuilder(self.request_adapter, raw_url)
     
     @property
     def active(self) -> ActiveRequestBuilder:
@@ -46,13 +91,43 @@ class MembershipsRequestBuilder(BaseRequestBuilder):
 
         return ActiveRequestBuilder(self.request_adapter, self.path_parameters)
     
-    @property
-    def pending(self) -> PendingRequestBuilder:
+    @dataclass
+    class MembershipsRequestBuilderGetQueryParameters():
         """
-        The pending property
+        ListMemberships
         """
-        from .pending.pending_request_builder import PendingRequestBuilder
+        def get_query_parameter(self,original_name: str) -> str:
+            """
+            Maps the query parameters names to their encoded names for the URI template parsing.
+            param original_name: The original query parameter name in the class.
+            Returns: str
+            """
+            if original_name is None:
+                raise TypeError("original_name cannot be null.")
+            if original_name == "user_user_id":
+                return "user%2EuserId"
+            if original_name == "limit":
+                return "limit"
+            if original_name == "offset":
+                return "offset"
+            if original_name == "state":
+                return "state"
+            return original_name
+        
+        limit: Optional[int] = None
 
-        return PendingRequestBuilder(self.request_adapter, self.path_parameters)
+        offset: Optional[int] = None
+
+        state: Optional[MembershipState] = None
+
+        user_user_id: Optional[str] = None
+
+    
+    @dataclass
+    class MembershipsRequestBuilderGetRequestConfiguration(RequestConfiguration[MembershipsRequestBuilderGetQueryParameters]):
+        """
+        Configuration for the request such as headers, query parameters, and middleware options.
+        """
+        warn("This class is deprecated. Please use the generic RequestConfiguration class generated by the generator.", DeprecationWarning)
     
 

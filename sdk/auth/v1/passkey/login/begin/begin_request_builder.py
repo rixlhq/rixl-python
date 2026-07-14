@@ -14,7 +14,8 @@ from typing import Any, Optional, TYPE_CHECKING, Union
 from warnings import warn
 
 if TYPE_CHECKING:
-    from ......models.authv1.passkey_begin_response import PasskeyBeginResponse
+    from ......models.auth.v1.passkey_begin_response import PasskeyBeginResponse
+    from ......models.auth.v1.passkey_login_begin_request import PasskeyLoginBeginRequest
 
 class BeginRequestBuilder(BaseRequestBuilder):
     """
@@ -29,30 +30,37 @@ class BeginRequestBuilder(BaseRequestBuilder):
         """
         super().__init__(request_adapter, "{+baseurl}/auth/v1/passkey/login/begin", path_parameters)
     
-    async def post(self,request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> Optional[PasskeyBeginResponse]:
+    async def post(self,body: PasskeyLoginBeginRequest, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> Optional[PasskeyBeginResponse]:
         """
-        Begins a passkey login by returning a session_id and WebAuthn challenge options for the client to sign.
+        PasskeyLoginBegin
+        param body: options and credential carry the WebAuthn ceremony payloads verbatim as JSON (the browser credential API consumes them as-is), so they are opaque bytes.
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
         Returns: Optional[PasskeyBeginResponse]
         """
+        if body is None:
+            raise TypeError("body cannot be null.")
         request_info = self.to_post_request_information(
-            request_configuration
+            body, request_configuration
         )
         if not self.request_adapter:
             raise Exception("Http core is null") 
-        from ......models.authv1.passkey_begin_response import PasskeyBeginResponse
+        from ......models.auth.v1.passkey_begin_response import PasskeyBeginResponse
 
         return await self.request_adapter.send_async(request_info, PasskeyBeginResponse, None)
     
-    def to_post_request_information(self,request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> RequestInformation:
+    def to_post_request_information(self,body: PasskeyLoginBeginRequest, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> RequestInformation:
         """
-        Begins a passkey login by returning a session_id and WebAuthn challenge options for the client to sign.
+        PasskeyLoginBegin
+        param body: options and credential carry the WebAuthn ceremony payloads verbatim as JSON (the browser credential API consumes them as-is), so they are opaque bytes.
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
         Returns: RequestInformation
         """
+        if body is None:
+            raise TypeError("body cannot be null.")
         request_info = RequestInformation(Method.POST, self.url_template, self.path_parameters)
         request_info.configure(request_configuration)
         request_info.headers.try_add("Accept", "application/json")
+        request_info.set_content_from_parsable(self.request_adapter, "application/json", body)
         return request_info
     
     def with_url(self,raw_url: str) -> BeginRequestBuilder:

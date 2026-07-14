@@ -10,18 +10,18 @@ if TYPE_CHECKING:
     from .hot_segments.hot_segments_request_builder import HotSegmentsRequestBuilder
     from .stats.stats_request_builder import StatsRequestBuilder
 
-class WithVideoItemRequestBuilder(BaseRequestBuilder):
+class WithVideo_ItemRequestBuilder(BaseRequestBuilder):
     """
-    Builds and executes requests for operations under /analytics/v1/videos/{videoId}
+    Builds and executes requests for operations under /analytics/v1/videos/{video_id}
     """
     def __init__(self,request_adapter: RequestAdapter, path_parameters: Union[str, dict[str, Any]]) -> None:
         """
-        Instantiates a new WithVideoItemRequestBuilder and sets the default values.
+        Instantiates a new WithVideo_ItemRequestBuilder and sets the default values.
         param path_parameters: The raw url or the url-template parameters for the request.
         param request_adapter: The request adapter to use to execute the requests.
         Returns: None
         """
-        super().__init__(request_adapter, "{+baseurl}/analytics/v1/videos/{videoId}", path_parameters)
+        super().__init__(request_adapter, "{+baseurl}/analytics/v1/videos/{video_id}", path_parameters)
     
     @property
     def heatmap(self) -> HeatmapRequestBuilder:

@@ -1,0 +1,7 @@
+from enum import Enum
+
+class MediaType(str, Enum):
+    MEDIA_TYPE_UNSPECIFIED = "MEDIA_TYPE_UNSPECIFIED",
+    MEDIA_TYPE_IMAGE = "MEDIA_TYPE_IMAGE",
+    MEDIA_TYPE_VIDEO = "MEDIA_TYPE_VIDEO",
+

@@ -14,8 +14,8 @@ from typing import Any, Optional, TYPE_CHECKING, Union
 from warnings import warn
 
 if TYPE_CHECKING:
-    from .......models.authv1.verification_sent_response import VerificationSentResponse
-    from .......models.gateway.change_email_body import ChangeEmailBody
+    from .......models.auth.v1.initiate_email_change_request import InitiateEmailChangeRequest
+    from .......models.auth.v1.verification_sent_response import VerificationSentResponse
 
 class ChangeRequestBuilder(BaseRequestBuilder):
     """
@@ -30,10 +30,10 @@ class ChangeRequestBuilder(BaseRequestBuilder):
         """
         super().__init__(request_adapter, "{+baseurl}/auth/v1/users/current/emails/change", path_parameters)
     
-    async def put(self,body: ChangeEmailBody, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> Optional[VerificationSentResponse]:
+    async def put(self,body: InitiateEmailChangeRequest, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> Optional[VerificationSentResponse]:
         """
-        Starts changing the authenticated account's email address. A verificationcode is sent to the new address; the change is applied only after the codeis confirmed via `POST /auth/v1/email/verify`. Subject to rate limiting per account.
-        param body: New email address
+        InitiateEmailChange
+        param body: The request body
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
         Returns: Optional[VerificationSentResponse]
         """
@@ -44,14 +44,14 @@ class ChangeRequestBuilder(BaseRequestBuilder):
         )
         if not self.request_adapter:
             raise Exception("Http core is null") 
-        from .......models.authv1.verification_sent_response import VerificationSentResponse
+        from .......models.auth.v1.verification_sent_response import VerificationSentResponse
 
         return await self.request_adapter.send_async(request_info, VerificationSentResponse, None)
     
-    def to_put_request_information(self,body: ChangeEmailBody, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> RequestInformation:
+    def to_put_request_information(self,body: InitiateEmailChangeRequest, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> RequestInformation:
         """
-        Starts changing the authenticated account's email address. A verificationcode is sent to the new address; the change is applied only after the codeis confirmed via `POST /auth/v1/email/verify`. Subject to rate limiting per account.
-        param body: New email address
+        InitiateEmailChange
+        param body: The request body
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
         Returns: RequestInformation
         """

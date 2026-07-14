@@ -14,7 +14,7 @@ from typing import Any, Optional, TYPE_CHECKING, Union
 from warnings import warn
 
 if TYPE_CHECKING:
-    from .....models.authv1.blog_subscription_response import BlogSubscriptionResponse
+    from .....models.auth.v1.blog_subscription_response import BlogSubscriptionResponse
 
 class SubscriptionRequestBuilder(BaseRequestBuilder):
     """
@@ -27,11 +27,11 @@ class SubscriptionRequestBuilder(BaseRequestBuilder):
         param request_adapter: The request adapter to use to execute the requests.
         Returns: None
         """
-        super().__init__(request_adapter, "{+baseurl}/auth/v1/blog/subscription", path_parameters)
+        super().__init__(request_adapter, "{+baseurl}/auth/v1/blog/subscription{?userId*}", path_parameters)
     
-    async def get(self,request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> Optional[BlogSubscriptionResponse]:
+    async def get(self,request_configuration: Optional[RequestConfiguration[SubscriptionRequestBuilderGetQueryParameters]] = None) -> Optional[BlogSubscriptionResponse]:
         """
-        Returns whether the authenticated user is subscribed to the blog newsletter.
+        GetBlogSubscription
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
         Returns: Optional[BlogSubscriptionResponse]
         """
@@ -40,13 +40,13 @@ class SubscriptionRequestBuilder(BaseRequestBuilder):
         )
         if not self.request_adapter:
             raise Exception("Http core is null") 
-        from .....models.authv1.blog_subscription_response import BlogSubscriptionResponse
+        from .....models.auth.v1.blog_subscription_response import BlogSubscriptionResponse
 
         return await self.request_adapter.send_async(request_info, BlogSubscriptionResponse, None)
     
-    def to_get_request_information(self,request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> RequestInformation:
+    def to_get_request_information(self,request_configuration: Optional[RequestConfiguration[SubscriptionRequestBuilderGetQueryParameters]] = None) -> RequestInformation:
         """
-        Returns whether the authenticated user is subscribed to the blog newsletter.
+        GetBlogSubscription
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
         Returns: RequestInformation
         """
@@ -66,7 +66,27 @@ class SubscriptionRequestBuilder(BaseRequestBuilder):
         return SubscriptionRequestBuilder(self.request_adapter, raw_url)
     
     @dataclass
-    class SubscriptionRequestBuilderGetRequestConfiguration(RequestConfiguration[QueryParameters]):
+    class SubscriptionRequestBuilderGetQueryParameters():
+        """
+        GetBlogSubscription
+        """
+        def get_query_parameter(self,original_name: str) -> str:
+            """
+            Maps the query parameters names to their encoded names for the URI template parsing.
+            param original_name: The original query parameter name in the class.
+            Returns: str
+            """
+            if original_name is None:
+                raise TypeError("original_name cannot be null.")
+            if original_name == "user_id":
+                return "userId"
+            return original_name
+        
+        user_id: Optional[str] = None
+
+    
+    @dataclass
+    class SubscriptionRequestBuilderGetRequestConfiguration(RequestConfiguration[SubscriptionRequestBuilderGetQueryParameters]):
         """
         Configuration for the request such as headers, query parameters, and middleware options.
         """

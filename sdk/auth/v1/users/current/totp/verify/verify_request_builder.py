@@ -14,8 +14,8 @@ from typing import Any, Optional, TYPE_CHECKING, Union
 from warnings import warn
 
 if TYPE_CHECKING:
-    from .......models.authv1.token_response import TokenResponse
-    from .......models.gateway.verify_o_t_p_body import VerifyOTPBody
+    from .......models.auth.v1.token_response import TokenResponse
+    from .......models.auth.v1.verify_o_t_p_request import VerifyOTPRequest
 
 class VerifyRequestBuilder(BaseRequestBuilder):
     """
@@ -30,10 +30,10 @@ class VerifyRequestBuilder(BaseRequestBuilder):
         """
         super().__init__(request_adapter, "{+baseurl}/auth/v1/users/current/totp/verify", path_parameters)
     
-    async def post(self,body: VerifyOTPBody, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> Optional[TokenResponse]:
+    async def post(self,body: VerifyOTPRequest, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> Optional[TokenResponse]:
         """
-        Verifies the submitted TOTP code against the user's pending setup secret and, if valid, enables TOTP two-factor authentication and returns refreshed tokens.
-        param body: TOTP code
+        VerifyOTP
+        param body: The request body
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
         Returns: Optional[TokenResponse]
         """
@@ -44,14 +44,14 @@ class VerifyRequestBuilder(BaseRequestBuilder):
         )
         if not self.request_adapter:
             raise Exception("Http core is null") 
-        from .......models.authv1.token_response import TokenResponse
+        from .......models.auth.v1.token_response import TokenResponse
 
         return await self.request_adapter.send_async(request_info, TokenResponse, None)
     
-    def to_post_request_information(self,body: VerifyOTPBody, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> RequestInformation:
+    def to_post_request_information(self,body: VerifyOTPRequest, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> RequestInformation:
         """
-        Verifies the submitted TOTP code against the user's pending setup secret and, if valid, enables TOTP two-factor authentication and returns refreshed tokens.
-        param body: TOTP code
+        VerifyOTP
+        param body: The request body
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
         Returns: RequestInformation
         """

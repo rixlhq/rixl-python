@@ -11,7 +11,6 @@ if TYPE_CHECKING:
     from .checkout.checkout_request_builder import CheckoutRequestBuilder
     from .contact_sales.contact_sales_request_builder import ContactSalesRequestBuilder
     from .invoices.invoices_request_builder import InvoicesRequestBuilder
-    from .jobs.jobs_request_builder import JobsRequestBuilder
     from .payment_methods.payment_methods_request_builder import PaymentMethodsRequestBuilder
     from .plans.plans_request_builder import PlansRequestBuilder
     from .setup_intent.setup_intent_request_builder import SetupIntentRequestBuilder
@@ -76,15 +75,6 @@ class V1RequestBuilder(BaseRequestBuilder):
         from .invoices.invoices_request_builder import InvoicesRequestBuilder
 
         return InvoicesRequestBuilder(self.request_adapter, self.path_parameters)
-    
-    @property
-    def jobs(self) -> JobsRequestBuilder:
-        """
-        The jobs property
-        """
-        from .jobs.jobs_request_builder import JobsRequestBuilder
-
-        return JobsRequestBuilder(self.request_adapter, self.path_parameters)
     
     @property
     def payment_methods(self) -> PaymentMethodsRequestBuilder:

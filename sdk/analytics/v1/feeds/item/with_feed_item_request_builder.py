@@ -8,18 +8,18 @@ from typing import Any, Optional, TYPE_CHECKING, Union
 if TYPE_CHECKING:
     from .stats.stats_request_builder import StatsRequestBuilder
 
-class WithFeedItemRequestBuilder(BaseRequestBuilder):
+class WithFeed_ItemRequestBuilder(BaseRequestBuilder):
     """
-    Builds and executes requests for operations under /analytics/v1/feeds/{feedId}
+    Builds and executes requests for operations under /analytics/v1/feeds/{feed_id}
     """
     def __init__(self,request_adapter: RequestAdapter, path_parameters: Union[str, dict[str, Any]]) -> None:
         """
-        Instantiates a new WithFeedItemRequestBuilder and sets the default values.
+        Instantiates a new WithFeed_ItemRequestBuilder and sets the default values.
         param path_parameters: The raw url or the url-template parameters for the request.
         param request_adapter: The request adapter to use to execute the requests.
         Returns: None
         """
-        super().__init__(request_adapter, "{+baseurl}/analytics/v1/feeds/{feedId}", path_parameters)
+        super().__init__(request_adapter, "{+baseurl}/analytics/v1/feeds/{feed_id}", path_parameters)
     
     @property
     def stats(self) -> StatsRequestBuilder:

@@ -14,11 +14,11 @@ from typing import Any, Optional, TYPE_CHECKING, Union
 from warnings import warn
 
 if TYPE_CHECKING:
-    from ......models.authv1.get_internal_membership_info_response import GetInternalMembershipInfoResponse
+    from ......models.auth.v1.get_internal_membership_info_response import GetInternalMembershipInfoResponse
 
 class InfoRequestBuilder(BaseRequestBuilder):
     """
-    Builds and executes requests for operations under /auth/v1/memberships/{orgId}/info
+    Builds and executes requests for operations under /auth/v1/memberships/{org_-id}/info
     """
     def __init__(self,request_adapter: RequestAdapter, path_parameters: Union[str, dict[str, Any]]) -> None:
         """
@@ -27,11 +27,11 @@ class InfoRequestBuilder(BaseRequestBuilder):
         param request_adapter: The request adapter to use to execute the requests.
         Returns: None
         """
-        super().__init__(request_adapter, "{+baseurl}/auth/v1/memberships/{orgId}/info", path_parameters)
+        super().__init__(request_adapter, "{+baseurl}/auth/v1/memberships/{org_%2Did}/info{?userId*}", path_parameters)
     
-    async def get(self,request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> Optional[GetInternalMembershipInfoResponse]:
+    async def get(self,request_configuration: Optional[RequestConfiguration[InfoRequestBuilderGetQueryParameters]] = None) -> Optional[GetInternalMembershipInfoResponse]:
         """
-        Returns the authenticated user's membership info (email) for an organization, with permission-denied when not a member.
+        GetInternalMembershipInfo
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
         Returns: Optional[GetInternalMembershipInfoResponse]
         """
@@ -40,13 +40,13 @@ class InfoRequestBuilder(BaseRequestBuilder):
         )
         if not self.request_adapter:
             raise Exception("Http core is null") 
-        from ......models.authv1.get_internal_membership_info_response import GetInternalMembershipInfoResponse
+        from ......models.auth.v1.get_internal_membership_info_response import GetInternalMembershipInfoResponse
 
         return await self.request_adapter.send_async(request_info, GetInternalMembershipInfoResponse, None)
     
-    def to_get_request_information(self,request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> RequestInformation:
+    def to_get_request_information(self,request_configuration: Optional[RequestConfiguration[InfoRequestBuilderGetQueryParameters]] = None) -> RequestInformation:
         """
-        Returns the authenticated user's membership info (email) for an organization, with permission-denied when not a member.
+        GetInternalMembershipInfo
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
         Returns: RequestInformation
         """
@@ -66,7 +66,27 @@ class InfoRequestBuilder(BaseRequestBuilder):
         return InfoRequestBuilder(self.request_adapter, raw_url)
     
     @dataclass
-    class InfoRequestBuilderGetRequestConfiguration(RequestConfiguration[QueryParameters]):
+    class InfoRequestBuilderGetQueryParameters():
+        """
+        GetInternalMembershipInfo
+        """
+        def get_query_parameter(self,original_name: str) -> str:
+            """
+            Maps the query parameters names to their encoded names for the URI template parsing.
+            param original_name: The original query parameter name in the class.
+            Returns: str
+            """
+            if original_name is None:
+                raise TypeError("original_name cannot be null.")
+            if original_name == "user_id":
+                return "userId"
+            return original_name
+        
+        user_id: Optional[str] = None
+
+    
+    @dataclass
+    class InfoRequestBuilderGetRequestConfiguration(RequestConfiguration[InfoRequestBuilderGetQueryParameters]):
         """
         Configuration for the request such as headers, query parameters, and middleware options.
         """

@@ -14,8 +14,8 @@ from typing import Any, Optional, TYPE_CHECKING, Union
 from warnings import warn
 
 if TYPE_CHECKING:
-    from ....models.authv1.login_response import LoginResponse
-    from ....models.gateway.register_or_login_body import RegisterOrLoginBody
+    from ....models.auth.v1.login_request import LoginRequest
+    from ....models.auth.v1.login_response import LoginResponse
 
 class LoginRequestBuilder(BaseRequestBuilder):
     """
@@ -30,10 +30,10 @@ class LoginRequestBuilder(BaseRequestBuilder):
         """
         super().__init__(request_adapter, "{+baseurl}/auth/v1/login", path_parameters)
     
-    async def post(self,body: RegisterOrLoginBody, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> Optional[LoginResponse]:
+    async def post(self,body: LoginRequest, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> Optional[LoginResponse]:
         """
-        Authenticates a user by email and password and issues access and refresh tokens.
-        param body: Credentials
+        Login
+        param body: The request body
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
         Returns: Optional[LoginResponse]
         """
@@ -44,14 +44,14 @@ class LoginRequestBuilder(BaseRequestBuilder):
         )
         if not self.request_adapter:
             raise Exception("Http core is null") 
-        from ....models.authv1.login_response import LoginResponse
+        from ....models.auth.v1.login_response import LoginResponse
 
         return await self.request_adapter.send_async(request_info, LoginResponse, None)
     
-    def to_post_request_information(self,body: RegisterOrLoginBody, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> RequestInformation:
+    def to_post_request_information(self,body: LoginRequest, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> RequestInformation:
         """
-        Authenticates a user by email and password and issues access and refresh tokens.
-        param body: Credentials
+        Login
+        param body: The request body
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
         Returns: RequestInformation
         """

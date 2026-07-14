@@ -14,8 +14,8 @@ from typing import Any, Optional, TYPE_CHECKING, Union
 from warnings import warn
 
 if TYPE_CHECKING:
-    from ......models.authv1.update_name_response import UpdateNameResponse
-    from ......models.gateway.update_name_body import UpdateNameBody
+    from ......models.auth.v1.update_name_request import UpdateNameRequest
+    from ......models.auth.v1.update_name_response import UpdateNameResponse
 
 class NameRequestBuilder(BaseRequestBuilder):
     """
@@ -30,10 +30,10 @@ class NameRequestBuilder(BaseRequestBuilder):
         """
         super().__init__(request_adapter, "{+baseurl}/auth/v1/users/current/name", path_parameters)
     
-    async def patch(self,body: UpdateNameBody, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> Optional[UpdateNameResponse]:
+    async def patch(self,body: UpdateNameRequest, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> Optional[UpdateNameResponse]:
         """
-        Updates the authenticated user's full name to the provided value.
-        param body: New name
+        UpdateName
+        param body: The request body
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
         Returns: Optional[UpdateNameResponse]
         """
@@ -44,14 +44,14 @@ class NameRequestBuilder(BaseRequestBuilder):
         )
         if not self.request_adapter:
             raise Exception("Http core is null") 
-        from ......models.authv1.update_name_response import UpdateNameResponse
+        from ......models.auth.v1.update_name_response import UpdateNameResponse
 
         return await self.request_adapter.send_async(request_info, UpdateNameResponse, None)
     
-    def to_patch_request_information(self,body: UpdateNameBody, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> RequestInformation:
+    def to_patch_request_information(self,body: UpdateNameRequest, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> RequestInformation:
         """
-        Updates the authenticated user's full name to the provided value.
-        param body: New name
+        UpdateName
+        param body: The request body
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
         Returns: RequestInformation
         """

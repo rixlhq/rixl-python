@@ -8,18 +8,18 @@ from typing import Any, Optional, TYPE_CHECKING, Union
 if TYPE_CHECKING:
     from .status.status_request_builder import StatusRequestBuilder
 
-class WithInvoiceItemRequestBuilder(BaseRequestBuilder):
+class WithInvoice_ItemRequestBuilder(BaseRequestBuilder):
     """
-    Builds and executes requests for operations under /billing/v1/invoices/{invoiceId}
+    Builds and executes requests for operations under /billing/v1/invoices/{invoice_id}
     """
     def __init__(self,request_adapter: RequestAdapter, path_parameters: Union[str, dict[str, Any]]) -> None:
         """
-        Instantiates a new WithInvoiceItemRequestBuilder and sets the default values.
+        Instantiates a new WithInvoice_ItemRequestBuilder and sets the default values.
         param path_parameters: The raw url or the url-template parameters for the request.
         param request_adapter: The request adapter to use to execute the requests.
         Returns: None
         """
-        super().__init__(request_adapter, "{+baseurl}/billing/v1/invoices/{invoiceId}", path_parameters)
+        super().__init__(request_adapter, "{+baseurl}/billing/v1/invoices/{invoice_id}", path_parameters)
     
     @property
     def status(self) -> StatusRequestBuilder:

@@ -14,8 +14,8 @@ from typing import Any, Optional, TYPE_CHECKING, Union
 from warnings import warn
 
 if TYPE_CHECKING:
-    from .....models.authv1.verify_email_response import VerifyEmailResponse
-    from .....models.gateway.verify_email_body import VerifyEmailBody
+    from .....models.auth.v1.verify_email_request import VerifyEmailRequest
+    from .....models.auth.v1.verify_email_response import VerifyEmailResponse
     from .resend.resend_request_builder import ResendRequestBuilder
 
 class VerifyRequestBuilder(BaseRequestBuilder):
@@ -31,10 +31,10 @@ class VerifyRequestBuilder(BaseRequestBuilder):
         """
         super().__init__(request_adapter, "{+baseurl}/auth/v1/email/verify", path_parameters)
     
-    async def post(self,body: VerifyEmailBody, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> Optional[VerifyEmailResponse]:
+    async def post(self,body: VerifyEmailRequest, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> Optional[VerifyEmailResponse]:
         """
-        Verifies a user's email address using a verification id and the code sent to them.
-        param body: Verification id and code
+        VerifyEmail
+        param body: The request body
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
         Returns: Optional[VerifyEmailResponse]
         """
@@ -45,14 +45,14 @@ class VerifyRequestBuilder(BaseRequestBuilder):
         )
         if not self.request_adapter:
             raise Exception("Http core is null") 
-        from .....models.authv1.verify_email_response import VerifyEmailResponse
+        from .....models.auth.v1.verify_email_response import VerifyEmailResponse
 
         return await self.request_adapter.send_async(request_info, VerifyEmailResponse, None)
     
-    def to_post_request_information(self,body: VerifyEmailBody, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> RequestInformation:
+    def to_post_request_information(self,body: VerifyEmailRequest, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> RequestInformation:
         """
-        Verifies a user's email address using a verification id and the code sent to them.
-        param body: Verification id and code
+        VerifyEmail
+        param body: The request body
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
         Returns: RequestInformation
         """

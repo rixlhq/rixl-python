@@ -14,24 +14,24 @@ from typing import Any, Optional, TYPE_CHECKING, Union
 from warnings import warn
 
 if TYPE_CHECKING:
-    from .........models.videosv1.video_chapters import VideoChapters
+    from .........models.videos.v1.video_chapters import VideoChapters
 
-class WithStartTimeSecItemRequestBuilder(BaseRequestBuilder):
+class WithStart_time_secItemRequestBuilder(BaseRequestBuilder):
     """
-    Builds and executes requests for operations under /media/v1/projects/{projectId}/videos/{videoId}/chapters/{startTimeSec}
+    Builds and executes requests for operations under /media/v1/projects/{project_id}/videos/{video_id}/chapters/{start_time_sec}
     """
     def __init__(self,request_adapter: RequestAdapter, path_parameters: Union[str, dict[str, Any]]) -> None:
         """
-        Instantiates a new WithStartTimeSecItemRequestBuilder and sets the default values.
+        Instantiates a new WithStart_time_secItemRequestBuilder and sets the default values.
         param path_parameters: The raw url or the url-template parameters for the request.
         param request_adapter: The request adapter to use to execute the requests.
         Returns: None
         """
-        super().__init__(request_adapter, "{+baseurl}/media/v1/projects/{projectId}/videos/{videoId}/chapters/{startTimeSec}", path_parameters)
+        super().__init__(request_adapter, "{+baseurl}/media/v1/projects/{project_id}/videos/{video_id}/chapters/{start_time_sec}", path_parameters)
     
     async def delete(self,request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> Optional[VideoChapters]:
         """
-        Removes one chapter identified by its start time (seconds).
+        DeleteVideoChapter
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
         Returns: Optional[VideoChapters]
         """
@@ -40,13 +40,13 @@ class WithStartTimeSecItemRequestBuilder(BaseRequestBuilder):
         )
         if not self.request_adapter:
             raise Exception("Http core is null") 
-        from .........models.videosv1.video_chapters import VideoChapters
+        from .........models.videos.v1.video_chapters import VideoChapters
 
         return await self.request_adapter.send_async(request_info, VideoChapters, None)
     
     def to_delete_request_information(self,request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> RequestInformation:
         """
-        Removes one chapter identified by its start time (seconds).
+        DeleteVideoChapter
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
         Returns: RequestInformation
         """
@@ -55,18 +55,18 @@ class WithStartTimeSecItemRequestBuilder(BaseRequestBuilder):
         request_info.headers.try_add("Accept", "application/json")
         return request_info
     
-    def with_url(self,raw_url: str) -> WithStartTimeSecItemRequestBuilder:
+    def with_url(self,raw_url: str) -> WithStart_time_secItemRequestBuilder:
         """
         Returns a request builder with the provided arbitrary URL. Using this method means any other path or query parameters are ignored.
         param raw_url: The raw URL to use for the request builder.
-        Returns: WithStartTimeSecItemRequestBuilder
+        Returns: WithStart_time_secItemRequestBuilder
         """
         if raw_url is None:
             raise TypeError("raw_url cannot be null.")
-        return WithStartTimeSecItemRequestBuilder(self.request_adapter, raw_url)
+        return WithStart_time_secItemRequestBuilder(self.request_adapter, raw_url)
     
     @dataclass
-    class WithStartTimeSecItemRequestBuilderDeleteRequestConfiguration(RequestConfiguration[QueryParameters]):
+    class WithStart_time_secItemRequestBuilderDeleteRequestConfiguration(RequestConfiguration[QueryParameters]):
         """
         Configuration for the request such as headers, query parameters, and middleware options.
         """

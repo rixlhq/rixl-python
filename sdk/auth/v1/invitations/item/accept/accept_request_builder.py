@@ -14,7 +14,7 @@ from typing import Any, Optional, TYPE_CHECKING, Union
 from warnings import warn
 
 if TYPE_CHECKING:
-    from ......models.authv1.accept_invitation_response import AcceptInvitationResponse
+    from ......models.auth.v1.accept_invitation_response import AcceptInvitationResponse
 
 class AcceptRequestBuilder(BaseRequestBuilder):
     """
@@ -31,7 +31,7 @@ class AcceptRequestBuilder(BaseRequestBuilder):
     
     async def post(self,request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> Optional[AcceptInvitationResponse]:
         """
-        Accepts the organization invitation identified by the provided token.
+        AcceptInvitation
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
         Returns: Optional[AcceptInvitationResponse]
         """
@@ -40,13 +40,13 @@ class AcceptRequestBuilder(BaseRequestBuilder):
         )
         if not self.request_adapter:
             raise Exception("Http core is null") 
-        from ......models.authv1.accept_invitation_response import AcceptInvitationResponse
+        from ......models.auth.v1.accept_invitation_response import AcceptInvitationResponse
 
         return await self.request_adapter.send_async(request_info, AcceptInvitationResponse, None)
     
     def to_post_request_information(self,request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> RequestInformation:
         """
-        Accepts the organization invitation identified by the provided token.
+        AcceptInvitation
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
         Returns: RequestInformation
         """

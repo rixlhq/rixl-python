@@ -14,14 +14,15 @@ from typing import Any, Optional, TYPE_CHECKING, Union
 from warnings import warn
 
 if TYPE_CHECKING:
-    from ......models.authv1.domain_response import DomainResponse
-    from ......models.gateway.create_domain_body import CreateDomainBody
+    from ......models.auth.v1.domain_response import DomainResponse
+    from ......models.google.protobuf.empty import Empty
     from .auto_join.auto_join_request_builder import AutoJoinRequestBuilder
-    from .verification.verification_request_builder import VerificationRequestBuilder
+    from .domain_post_request_body import DomainPostRequestBody
+    from .verify.verify_request_builder import VerifyRequestBuilder
 
 class DomainRequestBuilder(BaseRequestBuilder):
     """
-    Builds and executes requests for operations under /auth/v1/memberships/{orgId}/domain
+    Builds and executes requests for operations under /auth/v1/memberships/{org_-id}/domain
     """
     def __init__(self,request_adapter: RequestAdapter, path_parameters: Union[str, dict[str, Any]]) -> None:
         """
@@ -30,24 +31,26 @@ class DomainRequestBuilder(BaseRequestBuilder):
         param request_adapter: The request adapter to use to execute the requests.
         Returns: None
         """
-        super().__init__(request_adapter, "{+baseurl}/auth/v1/memberships/{orgId}/domain", path_parameters)
+        super().__init__(request_adapter, "{+baseurl}/auth/v1/memberships/{org_%2Did}/domain{?userId*}", path_parameters)
     
-    async def delete(self,request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> None:
+    async def delete(self,request_configuration: Optional[RequestConfiguration[DomainRequestBuilderDeleteQueryParameters]] = None) -> Optional[Empty]:
         """
-        Removes the custom domain from the organization and clears its verification.
+        RemoveDomain
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
-        Returns: None
+        Returns: Optional[Empty]
         """
         request_info = self.to_delete_request_information(
             request_configuration
         )
         if not self.request_adapter:
             raise Exception("Http core is null") 
-        return await self.request_adapter.send_no_response_content_async(request_info, None)
+        from ......models.google.protobuf.empty import Empty
+
+        return await self.request_adapter.send_async(request_info, Empty, None)
     
-    async def get(self,request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> Optional[DomainResponse]:
+    async def get(self,request_configuration: Optional[RequestConfiguration[DomainRequestBuilderGetQueryParameters]] = None) -> Optional[DomainResponse]:
         """
-        Returns the current custom domain and its verification status for the organization.
+        GetDomainStatus
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
         Returns: Optional[DomainResponse]
         """
@@ -56,14 +59,14 @@ class DomainRequestBuilder(BaseRequestBuilder):
         )
         if not self.request_adapter:
             raise Exception("Http core is null") 
-        from ......models.authv1.domain_response import DomainResponse
+        from ......models.auth.v1.domain_response import DomainResponse
 
         return await self.request_adapter.send_async(request_info, DomainResponse, None)
     
-    async def post(self,body: CreateDomainBody, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> Optional[DomainResponse]:
+    async def post(self,body: DomainPostRequestBody, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> Optional[DomainResponse]:
         """
-        Registers a custom domain for the organization and issues verification details to prove ownership.
-        param body: Domain
+        CreateDomainVerification
+        param body: The request body
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
         Returns: Optional[DomainResponse]
         """
@@ -74,23 +77,24 @@ class DomainRequestBuilder(BaseRequestBuilder):
         )
         if not self.request_adapter:
             raise Exception("Http core is null") 
-        from ......models.authv1.domain_response import DomainResponse
+        from ......models.auth.v1.domain_response import DomainResponse
 
         return await self.request_adapter.send_async(request_info, DomainResponse, None)
     
-    def to_delete_request_information(self,request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> RequestInformation:
+    def to_delete_request_information(self,request_configuration: Optional[RequestConfiguration[DomainRequestBuilderDeleteQueryParameters]] = None) -> RequestInformation:
         """
-        Removes the custom domain from the organization and clears its verification.
+        RemoveDomain
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
         Returns: RequestInformation
         """
         request_info = RequestInformation(Method.DELETE, self.url_template, self.path_parameters)
         request_info.configure(request_configuration)
+        request_info.headers.try_add("Accept", "application/json")
         return request_info
     
-    def to_get_request_information(self,request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> RequestInformation:
+    def to_get_request_information(self,request_configuration: Optional[RequestConfiguration[DomainRequestBuilderGetQueryParameters]] = None) -> RequestInformation:
         """
-        Returns the current custom domain and its verification status for the organization.
+        GetDomainStatus
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
         Returns: RequestInformation
         """
@@ -99,10 +103,10 @@ class DomainRequestBuilder(BaseRequestBuilder):
         request_info.headers.try_add("Accept", "application/json")
         return request_info
     
-    def to_post_request_information(self,body: CreateDomainBody, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> RequestInformation:
+    def to_post_request_information(self,body: DomainPostRequestBody, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> RequestInformation:
         """
-        Registers a custom domain for the organization and issues verification details to prove ownership.
-        param body: Domain
+        CreateDomainVerification
+        param body: The request body
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
         Returns: RequestInformation
         """
@@ -134,23 +138,63 @@ class DomainRequestBuilder(BaseRequestBuilder):
         return AutoJoinRequestBuilder(self.request_adapter, self.path_parameters)
     
     @property
-    def verification(self) -> VerificationRequestBuilder:
+    def verify(self) -> VerifyRequestBuilder:
         """
-        The verification property
+        The verify property
         """
-        from .verification.verification_request_builder import VerificationRequestBuilder
+        from .verify.verify_request_builder import VerifyRequestBuilder
 
-        return VerificationRequestBuilder(self.request_adapter, self.path_parameters)
+        return VerifyRequestBuilder(self.request_adapter, self.path_parameters)
     
     @dataclass
-    class DomainRequestBuilderDeleteRequestConfiguration(RequestConfiguration[QueryParameters]):
+    class DomainRequestBuilderDeleteQueryParameters():
+        """
+        RemoveDomain
+        """
+        def get_query_parameter(self,original_name: str) -> str:
+            """
+            Maps the query parameters names to their encoded names for the URI template parsing.
+            param original_name: The original query parameter name in the class.
+            Returns: str
+            """
+            if original_name is None:
+                raise TypeError("original_name cannot be null.")
+            if original_name == "user_id":
+                return "userId"
+            return original_name
+        
+        user_id: Optional[str] = None
+
+    
+    @dataclass
+    class DomainRequestBuilderDeleteRequestConfiguration(RequestConfiguration[DomainRequestBuilderDeleteQueryParameters]):
         """
         Configuration for the request such as headers, query parameters, and middleware options.
         """
         warn("This class is deprecated. Please use the generic RequestConfiguration class generated by the generator.", DeprecationWarning)
     
     @dataclass
-    class DomainRequestBuilderGetRequestConfiguration(RequestConfiguration[QueryParameters]):
+    class DomainRequestBuilderGetQueryParameters():
+        """
+        GetDomainStatus
+        """
+        def get_query_parameter(self,original_name: str) -> str:
+            """
+            Maps the query parameters names to their encoded names for the URI template parsing.
+            param original_name: The original query parameter name in the class.
+            Returns: str
+            """
+            if original_name is None:
+                raise TypeError("original_name cannot be null.")
+            if original_name == "user_id":
+                return "userId"
+            return original_name
+        
+        user_id: Optional[str] = None
+
+    
+    @dataclass
+    class DomainRequestBuilderGetRequestConfiguration(RequestConfiguration[DomainRequestBuilderGetQueryParameters]):
         """
         Configuration for the request such as headers, query parameters, and middleware options.
         """

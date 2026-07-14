@@ -14,24 +14,24 @@ from typing import Any, Optional, TYPE_CHECKING, Union
 from warnings import warn
 
 if TYPE_CHECKING:
-    from ......models.postsv1.post import Post
+    from ......models.posts.v1.post import Post
 
-class WithPostItemRequestBuilder(BaseRequestBuilder):
+class WithPost_ItemRequestBuilder(BaseRequestBuilder):
     """
-    Builds and executes requests for operations under /posts/v1/feeds/{feedId}/{postId}
+    Builds and executes requests for operations under /posts/v1/feeds/{feed_id}/{post_id}
     """
     def __init__(self,request_adapter: RequestAdapter, path_parameters: Union[str, dict[str, Any]]) -> None:
         """
-        Instantiates a new WithPostItemRequestBuilder and sets the default values.
+        Instantiates a new WithPost_ItemRequestBuilder and sets the default values.
         param path_parameters: The raw url or the url-template parameters for the request.
         param request_adapter: The request adapter to use to execute the requests.
         Returns: None
         """
-        super().__init__(request_adapter, "{+baseurl}/posts/v1/feeds/{feedId}/{postId}", path_parameters)
+        super().__init__(request_adapter, "{+baseurl}/posts/v1/feeds/{feed_id}/{post_id}{?projectId*}", path_parameters)
     
-    async def get(self,request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> Optional[Post]:
+    async def get(self,request_configuration: Optional[RequestConfiguration[WithPost_ItemRequestBuilderGetQueryParameters]] = None) -> Optional[Post]:
         """
-        Public, unauthenticated retrieval of a single post by ID.
+        GetPost
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
         Returns: Optional[Post]
         """
@@ -40,13 +40,13 @@ class WithPostItemRequestBuilder(BaseRequestBuilder):
         )
         if not self.request_adapter:
             raise Exception("Http core is null") 
-        from ......models.postsv1.post import Post
+        from ......models.posts.v1.post import Post
 
         return await self.request_adapter.send_async(request_info, Post, None)
     
-    def to_get_request_information(self,request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> RequestInformation:
+    def to_get_request_information(self,request_configuration: Optional[RequestConfiguration[WithPost_ItemRequestBuilderGetQueryParameters]] = None) -> RequestInformation:
         """
-        Public, unauthenticated retrieval of a single post by ID.
+        GetPost
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
         Returns: RequestInformation
         """
@@ -55,18 +55,38 @@ class WithPostItemRequestBuilder(BaseRequestBuilder):
         request_info.headers.try_add("Accept", "application/json")
         return request_info
     
-    def with_url(self,raw_url: str) -> WithPostItemRequestBuilder:
+    def with_url(self,raw_url: str) -> WithPost_ItemRequestBuilder:
         """
         Returns a request builder with the provided arbitrary URL. Using this method means any other path or query parameters are ignored.
         param raw_url: The raw URL to use for the request builder.
-        Returns: WithPostItemRequestBuilder
+        Returns: WithPost_ItemRequestBuilder
         """
         if raw_url is None:
             raise TypeError("raw_url cannot be null.")
-        return WithPostItemRequestBuilder(self.request_adapter, raw_url)
+        return WithPost_ItemRequestBuilder(self.request_adapter, raw_url)
     
     @dataclass
-    class WithPostItemRequestBuilderGetRequestConfiguration(RequestConfiguration[QueryParameters]):
+    class WithPost_ItemRequestBuilderGetQueryParameters():
+        """
+        GetPost
+        """
+        def get_query_parameter(self,original_name: str) -> str:
+            """
+            Maps the query parameters names to their encoded names for the URI template parsing.
+            param original_name: The original query parameter name in the class.
+            Returns: str
+            """
+            if original_name is None:
+                raise TypeError("original_name cannot be null.")
+            if original_name == "project_id":
+                return "projectId"
+            return original_name
+        
+        project_id: Optional[str] = None
+
+    
+    @dataclass
+    class WithPost_ItemRequestBuilderGetRequestConfiguration(RequestConfiguration[WithPost_ItemRequestBuilderGetQueryParameters]):
         """
         Configuration for the request such as headers, query parameters, and middleware options.
         """

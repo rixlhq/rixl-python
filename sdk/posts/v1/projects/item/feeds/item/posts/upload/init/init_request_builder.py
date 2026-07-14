@@ -14,12 +14,12 @@ from typing import Any, Optional, TYPE_CHECKING, Union
 from warnings import warn
 
 if TYPE_CHECKING:
-    from ..........models.gateway.init_upload_body import InitUploadBody
-    from ..........models.postsv1.post_upload_init import PostUploadInit
+    from ..........models.posts.v1.post_upload_init import PostUploadInit
+    from .init_post_request_body import InitPostRequestBody
 
 class InitRequestBuilder(BaseRequestBuilder):
     """
-    Builds and executes requests for operations under /posts/v1/projects/{projectId}/feeds/{feedId}/posts/upload/init
+    Builds and executes requests for operations under /posts/v1/projects/{project_id}/feeds/{feed_id}/posts/upload/init
     """
     def __init__(self,request_adapter: RequestAdapter, path_parameters: Union[str, dict[str, Any]]) -> None:
         """
@@ -28,12 +28,12 @@ class InitRequestBuilder(BaseRequestBuilder):
         param request_adapter: The request adapter to use to execute the requests.
         Returns: None
         """
-        super().__init__(request_adapter, "{+baseurl}/posts/v1/projects/{projectId}/feeds/{feedId}/posts/upload/init", path_parameters)
+        super().__init__(request_adapter, "{+baseurl}/posts/v1/projects/{project_id}/feeds/{feed_id}/posts/upload/init", path_parameters)
     
-    async def post(self,body: InitUploadBody, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> Optional[PostUploadInit]:
+    async def post(self,body: InitPostRequestBody, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> Optional[PostUploadInit]:
         """
-        Begin a media upload and create a draft post
-        param body: Upload initialization request
+        InitPostUpload
+        param body: The request body
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
         Returns: Optional[PostUploadInit]
         """
@@ -44,14 +44,14 @@ class InitRequestBuilder(BaseRequestBuilder):
         )
         if not self.request_adapter:
             raise Exception("Http core is null") 
-        from ..........models.postsv1.post_upload_init import PostUploadInit
+        from ..........models.posts.v1.post_upload_init import PostUploadInit
 
         return await self.request_adapter.send_async(request_info, PostUploadInit, None)
     
-    def to_post_request_information(self,body: InitUploadBody, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> RequestInformation:
+    def to_post_request_information(self,body: InitPostRequestBody, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> RequestInformation:
         """
-        Begin a media upload and create a draft post
-        param body: Upload initialization request
+        InitPostUpload
+        param body: The request body
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
         Returns: RequestInformation
         """

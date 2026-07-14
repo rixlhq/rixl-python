@@ -14,24 +14,24 @@ from typing import Any, Optional, TYPE_CHECKING, Union
 from warnings import warn
 
 if TYPE_CHECKING:
-    from .....models.billingv1.get_plan_response import GetPlanResponse
+    from .....models.billing.v1.get_plan_response import GetPlanResponse
 
-class WithPlanItemRequestBuilder(BaseRequestBuilder):
+class WithPlan_ItemRequestBuilder(BaseRequestBuilder):
     """
-    Builds and executes requests for operations under /billing/v1/plans/{planId}
+    Builds and executes requests for operations under /billing/v1/plans/{plan_id}
     """
     def __init__(self,request_adapter: RequestAdapter, path_parameters: Union[str, dict[str, Any]]) -> None:
         """
-        Instantiates a new WithPlanItemRequestBuilder and sets the default values.
+        Instantiates a new WithPlan_ItemRequestBuilder and sets the default values.
         param path_parameters: The raw url or the url-template parameters for the request.
         param request_adapter: The request adapter to use to execute the requests.
         Returns: None
         """
-        super().__init__(request_adapter, "{+baseurl}/billing/v1/plans/{planId}", path_parameters)
+        super().__init__(request_adapter, "{+baseurl}/billing/v1/plans/{plan_id}", path_parameters)
     
     async def get(self,request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> Optional[GetPlanResponse]:
         """
-        Returns a single billing plan by ID.
+        GetPlan
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
         Returns: Optional[GetPlanResponse]
         """
@@ -40,13 +40,13 @@ class WithPlanItemRequestBuilder(BaseRequestBuilder):
         )
         if not self.request_adapter:
             raise Exception("Http core is null") 
-        from .....models.billingv1.get_plan_response import GetPlanResponse
+        from .....models.billing.v1.get_plan_response import GetPlanResponse
 
         return await self.request_adapter.send_async(request_info, GetPlanResponse, None)
     
     def to_get_request_information(self,request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> RequestInformation:
         """
-        Returns a single billing plan by ID.
+        GetPlan
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
         Returns: RequestInformation
         """
@@ -55,18 +55,18 @@ class WithPlanItemRequestBuilder(BaseRequestBuilder):
         request_info.headers.try_add("Accept", "application/json")
         return request_info
     
-    def with_url(self,raw_url: str) -> WithPlanItemRequestBuilder:
+    def with_url(self,raw_url: str) -> WithPlan_ItemRequestBuilder:
         """
         Returns a request builder with the provided arbitrary URL. Using this method means any other path or query parameters are ignored.
         param raw_url: The raw URL to use for the request builder.
-        Returns: WithPlanItemRequestBuilder
+        Returns: WithPlan_ItemRequestBuilder
         """
         if raw_url is None:
             raise TypeError("raw_url cannot be null.")
-        return WithPlanItemRequestBuilder(self.request_adapter, raw_url)
+        return WithPlan_ItemRequestBuilder(self.request_adapter, raw_url)
     
     @dataclass
-    class WithPlanItemRequestBuilderGetRequestConfiguration(RequestConfiguration[QueryParameters]):
+    class WithPlan_ItemRequestBuilderGetRequestConfiguration(RequestConfiguration[QueryParameters]):
         """
         Configuration for the request such as headers, query parameters, and middleware options.
         """

@@ -14,24 +14,24 @@ from typing import Any, Optional, TYPE_CHECKING, Union
 from warnings import warn
 
 if TYPE_CHECKING:
-    from ..........models.postsv1.list_posts_response import ListPostsResponse
+    from ..........models.posts.v1.list_posts_response import ListPostsResponse
 
-class WithCreatorItemRequestBuilder(BaseRequestBuilder):
+class WithCreator_ItemRequestBuilder(BaseRequestBuilder):
     """
-    Builds and executes requests for operations under /posts/v1/projects/{projectId}/feeds/{feedId}/posts/creators/{creatorId}
+    Builds and executes requests for operations under /posts/v1/projects/{project_id}/feeds/{feed_id}/posts/creators/{creator_id}
     """
     def __init__(self,request_adapter: RequestAdapter, path_parameters: Union[str, dict[str, Any]]) -> None:
         """
-        Instantiates a new WithCreatorItemRequestBuilder and sets the default values.
+        Instantiates a new WithCreator_ItemRequestBuilder and sets the default values.
         param path_parameters: The raw url or the url-template parameters for the request.
         param request_adapter: The request adapter to use to execute the requests.
         Returns: None
         """
-        super().__init__(request_adapter, "{+baseurl}/posts/v1/projects/{projectId}/feeds/{feedId}/posts/creators/{creatorId}{?limit*,offset*}", path_parameters)
+        super().__init__(request_adapter, "{+baseurl}/posts/v1/projects/{project_id}/feeds/{feed_id}/posts/creators/{creator_id}{?pagination%2Elimit*,pagination%2Eoffset*}", path_parameters)
     
-    async def get(self,request_configuration: Optional[RequestConfiguration[WithCreatorItemRequestBuilderGetQueryParameters]] = None) -> Optional[ListPostsResponse]:
+    async def get(self,request_configuration: Optional[RequestConfiguration[WithCreator_ItemRequestBuilderGetQueryParameters]] = None) -> Optional[ListPostsResponse]:
         """
-        List posts in a feed authored by a specific creator
+        ListPosts
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
         Returns: Optional[ListPostsResponse]
         """
@@ -40,13 +40,13 @@ class WithCreatorItemRequestBuilder(BaseRequestBuilder):
         )
         if not self.request_adapter:
             raise Exception("Http core is null") 
-        from ..........models.postsv1.list_posts_response import ListPostsResponse
+        from ..........models.posts.v1.list_posts_response import ListPostsResponse
 
         return await self.request_adapter.send_async(request_info, ListPostsResponse, None)
     
-    def to_get_request_information(self,request_configuration: Optional[RequestConfiguration[WithCreatorItemRequestBuilderGetQueryParameters]] = None) -> RequestInformation:
+    def to_get_request_information(self,request_configuration: Optional[RequestConfiguration[WithCreator_ItemRequestBuilderGetQueryParameters]] = None) -> RequestInformation:
         """
-        List posts in a feed authored by a specific creator
+        ListPosts
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
         Returns: RequestInformation
         """
@@ -55,30 +55,44 @@ class WithCreatorItemRequestBuilder(BaseRequestBuilder):
         request_info.headers.try_add("Accept", "application/json")
         return request_info
     
-    def with_url(self,raw_url: str) -> WithCreatorItemRequestBuilder:
+    def with_url(self,raw_url: str) -> WithCreator_ItemRequestBuilder:
         """
         Returns a request builder with the provided arbitrary URL. Using this method means any other path or query parameters are ignored.
         param raw_url: The raw URL to use for the request builder.
-        Returns: WithCreatorItemRequestBuilder
+        Returns: WithCreator_ItemRequestBuilder
         """
         if raw_url is None:
             raise TypeError("raw_url cannot be null.")
-        return WithCreatorItemRequestBuilder(self.request_adapter, raw_url)
+        return WithCreator_ItemRequestBuilder(self.request_adapter, raw_url)
     
     @dataclass
-    class WithCreatorItemRequestBuilderGetQueryParameters():
+    class WithCreator_ItemRequestBuilderGetQueryParameters():
         """
-        List posts in a feed authored by a specific creator
+        ListPosts
         """
-        # Page size
-        limit: Optional[int] = None
+        def get_query_parameter(self,original_name: str) -> str:
+            """
+            Maps the query parameters names to their encoded names for the URI template parsing.
+            param original_name: The original query parameter name in the class.
+            Returns: str
+            """
+            if original_name is None:
+                raise TypeError("original_name cannot be null.")
+            if original_name == "pagination_limit":
+                return "pagination%2Elimit"
+            if original_name == "pagination_offset":
+                return "pagination%2Eoffset"
+            return original_name
+        
+        # Maximum number of items to return.
+        pagination_limit: Optional[int] = None
 
-        # Page offset
-        offset: Optional[int] = None
+        # Number of items to skip before collecting the result set.
+        pagination_offset: Optional[int] = None
 
     
     @dataclass
-    class WithCreatorItemRequestBuilderGetRequestConfiguration(RequestConfiguration[WithCreatorItemRequestBuilderGetQueryParameters]):
+    class WithCreator_ItemRequestBuilderGetRequestConfiguration(RequestConfiguration[WithCreator_ItemRequestBuilderGetQueryParameters]):
         """
         Configuration for the request such as headers, query parameters, and middleware options.
         """

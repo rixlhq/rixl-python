@@ -14,8 +14,8 @@ from typing import Any, Optional, TYPE_CHECKING, Union
 from warnings import warn
 
 if TYPE_CHECKING:
-    from .....models.billingv1.plan_tax_calculation_response import PlanTaxCalculationResponse
-    from .....models.gateway.calculate_tax_body import CalculateTaxBody
+    from .....models.billing.v1.calculate_tax_request import CalculateTaxRequest
+    from .....models.billing.v1.plan_tax_calculation_response import PlanTaxCalculationResponse
 
 class CalculateRequestBuilder(BaseRequestBuilder):
     """
@@ -30,10 +30,10 @@ class CalculateRequestBuilder(BaseRequestBuilder):
         """
         super().__init__(request_adapter, "{+baseurl}/billing/v1/tax/calculate", path_parameters)
     
-    async def post(self,body: CalculateTaxBody, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> Optional[PlanTaxCalculationResponse]:
+    async def post(self,body: CalculateTaxRequest, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> Optional[PlanTaxCalculationResponse]:
         """
-        Calculate tax for a plan purchase
-        param body: Tax calculation request
+        CalculateTax
+        param body: The request body
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
         Returns: Optional[PlanTaxCalculationResponse]
         """
@@ -44,14 +44,14 @@ class CalculateRequestBuilder(BaseRequestBuilder):
         )
         if not self.request_adapter:
             raise Exception("Http core is null") 
-        from .....models.billingv1.plan_tax_calculation_response import PlanTaxCalculationResponse
+        from .....models.billing.v1.plan_tax_calculation_response import PlanTaxCalculationResponse
 
         return await self.request_adapter.send_async(request_info, PlanTaxCalculationResponse, None)
     
-    def to_post_request_information(self,body: CalculateTaxBody, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> RequestInformation:
+    def to_post_request_information(self,body: CalculateTaxRequest, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> RequestInformation:
         """
-        Calculate tax for a plan purchase
-        param body: Tax calculation request
+        CalculateTax
+        param body: The request body
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
         Returns: RequestInformation
         """

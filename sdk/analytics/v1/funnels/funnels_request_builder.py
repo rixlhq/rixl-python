@@ -14,8 +14,8 @@ from typing import Any, Optional, TYPE_CHECKING, Union
 from warnings import warn
 
 if TYPE_CHECKING:
-    from ....models.analyticsv1.funnel_analytics import FunnelAnalytics
-    from ....models.analyticsv1.funnel_request import FunnelRequest
+    from ....models.analytics.v1.funnel_analytics import FunnelAnalytics
+    from ....models.analytics.v1.funnel_request import FunnelRequest
 
 class FunnelsRequestBuilder(BaseRequestBuilder):
     """
@@ -28,12 +28,12 @@ class FunnelsRequestBuilder(BaseRequestBuilder):
         param request_adapter: The request adapter to use to execute the requests.
         Returns: None
         """
-        super().__init__(request_adapter, "{+baseurl}/analytics/v1/funnels{?end*,start*}", path_parameters)
+        super().__init__(request_adapter, "{+baseurl}/analytics/v1/funnels", path_parameters)
     
-    async def post(self,body: FunnelRequest, request_configuration: Optional[RequestConfiguration[FunnelsRequestBuilderPostQueryParameters]] = None) -> Optional[FunnelAnalytics]:
+    async def post(self,body: FunnelRequest, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> Optional[FunnelAnalytics]:
         """
-        Calculate funnel conversion across a sequence of steps
-        param body: Funnel definition
+        GetFunnelAnalytics
+        param body: The request body
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
         Returns: Optional[FunnelAnalytics]
         """
@@ -44,14 +44,14 @@ class FunnelsRequestBuilder(BaseRequestBuilder):
         )
         if not self.request_adapter:
             raise Exception("Http core is null") 
-        from ....models.analyticsv1.funnel_analytics import FunnelAnalytics
+        from ....models.analytics.v1.funnel_analytics import FunnelAnalytics
 
         return await self.request_adapter.send_async(request_info, FunnelAnalytics, None)
     
-    def to_post_request_information(self,body: FunnelRequest, request_configuration: Optional[RequestConfiguration[FunnelsRequestBuilderPostQueryParameters]] = None) -> RequestInformation:
+    def to_post_request_information(self,body: FunnelRequest, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> RequestInformation:
         """
-        Calculate funnel conversion across a sequence of steps
-        param body: Funnel definition
+        GetFunnelAnalytics
+        param body: The request body
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
         Returns: RequestInformation
         """
@@ -74,19 +74,7 @@ class FunnelsRequestBuilder(BaseRequestBuilder):
         return FunnelsRequestBuilder(self.request_adapter, raw_url)
     
     @dataclass
-    class FunnelsRequestBuilderPostQueryParameters():
-        """
-        Calculate funnel conversion across a sequence of steps
-        """
-        # End date (inclusive)
-        end: Optional[str] = None
-
-        # Start date (inclusive)
-        start: Optional[str] = None
-
-    
-    @dataclass
-    class FunnelsRequestBuilderPostRequestConfiguration(RequestConfiguration[FunnelsRequestBuilderPostQueryParameters]):
+    class FunnelsRequestBuilderPostRequestConfiguration(RequestConfiguration[QueryParameters]):
         """
         Configuration for the request such as headers, query parameters, and middleware options.
         """

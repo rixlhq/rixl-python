@@ -14,11 +14,11 @@ from typing import Any, Optional, TYPE_CHECKING, Union
 from warnings import warn
 
 if TYPE_CHECKING:
-    from ......models.videosv1.list_subtitles_response import ListSubtitlesResponse
+    from ......models.videos.v1.list_subtitles_response import ListSubtitlesResponse
 
 class SubtitlesRequestBuilder(BaseRequestBuilder):
     """
-    Builds and executes requests for operations under /media/v1/videos/{videoId}/subtitles
+    Builds and executes requests for operations under /media/v1/videos/{video_id}/subtitles
     """
     def __init__(self,request_adapter: RequestAdapter, path_parameters: Union[str, dict[str, Any]]) -> None:
         """
@@ -27,11 +27,11 @@ class SubtitlesRequestBuilder(BaseRequestBuilder):
         param request_adapter: The request adapter to use to execute the requests.
         Returns: None
         """
-        super().__init__(request_adapter, "{+baseurl}/media/v1/videos/{videoId}/subtitles", path_parameters)
+        super().__init__(request_adapter, "{+baseurl}/media/v1/videos/{video_id}/subtitles", path_parameters)
     
     async def get(self,request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> Optional[ListSubtitlesResponse]:
         """
-        Returns the subtitles associated with a video.
+        ListSubtitles
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
         Returns: Optional[ListSubtitlesResponse]
         """
@@ -40,13 +40,13 @@ class SubtitlesRequestBuilder(BaseRequestBuilder):
         )
         if not self.request_adapter:
             raise Exception("Http core is null") 
-        from ......models.videosv1.list_subtitles_response import ListSubtitlesResponse
+        from ......models.videos.v1.list_subtitles_response import ListSubtitlesResponse
 
         return await self.request_adapter.send_async(request_info, ListSubtitlesResponse, None)
     
     def to_get_request_information(self,request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> RequestInformation:
         """
-        Returns the subtitles associated with a video.
+        ListSubtitles
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
         Returns: RequestInformation
         """

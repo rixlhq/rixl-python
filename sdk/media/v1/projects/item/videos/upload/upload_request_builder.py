@@ -14,12 +14,12 @@ from typing import Any, Optional, TYPE_CHECKING, Union
 from warnings import warn
 
 if TYPE_CHECKING:
-    from .......models.gateway.create_video_upload_body import CreateVideoUploadBody
-    from .......models.videosv1.video_upload_init import VideoUploadInit
+    from .......models.videos.v1.video_upload_init import VideoUploadInit
+    from .upload_post_request_body import UploadPostRequestBody
 
 class UploadRequestBuilder(BaseRequestBuilder):
     """
-    Builds and executes requests for operations under /media/v1/projects/{projectId}/videos/upload
+    Builds and executes requests for operations under /media/v1/projects/{project_id}/videos/upload
     """
     def __init__(self,request_adapter: RequestAdapter, path_parameters: Union[str, dict[str, Any]]) -> None:
         """
@@ -28,12 +28,12 @@ class UploadRequestBuilder(BaseRequestBuilder):
         param request_adapter: The request adapter to use to execute the requests.
         Returns: None
         """
-        super().__init__(request_adapter, "{+baseurl}/media/v1/projects/{projectId}/videos/upload", path_parameters)
+        super().__init__(request_adapter, "{+baseurl}/media/v1/projects/{project_id}/videos/upload", path_parameters)
     
-    async def post(self,body: CreateVideoUploadBody, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> Optional[VideoUploadInit]:
+    async def post(self,body: UploadPostRequestBody, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> Optional[VideoUploadInit]:
         """
-        Initiates a video upload and returns upload details.
-        param body: Video upload details
+        CreateVideoUpload
+        param body: The request body
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
         Returns: Optional[VideoUploadInit]
         """
@@ -44,14 +44,14 @@ class UploadRequestBuilder(BaseRequestBuilder):
         )
         if not self.request_adapter:
             raise Exception("Http core is null") 
-        from .......models.videosv1.video_upload_init import VideoUploadInit
+        from .......models.videos.v1.video_upload_init import VideoUploadInit
 
         return await self.request_adapter.send_async(request_info, VideoUploadInit, None)
     
-    def to_post_request_information(self,body: CreateVideoUploadBody, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> RequestInformation:
+    def to_post_request_information(self,body: UploadPostRequestBody, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> RequestInformation:
         """
-        Initiates a video upload and returns upload details.
-        param body: Video upload details
+        CreateVideoUpload
+        param body: The request body
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
         Returns: RequestInformation
         """

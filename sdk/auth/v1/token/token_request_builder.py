@@ -14,7 +14,8 @@ from typing import Any, Optional, TYPE_CHECKING, Union
 from warnings import warn
 
 if TYPE_CHECKING:
-    from ....models.authv1.token_response import TokenResponse
+    from ....models.auth.v1.refresh_token_request import RefreshTokenRequest
+    from ....models.auth.v1.token_response import TokenResponse
 
 class TokenRequestBuilder(BaseRequestBuilder):
     """
@@ -29,30 +30,37 @@ class TokenRequestBuilder(BaseRequestBuilder):
         """
         super().__init__(request_adapter, "{+baseurl}/auth/v1/token", path_parameters)
     
-    async def post(self,request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> Optional[TokenResponse]:
+    async def post(self,body: RefreshTokenRequest, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> Optional[TokenResponse]:
         """
-        Exchanges a valid refresh token for a new access token.
+        RefreshToken
+        param body: The request body
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
         Returns: Optional[TokenResponse]
         """
+        if body is None:
+            raise TypeError("body cannot be null.")
         request_info = self.to_post_request_information(
-            request_configuration
+            body, request_configuration
         )
         if not self.request_adapter:
             raise Exception("Http core is null") 
-        from ....models.authv1.token_response import TokenResponse
+        from ....models.auth.v1.token_response import TokenResponse
 
         return await self.request_adapter.send_async(request_info, TokenResponse, None)
     
-    def to_post_request_information(self,request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> RequestInformation:
+    def to_post_request_information(self,body: RefreshTokenRequest, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> RequestInformation:
         """
-        Exchanges a valid refresh token for a new access token.
+        RefreshToken
+        param body: The request body
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
         Returns: RequestInformation
         """
+        if body is None:
+            raise TypeError("body cannot be null.")
         request_info = RequestInformation(Method.POST, self.url_template, self.path_parameters)
         request_info.configure(request_configuration)
         request_info.headers.try_add("Accept", "application/json")
+        request_info.set_content_from_parsable(self.request_adapter, "application/json", body)
         return request_info
     
     def with_url(self,raw_url: str) -> TokenRequestBuilder:

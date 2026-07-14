@@ -14,8 +14,8 @@ from typing import Any, Optional, TYPE_CHECKING, Union
 from warnings import warn
 
 if TYPE_CHECKING:
-    from ....models.authv1.register_response import RegisterResponse
-    from ....models.gateway.register_body import RegisterBody
+    from ....models.auth.v1.register_request import RegisterRequest
+    from ....models.auth.v1.register_response import RegisterResponse
 
 class RegisterRequestBuilder(BaseRequestBuilder):
     """
@@ -30,10 +30,10 @@ class RegisterRequestBuilder(BaseRequestBuilder):
         """
         super().__init__(request_adapter, "{+baseurl}/auth/v1/register", path_parameters)
     
-    async def post(self,body: RegisterBody, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> Optional[RegisterResponse]:
+    async def post(self,body: RegisterRequest, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> Optional[RegisterResponse]:
         """
-        Registers a new user account from an email and password and starts email verification.
-        param body: Credentials
+        Register
+        param body: The request body
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
         Returns: Optional[RegisterResponse]
         """
@@ -44,14 +44,14 @@ class RegisterRequestBuilder(BaseRequestBuilder):
         )
         if not self.request_adapter:
             raise Exception("Http core is null") 
-        from ....models.authv1.register_response import RegisterResponse
+        from ....models.auth.v1.register_response import RegisterResponse
 
         return await self.request_adapter.send_async(request_info, RegisterResponse, None)
     
-    def to_post_request_information(self,body: RegisterBody, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> RequestInformation:
+    def to_post_request_information(self,body: RegisterRequest, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> RequestInformation:
         """
-        Registers a new user account from an email and password and starts email verification.
-        param body: Credentials
+        Register
+        param body: The request body
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
         Returns: RequestInformation
         """

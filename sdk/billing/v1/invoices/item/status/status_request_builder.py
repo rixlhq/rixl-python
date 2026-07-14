@@ -14,12 +14,12 @@ from typing import Any, Optional, TYPE_CHECKING, Union
 from warnings import warn
 
 if TYPE_CHECKING:
-    from ......models.billingv1.invoice import Invoice
-    from ......models.gateway.update_invoice_status_body import UpdateInvoiceStatusBody
+    from ......models.billing.v1.invoice import Invoice
+    from .status_patch_request_body import StatusPatchRequestBody
 
 class StatusRequestBuilder(BaseRequestBuilder):
     """
-    Builds and executes requests for operations under /billing/v1/invoices/{invoiceId}/status
+    Builds and executes requests for operations under /billing/v1/invoices/{invoice_id}/status
     """
     def __init__(self,request_adapter: RequestAdapter, path_parameters: Union[str, dict[str, Any]]) -> None:
         """
@@ -28,36 +28,36 @@ class StatusRequestBuilder(BaseRequestBuilder):
         param request_adapter: The request adapter to use to execute the requests.
         Returns: None
         """
-        super().__init__(request_adapter, "{+baseurl}/billing/v1/invoices/{invoiceId}/status", path_parameters)
+        super().__init__(request_adapter, "{+baseurl}/billing/v1/invoices/{invoice_id}/status", path_parameters)
     
-    async def put(self,body: UpdateInvoiceStatusBody, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> Optional[Invoice]:
+    async def patch(self,body: StatusPatchRequestBody, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> Optional[Invoice]:
         """
-        Updates the status of an invoice (admin).
-        param body: New status
+        UpdateInvoiceStatus
+        param body: The request body
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
         Returns: Optional[Invoice]
         """
         if body is None:
             raise TypeError("body cannot be null.")
-        request_info = self.to_put_request_information(
+        request_info = self.to_patch_request_information(
             body, request_configuration
         )
         if not self.request_adapter:
             raise Exception("Http core is null") 
-        from ......models.billingv1.invoice import Invoice
+        from ......models.billing.v1.invoice import Invoice
 
         return await self.request_adapter.send_async(request_info, Invoice, None)
     
-    def to_put_request_information(self,body: UpdateInvoiceStatusBody, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> RequestInformation:
+    def to_patch_request_information(self,body: StatusPatchRequestBody, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> RequestInformation:
         """
-        Updates the status of an invoice (admin).
-        param body: New status
+        UpdateInvoiceStatus
+        param body: The request body
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
         Returns: RequestInformation
         """
         if body is None:
             raise TypeError("body cannot be null.")
-        request_info = RequestInformation(Method.PUT, self.url_template, self.path_parameters)
+        request_info = RequestInformation(Method.PATCH, self.url_template, self.path_parameters)
         request_info.configure(request_configuration)
         request_info.headers.try_add("Accept", "application/json")
         request_info.set_content_from_parsable(self.request_adapter, "application/json", body)
@@ -74,7 +74,7 @@ class StatusRequestBuilder(BaseRequestBuilder):
         return StatusRequestBuilder(self.request_adapter, raw_url)
     
     @dataclass
-    class StatusRequestBuilderPutRequestConfiguration(RequestConfiguration[QueryParameters]):
+    class StatusRequestBuilderPatchRequestConfiguration(RequestConfiguration[QueryParameters]):
         """
         Configuration for the request such as headers, query parameters, and middleware options.
         """

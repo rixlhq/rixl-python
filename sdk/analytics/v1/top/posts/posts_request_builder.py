@@ -14,7 +14,7 @@ from typing import Any, Optional, TYPE_CHECKING, Union
 from warnings import warn
 
 if TYPE_CHECKING:
-    from .....models.analyticsv1.top_posts_response import TopPostsResponse
+    from .....models.analytics.v1.top_posts_response import TopPostsResponse
 
 class PostsRequestBuilder(BaseRequestBuilder):
     """
@@ -27,11 +27,11 @@ class PostsRequestBuilder(BaseRequestBuilder):
         param request_adapter: The request adapter to use to execute the requests.
         Returns: None
         """
-        super().__init__(request_adapter, "{+baseurl}/analytics/v1/top/posts{?end*,feed_id*,limit*,start*}", path_parameters)
+        super().__init__(request_adapter, "{+baseurl}/analytics/v1/top/posts{?feedId*,limit*,range%2Eend*,range%2Estart*}", path_parameters)
     
     async def get(self,request_configuration: Optional[RequestConfiguration[PostsRequestBuilderGetQueryParameters]] = None) -> Optional[TopPostsResponse]:
         """
-        Returns the top posts over a date range
+        GetTopPosts
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
         Returns: Optional[TopPostsResponse]
         """
@@ -40,13 +40,13 @@ class PostsRequestBuilder(BaseRequestBuilder):
         )
         if not self.request_adapter:
             raise Exception("Http core is null") 
-        from .....models.analyticsv1.top_posts_response import TopPostsResponse
+        from .....models.analytics.v1.top_posts_response import TopPostsResponse
 
         return await self.request_adapter.send_async(request_info, TopPostsResponse, None)
     
     def to_get_request_information(self,request_configuration: Optional[RequestConfiguration[PostsRequestBuilderGetQueryParameters]] = None) -> RequestInformation:
         """
-        Returns the top posts over a date range
+        GetTopPosts
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
         Returns: RequestInformation
         """
@@ -68,19 +68,33 @@ class PostsRequestBuilder(BaseRequestBuilder):
     @dataclass
     class PostsRequestBuilderGetQueryParameters():
         """
-        Returns the top posts over a date range
+        GetTopPosts
         """
-        # End date (inclusive)
-        end: Optional[str] = None
-
-        # Filter by feed
+        def get_query_parameter(self,original_name: str) -> str:
+            """
+            Maps the query parameters names to their encoded names for the URI template parsing.
+            param original_name: The original query parameter name in the class.
+            Returns: str
+            """
+            if original_name is None:
+                raise TypeError("original_name cannot be null.")
+            if original_name == "feed_id":
+                return "feedId"
+            if original_name == "range_end":
+                return "range%2Eend"
+            if original_name == "range_start":
+                return "range%2Estart"
+            if original_name == "limit":
+                return "limit"
+            return original_name
+        
         feed_id: Optional[str] = None
 
-        # Maximum number of results
-        limit: Optional[str] = None
+        limit: Optional[int] = None
 
-        # Start date (inclusive)
-        start: Optional[str] = None
+        range_end: Optional[str] = None
+
+        range_start: Optional[str] = None
 
     
     @dataclass

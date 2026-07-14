@@ -14,12 +14,12 @@ from typing import Any, Optional, TYPE_CHECKING, Union
 from warnings import warn
 
 if TYPE_CHECKING:
-    from ..........models.gateway.complete_track_upload_body import CompleteTrackUploadBody
-    from ..........models.videosv1.upload_ack import UploadAck
+    from ..........models.google.protobuf.empty import Empty
+    from .complete_post_request_body import CompletePostRequestBody
 
 class CompleteRequestBuilder(BaseRequestBuilder):
     """
-    Builds and executes requests for operations under /media/v1/projects/{projectId}/videos/{videoId}/subtitles/upload/complete
+    Builds and executes requests for operations under /media/v1/projects/{project_id}/videos/{video_id}/subtitles/upload/complete
     """
     def __init__(self,request_adapter: RequestAdapter, path_parameters: Union[str, dict[str, Any]]) -> None:
         """
@@ -28,14 +28,14 @@ class CompleteRequestBuilder(BaseRequestBuilder):
         param request_adapter: The request adapter to use to execute the requests.
         Returns: None
         """
-        super().__init__(request_adapter, "{+baseurl}/media/v1/projects/{projectId}/videos/{videoId}/subtitles/upload/complete", path_parameters)
+        super().__init__(request_adapter, "{+baseurl}/media/v1/projects/{project_id}/videos/{video_id}/subtitles/upload/complete", path_parameters)
     
-    async def post(self,body: CompleteTrackUploadBody, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> Optional[UploadAck]:
+    async def post(self,body: CompletePostRequestBody, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> Optional[Empty]:
         """
-        Finalizes previously initiated subtitle uploads.
-        param body: Uploaded subtitles
+        CompleteSubtitleUpload
+        param body: The request body
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
-        Returns: Optional[UploadAck]
+        Returns: Optional[Empty]
         """
         if body is None:
             raise TypeError("body cannot be null.")
@@ -44,14 +44,14 @@ class CompleteRequestBuilder(BaseRequestBuilder):
         )
         if not self.request_adapter:
             raise Exception("Http core is null") 
-        from ..........models.videosv1.upload_ack import UploadAck
+        from ..........models.google.protobuf.empty import Empty
 
-        return await self.request_adapter.send_async(request_info, UploadAck, None)
+        return await self.request_adapter.send_async(request_info, Empty, None)
     
-    def to_post_request_information(self,body: CompleteTrackUploadBody, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> RequestInformation:
+    def to_post_request_information(self,body: CompletePostRequestBody, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> RequestInformation:
         """
-        Finalizes previously initiated subtitle uploads.
-        param body: Uploaded subtitles
+        CompleteSubtitleUpload
+        param body: The request body
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
         Returns: RequestInformation
         """

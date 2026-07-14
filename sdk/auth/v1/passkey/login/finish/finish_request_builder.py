@@ -14,8 +14,8 @@ from typing import Any, Optional, TYPE_CHECKING, Union
 from warnings import warn
 
 if TYPE_CHECKING:
-    from ......models.authv1.token_response import TokenResponse
-    from ......models.gateway.passkey_login_finish_body import PasskeyLoginFinishBody
+    from ......models.auth.v1.passkey_login_finish_request import PasskeyLoginFinishRequest
+    from ......models.auth.v1.token_response import TokenResponse
 
 class FinishRequestBuilder(BaseRequestBuilder):
     """
@@ -30,10 +30,10 @@ class FinishRequestBuilder(BaseRequestBuilder):
         """
         super().__init__(request_adapter, "{+baseurl}/auth/v1/passkey/login/finish", path_parameters)
     
-    async def post(self,body: PasskeyLoginFinishBody, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> Optional[TokenResponse]:
+    async def post(self,body: PasskeyLoginFinishRequest, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> Optional[TokenResponse]:
         """
-        Completes a passkey login by verifying the signed WebAuthn credential against the session and returning authentication tokens.
-        param body: session_id and WebAuthn credential
+        PasskeyLoginFinish
+        param body: The request body
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
         Returns: Optional[TokenResponse]
         """
@@ -44,14 +44,14 @@ class FinishRequestBuilder(BaseRequestBuilder):
         )
         if not self.request_adapter:
             raise Exception("Http core is null") 
-        from ......models.authv1.token_response import TokenResponse
+        from ......models.auth.v1.token_response import TokenResponse
 
         return await self.request_adapter.send_async(request_info, TokenResponse, None)
     
-    def to_post_request_information(self,body: PasskeyLoginFinishBody, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> RequestInformation:
+    def to_post_request_information(self,body: PasskeyLoginFinishRequest, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> RequestInformation:
         """
-        Completes a passkey login by verifying the signed WebAuthn credential against the session and returning authentication tokens.
-        param body: session_id and WebAuthn credential
+        PasskeyLoginFinish
+        param body: The request body
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
         Returns: RequestInformation
         """

@@ -14,7 +14,7 @@ from typing import Any, Optional, TYPE_CHECKING, Union
 from warnings import warn
 
 if TYPE_CHECKING:
-    from .....models.authv1.permission_registry_response import PermissionRegistryResponse
+    from .....models.auth.v1.permission_registry_response import PermissionRegistryResponse
 
 class PermissionsRequestBuilder(BaseRequestBuilder):
     """
@@ -31,7 +31,7 @@ class PermissionsRequestBuilder(BaseRequestBuilder):
     
     async def get(self,request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> Optional[PermissionRegistryResponse]:
         """
-        Returns the registered permission names and their bit offsets.
+        ListPermissionRegistry
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
         Returns: Optional[PermissionRegistryResponse]
         """
@@ -40,13 +40,13 @@ class PermissionsRequestBuilder(BaseRequestBuilder):
         )
         if not self.request_adapter:
             raise Exception("Http core is null") 
-        from .....models.authv1.permission_registry_response import PermissionRegistryResponse
+        from .....models.auth.v1.permission_registry_response import PermissionRegistryResponse
 
         return await self.request_adapter.send_async(request_info, PermissionRegistryResponse, None)
     
     def to_get_request_information(self,request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> RequestInformation:
         """
-        Returns the registered permission names and their bit offsets.
+        ListPermissionRegistry
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
         Returns: RequestInformation
         """

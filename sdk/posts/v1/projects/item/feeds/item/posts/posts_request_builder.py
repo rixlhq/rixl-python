@@ -14,16 +14,16 @@ from typing import Any, Optional, TYPE_CHECKING, Union
 from warnings import warn
 
 if TYPE_CHECKING:
-    from ........models.gateway.create_post_body import CreatePostBody
-    from ........models.postsv1.list_posts_response import ListPostsResponse
-    from ........models.postsv1.post import Post
+    from ........models.posts.v1.list_posts_response import ListPostsResponse
+    from ........models.posts.v1.post import Post
     from .creators.creators_request_builder import CreatorsRequestBuilder
-    from .item.with_post_item_request_builder import WithPostItemRequestBuilder
+    from .item.with_post_item_request_builder import WithPost_ItemRequestBuilder
+    from .posts_post_request_body import PostsPostRequestBody
     from .upload.upload_request_builder import UploadRequestBuilder
 
 class PostsRequestBuilder(BaseRequestBuilder):
     """
-    Builds and executes requests for operations under /posts/v1/projects/{projectId}/feeds/{feedId}/posts
+    Builds and executes requests for operations under /posts/v1/projects/{project_id}/feeds/{feed_id}/posts
     """
     def __init__(self,request_adapter: RequestAdapter, path_parameters: Union[str, dict[str, Any]]) -> None:
         """
@@ -32,25 +32,25 @@ class PostsRequestBuilder(BaseRequestBuilder):
         param request_adapter: The request adapter to use to execute the requests.
         Returns: None
         """
-        super().__init__(request_adapter, "{+baseurl}/posts/v1/projects/{projectId}/feeds/{feedId}/posts{?limit*,offset*}", path_parameters)
+        super().__init__(request_adapter, "{+baseurl}/posts/v1/projects/{project_id}/feeds/{feed_id}/posts{?creatorId*,pagination%2Elimit*,pagination%2Eoffset*}", path_parameters)
     
-    def by_post_id(self,post_id: str) -> WithPostItemRequestBuilder:
+    def by_post_id(self,post_id: str) -> WithPost_ItemRequestBuilder:
         """
         Gets an item from the rixl_sdk.posts.v1.projects.item.feeds.item.posts.item collection
-        param post_id: Post ID
-        Returns: WithPostItemRequestBuilder
+        param post_id: Unique identifier of the item
+        Returns: WithPost_ItemRequestBuilder
         """
         if post_id is None:
             raise TypeError("post_id cannot be null.")
-        from .item.with_post_item_request_builder import WithPostItemRequestBuilder
+        from .item.with_post_item_request_builder import WithPost_ItemRequestBuilder
 
         url_tpl_params = get_path_parameters(self.path_parameters)
-        url_tpl_params["postId"] = post_id
-        return WithPostItemRequestBuilder(self.request_adapter, url_tpl_params)
+        url_tpl_params["post_id"] = post_id
+        return WithPost_ItemRequestBuilder(self.request_adapter, url_tpl_params)
     
     async def get(self,request_configuration: Optional[RequestConfiguration[PostsRequestBuilderGetQueryParameters]] = None) -> Optional[ListPostsResponse]:
         """
-        List posts in a feed
+        ListPosts
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
         Returns: Optional[ListPostsResponse]
         """
@@ -59,14 +59,14 @@ class PostsRequestBuilder(BaseRequestBuilder):
         )
         if not self.request_adapter:
             raise Exception("Http core is null") 
-        from ........models.postsv1.list_posts_response import ListPostsResponse
+        from ........models.posts.v1.list_posts_response import ListPostsResponse
 
         return await self.request_adapter.send_async(request_info, ListPostsResponse, None)
     
-    async def post(self,body: CreatePostBody, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> Optional[Post]:
+    async def post(self,body: PostsPostRequestBody, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> Optional[Post]:
         """
-        Create a new post in a feed
-        param body: Post to create
+        CreatePost
+        param body: The request body
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
         Returns: Optional[Post]
         """
@@ -77,13 +77,13 @@ class PostsRequestBuilder(BaseRequestBuilder):
         )
         if not self.request_adapter:
             raise Exception("Http core is null") 
-        from ........models.postsv1.post import Post
+        from ........models.posts.v1.post import Post
 
         return await self.request_adapter.send_async(request_info, Post, None)
     
     def to_get_request_information(self,request_configuration: Optional[RequestConfiguration[PostsRequestBuilderGetQueryParameters]] = None) -> RequestInformation:
         """
-        List posts in a feed
+        ListPosts
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
         Returns: RequestInformation
         """
@@ -92,10 +92,10 @@ class PostsRequestBuilder(BaseRequestBuilder):
         request_info.headers.try_add("Accept", "application/json")
         return request_info
     
-    def to_post_request_information(self,body: CreatePostBody, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> RequestInformation:
+    def to_post_request_information(self,body: PostsPostRequestBody, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> RequestInformation:
         """
-        Create a new post in a feed
-        param body: Post to create
+        CreatePost
+        param body: The request body
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
         Returns: RequestInformation
         """
@@ -138,13 +138,31 @@ class PostsRequestBuilder(BaseRequestBuilder):
     @dataclass
     class PostsRequestBuilderGetQueryParameters():
         """
-        List posts in a feed
+        ListPosts
         """
-        # Page size
-        limit: Optional[int] = None
+        def get_query_parameter(self,original_name: str) -> str:
+            """
+            Maps the query parameters names to their encoded names for the URI template parsing.
+            param original_name: The original query parameter name in the class.
+            Returns: str
+            """
+            if original_name is None:
+                raise TypeError("original_name cannot be null.")
+            if original_name == "creator_id":
+                return "creatorId"
+            if original_name == "pagination_limit":
+                return "pagination%2Elimit"
+            if original_name == "pagination_offset":
+                return "pagination%2Eoffset"
+            return original_name
+        
+        creator_id: Optional[str] = None
 
-        # Page offset
-        offset: Optional[int] = None
+        # Maximum number of items to return.
+        pagination_limit: Optional[int] = None
+
+        # Number of items to skip before collecting the result set.
+        pagination_offset: Optional[int] = None
 
     
     @dataclass

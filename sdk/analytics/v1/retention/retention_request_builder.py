@@ -14,7 +14,8 @@ from typing import Any, Optional, TYPE_CHECKING, Union
 from warnings import warn
 
 if TYPE_CHECKING:
-    from ....models.analyticsv1.retention_analytics import RetentionAnalytics
+    from ....models.analytics.v1.get_retention_request import GetRetentionRequest
+    from ....models.analytics.v1.retention_analytics import RetentionAnalytics
 
 class RetentionRequestBuilder(BaseRequestBuilder):
     """
@@ -27,32 +28,39 @@ class RetentionRequestBuilder(BaseRequestBuilder):
         param request_adapter: The request adapter to use to execute the requests.
         Returns: None
         """
-        super().__init__(request_adapter, "{+baseurl}/analytics/v1/retention{?end*,period*,start*}", path_parameters)
+        super().__init__(request_adapter, "{+baseurl}/analytics/v1/retention", path_parameters)
     
-    async def get(self,request_configuration: Optional[RequestConfiguration[RetentionRequestBuilderGetQueryParameters]] = None) -> Optional[RetentionAnalytics]:
+    async def post(self,body: GetRetentionRequest, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> Optional[RetentionAnalytics]:
         """
-        Returns retention cohorts over a date range
+        GetRetentionAnalytics
+        param body: The request body
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
         Returns: Optional[RetentionAnalytics]
         """
-        request_info = self.to_get_request_information(
-            request_configuration
+        if body is None:
+            raise TypeError("body cannot be null.")
+        request_info = self.to_post_request_information(
+            body, request_configuration
         )
         if not self.request_adapter:
             raise Exception("Http core is null") 
-        from ....models.analyticsv1.retention_analytics import RetentionAnalytics
+        from ....models.analytics.v1.retention_analytics import RetentionAnalytics
 
         return await self.request_adapter.send_async(request_info, RetentionAnalytics, None)
     
-    def to_get_request_information(self,request_configuration: Optional[RequestConfiguration[RetentionRequestBuilderGetQueryParameters]] = None) -> RequestInformation:
+    def to_post_request_information(self,body: GetRetentionRequest, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> RequestInformation:
         """
-        Returns retention cohorts over a date range
+        GetRetentionAnalytics
+        param body: The request body
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
         Returns: RequestInformation
         """
-        request_info = RequestInformation(Method.GET, self.url_template, self.path_parameters)
+        if body is None:
+            raise TypeError("body cannot be null.")
+        request_info = RequestInformation(Method.POST, self.url_template, self.path_parameters)
         request_info.configure(request_configuration)
         request_info.headers.try_add("Accept", "application/json")
+        request_info.set_content_from_parsable(self.request_adapter, "application/json", body)
         return request_info
     
     def with_url(self,raw_url: str) -> RetentionRequestBuilder:
@@ -66,22 +74,7 @@ class RetentionRequestBuilder(BaseRequestBuilder):
         return RetentionRequestBuilder(self.request_adapter, raw_url)
     
     @dataclass
-    class RetentionRequestBuilderGetQueryParameters():
-        """
-        Returns retention cohorts over a date range
-        """
-        # End date (inclusive)
-        end: Optional[str] = None
-
-        # Cohort period (day, week, month)
-        period: Optional[str] = None
-
-        # Start date (inclusive)
-        start: Optional[str] = None
-
-    
-    @dataclass
-    class RetentionRequestBuilderGetRequestConfiguration(RequestConfiguration[RetentionRequestBuilderGetQueryParameters]):
+    class RetentionRequestBuilderPostRequestConfiguration(RequestConfiguration[QueryParameters]):
         """
         Configuration for the request such as headers, query parameters, and middleware options.
         """

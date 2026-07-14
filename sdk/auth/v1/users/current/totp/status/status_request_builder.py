@@ -14,7 +14,7 @@ from typing import Any, Optional, TYPE_CHECKING, Union
 from warnings import warn
 
 if TYPE_CHECKING:
-    from .......models.authv1.o_t_p_status_response import OTPStatusResponse
+    from .......models.auth.v1.o_t_p_status_response import OTPStatusResponse
 
 class StatusRequestBuilder(BaseRequestBuilder):
     """
@@ -27,11 +27,11 @@ class StatusRequestBuilder(BaseRequestBuilder):
         param request_adapter: The request adapter to use to execute the requests.
         Returns: None
         """
-        super().__init__(request_adapter, "{+baseurl}/auth/v1/users/current/totp/status", path_parameters)
+        super().__init__(request_adapter, "{+baseurl}/auth/v1/users/current/totp/status{?userId*}", path_parameters)
     
-    async def get(self,request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> Optional[OTPStatusResponse]:
+    async def get(self,request_configuration: Optional[RequestConfiguration[StatusRequestBuilderGetQueryParameters]] = None) -> Optional[OTPStatusResponse]:
         """
-        Returns whether the authenticated user currently has TOTP two-factor authentication enabled.
+        GetOTPStatus
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
         Returns: Optional[OTPStatusResponse]
         """
@@ -40,13 +40,13 @@ class StatusRequestBuilder(BaseRequestBuilder):
         )
         if not self.request_adapter:
             raise Exception("Http core is null") 
-        from .......models.authv1.o_t_p_status_response import OTPStatusResponse
+        from .......models.auth.v1.o_t_p_status_response import OTPStatusResponse
 
         return await self.request_adapter.send_async(request_info, OTPStatusResponse, None)
     
-    def to_get_request_information(self,request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> RequestInformation:
+    def to_get_request_information(self,request_configuration: Optional[RequestConfiguration[StatusRequestBuilderGetQueryParameters]] = None) -> RequestInformation:
         """
-        Returns whether the authenticated user currently has TOTP two-factor authentication enabled.
+        GetOTPStatus
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
         Returns: RequestInformation
         """
@@ -66,7 +66,27 @@ class StatusRequestBuilder(BaseRequestBuilder):
         return StatusRequestBuilder(self.request_adapter, raw_url)
     
     @dataclass
-    class StatusRequestBuilderGetRequestConfiguration(RequestConfiguration[QueryParameters]):
+    class StatusRequestBuilderGetQueryParameters():
+        """
+        GetOTPStatus
+        """
+        def get_query_parameter(self,original_name: str) -> str:
+            """
+            Maps the query parameters names to their encoded names for the URI template parsing.
+            param original_name: The original query parameter name in the class.
+            Returns: str
+            """
+            if original_name is None:
+                raise TypeError("original_name cannot be null.")
+            if original_name == "user_id":
+                return "userId"
+            return original_name
+        
+        user_id: Optional[str] = None
+
+    
+    @dataclass
+    class StatusRequestBuilderGetRequestConfiguration(RequestConfiguration[StatusRequestBuilderGetQueryParameters]):
         """
         Configuration for the request such as headers, query parameters, and middleware options.
         """

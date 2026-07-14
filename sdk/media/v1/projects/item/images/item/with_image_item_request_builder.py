@@ -14,57 +14,41 @@ from typing import Any, Optional, TYPE_CHECKING, Union
 from warnings import warn
 
 if TYPE_CHECKING:
-    from .......models.imagesv1.delete_result import DeleteResult
-    from .......models.imagesv1.get_image_response import GetImageResponse
+    from .......models.google.protobuf.empty import Empty
     from .upload.upload_request_builder import UploadRequestBuilder
     from .visibility.visibility_request_builder import VisibilityRequestBuilder
 
-class WithImageItemRequestBuilder(BaseRequestBuilder):
+class WithImage_ItemRequestBuilder(BaseRequestBuilder):
     """
-    Builds and executes requests for operations under /media/v1/projects/{projectId}/images/{imageId}
+    Builds and executes requests for operations under /media/v1/projects/{project_id}/images/{image_id}
     """
     def __init__(self,request_adapter: RequestAdapter, path_parameters: Union[str, dict[str, Any]]) -> None:
         """
-        Instantiates a new WithImageItemRequestBuilder and sets the default values.
+        Instantiates a new WithImage_ItemRequestBuilder and sets the default values.
         param path_parameters: The raw url or the url-template parameters for the request.
         param request_adapter: The request adapter to use to execute the requests.
         Returns: None
         """
-        super().__init__(request_adapter, "{+baseurl}/media/v1/projects/{projectId}/images/{imageId}", path_parameters)
+        super().__init__(request_adapter, "{+baseurl}/media/v1/projects/{project_id}/images/{image_id}", path_parameters)
     
-    async def delete(self,request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> Optional[DeleteResult]:
+    async def delete(self,request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> Optional[Empty]:
         """
-        Deletes an image from a project.
+        DeleteImage
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
-        Returns: Optional[DeleteResult]
+        Returns: Optional[Empty]
         """
         request_info = self.to_delete_request_information(
             request_configuration
         )
         if not self.request_adapter:
             raise Exception("Http core is null") 
-        from .......models.imagesv1.delete_result import DeleteResult
+        from .......models.google.protobuf.empty import Empty
 
-        return await self.request_adapter.send_async(request_info, DeleteResult, None)
-    
-    async def get(self,request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> Optional[GetImageResponse]:
-        """
-        Returns a single image within a project, including private media. Requires project access.
-        param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
-        Returns: Optional[GetImageResponse]
-        """
-        request_info = self.to_get_request_information(
-            request_configuration
-        )
-        if not self.request_adapter:
-            raise Exception("Http core is null") 
-        from .......models.imagesv1.get_image_response import GetImageResponse
-
-        return await self.request_adapter.send_async(request_info, GetImageResponse, None)
+        return await self.request_adapter.send_async(request_info, Empty, None)
     
     def to_delete_request_information(self,request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> RequestInformation:
         """
-        Deletes an image from a project.
+        DeleteImage
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
         Returns: RequestInformation
         """
@@ -73,26 +57,15 @@ class WithImageItemRequestBuilder(BaseRequestBuilder):
         request_info.headers.try_add("Accept", "application/json")
         return request_info
     
-    def to_get_request_information(self,request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> RequestInformation:
-        """
-        Returns a single image within a project, including private media. Requires project access.
-        param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
-        Returns: RequestInformation
-        """
-        request_info = RequestInformation(Method.GET, self.url_template, self.path_parameters)
-        request_info.configure(request_configuration)
-        request_info.headers.try_add("Accept", "application/json")
-        return request_info
-    
-    def with_url(self,raw_url: str) -> WithImageItemRequestBuilder:
+    def with_url(self,raw_url: str) -> WithImage_ItemRequestBuilder:
         """
         Returns a request builder with the provided arbitrary URL. Using this method means any other path or query parameters are ignored.
         param raw_url: The raw URL to use for the request builder.
-        Returns: WithImageItemRequestBuilder
+        Returns: WithImage_ItemRequestBuilder
         """
         if raw_url is None:
             raise TypeError("raw_url cannot be null.")
-        return WithImageItemRequestBuilder(self.request_adapter, raw_url)
+        return WithImage_ItemRequestBuilder(self.request_adapter, raw_url)
     
     @property
     def upload(self) -> UploadRequestBuilder:
@@ -113,14 +86,7 @@ class WithImageItemRequestBuilder(BaseRequestBuilder):
         return VisibilityRequestBuilder(self.request_adapter, self.path_parameters)
     
     @dataclass
-    class WithImageItemRequestBuilderDeleteRequestConfiguration(RequestConfiguration[QueryParameters]):
-        """
-        Configuration for the request such as headers, query parameters, and middleware options.
-        """
-        warn("This class is deprecated. Please use the generic RequestConfiguration class generated by the generator.", DeprecationWarning)
-    
-    @dataclass
-    class WithImageItemRequestBuilderGetRequestConfiguration(RequestConfiguration[QueryParameters]):
+    class WithImage_ItemRequestBuilderDeleteRequestConfiguration(RequestConfiguration[QueryParameters]):
         """
         Configuration for the request such as headers, query parameters, and middleware options.
         """

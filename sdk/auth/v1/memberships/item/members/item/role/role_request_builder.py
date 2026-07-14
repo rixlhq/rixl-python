@@ -14,12 +14,12 @@ from typing import Any, Optional, TYPE_CHECKING, Union
 from warnings import warn
 
 if TYPE_CHECKING:
-    from ........models.authv1.membership_mutation import MembershipMutation
-    from ........models.gateway.update_role_body import UpdateRoleBody
+    from ........models.auth.v1.membership_mutation import MembershipMutation
+    from .role_patch_request_body import RolePatchRequestBody
 
 class RoleRequestBuilder(BaseRequestBuilder):
     """
-    Builds and executes requests for operations under /auth/v1/memberships/{orgId}/members/{userId}/role
+    Builds and executes requests for operations under /auth/v1/memberships/{org_-id}/members/{member_-id}/role
     """
     def __init__(self,request_adapter: RequestAdapter, path_parameters: Union[str, dict[str, Any]]) -> None:
         """
@@ -28,36 +28,36 @@ class RoleRequestBuilder(BaseRequestBuilder):
         param request_adapter: The request adapter to use to execute the requests.
         Returns: None
         """
-        super().__init__(request_adapter, "{+baseurl}/auth/v1/memberships/{orgId}/members/{userId}/role", path_parameters)
+        super().__init__(request_adapter, "{+baseurl}/auth/v1/memberships/{org_%2Did}/members/{member_%2Did}/role", path_parameters)
     
-    async def put(self,body: UpdateRoleBody, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> Optional[MembershipMutation]:
+    async def patch(self,body: RolePatchRequestBody, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> Optional[MembershipMutation]:
         """
-        Updates the specified member's role within the organization.
-        param body: Role
+        UpdateMemberRole
+        param body: The request body
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
         Returns: Optional[MembershipMutation]
         """
         if body is None:
             raise TypeError("body cannot be null.")
-        request_info = self.to_put_request_information(
+        request_info = self.to_patch_request_information(
             body, request_configuration
         )
         if not self.request_adapter:
             raise Exception("Http core is null") 
-        from ........models.authv1.membership_mutation import MembershipMutation
+        from ........models.auth.v1.membership_mutation import MembershipMutation
 
         return await self.request_adapter.send_async(request_info, MembershipMutation, None)
     
-    def to_put_request_information(self,body: UpdateRoleBody, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> RequestInformation:
+    def to_patch_request_information(self,body: RolePatchRequestBody, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> RequestInformation:
         """
-        Updates the specified member's role within the organization.
-        param body: Role
+        UpdateMemberRole
+        param body: The request body
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
         Returns: RequestInformation
         """
         if body is None:
             raise TypeError("body cannot be null.")
-        request_info = RequestInformation(Method.PUT, self.url_template, self.path_parameters)
+        request_info = RequestInformation(Method.PATCH, self.url_template, self.path_parameters)
         request_info.configure(request_configuration)
         request_info.headers.try_add("Accept", "application/json")
         request_info.set_content_from_parsable(self.request_adapter, "application/json", body)
@@ -74,7 +74,7 @@ class RoleRequestBuilder(BaseRequestBuilder):
         return RoleRequestBuilder(self.request_adapter, raw_url)
     
     @dataclass
-    class RoleRequestBuilderPutRequestConfiguration(RequestConfiguration[QueryParameters]):
+    class RoleRequestBuilderPatchRequestConfiguration(RequestConfiguration[QueryParameters]):
         """
         Configuration for the request such as headers, query parameters, and middleware options.
         """

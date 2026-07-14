@@ -6,6 +6,7 @@ from kiota_abstractions.request_adapter import RequestAdapter
 from typing import Any, Optional, TYPE_CHECKING, Union
 
 if TYPE_CHECKING:
+    from .broadcast.broadcast_request_builder import BroadcastRequestBuilder
     from .subscribe.subscribe_request_builder import SubscribeRequestBuilder
     from .subscription.subscription_request_builder import SubscriptionRequestBuilder
     from .unsubscribe.unsubscribe_request_builder import UnsubscribeRequestBuilder
@@ -22,6 +23,15 @@ class BlogRequestBuilder(BaseRequestBuilder):
         Returns: None
         """
         super().__init__(request_adapter, "{+baseurl}/auth/v1/blog", path_parameters)
+    
+    @property
+    def broadcast(self) -> BroadcastRequestBuilder:
+        """
+        The broadcast property
+        """
+        from .broadcast.broadcast_request_builder import BroadcastRequestBuilder
+
+        return BroadcastRequestBuilder(self.request_adapter, self.path_parameters)
     
     @property
     def subscribe(self) -> SubscribeRequestBuilder:

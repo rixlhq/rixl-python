@@ -14,11 +14,11 @@ from typing import Any, Optional, TYPE_CHECKING, Union
 from warnings import warn
 
 if TYPE_CHECKING:
-    from ......models.analyticsv1.video_stats import VideoStats
+    from ......models.analytics.v1.video_stats import VideoStats
 
 class StatsRequestBuilder(BaseRequestBuilder):
     """
-    Builds and executes requests for operations under /analytics/v1/videos/{videoId}/stats
+    Builds and executes requests for operations under /analytics/v1/videos/{video_id}/stats
     """
     def __init__(self,request_adapter: RequestAdapter, path_parameters: Union[str, dict[str, Any]]) -> None:
         """
@@ -27,11 +27,11 @@ class StatsRequestBuilder(BaseRequestBuilder):
         param request_adapter: The request adapter to use to execute the requests.
         Returns: None
         """
-        super().__init__(request_adapter, "{+baseurl}/analytics/v1/videos/{videoId}/stats{?end*,start*}", path_parameters)
+        super().__init__(request_adapter, "{+baseurl}/analytics/v1/videos/{video_id}/stats{?range%2Eend*,range%2Estart*}", path_parameters)
     
     async def get(self,request_configuration: Optional[RequestConfiguration[StatsRequestBuilderGetQueryParameters]] = None) -> Optional[VideoStats]:
         """
-        Returns aggregated statistics for a video over a date range
+        GetVideoStats
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
         Returns: Optional[VideoStats]
         """
@@ -40,13 +40,13 @@ class StatsRequestBuilder(BaseRequestBuilder):
         )
         if not self.request_adapter:
             raise Exception("Http core is null") 
-        from ......models.analyticsv1.video_stats import VideoStats
+        from ......models.analytics.v1.video_stats import VideoStats
 
         return await self.request_adapter.send_async(request_info, VideoStats, None)
     
     def to_get_request_information(self,request_configuration: Optional[RequestConfiguration[StatsRequestBuilderGetQueryParameters]] = None) -> RequestInformation:
         """
-        Returns aggregated statistics for a video over a date range
+        GetVideoStats
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
         Returns: RequestInformation
         """
@@ -68,13 +68,25 @@ class StatsRequestBuilder(BaseRequestBuilder):
     @dataclass
     class StatsRequestBuilderGetQueryParameters():
         """
-        Returns aggregated statistics for a video over a date range
+        GetVideoStats
         """
-        # End date (inclusive)
-        end: Optional[str] = None
+        def get_query_parameter(self,original_name: str) -> str:
+            """
+            Maps the query parameters names to their encoded names for the URI template parsing.
+            param original_name: The original query parameter name in the class.
+            Returns: str
+            """
+            if original_name is None:
+                raise TypeError("original_name cannot be null.")
+            if original_name == "range_end":
+                return "range%2Eend"
+            if original_name == "range_start":
+                return "range%2Estart"
+            return original_name
+        
+        range_end: Optional[str] = None
 
-        # Start date (inclusive)
-        start: Optional[str] = None
+        range_start: Optional[str] = None
 
     
     @dataclass

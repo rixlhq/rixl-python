@@ -13,54 +13,80 @@ from kiota_abstractions.serialization import Parsable, ParsableFactory
 from typing import Any, Optional, TYPE_CHECKING, Union
 from warnings import warn
 
-class WithPaymentMethodItemRequestBuilder(BaseRequestBuilder):
+if TYPE_CHECKING:
+    from .....models.google.protobuf.empty import Empty
+
+class WithPayment_method_ItemRequestBuilder(BaseRequestBuilder):
     """
-    Builds and executes requests for operations under /billing/v1/payment-methods/{paymentMethodId}
+    Builds and executes requests for operations under /billing/v1/payment-methods/{payment_method_id}
     """
     def __init__(self,request_adapter: RequestAdapter, path_parameters: Union[str, dict[str, Any]]) -> None:
         """
-        Instantiates a new WithPaymentMethodItemRequestBuilder and sets the default values.
+        Instantiates a new WithPayment_method_ItemRequestBuilder and sets the default values.
         param path_parameters: The raw url or the url-template parameters for the request.
         param request_adapter: The request adapter to use to execute the requests.
         Returns: None
         """
-        super().__init__(request_adapter, "{+baseurl}/billing/v1/payment-methods/{paymentMethodId}", path_parameters)
+        super().__init__(request_adapter, "{+baseurl}/billing/v1/payment-methods/{payment_method_id}{?orgId*}", path_parameters)
     
-    async def delete(self,request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> None:
+    async def delete(self,request_configuration: Optional[RequestConfiguration[WithPayment_method_ItemRequestBuilderDeleteQueryParameters]] = None) -> Optional[Empty]:
         """
-        Remove a payment method from the organization
+        DeletePaymentMethod
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
-        Returns: None
+        Returns: Optional[Empty]
         """
         request_info = self.to_delete_request_information(
             request_configuration
         )
         if not self.request_adapter:
             raise Exception("Http core is null") 
-        return await self.request_adapter.send_no_response_content_async(request_info, None)
+        from .....models.google.protobuf.empty import Empty
+
+        return await self.request_adapter.send_async(request_info, Empty, None)
     
-    def to_delete_request_information(self,request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> RequestInformation:
+    def to_delete_request_information(self,request_configuration: Optional[RequestConfiguration[WithPayment_method_ItemRequestBuilderDeleteQueryParameters]] = None) -> RequestInformation:
         """
-        Remove a payment method from the organization
+        DeletePaymentMethod
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
         Returns: RequestInformation
         """
         request_info = RequestInformation(Method.DELETE, self.url_template, self.path_parameters)
         request_info.configure(request_configuration)
+        request_info.headers.try_add("Accept", "application/json")
         return request_info
     
-    def with_url(self,raw_url: str) -> WithPaymentMethodItemRequestBuilder:
+    def with_url(self,raw_url: str) -> WithPayment_method_ItemRequestBuilder:
         """
         Returns a request builder with the provided arbitrary URL. Using this method means any other path or query parameters are ignored.
         param raw_url: The raw URL to use for the request builder.
-        Returns: WithPaymentMethodItemRequestBuilder
+        Returns: WithPayment_method_ItemRequestBuilder
         """
         if raw_url is None:
             raise TypeError("raw_url cannot be null.")
-        return WithPaymentMethodItemRequestBuilder(self.request_adapter, raw_url)
+        return WithPayment_method_ItemRequestBuilder(self.request_adapter, raw_url)
     
     @dataclass
-    class WithPaymentMethodItemRequestBuilderDeleteRequestConfiguration(RequestConfiguration[QueryParameters]):
+    class WithPayment_method_ItemRequestBuilderDeleteQueryParameters():
+        """
+        DeletePaymentMethod
+        """
+        def get_query_parameter(self,original_name: str) -> str:
+            """
+            Maps the query parameters names to their encoded names for the URI template parsing.
+            param original_name: The original query parameter name in the class.
+            Returns: str
+            """
+            if original_name is None:
+                raise TypeError("original_name cannot be null.")
+            if original_name == "org_id":
+                return "orgId"
+            return original_name
+        
+        org_id: Optional[str] = None
+
+    
+    @dataclass
+    class WithPayment_method_ItemRequestBuilderDeleteRequestConfiguration(RequestConfiguration[WithPayment_method_ItemRequestBuilderDeleteQueryParameters]):
         """
         Configuration for the request such as headers, query parameters, and middleware options.
         """

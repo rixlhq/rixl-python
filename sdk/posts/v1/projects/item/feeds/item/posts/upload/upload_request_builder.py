@@ -11,7 +11,7 @@ if TYPE_CHECKING:
 
 class UploadRequestBuilder(BaseRequestBuilder):
     """
-    Builds and executes requests for operations under /posts/v1/projects/{projectId}/feeds/{feedId}/posts/upload
+    Builds and executes requests for operations under /posts/v1/projects/{project_id}/feeds/{feed_id}/posts/upload
     """
     def __init__(self,request_adapter: RequestAdapter, path_parameters: Union[str, dict[str, Any]]) -> None:
         """
@@ -20,7 +20,7 @@ class UploadRequestBuilder(BaseRequestBuilder):
         param request_adapter: The request adapter to use to execute the requests.
         Returns: None
         """
-        super().__init__(request_adapter, "{+baseurl}/posts/v1/projects/{projectId}/feeds/{feedId}/posts/upload", path_parameters)
+        super().__init__(request_adapter, "{+baseurl}/posts/v1/projects/{project_id}/feeds/{feed_id}/posts/upload", path_parameters)
     
     @property
     def complete(self) -> CompleteRequestBuilder:
