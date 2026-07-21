@@ -5,7 +5,7 @@ from kiota_abstractions.serialization import Parsable, ParseNode, SerializationW
 from typing import Any, Optional, TYPE_CHECKING, Union
 
 if TYPE_CHECKING:
-    from ...common.v1.media_type import MediaType
+    from ...analyticscommon.v1.media_type import MediaType
     from .post_stats_views_by_page import PostStats_viewsByPage
 
 @dataclass
@@ -39,10 +39,10 @@ class PostStats(Parsable):
         The deserialization information for the current model
         Returns: dict[str, Callable[[ParseNode], None]]
         """
-        from ...common.v1.media_type import MediaType
+        from ...analyticscommon.v1.media_type import MediaType
         from .post_stats_views_by_page import PostStats_viewsByPage
 
-        from ...common.v1.media_type import MediaType
+        from ...analyticscommon.v1.media_type import MediaType
         from .post_stats_views_by_page import PostStats_viewsByPage
 
         fields: dict[str, Callable[[Any], None]] = {
