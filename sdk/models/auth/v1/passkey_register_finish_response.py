@@ -8,7 +8,7 @@ from typing import Any, Optional, TYPE_CHECKING, Union
 class PasskeyRegisterFinishResponse(Parsable):
     # The name property
     name: Optional[str] = None
-    # The passkeyId property
+    # The passkey_id property
     passkey_id: Optional[str] = None
     
     @staticmethod
@@ -29,7 +29,7 @@ class PasskeyRegisterFinishResponse(Parsable):
         """
         fields: dict[str, Callable[[Any], None]] = {
             "name": lambda n : setattr(self, 'name', n.get_str_value()),
-            "passkeyId": lambda n : setattr(self, 'passkey_id', n.get_str_value()),
+            "passkey_id": lambda n : setattr(self, 'passkey_id', n.get_str_value()),
         }
         return fields
     
@@ -42,6 +42,6 @@ class PasskeyRegisterFinishResponse(Parsable):
         if writer is None:
             raise TypeError("writer cannot be null.")
         writer.write_str_value("name", self.name)
-        writer.write_str_value("passkeyId", self.passkey_id)
+        writer.write_str_value("passkey_id", self.passkey_id)
     
 

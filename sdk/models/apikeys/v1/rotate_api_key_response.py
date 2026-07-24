@@ -9,7 +9,7 @@ if TYPE_CHECKING:
 
 @dataclass
 class RotateApiKeyResponse(Parsable):
-    # The apiKey property
+    # The api_key property
     api_key: Optional[ApiKey] = None
     
     @staticmethod
@@ -33,7 +33,7 @@ class RotateApiKeyResponse(Parsable):
         from .api_key import ApiKey
 
         fields: dict[str, Callable[[Any], None]] = {
-            "apiKey": lambda n : setattr(self, 'api_key', n.get_object_value(ApiKey)),
+            "api_key": lambda n : setattr(self, 'api_key', n.get_object_value(ApiKey)),
         }
         return fields
     
@@ -45,6 +45,6 @@ class RotateApiKeyResponse(Parsable):
         """
         if writer is None:
             raise TypeError("writer cannot be null.")
-        writer.write_object_value("apiKey", self.api_key)
+        writer.write_object_value("api_key", self.api_key)
     
 

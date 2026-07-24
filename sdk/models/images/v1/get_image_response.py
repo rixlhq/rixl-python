@@ -10,7 +10,7 @@ if TYPE_CHECKING:
 
 @dataclass
 class GetImageResponse(Parsable):
-    # The attachedToVideo property
+    # The attached_to_video property
     attached_to_video: Optional[bool] = None
     # The file property
     file: Optional[ImageFile] = None
@@ -48,7 +48,7 @@ class GetImageResponse(Parsable):
         from .image_file import ImageFile
 
         fields: dict[str, Callable[[Any], None]] = {
-            "attachedToVideo": lambda n : setattr(self, 'attached_to_video', n.get_bool_value()),
+            "attached_to_video": lambda n : setattr(self, 'attached_to_video', n.get_bool_value()),
             "file": lambda n : setattr(self, 'file', n.get_object_value(ImageFile)),
             "height": lambda n : setattr(self, 'height', n.get_int_value()),
             "id": lambda n : setattr(self, 'id', n.get_str_value()),
@@ -66,7 +66,7 @@ class GetImageResponse(Parsable):
         """
         if writer is None:
             raise TypeError("writer cannot be null.")
-        writer.write_bool_value("attachedToVideo", self.attached_to_video)
+        writer.write_bool_value("attached_to_video", self.attached_to_video)
         writer.write_object_value("file", self.file)
         writer.write_int_value("height", self.height)
         writer.write_str_value("id", self.id)

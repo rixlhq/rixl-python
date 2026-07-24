@@ -30,7 +30,7 @@ class BlogSubscriptionResponse(Parsable):
         """
         fields: dict[str, Callable[[Any], None]] = {
             "subscribed": lambda n : setattr(self, 'subscribed', n.get_bool_value()),
-            "subscribedAt": lambda n : setattr(self, 'subscribed_at', n.get_datetime_value()),
+            "subscribed_at": lambda n : setattr(self, 'subscribed_at', n.get_datetime_value()),
         }
         return fields
     
@@ -43,6 +43,6 @@ class BlogSubscriptionResponse(Parsable):
         if writer is None:
             raise TypeError("writer cannot be null.")
         writer.write_bool_value("subscribed", self.subscribed)
-        writer.write_datetime_value("subscribedAt", self.subscribed_at)
+        writer.write_datetime_value("subscribed_at", self.subscribed_at)
     
 

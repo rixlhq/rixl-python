@@ -36,7 +36,7 @@ class TrackUploadInit(Parsable):
         from .track_upload_target import TrackUploadTarget
 
         fields: dict[str, Callable[[Any], None]] = {
-            "expiresAt": lambda n : setattr(self, 'expires_at', n.get_datetime_value()),
+            "expires_at": lambda n : setattr(self, 'expires_at', n.get_datetime_value()),
             "targets": lambda n : setattr(self, 'targets', n.get_collection_of_object_values(TrackUploadTarget)),
         }
         return fields
@@ -49,7 +49,7 @@ class TrackUploadInit(Parsable):
         """
         if writer is None:
             raise TypeError("writer cannot be null.")
-        writer.write_datetime_value("expiresAt", self.expires_at)
+        writer.write_datetime_value("expires_at", self.expires_at)
         writer.write_collection_of_object_values("targets", self.targets)
     
 

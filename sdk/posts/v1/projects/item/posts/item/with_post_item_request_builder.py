@@ -28,7 +28,7 @@ class WithPost_ItemRequestBuilder(BaseRequestBuilder):
         param request_adapter: The request adapter to use to execute the requests.
         Returns: None
         """
-        super().__init__(request_adapter, "{+baseurl}/posts/v1/projects/{project_id}/posts/{post_id}{?feedId*}", path_parameters)
+        super().__init__(request_adapter, "{+baseurl}/posts/v1/projects/{project_id}/posts/{post_id}{?feed_id*}", path_parameters)
     
     async def delete(self,request_configuration: Optional[RequestConfiguration[WithPost_ItemRequestBuilderDeleteQueryParameters]] = None) -> Optional[Empty]:
         """
@@ -97,18 +97,6 @@ class WithPost_ItemRequestBuilder(BaseRequestBuilder):
         """
         DeletePost
         """
-        def get_query_parameter(self,original_name: str) -> str:
-            """
-            Maps the query parameters names to their encoded names for the URI template parsing.
-            param original_name: The original query parameter name in the class.
-            Returns: str
-            """
-            if original_name is None:
-                raise TypeError("original_name cannot be null.")
-            if original_name == "feed_id":
-                return "feedId"
-            return original_name
-        
         # feed_id is accepted from the feed-scoped delete path but not used by the backend (deletion is keyed by post_id).
         feed_id: Optional[str] = None
 
@@ -125,18 +113,6 @@ class WithPost_ItemRequestBuilder(BaseRequestBuilder):
         """
         GetPost
         """
-        def get_query_parameter(self,original_name: str) -> str:
-            """
-            Maps the query parameters names to their encoded names for the URI template parsing.
-            param original_name: The original query parameter name in the class.
-            Returns: str
-            """
-            if original_name is None:
-                raise TypeError("original_name cannot be null.")
-            if original_name == "feed_id":
-                return "feedId"
-            return original_name
-        
         # Populated from feed-scoped routes; the handler resolves by post_id, so this is used only for path binding / optional validation.
         feed_id: Optional[str] = None
 

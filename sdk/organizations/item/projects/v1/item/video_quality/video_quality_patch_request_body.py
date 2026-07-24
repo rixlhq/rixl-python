@@ -9,7 +9,11 @@ if TYPE_CHECKING:
 
 @dataclass
 class VideoQualityPatchRequestBody(Parsable):
-    # The videoQuality property
+    # The org_id property
+    org_id: Optional[str] = None
+    # The project_id property
+    project_id: Optional[str] = None
+    # The video_quality property
     video_quality: Optional[VideoQuality] = None
     
     @staticmethod
@@ -33,7 +37,9 @@ class VideoQualityPatchRequestBody(Parsable):
         from .......models.common.v1.video_quality import VideoQuality
 
         fields: dict[str, Callable[[Any], None]] = {
-            "videoQuality": lambda n : setattr(self, 'video_quality', n.get_enum_value(VideoQuality)),
+            "org_id": lambda n : setattr(self, 'org_id', n.get_str_value()),
+            "project_id": lambda n : setattr(self, 'project_id', n.get_str_value()),
+            "video_quality": lambda n : setattr(self, 'video_quality', n.get_enum_value(VideoQuality)),
         }
         return fields
     
@@ -45,6 +51,8 @@ class VideoQualityPatchRequestBody(Parsable):
         """
         if writer is None:
             raise TypeError("writer cannot be null.")
-        writer.write_enum_value("videoQuality", self.video_quality)
+        writer.write_str_value("org_id", self.org_id)
+        writer.write_str_value("project_id", self.project_id)
+        writer.write_enum_value("video_quality", self.video_quality)
     
 

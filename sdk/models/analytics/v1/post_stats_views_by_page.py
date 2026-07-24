@@ -5,21 +5,21 @@ from kiota_abstractions.serialization import AdditionalDataHolder, Parsable, Par
 from typing import Any, Optional, TYPE_CHECKING, Union
 
 @dataclass
-class PostStats_viewsByPage(AdditionalDataHolder, Parsable):
+class PostStats_views_by_page(AdditionalDataHolder, Parsable):
     # Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
     additional_data: dict[str, Any] = field(default_factory=dict)
 
     
     @staticmethod
-    def create_from_discriminator_value(parse_node: ParseNode) -> PostStats_viewsByPage:
+    def create_from_discriminator_value(parse_node: ParseNode) -> PostStats_views_by_page:
         """
         Creates a new instance of the appropriate class based on discriminator value
         param parse_node: The parse node to use to read the discriminator value and create the object
-        Returns: PostStats_viewsByPage
+        Returns: PostStats_views_by_page
         """
         if parse_node is None:
             raise TypeError("parse_node cannot be null.")
-        return PostStats_viewsByPage()
+        return PostStats_views_by_page()
     
     def get_field_deserializers(self,) -> dict[str, Callable[[ParseNode], None]]:
         """

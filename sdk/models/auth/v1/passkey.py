@@ -8,15 +8,15 @@ from typing import Any, Optional, TYPE_CHECKING, Union
 class Passkey(Parsable):
     # The aaguid property
     aaguid: Optional[str] = None
-    # The backupState property
+    # The backup_state property
     backup_state: Optional[bool] = None
-    # The createdAt property
+    # The created_at property
     created_at: Optional[str] = None
-    # The credentialId property
+    # The credential_id property
     credential_id: Optional[str] = None
     # The id property
     id: Optional[str] = None
-    # The lastUsedAt property
+    # The last_used_at property
     last_used_at: Optional[str] = None
     # The name property
     name: Optional[str] = None
@@ -41,11 +41,11 @@ class Passkey(Parsable):
         """
         fields: dict[str, Callable[[Any], None]] = {
             "aaguid": lambda n : setattr(self, 'aaguid', n.get_str_value()),
-            "backupState": lambda n : setattr(self, 'backup_state', n.get_bool_value()),
-            "createdAt": lambda n : setattr(self, 'created_at', n.get_str_value()),
-            "credentialId": lambda n : setattr(self, 'credential_id', n.get_str_value()),
+            "backup_state": lambda n : setattr(self, 'backup_state', n.get_bool_value()),
+            "created_at": lambda n : setattr(self, 'created_at', n.get_str_value()),
+            "credential_id": lambda n : setattr(self, 'credential_id', n.get_str_value()),
             "id": lambda n : setattr(self, 'id', n.get_str_value()),
-            "lastUsedAt": lambda n : setattr(self, 'last_used_at', n.get_str_value()),
+            "last_used_at": lambda n : setattr(self, 'last_used_at', n.get_str_value()),
             "name": lambda n : setattr(self, 'name', n.get_str_value()),
             "transports": lambda n : setattr(self, 'transports', n.get_collection_of_primitive_values(str)),
         }
@@ -60,11 +60,11 @@ class Passkey(Parsable):
         if writer is None:
             raise TypeError("writer cannot be null.")
         writer.write_str_value("aaguid", self.aaguid)
-        writer.write_bool_value("backupState", self.backup_state)
-        writer.write_str_value("createdAt", self.created_at)
-        writer.write_str_value("credentialId", self.credential_id)
+        writer.write_bool_value("backup_state", self.backup_state)
+        writer.write_str_value("created_at", self.created_at)
+        writer.write_str_value("credential_id", self.credential_id)
         writer.write_str_value("id", self.id)
-        writer.write_str_value("lastUsedAt", self.last_used_at)
+        writer.write_str_value("last_used_at", self.last_used_at)
         writer.write_str_value("name", self.name)
         writer.write_collection_of_primitive_values("transports", self.transports)
     

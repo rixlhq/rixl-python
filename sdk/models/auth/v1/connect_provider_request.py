@@ -10,7 +10,7 @@ if TYPE_CHECKING:
 
 @dataclass
 class ConnectProviderRequest(Parsable):
-    # The countryCode property
+    # The country_code property
     country_code: Optional[str] = None
     # The origin property
     origin: Optional[str] = None
@@ -44,7 +44,7 @@ class ConnectProviderRequest(Parsable):
         from .user_request import UserRequest
 
         fields: dict[str, Callable[[Any], None]] = {
-            "countryCode": lambda n : setattr(self, 'country_code', n.get_str_value()),
+            "country_code": lambda n : setattr(self, 'country_code', n.get_str_value()),
             "origin": lambda n : setattr(self, 'origin', n.get_str_value()),
             "provider": lambda n : setattr(self, 'provider', n.get_enum_value(ExternalAccountProvider)),
             "token": lambda n : setattr(self, 'token', n.get_str_value()),
@@ -60,7 +60,7 @@ class ConnectProviderRequest(Parsable):
         """
         if writer is None:
             raise TypeError("writer cannot be null.")
-        writer.write_str_value("countryCode", self.country_code)
+        writer.write_str_value("country_code", self.country_code)
         writer.write_str_value("origin", self.origin)
         writer.write_enum_value("provider", self.provider)
         writer.write_str_value("token", self.token)

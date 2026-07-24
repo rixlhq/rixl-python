@@ -9,15 +9,15 @@ if TYPE_CHECKING:
 
 @dataclass
 class FunnelAnalytics(Parsable):
-    # The averageTimeHours property
+    # The average_time_hours property
     average_time_hours: Optional[float] = None
-    # The completedUsers property
+    # The completed_users property
     completed_users: Optional[int] = None
-    # The completionRate property
+    # The completion_rate property
     completion_rate: Optional[float] = None
     # The steps property
     steps: Optional[list[FunnelStepResult]] = None
-    # The totalUsers property
+    # The total_users property
     total_users: Optional[int] = None
     
     @staticmethod
@@ -41,11 +41,11 @@ class FunnelAnalytics(Parsable):
         from .funnel_step_result import FunnelStepResult
 
         fields: dict[str, Callable[[Any], None]] = {
-            "averageTimeHours": lambda n : setattr(self, 'average_time_hours', n.get_float_value()),
-            "completedUsers": lambda n : setattr(self, 'completed_users', n.get_int_value()),
-            "completionRate": lambda n : setattr(self, 'completion_rate', n.get_float_value()),
+            "average_time_hours": lambda n : setattr(self, 'average_time_hours', n.get_float_value()),
+            "completed_users": lambda n : setattr(self, 'completed_users', n.get_int_value()),
+            "completion_rate": lambda n : setattr(self, 'completion_rate', n.get_float_value()),
             "steps": lambda n : setattr(self, 'steps', n.get_collection_of_object_values(FunnelStepResult)),
-            "totalUsers": lambda n : setattr(self, 'total_users', n.get_int_value()),
+            "total_users": lambda n : setattr(self, 'total_users', n.get_int_value()),
         }
         return fields
     
@@ -57,10 +57,10 @@ class FunnelAnalytics(Parsable):
         """
         if writer is None:
             raise TypeError("writer cannot be null.")
-        writer.write_float_value("averageTimeHours", self.average_time_hours)
-        writer.write_int_value("completedUsers", self.completed_users)
-        writer.write_float_value("completionRate", self.completion_rate)
+        writer.write_float_value("average_time_hours", self.average_time_hours)
+        writer.write_int_value("completed_users", self.completed_users)
+        writer.write_float_value("completion_rate", self.completion_rate)
         writer.write_collection_of_object_values("steps", self.steps)
-        writer.write_int_value("totalUsers", self.total_users)
+        writer.write_int_value("total_users", self.total_users)
     
 

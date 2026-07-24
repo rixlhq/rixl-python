@@ -9,9 +9,9 @@ if TYPE_CHECKING:
 
 @dataclass
 class AcceptInvitationResponse(Parsable):
-    # The orgId property
+    # The org_id property
     org_id: Optional[str] = None
-    # The orgName property
+    # The org_name property
     org_name: Optional[str] = None
     # The role property
     role: Optional[MembershipRole] = None
@@ -37,8 +37,8 @@ class AcceptInvitationResponse(Parsable):
         from .membership_role import MembershipRole
 
         fields: dict[str, Callable[[Any], None]] = {
-            "orgId": lambda n : setattr(self, 'org_id', n.get_str_value()),
-            "orgName": lambda n : setattr(self, 'org_name', n.get_str_value()),
+            "org_id": lambda n : setattr(self, 'org_id', n.get_str_value()),
+            "org_name": lambda n : setattr(self, 'org_name', n.get_str_value()),
             "role": lambda n : setattr(self, 'role', n.get_enum_value(MembershipRole)),
         }
         return fields
@@ -51,8 +51,8 @@ class AcceptInvitationResponse(Parsable):
         """
         if writer is None:
             raise TypeError("writer cannot be null.")
-        writer.write_str_value("orgId", self.org_id)
-        writer.write_str_value("orgName", self.org_name)
+        writer.write_str_value("org_id", self.org_id)
+        writer.write_str_value("org_name", self.org_name)
         writer.write_enum_value("role", self.role)
     
 

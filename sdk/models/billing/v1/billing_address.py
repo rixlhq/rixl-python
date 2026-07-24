@@ -20,7 +20,7 @@ class BillingAddress(Parsable):
     name: Optional[str] = None
     # The phone property
     phone: Optional[str] = None
-    # The postalCode property
+    # The postal_code property
     postal_code: Optional[str] = None
     # The state property
     state: Optional[str] = None
@@ -49,7 +49,7 @@ class BillingAddress(Parsable):
             "line2": lambda n : setattr(self, 'line2', n.get_str_value()),
             "name": lambda n : setattr(self, 'name', n.get_str_value()),
             "phone": lambda n : setattr(self, 'phone', n.get_str_value()),
-            "postalCode": lambda n : setattr(self, 'postal_code', n.get_str_value()),
+            "postal_code": lambda n : setattr(self, 'postal_code', n.get_str_value()),
             "state": lambda n : setattr(self, 'state', n.get_str_value()),
         }
         return fields
@@ -69,7 +69,7 @@ class BillingAddress(Parsable):
         writer.write_str_value("line2", self.line2)
         writer.write_str_value("name", self.name)
         writer.write_str_value("phone", self.phone)
-        writer.write_str_value("postalCode", self.postal_code)
+        writer.write_str_value("postal_code", self.postal_code)
         writer.write_str_value("state", self.state)
     
 

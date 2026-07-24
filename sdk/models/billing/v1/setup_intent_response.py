@@ -6,9 +6,9 @@ from typing import Any, Optional, TYPE_CHECKING, Union
 
 @dataclass
 class SetupIntentResponse(Parsable):
-    # The clientSecret property
+    # The client_secret property
     client_secret: Optional[str] = None
-    # The setupIntentId property
+    # The setup_intent_id property
     setup_intent_id: Optional[str] = None
     
     @staticmethod
@@ -28,8 +28,8 @@ class SetupIntentResponse(Parsable):
         Returns: dict[str, Callable[[ParseNode], None]]
         """
         fields: dict[str, Callable[[Any], None]] = {
-            "clientSecret": lambda n : setattr(self, 'client_secret', n.get_str_value()),
-            "setupIntentId": lambda n : setattr(self, 'setup_intent_id', n.get_str_value()),
+            "client_secret": lambda n : setattr(self, 'client_secret', n.get_str_value()),
+            "setup_intent_id": lambda n : setattr(self, 'setup_intent_id', n.get_str_value()),
         }
         return fields
     
@@ -41,7 +41,7 @@ class SetupIntentResponse(Parsable):
         """
         if writer is None:
             raise TypeError("writer cannot be null.")
-        writer.write_str_value("clientSecret", self.client_secret)
-        writer.write_str_value("setupIntentId", self.setup_intent_id)
+        writer.write_str_value("client_secret", self.client_secret)
+        writer.write_str_value("setup_intent_id", self.setup_intent_id)
     
 

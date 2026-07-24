@@ -6,7 +6,7 @@ from typing import Any, Optional, TYPE_CHECKING, Union
 
 @dataclass
 class Chapter(Parsable):
-    # The startTimeSec property
+    # The start_time_sec property
     start_time_sec: Optional[float] = None
     # The title property
     title: Optional[str] = None
@@ -28,7 +28,7 @@ class Chapter(Parsable):
         Returns: dict[str, Callable[[ParseNode], None]]
         """
         fields: dict[str, Callable[[Any], None]] = {
-            "startTimeSec": lambda n : setattr(self, 'start_time_sec', n.get_float_value()),
+            "start_time_sec": lambda n : setattr(self, 'start_time_sec', n.get_float_value()),
             "title": lambda n : setattr(self, 'title', n.get_str_value()),
         }
         return fields
@@ -41,7 +41,7 @@ class Chapter(Parsable):
         """
         if writer is None:
             raise TypeError("writer cannot be null.")
-        writer.write_float_value("startTimeSec", self.start_time_sec)
+        writer.write_float_value("start_time_sec", self.start_time_sec)
         writer.write_str_value("title", self.title)
     
 

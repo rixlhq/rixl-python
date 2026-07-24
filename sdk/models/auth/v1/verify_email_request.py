@@ -8,7 +8,7 @@ from typing import Any, Optional, TYPE_CHECKING, Union
 class VerifyEmailRequest(Parsable):
     # The code property
     code: Optional[str] = None
-    # The verificationId property
+    # The verification_id property
     verification_id: Optional[str] = None
     
     @staticmethod
@@ -29,7 +29,7 @@ class VerifyEmailRequest(Parsable):
         """
         fields: dict[str, Callable[[Any], None]] = {
             "code": lambda n : setattr(self, 'code', n.get_str_value()),
-            "verificationId": lambda n : setattr(self, 'verification_id', n.get_str_value()),
+            "verification_id": lambda n : setattr(self, 'verification_id', n.get_str_value()),
         }
         return fields
     
@@ -42,6 +42,6 @@ class VerifyEmailRequest(Parsable):
         if writer is None:
             raise TypeError("writer cannot be null.")
         writer.write_str_value("code", self.code)
-        writer.write_str_value("verificationId", self.verification_id)
+        writer.write_str_value("verification_id", self.verification_id)
     
 

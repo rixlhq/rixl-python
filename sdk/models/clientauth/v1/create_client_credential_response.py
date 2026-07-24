@@ -9,7 +9,7 @@ if TYPE_CHECKING:
 
 @dataclass
 class CreateClientCredentialResponse(Parsable):
-    # The clientSecret property
+    # The client_secret property
     client_secret: Optional[str] = None
     # The credential property
     credential: Optional[ClientCredential] = None
@@ -35,7 +35,7 @@ class CreateClientCredentialResponse(Parsable):
         from .client_credential import ClientCredential
 
         fields: dict[str, Callable[[Any], None]] = {
-            "clientSecret": lambda n : setattr(self, 'client_secret', n.get_str_value()),
+            "client_secret": lambda n : setattr(self, 'client_secret', n.get_str_value()),
             "credential": lambda n : setattr(self, 'credential', n.get_object_value(ClientCredential)),
         }
         return fields
@@ -48,7 +48,7 @@ class CreateClientCredentialResponse(Parsable):
         """
         if writer is None:
             raise TypeError("writer cannot be null.")
-        writer.write_str_value("clientSecret", self.client_secret)
+        writer.write_str_value("client_secret", self.client_secret)
         writer.write_object_value("credential", self.credential)
     
 

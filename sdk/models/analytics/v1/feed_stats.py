@@ -6,11 +6,11 @@ from typing import Any, Optional, TYPE_CHECKING, Union
 
 @dataclass
 class FeedStats(Parsable):
-    # The avgTimePerVisitMs property
+    # The avg_time_per_visit_ms property
     avg_time_per_visit_ms: Optional[float] = None
-    # The feedId property
+    # The feed_id property
     feed_id: Optional[str] = None
-    # The totalWatchTimeMs property
+    # The total_watch_time_ms property
     total_watch_time_ms: Optional[float] = None
     
     @staticmethod
@@ -30,9 +30,9 @@ class FeedStats(Parsable):
         Returns: dict[str, Callable[[ParseNode], None]]
         """
         fields: dict[str, Callable[[Any], None]] = {
-            "avgTimePerVisitMs": lambda n : setattr(self, 'avg_time_per_visit_ms', n.get_float_value()),
-            "feedId": lambda n : setattr(self, 'feed_id', n.get_str_value()),
-            "totalWatchTimeMs": lambda n : setattr(self, 'total_watch_time_ms', n.get_float_value()),
+            "avg_time_per_visit_ms": lambda n : setattr(self, 'avg_time_per_visit_ms', n.get_float_value()),
+            "feed_id": lambda n : setattr(self, 'feed_id', n.get_str_value()),
+            "total_watch_time_ms": lambda n : setattr(self, 'total_watch_time_ms', n.get_float_value()),
         }
         return fields
     
@@ -44,8 +44,8 @@ class FeedStats(Parsable):
         """
         if writer is None:
             raise TypeError("writer cannot be null.")
-        writer.write_float_value("avgTimePerVisitMs", self.avg_time_per_visit_ms)
-        writer.write_str_value("feedId", self.feed_id)
-        writer.write_float_value("totalWatchTimeMs", self.total_watch_time_ms)
+        writer.write_float_value("avg_time_per_visit_ms", self.avg_time_per_visit_ms)
+        writer.write_str_value("feed_id", self.feed_id)
+        writer.write_float_value("total_watch_time_ms", self.total_watch_time_ms)
     
 

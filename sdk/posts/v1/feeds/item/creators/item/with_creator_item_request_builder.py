@@ -27,7 +27,7 @@ class WithCreator_ItemRequestBuilder(BaseRequestBuilder):
         param request_adapter: The request adapter to use to execute the requests.
         Returns: None
         """
-        super().__init__(request_adapter, "{+baseurl}/posts/v1/feeds/{feed_id}/creators/{creator_id}{?pagination%2Elimit*,pagination%2Eoffset*,projectId*}", path_parameters)
+        super().__init__(request_adapter, "{+baseurl}/posts/v1/feeds/{feed_id}/creators/{creator_id}{?pagination%2Elimit*,pagination%2Eoffset*,project_id*}", path_parameters)
     
     async def get(self,request_configuration: Optional[RequestConfiguration[WithCreator_ItemRequestBuilderGetQueryParameters]] = None) -> Optional[ListPostsResponse]:
         """
@@ -83,7 +83,7 @@ class WithCreator_ItemRequestBuilder(BaseRequestBuilder):
             if original_name == "pagination_offset":
                 return "pagination%2Eoffset"
             if original_name == "project_id":
-                return "projectId"
+                return "project_id"
             return original_name
         
         # Maximum number of items to return.

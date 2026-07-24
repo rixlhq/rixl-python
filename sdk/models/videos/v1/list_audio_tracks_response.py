@@ -9,7 +9,7 @@ if TYPE_CHECKING:
 
 @dataclass
 class ListAudioTracksResponse(Parsable):
-    # The audioTracks property
+    # The audio_tracks property
     audio_tracks: Optional[list[AudioTrack]] = None
     
     @staticmethod
@@ -33,7 +33,7 @@ class ListAudioTracksResponse(Parsable):
         from .audio_track import AudioTrack
 
         fields: dict[str, Callable[[Any], None]] = {
-            "audioTracks": lambda n : setattr(self, 'audio_tracks', n.get_collection_of_object_values(AudioTrack)),
+            "audio_tracks": lambda n : setattr(self, 'audio_tracks', n.get_collection_of_object_values(AudioTrack)),
         }
         return fields
     
@@ -45,6 +45,6 @@ class ListAudioTracksResponse(Parsable):
         """
         if writer is None:
             raise TypeError("writer cannot be null.")
-        writer.write_collection_of_object_values("audioTracks", self.audio_tracks)
+        writer.write_collection_of_object_values("audio_tracks", self.audio_tracks)
     
 

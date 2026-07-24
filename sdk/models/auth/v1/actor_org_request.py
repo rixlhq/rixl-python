@@ -6,9 +6,9 @@ from typing import Any, Optional, TYPE_CHECKING, Union
 
 @dataclass
 class ActorOrgRequest(Parsable):
-    # The actorId property
+    # The actor_id property
     actor_id: Optional[str] = None
-    # The orgId property
+    # The org_id property
     org_id: Optional[str] = None
     
     @staticmethod
@@ -28,8 +28,8 @@ class ActorOrgRequest(Parsable):
         Returns: dict[str, Callable[[ParseNode], None]]
         """
         fields: dict[str, Callable[[Any], None]] = {
-            "actorId": lambda n : setattr(self, 'actor_id', n.get_str_value()),
-            "orgId": lambda n : setattr(self, 'org_id', n.get_str_value()),
+            "actor_id": lambda n : setattr(self, 'actor_id', n.get_str_value()),
+            "org_id": lambda n : setattr(self, 'org_id', n.get_str_value()),
         }
         return fields
     
@@ -41,7 +41,7 @@ class ActorOrgRequest(Parsable):
         """
         if writer is None:
             raise TypeError("writer cannot be null.")
-        writer.write_str_value("actorId", self.actor_id)
-        writer.write_str_value("orgId", self.org_id)
+        writer.write_str_value("actor_id", self.actor_id)
+        writer.write_str_value("org_id", self.org_id)
     
 

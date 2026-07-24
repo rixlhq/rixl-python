@@ -15,11 +15,11 @@ class Subtitle(Parsable):
     id: Optional[str] = None
     # The label property
     label: Optional[str] = None
-    # The languageCode property
+    # The language_code property
     language_code: Optional[str] = None
-    # The videoId property
+    # The video_id property
     video_id: Optional[str] = None
-    # The vttPath property
+    # The vtt_path property
     vtt_path: Optional[str] = None
     
     @staticmethod
@@ -46,9 +46,9 @@ class Subtitle(Parsable):
             "format": lambda n : setattr(self, 'format', n.get_enum_value(SubtitleFormat)),
             "id": lambda n : setattr(self, 'id', n.get_str_value()),
             "label": lambda n : setattr(self, 'label', n.get_str_value()),
-            "languageCode": lambda n : setattr(self, 'language_code', n.get_str_value()),
-            "videoId": lambda n : setattr(self, 'video_id', n.get_str_value()),
-            "vttPath": lambda n : setattr(self, 'vtt_path', n.get_str_value()),
+            "language_code": lambda n : setattr(self, 'language_code', n.get_str_value()),
+            "video_id": lambda n : setattr(self, 'video_id', n.get_str_value()),
+            "vtt_path": lambda n : setattr(self, 'vtt_path', n.get_str_value()),
         }
         return fields
     
@@ -63,8 +63,8 @@ class Subtitle(Parsable):
         writer.write_enum_value("format", self.format)
         writer.write_str_value("id", self.id)
         writer.write_str_value("label", self.label)
-        writer.write_str_value("languageCode", self.language_code)
-        writer.write_str_value("videoId", self.video_id)
-        writer.write_str_value("vttPath", self.vtt_path)
+        writer.write_str_value("language_code", self.language_code)
+        writer.write_str_value("video_id", self.video_id)
+        writer.write_str_value("vtt_path", self.vtt_path)
     
 

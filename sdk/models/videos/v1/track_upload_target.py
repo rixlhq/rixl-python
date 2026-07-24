@@ -8,11 +8,11 @@ from typing import Any, Optional, TYPE_CHECKING, Union
 class TrackUploadTarget(Parsable):
     # The id property
     id: Optional[str] = None
-    # The languageCode property
+    # The language_code property
     language_code: Optional[str] = None
-    # The objectKey property
+    # The object_key property
     object_key: Optional[str] = None
-    # The uploadUrl property
+    # The upload_url property
     upload_url: Optional[str] = None
     
     @staticmethod
@@ -33,9 +33,9 @@ class TrackUploadTarget(Parsable):
         """
         fields: dict[str, Callable[[Any], None]] = {
             "id": lambda n : setattr(self, 'id', n.get_str_value()),
-            "languageCode": lambda n : setattr(self, 'language_code', n.get_str_value()),
-            "objectKey": lambda n : setattr(self, 'object_key', n.get_str_value()),
-            "uploadUrl": lambda n : setattr(self, 'upload_url', n.get_str_value()),
+            "language_code": lambda n : setattr(self, 'language_code', n.get_str_value()),
+            "object_key": lambda n : setattr(self, 'object_key', n.get_str_value()),
+            "upload_url": lambda n : setattr(self, 'upload_url', n.get_str_value()),
         }
         return fields
     
@@ -48,8 +48,8 @@ class TrackUploadTarget(Parsable):
         if writer is None:
             raise TypeError("writer cannot be null.")
         writer.write_str_value("id", self.id)
-        writer.write_str_value("languageCode", self.language_code)
-        writer.write_str_value("objectKey", self.object_key)
-        writer.write_str_value("uploadUrl", self.upload_url)
+        writer.write_str_value("language_code", self.language_code)
+        writer.write_str_value("object_key", self.object_key)
+        writer.write_str_value("upload_url", self.upload_url)
     
 

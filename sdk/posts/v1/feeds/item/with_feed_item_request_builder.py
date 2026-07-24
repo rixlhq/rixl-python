@@ -29,7 +29,7 @@ class WithFeed_ItemRequestBuilder(BaseRequestBuilder):
         param request_adapter: The request adapter to use to execute the requests.
         Returns: None
         """
-        super().__init__(request_adapter, "{+baseurl}/posts/v1/feeds/{feed_id}{?creatorId*,pagination%2Elimit*,pagination%2Eoffset*,projectId*}", path_parameters)
+        super().__init__(request_adapter, "{+baseurl}/posts/v1/feeds/{feed_id}{?creator_id*,pagination%2Elimit*,pagination%2Eoffset*,project_id*}", path_parameters)
     
     def by_post_id(self,post_id: str) -> WithPost_ItemRequestBuilder:
         """
@@ -103,14 +103,14 @@ class WithFeed_ItemRequestBuilder(BaseRequestBuilder):
             """
             if original_name is None:
                 raise TypeError("original_name cannot be null.")
-            if original_name == "creator_id":
-                return "creatorId"
             if original_name == "pagination_limit":
                 return "pagination%2Elimit"
             if original_name == "pagination_offset":
                 return "pagination%2Eoffset"
+            if original_name == "creator_id":
+                return "creator_id"
             if original_name == "project_id":
-                return "projectId"
+                return "project_id"
             return original_name
         
         creator_id: Optional[str] = None

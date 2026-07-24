@@ -14,7 +14,7 @@ class FunnelRequest(Parsable):
     range: Optional[DateRange] = None
     # The steps property
     steps: Optional[list[FunnelStep]] = None
-    # The timeWindow property
+    # The time_window property
     time_window: Optional[int] = None
     
     @staticmethod
@@ -42,7 +42,7 @@ class FunnelRequest(Parsable):
         fields: dict[str, Callable[[Any], None]] = {
             "range": lambda n : setattr(self, 'range', n.get_object_value(DateRange)),
             "steps": lambda n : setattr(self, 'steps', n.get_collection_of_object_values(FunnelStep)),
-            "timeWindow": lambda n : setattr(self, 'time_window', n.get_int_value()),
+            "time_window": lambda n : setattr(self, 'time_window', n.get_int_value()),
         }
         return fields
     
@@ -56,6 +56,6 @@ class FunnelRequest(Parsable):
             raise TypeError("writer cannot be null.")
         writer.write_object_value("range", self.range)
         writer.write_collection_of_object_values("steps", self.steps)
-        writer.write_int_value("timeWindow", self.time_window)
+        writer.write_int_value("time_window", self.time_window)
     
 

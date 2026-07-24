@@ -11,13 +11,13 @@ if TYPE_CHECKING:
 
 @dataclass
 class RealtimeStats(Parsable):
-    # The recentEvents property
+    # The recent_events property
     recent_events: Optional[list[RecentEvent]] = None
     # The timestamp property
     timestamp: Optional[str] = None
-    # The topCountries property
+    # The top_countries property
     top_countries: Optional[list[CountryCount]] = None
-    # The topEvents property
+    # The top_events property
     top_events: Optional[list[EventCount]] = None
     
     @staticmethod
@@ -45,10 +45,10 @@ class RealtimeStats(Parsable):
         from .recent_event import RecentEvent
 
         fields: dict[str, Callable[[Any], None]] = {
-            "recentEvents": lambda n : setattr(self, 'recent_events', n.get_collection_of_object_values(RecentEvent)),
+            "recent_events": lambda n : setattr(self, 'recent_events', n.get_collection_of_object_values(RecentEvent)),
             "timestamp": lambda n : setattr(self, 'timestamp', n.get_str_value()),
-            "topCountries": lambda n : setattr(self, 'top_countries', n.get_collection_of_object_values(CountryCount)),
-            "topEvents": lambda n : setattr(self, 'top_events', n.get_collection_of_object_values(EventCount)),
+            "top_countries": lambda n : setattr(self, 'top_countries', n.get_collection_of_object_values(CountryCount)),
+            "top_events": lambda n : setattr(self, 'top_events', n.get_collection_of_object_values(EventCount)),
         }
         return fields
     
@@ -60,9 +60,9 @@ class RealtimeStats(Parsable):
         """
         if writer is None:
             raise TypeError("writer cannot be null.")
-        writer.write_collection_of_object_values("recentEvents", self.recent_events)
+        writer.write_collection_of_object_values("recent_events", self.recent_events)
         writer.write_str_value("timestamp", self.timestamp)
-        writer.write_collection_of_object_values("topCountries", self.top_countries)
-        writer.write_collection_of_object_values("topEvents", self.top_events)
+        writer.write_collection_of_object_values("top_countries", self.top_countries)
+        writer.write_collection_of_object_values("top_events", self.top_events)
     
 

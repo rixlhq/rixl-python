@@ -10,9 +10,9 @@ class PasskeyRegisterFinishRequest(Parsable):
     credential: Optional[bytes] = None
     # The name property
     name: Optional[str] = None
-    # The sessionId property
+    # The session_id property
     session_id: Optional[str] = None
-    # The userId property
+    # The user_id property
     user_id: Optional[str] = None
     
     @staticmethod
@@ -34,8 +34,8 @@ class PasskeyRegisterFinishRequest(Parsable):
         fields: dict[str, Callable[[Any], None]] = {
             "credential": lambda n : setattr(self, 'credential', n.get_bytes_value()),
             "name": lambda n : setattr(self, 'name', n.get_str_value()),
-            "sessionId": lambda n : setattr(self, 'session_id', n.get_str_value()),
-            "userId": lambda n : setattr(self, 'user_id', n.get_str_value()),
+            "session_id": lambda n : setattr(self, 'session_id', n.get_str_value()),
+            "user_id": lambda n : setattr(self, 'user_id', n.get_str_value()),
         }
         return fields
     
@@ -49,7 +49,7 @@ class PasskeyRegisterFinishRequest(Parsable):
             raise TypeError("writer cannot be null.")
         writer.write_bytes_value("credential", self.credential)
         writer.write_str_value("name", self.name)
-        writer.write_str_value("sessionId", self.session_id)
-        writer.write_str_value("userId", self.user_id)
+        writer.write_str_value("session_id", self.session_id)
+        writer.write_str_value("user_id", self.user_id)
     
 

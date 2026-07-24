@@ -28,7 +28,7 @@ class ChaptersRequestBuilder(BaseRequestBuilder):
         param request_adapter: The request adapter to use to execute the requests.
         Returns: None
         """
-        super().__init__(request_adapter, "{+baseurl}/media/v1/projects/{project_id}/videos/{video_id}/chapters{?chapters%2EstartTimeSec*,chapters%2Etitle*}", path_parameters)
+        super().__init__(request_adapter, "{+baseurl}/media/v1/projects/{project_id}/videos/{video_id}/chapters{?chapters%2Estart_time_sec*,chapters%2Etitle*}", path_parameters)
     
     def by_start_time_sec(self,start_time_sec: str) -> WithStart_time_secItemRequestBuilder:
         """
@@ -120,7 +120,7 @@ class ChaptersRequestBuilder(BaseRequestBuilder):
             if original_name is None:
                 raise TypeError("original_name cannot be null.")
             if original_name == "chapters_start_time_sec":
-                return "chapters%2EstartTimeSec"
+                return "chapters%2Estart_time_sec"
             if original_name == "chapters_title":
                 return "chapters%2Etitle"
             return original_name

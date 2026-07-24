@@ -6,7 +6,7 @@ from typing import Any, Optional, TYPE_CHECKING, Union
 
 @dataclass
 class UserRequest(Parsable):
-    # The userId property
+    # The user_id property
     user_id: Optional[str] = None
     
     @staticmethod
@@ -26,7 +26,7 @@ class UserRequest(Parsable):
         Returns: dict[str, Callable[[ParseNode], None]]
         """
         fields: dict[str, Callable[[Any], None]] = {
-            "userId": lambda n : setattr(self, 'user_id', n.get_str_value()),
+            "user_id": lambda n : setattr(self, 'user_id', n.get_str_value()),
         }
         return fields
     
@@ -38,6 +38,6 @@ class UserRequest(Parsable):
         """
         if writer is None:
             raise TypeError("writer cannot be null.")
-        writer.write_str_value("userId", self.user_id)
+        writer.write_str_value("user_id", self.user_id)
     
 

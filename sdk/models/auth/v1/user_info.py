@@ -6,23 +6,23 @@ from typing import Any, Optional, TYPE_CHECKING, Union
 
 @dataclass
 class UserInfo(Parsable):
-    # The activeOrgId property
+    # The active_org_id property
     active_org_id: Optional[str] = None
-    # The countryCode property
+    # The country_code property
     country_code: Optional[str] = None
     # The email property
     email: Optional[str] = None
-    # The emailVerified property
+    # The email_verified property
     email_verified: Optional[bool] = None
-    # The firstName property
+    # The first_name property
     first_name: Optional[str] = None
     # The id property
     id: Optional[str] = None
-    # The imageUrl property
+    # The image_url property
     image_url: Optional[str] = None
-    # The languageCode property
+    # The language_code property
     language_code: Optional[str] = None
-    # The lastName property
+    # The last_name property
     last_name: Optional[str] = None
     # The username property
     username: Optional[str] = None
@@ -44,15 +44,15 @@ class UserInfo(Parsable):
         Returns: dict[str, Callable[[ParseNode], None]]
         """
         fields: dict[str, Callable[[Any], None]] = {
-            "activeOrgId": lambda n : setattr(self, 'active_org_id', n.get_str_value()),
-            "countryCode": lambda n : setattr(self, 'country_code', n.get_str_value()),
+            "active_org_id": lambda n : setattr(self, 'active_org_id', n.get_str_value()),
+            "country_code": lambda n : setattr(self, 'country_code', n.get_str_value()),
             "email": lambda n : setattr(self, 'email', n.get_str_value()),
-            "emailVerified": lambda n : setattr(self, 'email_verified', n.get_bool_value()),
-            "firstName": lambda n : setattr(self, 'first_name', n.get_str_value()),
+            "email_verified": lambda n : setattr(self, 'email_verified', n.get_bool_value()),
+            "first_name": lambda n : setattr(self, 'first_name', n.get_str_value()),
             "id": lambda n : setattr(self, 'id', n.get_str_value()),
-            "imageUrl": lambda n : setattr(self, 'image_url', n.get_str_value()),
-            "languageCode": lambda n : setattr(self, 'language_code', n.get_str_value()),
-            "lastName": lambda n : setattr(self, 'last_name', n.get_str_value()),
+            "image_url": lambda n : setattr(self, 'image_url', n.get_str_value()),
+            "language_code": lambda n : setattr(self, 'language_code', n.get_str_value()),
+            "last_name": lambda n : setattr(self, 'last_name', n.get_str_value()),
             "username": lambda n : setattr(self, 'username', n.get_str_value()),
         }
         return fields
@@ -65,15 +65,15 @@ class UserInfo(Parsable):
         """
         if writer is None:
             raise TypeError("writer cannot be null.")
-        writer.write_str_value("activeOrgId", self.active_org_id)
-        writer.write_str_value("countryCode", self.country_code)
+        writer.write_str_value("active_org_id", self.active_org_id)
+        writer.write_str_value("country_code", self.country_code)
         writer.write_str_value("email", self.email)
-        writer.write_bool_value("emailVerified", self.email_verified)
-        writer.write_str_value("firstName", self.first_name)
+        writer.write_bool_value("email_verified", self.email_verified)
+        writer.write_str_value("first_name", self.first_name)
         writer.write_str_value("id", self.id)
-        writer.write_str_value("imageUrl", self.image_url)
-        writer.write_str_value("languageCode", self.language_code)
-        writer.write_str_value("lastName", self.last_name)
+        writer.write_str_value("image_url", self.image_url)
+        writer.write_str_value("language_code", self.language_code)
+        writer.write_str_value("last_name", self.last_name)
         writer.write_str_value("username", self.username)
     
 

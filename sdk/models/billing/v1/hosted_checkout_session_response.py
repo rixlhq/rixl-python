@@ -10,9 +10,9 @@ class HostedCheckoutSessionResponse(Parsable):
     amount: Optional[float] = None
     # The currency property
     currency: Optional[str] = None
-    # The sessionId property
+    # The session_id property
     session_id: Optional[str] = None
-    # The sessionUrl property
+    # The session_url property
     session_url: Optional[str] = None
     
     @staticmethod
@@ -34,8 +34,8 @@ class HostedCheckoutSessionResponse(Parsable):
         fields: dict[str, Callable[[Any], None]] = {
             "amount": lambda n : setattr(self, 'amount', n.get_float_value()),
             "currency": lambda n : setattr(self, 'currency', n.get_str_value()),
-            "sessionId": lambda n : setattr(self, 'session_id', n.get_str_value()),
-            "sessionUrl": lambda n : setattr(self, 'session_url', n.get_str_value()),
+            "session_id": lambda n : setattr(self, 'session_id', n.get_str_value()),
+            "session_url": lambda n : setattr(self, 'session_url', n.get_str_value()),
         }
         return fields
     
@@ -49,7 +49,7 @@ class HostedCheckoutSessionResponse(Parsable):
             raise TypeError("writer cannot be null.")
         writer.write_float_value("amount", self.amount)
         writer.write_str_value("currency", self.currency)
-        writer.write_str_value("sessionId", self.session_id)
-        writer.write_str_value("sessionUrl", self.session_url)
+        writer.write_str_value("session_id", self.session_id)
+        writer.write_str_value("session_url", self.session_url)
     
 

@@ -29,7 +29,7 @@ class Member_ItemRequestBuilder(BaseRequestBuilder):
         param request_adapter: The request adapter to use to execute the requests.
         Returns: None
         """
-        super().__init__(request_adapter, "{+baseurl}/auth/v1/memberships/{org_%2Did}/members/{member_%2Did}{?user%2EactorId*}", path_parameters)
+        super().__init__(request_adapter, "{+baseurl}/auth/v1/memberships/{org_%2Did}/members/{member_%2Did}{?user%2Eactor_id*}", path_parameters)
     
     async def delete(self,request_configuration: Optional[RequestConfiguration[Member_ItemRequestBuilderDeleteQueryParameters]] = None) -> Optional[Empty]:
         """
@@ -99,7 +99,7 @@ class Member_ItemRequestBuilder(BaseRequestBuilder):
             if original_name is None:
                 raise TypeError("original_name cannot be null.")
             if original_name == "user_actor_id":
-                return "user%2EactorId"
+                return "user%2Eactor_id"
             return original_name
         
         user_actor_id: Optional[str] = None

@@ -13,7 +13,7 @@ class TrackEventsRequest(Parsable):
     country: Optional[str] = None
     # The events property
     events: Optional[list[AnalyticsEvent]] = None
-    # The userId property
+    # The user_id property
     user_id: Optional[str] = None
     
     @staticmethod
@@ -39,7 +39,7 @@ class TrackEventsRequest(Parsable):
         fields: dict[str, Callable[[Any], None]] = {
             "country": lambda n : setattr(self, 'country', n.get_str_value()),
             "events": lambda n : setattr(self, 'events', n.get_collection_of_object_values(AnalyticsEvent)),
-            "userId": lambda n : setattr(self, 'user_id', n.get_str_value()),
+            "user_id": lambda n : setattr(self, 'user_id', n.get_str_value()),
         }
         return fields
     
@@ -53,6 +53,6 @@ class TrackEventsRequest(Parsable):
             raise TypeError("writer cannot be null.")
         writer.write_str_value("country", self.country)
         writer.write_collection_of_object_values("events", self.events)
-        writer.write_str_value("userId", self.user_id)
+        writer.write_str_value("user_id", self.user_id)
     
 

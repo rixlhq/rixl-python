@@ -6,11 +6,11 @@ from typing import Any, Optional, TYPE_CHECKING, Union
 
 @dataclass
 class UpsertPaymentMethodRequest(Parsable):
-    # The orgId property
+    # The org_id property
     org_id: Optional[str] = None
-    # The paymentMethodId property
+    # The payment_method_id property
     payment_method_id: Optional[str] = None
-    # The setAsDefault property
+    # The set_as_default property
     set_as_default: Optional[bool] = None
     
     @staticmethod
@@ -30,9 +30,9 @@ class UpsertPaymentMethodRequest(Parsable):
         Returns: dict[str, Callable[[ParseNode], None]]
         """
         fields: dict[str, Callable[[Any], None]] = {
-            "orgId": lambda n : setattr(self, 'org_id', n.get_str_value()),
-            "paymentMethodId": lambda n : setattr(self, 'payment_method_id', n.get_str_value()),
-            "setAsDefault": lambda n : setattr(self, 'set_as_default', n.get_bool_value()),
+            "org_id": lambda n : setattr(self, 'org_id', n.get_str_value()),
+            "payment_method_id": lambda n : setattr(self, 'payment_method_id', n.get_str_value()),
+            "set_as_default": lambda n : setattr(self, 'set_as_default', n.get_bool_value()),
         }
         return fields
     
@@ -44,8 +44,8 @@ class UpsertPaymentMethodRequest(Parsable):
         """
         if writer is None:
             raise TypeError("writer cannot be null.")
-        writer.write_str_value("orgId", self.org_id)
-        writer.write_str_value("paymentMethodId", self.payment_method_id)
-        writer.write_bool_value("setAsDefault", self.set_as_default)
+        writer.write_str_value("org_id", self.org_id)
+        writer.write_str_value("payment_method_id", self.payment_method_id)
+        writer.write_bool_value("set_as_default", self.set_as_default)
     
 

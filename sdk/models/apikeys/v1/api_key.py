@@ -17,11 +17,11 @@ class ApiKey(Parsable):
     last_used: Optional[datetime.datetime] = None
     # The name property
     name: Optional[str] = None
-    # The orgId property
+    # The org_id property
     org_id: Optional[str] = None
-    # The projectId property
+    # The project_id property
     project_id: Optional[str] = None
-    # The projectName property
+    # The project_name property
     project_name: Optional[str] = None
     # The secret property
     secret: Optional[str] = None
@@ -43,14 +43,14 @@ class ApiKey(Parsable):
         Returns: dict[str, Callable[[ParseNode], None]]
         """
         fields: dict[str, Callable[[Any], None]] = {
-            "createdAt": lambda n : setattr(self, 'created_at', n.get_datetime_value()),
-            "expiringAt": lambda n : setattr(self, 'expiring_at', n.get_datetime_value()),
+            "created_at": lambda n : setattr(self, 'created_at', n.get_datetime_value()),
+            "expiring_at": lambda n : setattr(self, 'expiring_at', n.get_datetime_value()),
             "id": lambda n : setattr(self, 'id', n.get_str_value()),
-            "lastUsed": lambda n : setattr(self, 'last_used', n.get_datetime_value()),
+            "last_used": lambda n : setattr(self, 'last_used', n.get_datetime_value()),
             "name": lambda n : setattr(self, 'name', n.get_str_value()),
-            "orgId": lambda n : setattr(self, 'org_id', n.get_str_value()),
-            "projectId": lambda n : setattr(self, 'project_id', n.get_str_value()),
-            "projectName": lambda n : setattr(self, 'project_name', n.get_str_value()),
+            "org_id": lambda n : setattr(self, 'org_id', n.get_str_value()),
+            "project_id": lambda n : setattr(self, 'project_id', n.get_str_value()),
+            "project_name": lambda n : setattr(self, 'project_name', n.get_str_value()),
             "secret": lambda n : setattr(self, 'secret', n.get_str_value()),
         }
         return fields
@@ -63,14 +63,14 @@ class ApiKey(Parsable):
         """
         if writer is None:
             raise TypeError("writer cannot be null.")
-        writer.write_datetime_value("createdAt", self.created_at)
-        writer.write_datetime_value("expiringAt", self.expiring_at)
+        writer.write_datetime_value("created_at", self.created_at)
+        writer.write_datetime_value("expiring_at", self.expiring_at)
         writer.write_str_value("id", self.id)
-        writer.write_datetime_value("lastUsed", self.last_used)
+        writer.write_datetime_value("last_used", self.last_used)
         writer.write_str_value("name", self.name)
-        writer.write_str_value("orgId", self.org_id)
-        writer.write_str_value("projectId", self.project_id)
-        writer.write_str_value("projectName", self.project_name)
+        writer.write_str_value("org_id", self.org_id)
+        writer.write_str_value("project_id", self.project_id)
+        writer.write_str_value("project_name", self.project_name)
         writer.write_str_value("secret", self.secret)
     
 

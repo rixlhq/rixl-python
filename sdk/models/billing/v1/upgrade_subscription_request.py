@@ -6,9 +6,9 @@ from typing import Any, Optional, TYPE_CHECKING, Union
 
 @dataclass
 class UpgradeSubscriptionRequest(Parsable):
-    # The orgId property
+    # The org_id property
     org_id: Optional[str] = None
-    # The stripePriceId property
+    # The stripe_price_id property
     stripe_price_id: Optional[str] = None
     
     @staticmethod
@@ -28,8 +28,8 @@ class UpgradeSubscriptionRequest(Parsable):
         Returns: dict[str, Callable[[ParseNode], None]]
         """
         fields: dict[str, Callable[[Any], None]] = {
-            "orgId": lambda n : setattr(self, 'org_id', n.get_str_value()),
-            "stripePriceId": lambda n : setattr(self, 'stripe_price_id', n.get_str_value()),
+            "org_id": lambda n : setattr(self, 'org_id', n.get_str_value()),
+            "stripe_price_id": lambda n : setattr(self, 'stripe_price_id', n.get_str_value()),
         }
         return fields
     
@@ -41,7 +41,7 @@ class UpgradeSubscriptionRequest(Parsable):
         """
         if writer is None:
             raise TypeError("writer cannot be null.")
-        writer.write_str_value("orgId", self.org_id)
-        writer.write_str_value("stripePriceId", self.stripe_price_id)
+        writer.write_str_value("org_id", self.org_id)
+        writer.write_str_value("stripe_price_id", self.stripe_price_id)
     
 

@@ -10,13 +10,15 @@ if TYPE_CHECKING:
 
 @dataclass
 class UploadPostRequestBody(Parsable):
-    # The imageFormat property
+    # The image_format property
     image_format: Optional[ImageFormat] = None
     # The name property
     name: Optional[str] = None
-    # The orgId property
+    # The org_id property
     org_id: Optional[str] = None
-    # The videoQuality property
+    # The project_id property
+    project_id: Optional[str] = None
+    # The video_quality property
     video_quality: Optional[VideoQuality] = None
     
     @staticmethod
@@ -42,10 +44,11 @@ class UploadPostRequestBody(Parsable):
         from .......models.common.v1.video_quality import VideoQuality
 
         fields: dict[str, Callable[[Any], None]] = {
-            "imageFormat": lambda n : setattr(self, 'image_format', n.get_enum_value(ImageFormat)),
+            "image_format": lambda n : setattr(self, 'image_format', n.get_enum_value(ImageFormat)),
             "name": lambda n : setattr(self, 'name', n.get_str_value()),
-            "orgId": lambda n : setattr(self, 'org_id', n.get_str_value()),
-            "videoQuality": lambda n : setattr(self, 'video_quality', n.get_enum_value(VideoQuality)),
+            "org_id": lambda n : setattr(self, 'org_id', n.get_str_value()),
+            "project_id": lambda n : setattr(self, 'project_id', n.get_str_value()),
+            "video_quality": lambda n : setattr(self, 'video_quality', n.get_enum_value(VideoQuality)),
         }
         return fields
     
@@ -57,9 +60,10 @@ class UploadPostRequestBody(Parsable):
         """
         if writer is None:
             raise TypeError("writer cannot be null.")
-        writer.write_enum_value("imageFormat", self.image_format)
+        writer.write_enum_value("image_format", self.image_format)
         writer.write_str_value("name", self.name)
-        writer.write_str_value("orgId", self.org_id)
-        writer.write_enum_value("videoQuality", self.video_quality)
+        writer.write_str_value("org_id", self.org_id)
+        writer.write_str_value("project_id", self.project_id)
+        writer.write_enum_value("video_quality", self.video_quality)
     
 

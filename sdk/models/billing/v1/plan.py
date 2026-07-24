@@ -17,15 +17,15 @@ class Plan(Parsable):
     id: Optional[str] = None
     # The interval property
     interval: Optional[str] = None
-    # The intervalCount property
+    # The interval_count property
     interval_count: Optional[int] = None
     # The name property
     name: Optional[str] = None
-    # The planType property
+    # The plan_type property
     plan_type: Optional[PlanType] = None
     # The price property
     price: Optional[str] = None
-    # The sortOrder property
+    # The sort_order property
     sort_order: Optional[int] = None
     
     @staticmethod
@@ -53,11 +53,11 @@ class Plan(Parsable):
             "description": lambda n : setattr(self, 'description', n.get_str_value()),
             "id": lambda n : setattr(self, 'id', n.get_str_value()),
             "interval": lambda n : setattr(self, 'interval', n.get_str_value()),
-            "intervalCount": lambda n : setattr(self, 'interval_count', n.get_int_value()),
+            "interval_count": lambda n : setattr(self, 'interval_count', n.get_int_value()),
             "name": lambda n : setattr(self, 'name', n.get_str_value()),
-            "planType": lambda n : setattr(self, 'plan_type', n.get_enum_value(PlanType)),
+            "plan_type": lambda n : setattr(self, 'plan_type', n.get_enum_value(PlanType)),
             "price": lambda n : setattr(self, 'price', n.get_str_value()),
-            "sortOrder": lambda n : setattr(self, 'sort_order', n.get_int_value()),
+            "sort_order": lambda n : setattr(self, 'sort_order', n.get_int_value()),
         }
         return fields
     
@@ -73,10 +73,10 @@ class Plan(Parsable):
         writer.write_str_value("description", self.description)
         writer.write_str_value("id", self.id)
         writer.write_str_value("interval", self.interval)
-        writer.write_int_value("intervalCount", self.interval_count)
+        writer.write_int_value("interval_count", self.interval_count)
         writer.write_str_value("name", self.name)
-        writer.write_enum_value("planType", self.plan_type)
+        writer.write_enum_value("plan_type", self.plan_type)
         writer.write_str_value("price", self.price)
-        writer.write_int_value("sortOrder", self.sort_order)
+        writer.write_int_value("sort_order", self.sort_order)
     
 

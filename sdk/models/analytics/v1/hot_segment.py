@@ -6,11 +6,11 @@ from typing import Any, Optional, TYPE_CHECKING, Union
 
 @dataclass
 class HotSegment(Parsable):
-    # The endSecond property
+    # The end_second property
     end_second: Optional[int] = None
     # The multiplier property
     multiplier: Optional[float] = None
-    # The startSecond property
+    # The start_second property
     start_second: Optional[int] = None
     
     @staticmethod
@@ -30,9 +30,9 @@ class HotSegment(Parsable):
         Returns: dict[str, Callable[[ParseNode], None]]
         """
         fields: dict[str, Callable[[Any], None]] = {
-            "endSecond": lambda n : setattr(self, 'end_second', n.get_int_value()),
+            "end_second": lambda n : setattr(self, 'end_second', n.get_int_value()),
             "multiplier": lambda n : setattr(self, 'multiplier', n.get_float_value()),
-            "startSecond": lambda n : setattr(self, 'start_second', n.get_int_value()),
+            "start_second": lambda n : setattr(self, 'start_second', n.get_int_value()),
         }
         return fields
     
@@ -44,8 +44,8 @@ class HotSegment(Parsable):
         """
         if writer is None:
             raise TypeError("writer cannot be null.")
-        writer.write_int_value("endSecond", self.end_second)
+        writer.write_int_value("end_second", self.end_second)
         writer.write_float_value("multiplier", self.multiplier)
-        writer.write_int_value("startSecond", self.start_second)
+        writer.write_int_value("start_second", self.start_second)
     
 

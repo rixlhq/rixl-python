@@ -27,7 +27,7 @@ class WithAttachment_ItemRequestBuilder(BaseRequestBuilder):
         param request_adapter: The request adapter to use to execute the requests.
         Returns: None
         """
-        super().__init__(request_adapter, "{+baseurl}/auth/v1/memberships/{org_%2Did}/policies/attachments/{attachment_id}{?user%2EuserId*}", path_parameters)
+        super().__init__(request_adapter, "{+baseurl}/auth/v1/memberships/{org_%2Did}/policies/attachments/{attachment_id}{?user%2Euser_id*}", path_parameters)
     
     async def delete(self,request_configuration: Optional[RequestConfiguration[WithAttachment_ItemRequestBuilderDeleteQueryParameters]] = None) -> Optional[Empty]:
         """
@@ -79,7 +79,7 @@ class WithAttachment_ItemRequestBuilder(BaseRequestBuilder):
             if original_name is None:
                 raise TypeError("original_name cannot be null.")
             if original_name == "user_user_id":
-                return "user%2EuserId"
+                return "user%2Euser_id"
             return original_name
         
         user_user_id: Optional[str] = None

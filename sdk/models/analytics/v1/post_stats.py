@@ -6,22 +6,22 @@ from typing import Any, Optional, TYPE_CHECKING, Union
 
 if TYPE_CHECKING:
     from ...analyticscommon.v1.media_type import MediaType
-    from .post_stats_views_by_page import PostStats_viewsByPage
+    from .post_stats_views_by_page import PostStats_views_by_page
 
 @dataclass
 class PostStats(Parsable):
-    # The avgWatchTimeMs property
+    # The avg_watch_time_ms property
     avg_watch_time_ms: Optional[float] = None
-    # The completionRate property
+    # The completion_rate property
     completion_rate: Optional[float] = None
-    # The contentType property
+    # The content_type property
     content_type: Optional[MediaType] = None
-    # The feedId property
+    # The feed_id property
     feed_id: Optional[str] = None
-    # The postId property
+    # The post_id property
     post_id: Optional[str] = None
-    # The viewsByPage property
-    views_by_page: Optional[PostStats_viewsByPage] = None
+    # The views_by_page property
+    views_by_page: Optional[PostStats_views_by_page] = None
     
     @staticmethod
     def create_from_discriminator_value(parse_node: ParseNode) -> PostStats:
@@ -40,18 +40,18 @@ class PostStats(Parsable):
         Returns: dict[str, Callable[[ParseNode], None]]
         """
         from ...analyticscommon.v1.media_type import MediaType
-        from .post_stats_views_by_page import PostStats_viewsByPage
+        from .post_stats_views_by_page import PostStats_views_by_page
 
         from ...analyticscommon.v1.media_type import MediaType
-        from .post_stats_views_by_page import PostStats_viewsByPage
+        from .post_stats_views_by_page import PostStats_views_by_page
 
         fields: dict[str, Callable[[Any], None]] = {
-            "avgWatchTimeMs": lambda n : setattr(self, 'avg_watch_time_ms', n.get_float_value()),
-            "completionRate": lambda n : setattr(self, 'completion_rate', n.get_float_value()),
-            "contentType": lambda n : setattr(self, 'content_type', n.get_enum_value(MediaType)),
-            "feedId": lambda n : setattr(self, 'feed_id', n.get_str_value()),
-            "postId": lambda n : setattr(self, 'post_id', n.get_str_value()),
-            "viewsByPage": lambda n : setattr(self, 'views_by_page', n.get_object_value(PostStats_viewsByPage)),
+            "avg_watch_time_ms": lambda n : setattr(self, 'avg_watch_time_ms', n.get_float_value()),
+            "completion_rate": lambda n : setattr(self, 'completion_rate', n.get_float_value()),
+            "content_type": lambda n : setattr(self, 'content_type', n.get_enum_value(MediaType)),
+            "feed_id": lambda n : setattr(self, 'feed_id', n.get_str_value()),
+            "post_id": lambda n : setattr(self, 'post_id', n.get_str_value()),
+            "views_by_page": lambda n : setattr(self, 'views_by_page', n.get_object_value(PostStats_views_by_page)),
         }
         return fields
     
@@ -63,11 +63,11 @@ class PostStats(Parsable):
         """
         if writer is None:
             raise TypeError("writer cannot be null.")
-        writer.write_float_value("avgWatchTimeMs", self.avg_watch_time_ms)
-        writer.write_float_value("completionRate", self.completion_rate)
-        writer.write_enum_value("contentType", self.content_type)
-        writer.write_str_value("feedId", self.feed_id)
-        writer.write_str_value("postId", self.post_id)
-        writer.write_object_value("viewsByPage", self.views_by_page)
+        writer.write_float_value("avg_watch_time_ms", self.avg_watch_time_ms)
+        writer.write_float_value("completion_rate", self.completion_rate)
+        writer.write_enum_value("content_type", self.content_type)
+        writer.write_str_value("feed_id", self.feed_id)
+        writer.write_str_value("post_id", self.post_id)
+        writer.write_object_value("views_by_page", self.views_by_page)
     
 

@@ -15,9 +15,9 @@ class UnprocessedImage(Parsable):
     id: Optional[str] = None
     # The name property
     name: Optional[str] = None
-    # The projectId property
+    # The project_id property
     project_id: Optional[str] = None
-    # The s3Path property
+    # The s3_path property
     s3_path: Optional[str] = None
     # The status property
     status: Optional[FileStatus] = None
@@ -46,8 +46,8 @@ class UnprocessedImage(Parsable):
             "format": lambda n : setattr(self, 'format', n.get_str_value()),
             "id": lambda n : setattr(self, 'id', n.get_str_value()),
             "name": lambda n : setattr(self, 'name', n.get_str_value()),
-            "projectId": lambda n : setattr(self, 'project_id', n.get_str_value()),
-            "s3Path": lambda n : setattr(self, 's3_path', n.get_str_value()),
+            "project_id": lambda n : setattr(self, 'project_id', n.get_str_value()),
+            "s3_path": lambda n : setattr(self, 's3_path', n.get_str_value()),
             "status": lambda n : setattr(self, 'status', n.get_enum_value(FileStatus)),
         }
         return fields
@@ -63,8 +63,8 @@ class UnprocessedImage(Parsable):
         writer.write_str_value("format", self.format)
         writer.write_str_value("id", self.id)
         writer.write_str_value("name", self.name)
-        writer.write_str_value("projectId", self.project_id)
-        writer.write_str_value("s3Path", self.s3_path)
+        writer.write_str_value("project_id", self.project_id)
+        writer.write_str_value("s3_path", self.s3_path)
         writer.write_enum_value("status", self.status)
     
 

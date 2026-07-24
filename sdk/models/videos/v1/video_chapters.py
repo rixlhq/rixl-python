@@ -11,7 +11,7 @@ if TYPE_CHECKING:
 class VideoChapters(Parsable):
     # The chapters property
     chapters: Optional[list[Chapter]] = None
-    # The videoId property
+    # The video_id property
     video_id: Optional[str] = None
     
     @staticmethod
@@ -36,7 +36,7 @@ class VideoChapters(Parsable):
 
         fields: dict[str, Callable[[Any], None]] = {
             "chapters": lambda n : setattr(self, 'chapters', n.get_collection_of_object_values(Chapter)),
-            "videoId": lambda n : setattr(self, 'video_id', n.get_str_value()),
+            "video_id": lambda n : setattr(self, 'video_id', n.get_str_value()),
         }
         return fields
     
@@ -49,6 +49,6 @@ class VideoChapters(Parsable):
         if writer is None:
             raise TypeError("writer cannot be null.")
         writer.write_collection_of_object_values("chapters", self.chapters)
-        writer.write_str_value("videoId", self.video_id)
+        writer.write_str_value("video_id", self.video_id)
     
 

@@ -6,9 +6,9 @@ from typing import Any, Optional, TYPE_CHECKING, Union
 
 @dataclass
 class UpdateNameRequest(Parsable):
-    # The fullName property
+    # The full_name property
     full_name: Optional[str] = None
-    # The userId property
+    # The user_id property
     user_id: Optional[str] = None
     
     @staticmethod
@@ -28,8 +28,8 @@ class UpdateNameRequest(Parsable):
         Returns: dict[str, Callable[[ParseNode], None]]
         """
         fields: dict[str, Callable[[Any], None]] = {
-            "fullName": lambda n : setattr(self, 'full_name', n.get_str_value()),
-            "userId": lambda n : setattr(self, 'user_id', n.get_str_value()),
+            "full_name": lambda n : setattr(self, 'full_name', n.get_str_value()),
+            "user_id": lambda n : setattr(self, 'user_id', n.get_str_value()),
         }
         return fields
     
@@ -41,7 +41,7 @@ class UpdateNameRequest(Parsable):
         """
         if writer is None:
             raise TypeError("writer cannot be null.")
-        writer.write_str_value("fullName", self.full_name)
-        writer.write_str_value("userId", self.user_id)
+        writer.write_str_value("full_name", self.full_name)
+        writer.write_str_value("user_id", self.user_id)
     
 

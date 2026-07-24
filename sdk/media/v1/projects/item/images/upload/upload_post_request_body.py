@@ -13,8 +13,10 @@ class UploadPostRequestBody(Parsable):
     format: Optional[ImageFormat] = None
     # The name property
     name: Optional[str] = None
-    # The orgId property
+    # The org_id property
     org_id: Optional[str] = None
+    # The project_id property
+    project_id: Optional[str] = None
     
     @staticmethod
     def create_from_discriminator_value(parse_node: ParseNode) -> UploadPostRequestBody:
@@ -39,7 +41,8 @@ class UploadPostRequestBody(Parsable):
         fields: dict[str, Callable[[Any], None]] = {
             "format": lambda n : setattr(self, 'format', n.get_enum_value(ImageFormat)),
             "name": lambda n : setattr(self, 'name', n.get_str_value()),
-            "orgId": lambda n : setattr(self, 'org_id', n.get_str_value()),
+            "org_id": lambda n : setattr(self, 'org_id', n.get_str_value()),
+            "project_id": lambda n : setattr(self, 'project_id', n.get_str_value()),
         }
         return fields
     
@@ -53,6 +56,7 @@ class UploadPostRequestBody(Parsable):
             raise TypeError("writer cannot be null.")
         writer.write_enum_value("format", self.format)
         writer.write_str_value("name", self.name)
-        writer.write_str_value("orgId", self.org_id)
+        writer.write_str_value("org_id", self.org_id)
+        writer.write_str_value("project_id", self.project_id)
     
 

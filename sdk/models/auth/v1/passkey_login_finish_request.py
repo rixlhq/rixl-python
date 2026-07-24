@@ -8,7 +8,7 @@ from typing import Any, Optional, TYPE_CHECKING, Union
 class PasskeyLoginFinishRequest(Parsable):
     # The credential property
     credential: Optional[bytes] = None
-    # The sessionId property
+    # The session_id property
     session_id: Optional[str] = None
     
     @staticmethod
@@ -29,7 +29,7 @@ class PasskeyLoginFinishRequest(Parsable):
         """
         fields: dict[str, Callable[[Any], None]] = {
             "credential": lambda n : setattr(self, 'credential', n.get_bytes_value()),
-            "sessionId": lambda n : setattr(self, 'session_id', n.get_str_value()),
+            "session_id": lambda n : setattr(self, 'session_id', n.get_str_value()),
         }
         return fields
     
@@ -42,6 +42,6 @@ class PasskeyLoginFinishRequest(Parsable):
         if writer is None:
             raise TypeError("writer cannot be null.")
         writer.write_bytes_value("credential", self.credential)
-        writer.write_str_value("sessionId", self.session_id)
+        writer.write_str_value("session_id", self.session_id)
     
 

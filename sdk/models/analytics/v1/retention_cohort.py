@@ -6,11 +6,11 @@ from typing import Any, Optional, TYPE_CHECKING, Union
 
 @dataclass
 class RetentionCohort(Parsable):
-    # The cohortDate property
+    # The cohort_date property
     cohort_date: Optional[str] = None
-    # The cohortSize property
+    # The cohort_size property
     cohort_size: Optional[int] = None
-    # The retentionData property
+    # The retention_data property
     retention_data: Optional[list[float]] = None
     
     @staticmethod
@@ -30,9 +30,9 @@ class RetentionCohort(Parsable):
         Returns: dict[str, Callable[[ParseNode], None]]
         """
         fields: dict[str, Callable[[Any], None]] = {
-            "cohortDate": lambda n : setattr(self, 'cohort_date', n.get_str_value()),
-            "cohortSize": lambda n : setattr(self, 'cohort_size', n.get_int_value()),
-            "retentionData": lambda n : setattr(self, 'retention_data', n.get_collection_of_primitive_values(float)),
+            "cohort_date": lambda n : setattr(self, 'cohort_date', n.get_str_value()),
+            "cohort_size": lambda n : setattr(self, 'cohort_size', n.get_int_value()),
+            "retention_data": lambda n : setattr(self, 'retention_data', n.get_collection_of_primitive_values(float)),
         }
         return fields
     
@@ -44,8 +44,8 @@ class RetentionCohort(Parsable):
         """
         if writer is None:
             raise TypeError("writer cannot be null.")
-        writer.write_str_value("cohortDate", self.cohort_date)
-        writer.write_int_value("cohortSize", self.cohort_size)
-        writer.write_collection_of_primitive_values("retentionData", self.retention_data)
+        writer.write_str_value("cohort_date", self.cohort_date)
+        writer.write_int_value("cohort_size", self.cohort_size)
+        writer.write_collection_of_primitive_values("retention_data", self.retention_data)
     
 

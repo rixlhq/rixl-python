@@ -8,7 +8,7 @@ from typing import Any, Optional, TYPE_CHECKING, Union
 class VideoHeatmap(Parsable):
     # The data property
     data: Optional[list[float]] = None
-    # The videoId property
+    # The video_id property
     video_id: Optional[str] = None
     
     @staticmethod
@@ -29,7 +29,7 @@ class VideoHeatmap(Parsable):
         """
         fields: dict[str, Callable[[Any], None]] = {
             "data": lambda n : setattr(self, 'data', n.get_collection_of_primitive_values(float)),
-            "videoId": lambda n : setattr(self, 'video_id', n.get_str_value()),
+            "video_id": lambda n : setattr(self, 'video_id', n.get_str_value()),
         }
         return fields
     
@@ -42,6 +42,6 @@ class VideoHeatmap(Parsable):
         if writer is None:
             raise TypeError("writer cannot be null.")
         writer.write_collection_of_primitive_values("data", self.data)
-        writer.write_str_value("videoId", self.video_id)
+        writer.write_str_value("video_id", self.video_id)
     
 

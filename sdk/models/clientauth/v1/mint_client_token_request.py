@@ -6,15 +6,15 @@ from typing import Any, Optional, TYPE_CHECKING, Union
 
 @dataclass
 class MintClientTokenRequest(Parsable):
-    # The clientId property
+    # The client_id property
     client_id: Optional[str] = None
-    # The clientSecret property
+    # The client_secret property
     client_secret: Optional[str] = None
-    # The projectId property
+    # The project_id property
     project_id: Optional[str] = None
     # The subject property
     subject: Optional[str] = None
-    # The ttlMinutes property
+    # The ttl_minutes property
     ttl_minutes: Optional[int] = None
     
     @staticmethod
@@ -34,11 +34,11 @@ class MintClientTokenRequest(Parsable):
         Returns: dict[str, Callable[[ParseNode], None]]
         """
         fields: dict[str, Callable[[Any], None]] = {
-            "clientId": lambda n : setattr(self, 'client_id', n.get_str_value()),
-            "clientSecret": lambda n : setattr(self, 'client_secret', n.get_str_value()),
-            "projectId": lambda n : setattr(self, 'project_id', n.get_str_value()),
+            "client_id": lambda n : setattr(self, 'client_id', n.get_str_value()),
+            "client_secret": lambda n : setattr(self, 'client_secret', n.get_str_value()),
+            "project_id": lambda n : setattr(self, 'project_id', n.get_str_value()),
             "subject": lambda n : setattr(self, 'subject', n.get_str_value()),
-            "ttlMinutes": lambda n : setattr(self, 'ttl_minutes', n.get_int_value()),
+            "ttl_minutes": lambda n : setattr(self, 'ttl_minutes', n.get_int_value()),
         }
         return fields
     
@@ -50,10 +50,10 @@ class MintClientTokenRequest(Parsable):
         """
         if writer is None:
             raise TypeError("writer cannot be null.")
-        writer.write_str_value("clientId", self.client_id)
-        writer.write_str_value("clientSecret", self.client_secret)
-        writer.write_str_value("projectId", self.project_id)
+        writer.write_str_value("client_id", self.client_id)
+        writer.write_str_value("client_secret", self.client_secret)
+        writer.write_str_value("project_id", self.project_id)
         writer.write_str_value("subject", self.subject)
-        writer.write_int_value("ttlMinutes", self.ttl_minutes)
+        writer.write_int_value("ttl_minutes", self.ttl_minutes)
     
 

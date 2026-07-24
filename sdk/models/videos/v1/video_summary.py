@@ -49,7 +49,7 @@ class VideoSummary(Parsable):
 
         fields: dict[str, Callable[[Any], None]] = {
             "codec": lambda n : setattr(self, 'codec', n.get_str_value()),
-            "createdAt": lambda n : setattr(self, 'created_at', n.get_datetime_value()),
+            "created_at": lambda n : setattr(self, 'created_at', n.get_datetime_value()),
             "duration": lambda n : setattr(self, 'duration', n.get_timedelta_value()),
             "height": lambda n : setattr(self, 'height', n.get_int_value()),
             "id": lambda n : setattr(self, 'id', n.get_str_value()),
@@ -68,7 +68,7 @@ class VideoSummary(Parsable):
         if writer is None:
             raise TypeError("writer cannot be null.")
         writer.write_str_value("codec", self.codec)
-        writer.write_datetime_value("createdAt", self.created_at)
+        writer.write_datetime_value("created_at", self.created_at)
         writer.write_timedelta_value("duration", self.duration)
         writer.write_int_value("height", self.height)
         writer.write_str_value("id", self.id)

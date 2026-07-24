@@ -8,7 +8,7 @@ from typing import Any, Optional, TYPE_CHECKING, Union
 class VerifyTOTPForLoginRequest(Parsable):
     # The code property
     code: Optional[str] = None
-    # The sessionId property
+    # The session_id property
     session_id: Optional[str] = None
     
     @staticmethod
@@ -29,7 +29,7 @@ class VerifyTOTPForLoginRequest(Parsable):
         """
         fields: dict[str, Callable[[Any], None]] = {
             "code": lambda n : setattr(self, 'code', n.get_str_value()),
-            "sessionId": lambda n : setattr(self, 'session_id', n.get_str_value()),
+            "session_id": lambda n : setattr(self, 'session_id', n.get_str_value()),
         }
         return fields
     
@@ -42,6 +42,6 @@ class VerifyTOTPForLoginRequest(Parsable):
         if writer is None:
             raise TypeError("writer cannot be null.")
         writer.write_str_value("code", self.code)
-        writer.write_str_value("sessionId", self.session_id)
+        writer.write_str_value("session_id", self.session_id)
     
 

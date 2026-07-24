@@ -29,7 +29,7 @@ class BandwidthUsageRequestBuilder(BaseRequestBuilder):
         param request_adapter: The request adapter to use to execute the requests.
         Returns: None
         """
-        super().__init__(request_adapter, "{+baseurl}/billing/v1/bandwidth-usage{?orgId*}", path_parameters)
+        super().__init__(request_adapter, "{+baseurl}/billing/v1/bandwidth-usage{?org_id*}", path_parameters)
     
     async def get(self,request_configuration: Optional[RequestConfiguration[BandwidthUsageRequestBuilderGetQueryParameters]] = None) -> Optional[BandwidthUsage]:
         """
@@ -90,18 +90,6 @@ class BandwidthUsageRequestBuilder(BaseRequestBuilder):
         """
         GetBandwidthUsage
         """
-        def get_query_parameter(self,original_name: str) -> str:
-            """
-            Maps the query parameters names to their encoded names for the URI template parsing.
-            param original_name: The original query parameter name in the class.
-            Returns: str
-            """
-            if original_name is None:
-                raise TypeError("original_name cannot be null.")
-            if original_name == "org_id":
-                return "orgId"
-            return original_name
-        
         org_id: Optional[str] = None
 
     

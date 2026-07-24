@@ -29,7 +29,7 @@ class VideosRequestBuilder(BaseRequestBuilder):
         param request_adapter: The request adapter to use to execute the requests.
         Returns: None
         """
-        super().__init__(request_adapter, "{+baseurl}/media/v1/projects/{project_id}/videos{?pagination%2Elimit*,pagination%2Eoffset*,sortDirection*,sortField*}", path_parameters)
+        super().__init__(request_adapter, "{+baseurl}/media/v1/projects/{project_id}/videos{?pagination%2Elimit*,pagination%2Eoffset*,sort_direction*,sort_field*}", path_parameters)
     
     def by_video_id(self,video_id: str) -> WithVideo_ItemRequestBuilder:
         """
@@ -108,9 +108,9 @@ class VideosRequestBuilder(BaseRequestBuilder):
             if original_name == "pagination_offset":
                 return "pagination%2Eoffset"
             if original_name == "sort_direction":
-                return "sortDirection"
+                return "sort_direction"
             if original_name == "sort_field":
-                return "sortField"
+                return "sort_field"
             return original_name
         
         # Maximum number of items to return.

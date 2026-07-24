@@ -10,7 +10,7 @@ class PaymentMethodDetails(Parsable):
     brand: Optional[str] = None
     # The id property
     id: Optional[str] = None
-    # The isDefault property
+    # The is_default property
     is_default: Optional[bool] = None
     # The last4 property
     last4: Optional[str] = None
@@ -36,7 +36,7 @@ class PaymentMethodDetails(Parsable):
         fields: dict[str, Callable[[Any], None]] = {
             "brand": lambda n : setattr(self, 'brand', n.get_str_value()),
             "id": lambda n : setattr(self, 'id', n.get_str_value()),
-            "isDefault": lambda n : setattr(self, 'is_default', n.get_bool_value()),
+            "is_default": lambda n : setattr(self, 'is_default', n.get_bool_value()),
             "last4": lambda n : setattr(self, 'last4', n.get_str_value()),
             "type": lambda n : setattr(self, 'type', n.get_str_value()),
         }
@@ -52,7 +52,7 @@ class PaymentMethodDetails(Parsable):
             raise TypeError("writer cannot be null.")
         writer.write_str_value("brand", self.brand)
         writer.write_str_value("id", self.id)
-        writer.write_bool_value("isDefault", self.is_default)
+        writer.write_bool_value("is_default", self.is_default)
         writer.write_str_value("last4", self.last4)
         writer.write_str_value("type", self.type)
     

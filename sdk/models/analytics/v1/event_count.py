@@ -6,7 +6,7 @@ from typing import Any, Optional, TYPE_CHECKING, Union
 
 @dataclass
 class EventCount(Parsable):
-    # The eventType property
+    # The event_type property
     event_type: Optional[str] = None
     
     @staticmethod
@@ -26,7 +26,7 @@ class EventCount(Parsable):
         Returns: dict[str, Callable[[ParseNode], None]]
         """
         fields: dict[str, Callable[[Any], None]] = {
-            "eventType": lambda n : setattr(self, 'event_type', n.get_str_value()),
+            "event_type": lambda n : setattr(self, 'event_type', n.get_str_value()),
         }
         return fields
     
@@ -38,6 +38,6 @@ class EventCount(Parsable):
         """
         if writer is None:
             raise TypeError("writer cannot be null.")
-        writer.write_str_value("eventType", self.event_type)
+        writer.write_str_value("event_type", self.event_type)
     
 

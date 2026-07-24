@@ -9,7 +9,7 @@ if TYPE_CHECKING:
 
 @dataclass
 class UpdateActiveMembershipRequest(Parsable):
-    # The membershipId property
+    # The membership_id property
     membership_id: Optional[str] = None
     # The user property
     user: Optional[UserOrgRequest] = None
@@ -35,7 +35,7 @@ class UpdateActiveMembershipRequest(Parsable):
         from .user_org_request import UserOrgRequest
 
         fields: dict[str, Callable[[Any], None]] = {
-            "membershipId": lambda n : setattr(self, 'membership_id', n.get_str_value()),
+            "membership_id": lambda n : setattr(self, 'membership_id', n.get_str_value()),
             "user": lambda n : setattr(self, 'user', n.get_object_value(UserOrgRequest)),
         }
         return fields
@@ -48,7 +48,7 @@ class UpdateActiveMembershipRequest(Parsable):
         """
         if writer is None:
             raise TypeError("writer cannot be null.")
-        writer.write_str_value("membershipId", self.membership_id)
+        writer.write_str_value("membership_id", self.membership_id)
         writer.write_object_value("user", self.user)
     
 

@@ -6,7 +6,7 @@ from typing import Any, Optional, TYPE_CHECKING, Union
 
 @dataclass
 class MarkImageFailedRequest(Parsable):
-    # The fileId property
+    # The file_id property
     file_id: Optional[str] = None
     
     @staticmethod
@@ -26,7 +26,7 @@ class MarkImageFailedRequest(Parsable):
         Returns: dict[str, Callable[[ParseNode], None]]
         """
         fields: dict[str, Callable[[Any], None]] = {
-            "fileId": lambda n : setattr(self, 'file_id', n.get_str_value()),
+            "file_id": lambda n : setattr(self, 'file_id', n.get_str_value()),
         }
         return fields
     
@@ -38,6 +38,6 @@ class MarkImageFailedRequest(Parsable):
         """
         if writer is None:
             raise TypeError("writer cannot be null.")
-        writer.write_str_value("fileId", self.file_id)
+        writer.write_str_value("file_id", self.file_id)
     
 

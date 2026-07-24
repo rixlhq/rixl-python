@@ -10,13 +10,13 @@ if TYPE_CHECKING:
 
 @dataclass
 class CalculateGenericTaxRequest(Parsable):
-    # The billingAddress property
+    # The billing_address property
     billing_address: Optional[BillingAddress] = None
     # The currency property
     currency: Optional[str] = None
-    # The lineItems property
+    # The line_items property
     line_items: Optional[list[TaxLineItem]] = None
-    # The orgId property
+    # The org_id property
     org_id: Optional[str] = None
     
     @staticmethod
@@ -42,10 +42,10 @@ class CalculateGenericTaxRequest(Parsable):
         from .tax_line_item import TaxLineItem
 
         fields: dict[str, Callable[[Any], None]] = {
-            "billingAddress": lambda n : setattr(self, 'billing_address', n.get_object_value(BillingAddress)),
+            "billing_address": lambda n : setattr(self, 'billing_address', n.get_object_value(BillingAddress)),
             "currency": lambda n : setattr(self, 'currency', n.get_str_value()),
-            "lineItems": lambda n : setattr(self, 'line_items', n.get_collection_of_object_values(TaxLineItem)),
-            "orgId": lambda n : setattr(self, 'org_id', n.get_str_value()),
+            "line_items": lambda n : setattr(self, 'line_items', n.get_collection_of_object_values(TaxLineItem)),
+            "org_id": lambda n : setattr(self, 'org_id', n.get_str_value()),
         }
         return fields
     
@@ -57,9 +57,9 @@ class CalculateGenericTaxRequest(Parsable):
         """
         if writer is None:
             raise TypeError("writer cannot be null.")
-        writer.write_object_value("billingAddress", self.billing_address)
+        writer.write_object_value("billing_address", self.billing_address)
         writer.write_str_value("currency", self.currency)
-        writer.write_collection_of_object_values("lineItems", self.line_items)
-        writer.write_str_value("orgId", self.org_id)
+        writer.write_collection_of_object_values("line_items", self.line_items)
+        writer.write_str_value("org_id", self.org_id)
     
 

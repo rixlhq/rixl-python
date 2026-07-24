@@ -6,7 +6,7 @@ from typing import Any, Optional, TYPE_CHECKING, Union
 
 @dataclass
 class PaymentMethodIdResponse(Parsable):
-    # The paymentMethodId property
+    # The payment_method_id property
     payment_method_id: Optional[str] = None
     
     @staticmethod
@@ -26,7 +26,7 @@ class PaymentMethodIdResponse(Parsable):
         Returns: dict[str, Callable[[ParseNode], None]]
         """
         fields: dict[str, Callable[[Any], None]] = {
-            "paymentMethodId": lambda n : setattr(self, 'payment_method_id', n.get_str_value()),
+            "payment_method_id": lambda n : setattr(self, 'payment_method_id', n.get_str_value()),
         }
         return fields
     
@@ -38,6 +38,6 @@ class PaymentMethodIdResponse(Parsable):
         """
         if writer is None:
             raise TypeError("writer cannot be null.")
-        writer.write_str_value("paymentMethodId", self.payment_method_id)
+        writer.write_str_value("payment_method_id", self.payment_method_id)
     
 

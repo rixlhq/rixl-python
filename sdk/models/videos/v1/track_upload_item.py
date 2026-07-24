@@ -6,13 +6,13 @@ from typing import Any, Optional, TYPE_CHECKING, Union
 
 @dataclass
 class TrackUploadItem(Parsable):
-    # The fileName property
+    # The file_name property
     file_name: Optional[str] = None
     # The format property
     format: Optional[str] = None
     # The label property
     label: Optional[str] = None
-    # The languageCode property
+    # The language_code property
     language_code: Optional[str] = None
     
     @staticmethod
@@ -32,10 +32,10 @@ class TrackUploadItem(Parsable):
         Returns: dict[str, Callable[[ParseNode], None]]
         """
         fields: dict[str, Callable[[Any], None]] = {
-            "fileName": lambda n : setattr(self, 'file_name', n.get_str_value()),
+            "file_name": lambda n : setattr(self, 'file_name', n.get_str_value()),
             "format": lambda n : setattr(self, 'format', n.get_str_value()),
             "label": lambda n : setattr(self, 'label', n.get_str_value()),
-            "languageCode": lambda n : setattr(self, 'language_code', n.get_str_value()),
+            "language_code": lambda n : setattr(self, 'language_code', n.get_str_value()),
         }
         return fields
     
@@ -47,9 +47,9 @@ class TrackUploadItem(Parsable):
         """
         if writer is None:
             raise TypeError("writer cannot be null.")
-        writer.write_str_value("fileName", self.file_name)
+        writer.write_str_value("file_name", self.file_name)
         writer.write_str_value("format", self.format)
         writer.write_str_value("label", self.label)
-        writer.write_str_value("languageCode", self.language_code)
+        writer.write_str_value("language_code", self.language_code)
     
 

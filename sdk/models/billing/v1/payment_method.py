@@ -13,9 +13,9 @@ class PaymentMethod(Parsable):
     details: Optional[str] = None
     # The id property
     id: Optional[str] = None
-    # The isDefault property
+    # The is_default property
     is_default: Optional[bool] = None
-    # The orgId property
+    # The org_id property
     org_id: Optional[str] = None
     # The provider property
     provider: Optional[str] = None
@@ -39,11 +39,11 @@ class PaymentMethod(Parsable):
         Returns: dict[str, Callable[[ParseNode], None]]
         """
         fields: dict[str, Callable[[Any], None]] = {
-            "createdAt": lambda n : setattr(self, 'created_at', n.get_datetime_value()),
+            "created_at": lambda n : setattr(self, 'created_at', n.get_datetime_value()),
             "details": lambda n : setattr(self, 'details', n.get_str_value()),
             "id": lambda n : setattr(self, 'id', n.get_str_value()),
-            "isDefault": lambda n : setattr(self, 'is_default', n.get_bool_value()),
-            "orgId": lambda n : setattr(self, 'org_id', n.get_str_value()),
+            "is_default": lambda n : setattr(self, 'is_default', n.get_bool_value()),
+            "org_id": lambda n : setattr(self, 'org_id', n.get_str_value()),
             "provider": lambda n : setattr(self, 'provider', n.get_str_value()),
             "type": lambda n : setattr(self, 'type', n.get_str_value()),
         }
@@ -57,11 +57,11 @@ class PaymentMethod(Parsable):
         """
         if writer is None:
             raise TypeError("writer cannot be null.")
-        writer.write_datetime_value("createdAt", self.created_at)
+        writer.write_datetime_value("created_at", self.created_at)
         writer.write_str_value("details", self.details)
         writer.write_str_value("id", self.id)
-        writer.write_bool_value("isDefault", self.is_default)
-        writer.write_str_value("orgId", self.org_id)
+        writer.write_bool_value("is_default", self.is_default)
+        writer.write_str_value("org_id", self.org_id)
         writer.write_str_value("provider", self.provider)
         writer.write_str_value("type", self.type)
     

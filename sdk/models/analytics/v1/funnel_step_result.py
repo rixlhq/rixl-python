@@ -6,13 +6,13 @@ from typing import Any, Optional, TYPE_CHECKING, Union
 
 @dataclass
 class FunnelStepResult(Parsable):
-    # The conversionRate property
+    # The conversion_rate property
     conversion_rate: Optional[float] = None
-    # The dropoffRate property
+    # The dropoff_rate property
     dropoff_rate: Optional[float] = None
-    # The stepName property
+    # The step_name property
     step_name: Optional[str] = None
-    # The userCount property
+    # The user_count property
     user_count: Optional[int] = None
     
     @staticmethod
@@ -32,10 +32,10 @@ class FunnelStepResult(Parsable):
         Returns: dict[str, Callable[[ParseNode], None]]
         """
         fields: dict[str, Callable[[Any], None]] = {
-            "conversionRate": lambda n : setattr(self, 'conversion_rate', n.get_float_value()),
-            "dropoffRate": lambda n : setattr(self, 'dropoff_rate', n.get_float_value()),
-            "stepName": lambda n : setattr(self, 'step_name', n.get_str_value()),
-            "userCount": lambda n : setattr(self, 'user_count', n.get_int_value()),
+            "conversion_rate": lambda n : setattr(self, 'conversion_rate', n.get_float_value()),
+            "dropoff_rate": lambda n : setattr(self, 'dropoff_rate', n.get_float_value()),
+            "step_name": lambda n : setattr(self, 'step_name', n.get_str_value()),
+            "user_count": lambda n : setattr(self, 'user_count', n.get_int_value()),
         }
         return fields
     
@@ -47,9 +47,9 @@ class FunnelStepResult(Parsable):
         """
         if writer is None:
             raise TypeError("writer cannot be null.")
-        writer.write_float_value("conversionRate", self.conversion_rate)
-        writer.write_float_value("dropoffRate", self.dropoff_rate)
-        writer.write_str_value("stepName", self.step_name)
-        writer.write_int_value("userCount", self.user_count)
+        writer.write_float_value("conversion_rate", self.conversion_rate)
+        writer.write_float_value("dropoff_rate", self.dropoff_rate)
+        writer.write_str_value("step_name", self.step_name)
+        writer.write_int_value("user_count", self.user_count)
     
 

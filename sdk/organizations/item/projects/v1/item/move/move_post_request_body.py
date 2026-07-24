@@ -6,7 +6,11 @@ from typing import Any, Optional, TYPE_CHECKING, Union
 
 @dataclass
 class MovePostRequestBody(Parsable):
-    # The targetOrganizationId property
+    # The org_id property
+    org_id: Optional[str] = None
+    # The project_id property
+    project_id: Optional[str] = None
+    # The target_organization_id property
     target_organization_id: Optional[str] = None
     
     @staticmethod
@@ -26,7 +30,9 @@ class MovePostRequestBody(Parsable):
         Returns: dict[str, Callable[[ParseNode], None]]
         """
         fields: dict[str, Callable[[Any], None]] = {
-            "targetOrganizationId": lambda n : setattr(self, 'target_organization_id', n.get_str_value()),
+            "org_id": lambda n : setattr(self, 'org_id', n.get_str_value()),
+            "project_id": lambda n : setattr(self, 'project_id', n.get_str_value()),
+            "target_organization_id": lambda n : setattr(self, 'target_organization_id', n.get_str_value()),
         }
         return fields
     
@@ -38,6 +44,8 @@ class MovePostRequestBody(Parsable):
         """
         if writer is None:
             raise TypeError("writer cannot be null.")
-        writer.write_str_value("targetOrganizationId", self.target_organization_id)
+        writer.write_str_value("org_id", self.org_id)
+        writer.write_str_value("project_id", self.project_id)
+        writer.write_str_value("target_organization_id", self.target_organization_id)
     
 

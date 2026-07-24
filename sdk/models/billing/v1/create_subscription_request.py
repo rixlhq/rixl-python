@@ -9,13 +9,13 @@ if TYPE_CHECKING:
 
 @dataclass
 class CreateSubscriptionRequest(Parsable):
-    # The billingAddress property
+    # The billing_address property
     billing_address: Optional[BillingAddress] = None
-    # The orgId property
+    # The org_id property
     org_id: Optional[str] = None
-    # The paymentMethodId property
+    # The payment_method_id property
     payment_method_id: Optional[str] = None
-    # The stripePriceId property
+    # The stripe_price_id property
     stripe_price_id: Optional[str] = None
     
     @staticmethod
@@ -39,10 +39,10 @@ class CreateSubscriptionRequest(Parsable):
         from .billing_address import BillingAddress
 
         fields: dict[str, Callable[[Any], None]] = {
-            "billingAddress": lambda n : setattr(self, 'billing_address', n.get_object_value(BillingAddress)),
-            "orgId": lambda n : setattr(self, 'org_id', n.get_str_value()),
-            "paymentMethodId": lambda n : setattr(self, 'payment_method_id', n.get_str_value()),
-            "stripePriceId": lambda n : setattr(self, 'stripe_price_id', n.get_str_value()),
+            "billing_address": lambda n : setattr(self, 'billing_address', n.get_object_value(BillingAddress)),
+            "org_id": lambda n : setattr(self, 'org_id', n.get_str_value()),
+            "payment_method_id": lambda n : setattr(self, 'payment_method_id', n.get_str_value()),
+            "stripe_price_id": lambda n : setattr(self, 'stripe_price_id', n.get_str_value()),
         }
         return fields
     
@@ -54,9 +54,9 @@ class CreateSubscriptionRequest(Parsable):
         """
         if writer is None:
             raise TypeError("writer cannot be null.")
-        writer.write_object_value("billingAddress", self.billing_address)
-        writer.write_str_value("orgId", self.org_id)
-        writer.write_str_value("paymentMethodId", self.payment_method_id)
-        writer.write_str_value("stripePriceId", self.stripe_price_id)
+        writer.write_object_value("billing_address", self.billing_address)
+        writer.write_str_value("org_id", self.org_id)
+        writer.write_str_value("payment_method_id", self.payment_method_id)
+        writer.write_str_value("stripe_price_id", self.stripe_price_id)
     
 

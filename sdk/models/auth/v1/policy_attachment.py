@@ -14,11 +14,11 @@ class PolicyAttachment(Parsable):
     created_at: Optional[datetime.datetime] = None
     # The id property
     id: Optional[str] = None
-    # The identityId property
+    # The identity_id property
     identity_id: Optional[str] = None
-    # The identityType property
+    # The identity_type property
     identity_type: Optional[PolicyIdentityType] = None
-    # The policyId property
+    # The policy_id property
     policy_id: Optional[str] = None
     
     @staticmethod
@@ -42,11 +42,11 @@ class PolicyAttachment(Parsable):
         from .policy_identity_type import PolicyIdentityType
 
         fields: dict[str, Callable[[Any], None]] = {
-            "createdAt": lambda n : setattr(self, 'created_at', n.get_datetime_value()),
+            "created_at": lambda n : setattr(self, 'created_at', n.get_datetime_value()),
             "id": lambda n : setattr(self, 'id', n.get_str_value()),
-            "identityId": lambda n : setattr(self, 'identity_id', n.get_str_value()),
-            "identityType": lambda n : setattr(self, 'identity_type', n.get_enum_value(PolicyIdentityType)),
-            "policyId": lambda n : setattr(self, 'policy_id', n.get_str_value()),
+            "identity_id": lambda n : setattr(self, 'identity_id', n.get_str_value()),
+            "identity_type": lambda n : setattr(self, 'identity_type', n.get_enum_value(PolicyIdentityType)),
+            "policy_id": lambda n : setattr(self, 'policy_id', n.get_str_value()),
         }
         return fields
     
@@ -58,10 +58,10 @@ class PolicyAttachment(Parsable):
         """
         if writer is None:
             raise TypeError("writer cannot be null.")
-        writer.write_datetime_value("createdAt", self.created_at)
+        writer.write_datetime_value("created_at", self.created_at)
         writer.write_str_value("id", self.id)
-        writer.write_str_value("identityId", self.identity_id)
-        writer.write_enum_value("identityType", self.identity_type)
-        writer.write_str_value("policyId", self.policy_id)
+        writer.write_str_value("identity_id", self.identity_id)
+        writer.write_enum_value("identity_type", self.identity_type)
+        writer.write_str_value("policy_id", self.policy_id)
     
 

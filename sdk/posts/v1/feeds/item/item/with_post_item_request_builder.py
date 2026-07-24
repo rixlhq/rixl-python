@@ -27,7 +27,7 @@ class WithPost_ItemRequestBuilder(BaseRequestBuilder):
         param request_adapter: The request adapter to use to execute the requests.
         Returns: None
         """
-        super().__init__(request_adapter, "{+baseurl}/posts/v1/feeds/{feed_id}/{post_id}{?projectId*}", path_parameters)
+        super().__init__(request_adapter, "{+baseurl}/posts/v1/feeds/{feed_id}/{post_id}{?project_id*}", path_parameters)
     
     async def get(self,request_configuration: Optional[RequestConfiguration[WithPost_ItemRequestBuilderGetQueryParameters]] = None) -> Optional[Post]:
         """
@@ -70,18 +70,6 @@ class WithPost_ItemRequestBuilder(BaseRequestBuilder):
         """
         GetPost
         """
-        def get_query_parameter(self,original_name: str) -> str:
-            """
-            Maps the query parameters names to their encoded names for the URI template parsing.
-            param original_name: The original query parameter name in the class.
-            Returns: str
-            """
-            if original_name is None:
-                raise TypeError("original_name cannot be null.")
-            if original_name == "project_id":
-                return "projectId"
-            return original_name
-        
         project_id: Optional[str] = None
 
     

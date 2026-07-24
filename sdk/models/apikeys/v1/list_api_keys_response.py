@@ -9,7 +9,7 @@ if TYPE_CHECKING:
 
 @dataclass
 class ListApiKeysResponse(Parsable):
-    # The apiKeys property
+    # The api_keys property
     api_keys: Optional[list[ApiKey]] = None
     
     @staticmethod
@@ -33,7 +33,7 @@ class ListApiKeysResponse(Parsable):
         from .api_key import ApiKey
 
         fields: dict[str, Callable[[Any], None]] = {
-            "apiKeys": lambda n : setattr(self, 'api_keys', n.get_collection_of_object_values(ApiKey)),
+            "api_keys": lambda n : setattr(self, 'api_keys', n.get_collection_of_object_values(ApiKey)),
         }
         return fields
     
@@ -45,6 +45,6 @@ class ListApiKeysResponse(Parsable):
         """
         if writer is None:
             raise TypeError("writer cannot be null.")
-        writer.write_collection_of_object_values("apiKeys", self.api_keys)
+        writer.write_collection_of_object_values("api_keys", self.api_keys)
     
 

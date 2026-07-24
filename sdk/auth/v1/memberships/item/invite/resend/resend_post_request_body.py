@@ -11,7 +11,7 @@ if TYPE_CHECKING:
 class ResendPostRequestBody(Parsable):
     # The user property
     user: Optional[ActorOrgRequest] = None
-    # The userId property
+    # The user_id property
     user_id: Optional[str] = None
     
     @staticmethod
@@ -36,7 +36,7 @@ class ResendPostRequestBody(Parsable):
 
         fields: dict[str, Callable[[Any], None]] = {
             "user": lambda n : setattr(self, 'user', n.get_object_value(ActorOrgRequest)),
-            "userId": lambda n : setattr(self, 'user_id', n.get_str_value()),
+            "user_id": lambda n : setattr(self, 'user_id', n.get_str_value()),
         }
         return fields
     
@@ -49,6 +49,6 @@ class ResendPostRequestBody(Parsable):
         if writer is None:
             raise TypeError("writer cannot be null.")
         writer.write_object_value("user", self.user)
-        writer.write_str_value("userId", self.user_id)
+        writer.write_str_value("user_id", self.user_id)
     
 

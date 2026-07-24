@@ -6,7 +6,7 @@ from typing import Any, Optional, TYPE_CHECKING, Union
 
 @dataclass
 class ResetPasswordRequest(Parsable):
-    # The newPassword property
+    # The new_password property
     new_password: Optional[str] = None
     # The token property
     token: Optional[str] = None
@@ -28,7 +28,7 @@ class ResetPasswordRequest(Parsable):
         Returns: dict[str, Callable[[ParseNode], None]]
         """
         fields: dict[str, Callable[[Any], None]] = {
-            "newPassword": lambda n : setattr(self, 'new_password', n.get_str_value()),
+            "new_password": lambda n : setattr(self, 'new_password', n.get_str_value()),
             "token": lambda n : setattr(self, 'token', n.get_str_value()),
         }
         return fields
@@ -41,7 +41,7 @@ class ResetPasswordRequest(Parsable):
         """
         if writer is None:
             raise TypeError("writer cannot be null.")
-        writer.write_str_value("newPassword", self.new_password)
+        writer.write_str_value("new_password", self.new_password)
         writer.write_str_value("token", self.token)
     
 

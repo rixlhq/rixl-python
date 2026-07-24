@@ -14,6 +14,8 @@ class RolePatchRequestBody(Parsable):
     role: Optional[MembershipRole] = None
     # The user property
     user: Optional[ActorOrgRequest] = None
+    # The user_id property
+    user_id: Optional[str] = None
     
     @staticmethod
     def create_from_discriminator_value(parse_node: ParseNode) -> RolePatchRequestBody:
@@ -40,6 +42,7 @@ class RolePatchRequestBody(Parsable):
         fields: dict[str, Callable[[Any], None]] = {
             "role": lambda n : setattr(self, 'role', n.get_enum_value(MembershipRole)),
             "user": lambda n : setattr(self, 'user', n.get_object_value(ActorOrgRequest)),
+            "user_id": lambda n : setattr(self, 'user_id', n.get_str_value()),
         }
         return fields
     
@@ -53,5 +56,6 @@ class RolePatchRequestBody(Parsable):
             raise TypeError("writer cannot be null.")
         writer.write_enum_value("role", self.role)
         writer.write_object_value("user", self.user)
+        writer.write_str_value("user_id", self.user_id)
     
 

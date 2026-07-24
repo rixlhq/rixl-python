@@ -6,9 +6,9 @@ from typing import Any, Optional, TYPE_CHECKING, Union
 
 @dataclass
 class InitiateEmailChangeRequest(Parsable):
-    # The newEmail property
+    # The new_email property
     new_email: Optional[str] = None
-    # The userId property
+    # The user_id property
     user_id: Optional[str] = None
     
     @staticmethod
@@ -28,8 +28,8 @@ class InitiateEmailChangeRequest(Parsable):
         Returns: dict[str, Callable[[ParseNode], None]]
         """
         fields: dict[str, Callable[[Any], None]] = {
-            "newEmail": lambda n : setattr(self, 'new_email', n.get_str_value()),
-            "userId": lambda n : setattr(self, 'user_id', n.get_str_value()),
+            "new_email": lambda n : setattr(self, 'new_email', n.get_str_value()),
+            "user_id": lambda n : setattr(self, 'user_id', n.get_str_value()),
         }
         return fields
     
@@ -41,7 +41,7 @@ class InitiateEmailChangeRequest(Parsable):
         """
         if writer is None:
             raise TypeError("writer cannot be null.")
-        writer.write_str_value("newEmail", self.new_email)
-        writer.write_str_value("userId", self.user_id)
+        writer.write_str_value("new_email", self.new_email)
+        writer.write_str_value("user_id", self.user_id)
     
 

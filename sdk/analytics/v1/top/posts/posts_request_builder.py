@@ -27,7 +27,7 @@ class PostsRequestBuilder(BaseRequestBuilder):
         param request_adapter: The request adapter to use to execute the requests.
         Returns: None
         """
-        super().__init__(request_adapter, "{+baseurl}/analytics/v1/top/posts{?feedId*,limit*,range%2Eend*,range%2Estart*}", path_parameters)
+        super().__init__(request_adapter, "{+baseurl}/analytics/v1/top/posts{?feed_id*,limit*,range%2Eend*,range%2Estart*}", path_parameters)
     
     async def get(self,request_configuration: Optional[RequestConfiguration[PostsRequestBuilderGetQueryParameters]] = None) -> Optional[TopPostsResponse]:
         """
@@ -78,12 +78,12 @@ class PostsRequestBuilder(BaseRequestBuilder):
             """
             if original_name is None:
                 raise TypeError("original_name cannot be null.")
-            if original_name == "feed_id":
-                return "feedId"
             if original_name == "range_end":
                 return "range%2Eend"
             if original_name == "range_start":
                 return "range%2Estart"
+            if original_name == "feed_id":
+                return "feed_id"
             if original_name == "limit":
                 return "limit"
             return original_name

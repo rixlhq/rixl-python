@@ -6,7 +6,7 @@ from typing import Any, Optional, TYPE_CHECKING, Union
 
 @dataclass
 class RefreshPlatformTokenRequest(Parsable):
-    # The refreshToken property
+    # The refresh_token property
     refresh_token: Optional[str] = None
     
     @staticmethod
@@ -26,7 +26,7 @@ class RefreshPlatformTokenRequest(Parsable):
         Returns: dict[str, Callable[[ParseNode], None]]
         """
         fields: dict[str, Callable[[Any], None]] = {
-            "refreshToken": lambda n : setattr(self, 'refresh_token', n.get_str_value()),
+            "refresh_token": lambda n : setattr(self, 'refresh_token', n.get_str_value()),
         }
         return fields
     
@@ -38,6 +38,6 @@ class RefreshPlatformTokenRequest(Parsable):
         """
         if writer is None:
             raise TypeError("writer cannot be null.")
-        writer.write_str_value("refreshToken", self.refresh_token)
+        writer.write_str_value("refresh_token", self.refresh_token)
     
 

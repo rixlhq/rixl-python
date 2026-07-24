@@ -9,13 +9,13 @@ if TYPE_CHECKING:
 
 @dataclass
 class ConnectedProvider(Parsable):
-    # The emailAddress property
+    # The email_address property
     email_address: Optional[str] = None
-    # The firstName property
+    # The first_name property
     first_name: Optional[str] = None
-    # The imageUrl property
+    # The image_url property
     image_url: Optional[str] = None
-    # The lastName property
+    # The last_name property
     last_name: Optional[str] = None
     # The provider property
     provider: Optional[ExternalAccountProvider] = None
@@ -43,10 +43,10 @@ class ConnectedProvider(Parsable):
         from .external_account_provider import ExternalAccountProvider
 
         fields: dict[str, Callable[[Any], None]] = {
-            "emailAddress": lambda n : setattr(self, 'email_address', n.get_str_value()),
-            "firstName": lambda n : setattr(self, 'first_name', n.get_str_value()),
-            "imageUrl": lambda n : setattr(self, 'image_url', n.get_str_value()),
-            "lastName": lambda n : setattr(self, 'last_name', n.get_str_value()),
+            "email_address": lambda n : setattr(self, 'email_address', n.get_str_value()),
+            "first_name": lambda n : setattr(self, 'first_name', n.get_str_value()),
+            "image_url": lambda n : setattr(self, 'image_url', n.get_str_value()),
+            "last_name": lambda n : setattr(self, 'last_name', n.get_str_value()),
             "provider": lambda n : setattr(self, 'provider', n.get_enum_value(ExternalAccountProvider)),
             "username": lambda n : setattr(self, 'username', n.get_str_value()),
         }
@@ -60,10 +60,10 @@ class ConnectedProvider(Parsable):
         """
         if writer is None:
             raise TypeError("writer cannot be null.")
-        writer.write_str_value("emailAddress", self.email_address)
-        writer.write_str_value("firstName", self.first_name)
-        writer.write_str_value("imageUrl", self.image_url)
-        writer.write_str_value("lastName", self.last_name)
+        writer.write_str_value("email_address", self.email_address)
+        writer.write_str_value("first_name", self.first_name)
+        writer.write_str_value("image_url", self.image_url)
+        writer.write_str_value("last_name", self.last_name)
         writer.write_enum_value("provider", self.provider)
         writer.write_str_value("username", self.username)
     

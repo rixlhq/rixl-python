@@ -28,7 +28,7 @@ class InvoicesRequestBuilder(BaseRequestBuilder):
         param request_adapter: The request adapter to use to execute the requests.
         Returns: None
         """
-        super().__init__(request_adapter, "{+baseurl}/billing/v1/invoices{?orgId*,pagination%2Elimit*,pagination%2Eoffset*}", path_parameters)
+        super().__init__(request_adapter, "{+baseurl}/billing/v1/invoices{?org_id*,pagination%2Elimit*,pagination%2Eoffset*}", path_parameters)
     
     def by_invoice_id(self,invoice_id: str) -> WithInvoice_ItemRequestBuilder:
         """
@@ -93,12 +93,12 @@ class InvoicesRequestBuilder(BaseRequestBuilder):
             """
             if original_name is None:
                 raise TypeError("original_name cannot be null.")
-            if original_name == "org_id":
-                return "orgId"
             if original_name == "pagination_limit":
                 return "pagination%2Elimit"
             if original_name == "pagination_offset":
                 return "pagination%2Eoffset"
+            if original_name == "org_id":
+                return "org_id"
             return original_name
         
         org_id: Optional[str] = None

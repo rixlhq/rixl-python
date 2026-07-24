@@ -32,7 +32,7 @@ class PostsRequestBuilder(BaseRequestBuilder):
         param request_adapter: The request adapter to use to execute the requests.
         Returns: None
         """
-        super().__init__(request_adapter, "{+baseurl}/posts/v1/projects/{project_id}/feeds/{feed_id}/posts{?creatorId*,pagination%2Elimit*,pagination%2Eoffset*}", path_parameters)
+        super().__init__(request_adapter, "{+baseurl}/posts/v1/projects/{project_id}/feeds/{feed_id}/posts{?creator_id*,pagination%2Elimit*,pagination%2Eoffset*}", path_parameters)
     
     def by_post_id(self,post_id: str) -> WithPost_ItemRequestBuilder:
         """
@@ -148,12 +148,12 @@ class PostsRequestBuilder(BaseRequestBuilder):
             """
             if original_name is None:
                 raise TypeError("original_name cannot be null.")
-            if original_name == "creator_id":
-                return "creatorId"
             if original_name == "pagination_limit":
                 return "pagination%2Elimit"
             if original_name == "pagination_offset":
                 return "pagination%2Eoffset"
+            if original_name == "creator_id":
+                return "creator_id"
             return original_name
         
         creator_id: Optional[str] = None

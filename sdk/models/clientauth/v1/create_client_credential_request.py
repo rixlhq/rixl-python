@@ -13,7 +13,7 @@ class CreateClientCredentialRequest(Parsable):
     alg: Optional[CreateClientCredentialRequest_alg] = None
     # The name property
     name: Optional[str] = None
-    # The orgId property
+    # The org_id property
     org_id: Optional[str] = None
     
     @staticmethod
@@ -39,7 +39,7 @@ class CreateClientCredentialRequest(Parsable):
         fields: dict[str, Callable[[Any], None]] = {
             "alg": lambda n : setattr(self, 'alg', n.get_enum_value(CreateClientCredentialRequest_alg)),
             "name": lambda n : setattr(self, 'name', n.get_str_value()),
-            "orgId": lambda n : setattr(self, 'org_id', n.get_str_value()),
+            "org_id": lambda n : setattr(self, 'org_id', n.get_str_value()),
         }
         return fields
     
@@ -53,6 +53,6 @@ class CreateClientCredentialRequest(Parsable):
             raise TypeError("writer cannot be null.")
         writer.write_enum_value("alg", self.alg)
         writer.write_str_value("name", self.name)
-        writer.write_str_value("orgId", self.org_id)
+        writer.write_str_value("org_id", self.org_id)
     
 

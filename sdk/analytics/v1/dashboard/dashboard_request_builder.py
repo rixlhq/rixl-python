@@ -27,7 +27,7 @@ class DashboardRequestBuilder(BaseRequestBuilder):
         param request_adapter: The request adapter to use to execute the requests.
         Returns: None
         """
-        super().__init__(request_adapter, "{+baseurl}/analytics/v1/dashboard?timeEnd={timeEnd}&timeStart={timeStart}{&interval*}", path_parameters)
+        super().__init__(request_adapter, "{+baseurl}/analytics/v1/dashboard?time_end={time_end}&time_start={time_start}{&interval*}", path_parameters)
     
     async def get(self,request_configuration: Optional[RequestConfiguration[DashboardRequestBuilderGetQueryParameters]] = None) -> Optional[DashboardStatsResponse]:
         """
@@ -70,22 +70,6 @@ class DashboardRequestBuilder(BaseRequestBuilder):
         """
         GetDashboardStats
         """
-        def get_query_parameter(self,original_name: str) -> str:
-            """
-            Maps the query parameters names to their encoded names for the URI template parsing.
-            param original_name: The original query parameter name in the class.
-            Returns: str
-            """
-            if original_name is None:
-                raise TypeError("original_name cannot be null.")
-            if original_name == "time_end":
-                return "timeEnd"
-            if original_name == "time_start":
-                return "timeStart"
-            if original_name == "interval":
-                return "interval"
-            return original_name
-        
         interval: Optional[str] = None
 
         time_end: Optional[str] = None

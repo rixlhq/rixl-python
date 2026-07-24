@@ -9,6 +9,10 @@ if TYPE_CHECKING:
 
 @dataclass
 class VisibilityPatchRequestBody(Parsable):
+    # The project_id property
+    project_id: Optional[str] = None
+    # The video_id property
+    video_id: Optional[str] = None
     # The visibility property
     visibility: Optional[Visibility] = None
     
@@ -33,6 +37,8 @@ class VisibilityPatchRequestBody(Parsable):
         from ........models.common.v1.visibility import Visibility
 
         fields: dict[str, Callable[[Any], None]] = {
+            "project_id": lambda n : setattr(self, 'project_id', n.get_str_value()),
+            "video_id": lambda n : setattr(self, 'video_id', n.get_str_value()),
             "visibility": lambda n : setattr(self, 'visibility', n.get_enum_value(Visibility)),
         }
         return fields
@@ -45,6 +51,8 @@ class VisibilityPatchRequestBody(Parsable):
         """
         if writer is None:
             raise TypeError("writer cannot be null.")
+        writer.write_str_value("project_id", self.project_id)
+        writer.write_str_value("video_id", self.video_id)
         writer.write_enum_value("visibility", self.visibility)
     
 

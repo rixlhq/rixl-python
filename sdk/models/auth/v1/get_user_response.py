@@ -8,9 +8,9 @@ from typing import Any, Optional, TYPE_CHECKING, Union
 class GetUserResponse(Parsable):
     # The email property
     email: Optional[str] = None
-    # The emailVerified property
+    # The email_verified property
     email_verified: Optional[bool] = None
-    # The userId property
+    # The user_id property
     user_id: Optional[str] = None
     
     @staticmethod
@@ -31,8 +31,8 @@ class GetUserResponse(Parsable):
         """
         fields: dict[str, Callable[[Any], None]] = {
             "email": lambda n : setattr(self, 'email', n.get_str_value()),
-            "emailVerified": lambda n : setattr(self, 'email_verified', n.get_bool_value()),
-            "userId": lambda n : setattr(self, 'user_id', n.get_str_value()),
+            "email_verified": lambda n : setattr(self, 'email_verified', n.get_bool_value()),
+            "user_id": lambda n : setattr(self, 'user_id', n.get_str_value()),
         }
         return fields
     
@@ -45,7 +45,7 @@ class GetUserResponse(Parsable):
         if writer is None:
             raise TypeError("writer cannot be null.")
         writer.write_str_value("email", self.email)
-        writer.write_bool_value("emailVerified", self.email_verified)
-        writer.write_str_value("userId", self.user_id)
+        writer.write_bool_value("email_verified", self.email_verified)
+        writer.write_str_value("user_id", self.user_id)
     
 

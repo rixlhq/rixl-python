@@ -6,13 +6,13 @@ from typing import Any, Optional, TYPE_CHECKING, Union
 
 @dataclass
 class TokenResponse(Parsable):
-    # The accessToken property
+    # The access_token property
     access_token: Optional[str] = None
-    # The refreshToken property
+    # The refresh_token property
     refresh_token: Optional[str] = None
-    # The requiresAction property
+    # The requires_action property
     requires_action: Optional[str] = None
-    # The tokenType property
+    # The token_type property
     token_type: Optional[str] = None
     
     @staticmethod
@@ -32,10 +32,10 @@ class TokenResponse(Parsable):
         Returns: dict[str, Callable[[ParseNode], None]]
         """
         fields: dict[str, Callable[[Any], None]] = {
-            "accessToken": lambda n : setattr(self, 'access_token', n.get_str_value()),
-            "refreshToken": lambda n : setattr(self, 'refresh_token', n.get_str_value()),
-            "requiresAction": lambda n : setattr(self, 'requires_action', n.get_str_value()),
-            "tokenType": lambda n : setattr(self, 'token_type', n.get_str_value()),
+            "access_token": lambda n : setattr(self, 'access_token', n.get_str_value()),
+            "refresh_token": lambda n : setattr(self, 'refresh_token', n.get_str_value()),
+            "requires_action": lambda n : setattr(self, 'requires_action', n.get_str_value()),
+            "token_type": lambda n : setattr(self, 'token_type', n.get_str_value()),
         }
         return fields
     
@@ -47,9 +47,9 @@ class TokenResponse(Parsable):
         """
         if writer is None:
             raise TypeError("writer cannot be null.")
-        writer.write_str_value("accessToken", self.access_token)
-        writer.write_str_value("refreshToken", self.refresh_token)
-        writer.write_str_value("requiresAction", self.requires_action)
-        writer.write_str_value("tokenType", self.token_type)
+        writer.write_str_value("access_token", self.access_token)
+        writer.write_str_value("refresh_token", self.refresh_token)
+        writer.write_str_value("requires_action", self.requires_action)
+        writer.write_str_value("token_type", self.token_type)
     
 

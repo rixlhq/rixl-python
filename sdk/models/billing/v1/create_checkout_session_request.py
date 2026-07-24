@@ -6,13 +6,13 @@ from typing import Any, Optional, TYPE_CHECKING, Union
 
 @dataclass
 class CreateCheckoutSessionRequest(Parsable):
-    # The cancelUrl property
+    # The cancel_url property
     cancel_url: Optional[str] = None
-    # The orgId property
+    # The org_id property
     org_id: Optional[str] = None
-    # The stripePriceId property
+    # The stripe_price_id property
     stripe_price_id: Optional[str] = None
-    # The successUrl property
+    # The success_url property
     success_url: Optional[str] = None
     
     @staticmethod
@@ -32,10 +32,10 @@ class CreateCheckoutSessionRequest(Parsable):
         Returns: dict[str, Callable[[ParseNode], None]]
         """
         fields: dict[str, Callable[[Any], None]] = {
-            "cancelUrl": lambda n : setattr(self, 'cancel_url', n.get_str_value()),
-            "orgId": lambda n : setattr(self, 'org_id', n.get_str_value()),
-            "stripePriceId": lambda n : setattr(self, 'stripe_price_id', n.get_str_value()),
-            "successUrl": lambda n : setattr(self, 'success_url', n.get_str_value()),
+            "cancel_url": lambda n : setattr(self, 'cancel_url', n.get_str_value()),
+            "org_id": lambda n : setattr(self, 'org_id', n.get_str_value()),
+            "stripe_price_id": lambda n : setattr(self, 'stripe_price_id', n.get_str_value()),
+            "success_url": lambda n : setattr(self, 'success_url', n.get_str_value()),
         }
         return fields
     
@@ -47,9 +47,9 @@ class CreateCheckoutSessionRequest(Parsable):
         """
         if writer is None:
             raise TypeError("writer cannot be null.")
-        writer.write_str_value("cancelUrl", self.cancel_url)
-        writer.write_str_value("orgId", self.org_id)
-        writer.write_str_value("stripePriceId", self.stripe_price_id)
-        writer.write_str_value("successUrl", self.success_url)
+        writer.write_str_value("cancel_url", self.cancel_url)
+        writer.write_str_value("org_id", self.org_id)
+        writer.write_str_value("stripe_price_id", self.stripe_price_id)
+        writer.write_str_value("success_url", self.success_url)
     
 

@@ -8,7 +8,7 @@ from typing import Any, Optional, TYPE_CHECKING, Union
 class EmailStatusResponse(Parsable):
     # The email property
     email: Optional[str] = None
-    # The hasEmail property
+    # The has_email property
     has_email: Optional[bool] = None
     # The verified property
     verified: Optional[bool] = None
@@ -31,7 +31,7 @@ class EmailStatusResponse(Parsable):
         """
         fields: dict[str, Callable[[Any], None]] = {
             "email": lambda n : setattr(self, 'email', n.get_str_value()),
-            "hasEmail": lambda n : setattr(self, 'has_email', n.get_bool_value()),
+            "has_email": lambda n : setattr(self, 'has_email', n.get_bool_value()),
             "verified": lambda n : setattr(self, 'verified', n.get_bool_value()),
         }
         return fields
@@ -45,7 +45,7 @@ class EmailStatusResponse(Parsable):
         if writer is None:
             raise TypeError("writer cannot be null.")
         writer.write_str_value("email", self.email)
-        writer.write_bool_value("hasEmail", self.has_email)
+        writer.write_bool_value("has_email", self.has_email)
         writer.write_bool_value("verified", self.verified)
     
 

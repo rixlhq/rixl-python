@@ -6,13 +6,13 @@ from typing import Any, Optional, TYPE_CHECKING, Union
 
 @dataclass
 class VideoStats(Parsable):
-    # The avgWatchTimeMs property
+    # The avg_watch_time_ms property
     avg_watch_time_ms: Optional[float] = None
-    # The completionRate property
+    # The completion_rate property
     completion_rate: Optional[float] = None
-    # The totalWatchTimeMs property
+    # The total_watch_time_ms property
     total_watch_time_ms: Optional[float] = None
-    # The videoId property
+    # The video_id property
     video_id: Optional[str] = None
     
     @staticmethod
@@ -32,10 +32,10 @@ class VideoStats(Parsable):
         Returns: dict[str, Callable[[ParseNode], None]]
         """
         fields: dict[str, Callable[[Any], None]] = {
-            "avgWatchTimeMs": lambda n : setattr(self, 'avg_watch_time_ms', n.get_float_value()),
-            "completionRate": lambda n : setattr(self, 'completion_rate', n.get_float_value()),
-            "totalWatchTimeMs": lambda n : setattr(self, 'total_watch_time_ms', n.get_float_value()),
-            "videoId": lambda n : setattr(self, 'video_id', n.get_str_value()),
+            "avg_watch_time_ms": lambda n : setattr(self, 'avg_watch_time_ms', n.get_float_value()),
+            "completion_rate": lambda n : setattr(self, 'completion_rate', n.get_float_value()),
+            "total_watch_time_ms": lambda n : setattr(self, 'total_watch_time_ms', n.get_float_value()),
+            "video_id": lambda n : setattr(self, 'video_id', n.get_str_value()),
         }
         return fields
     
@@ -47,9 +47,9 @@ class VideoStats(Parsable):
         """
         if writer is None:
             raise TypeError("writer cannot be null.")
-        writer.write_float_value("avgWatchTimeMs", self.avg_watch_time_ms)
-        writer.write_float_value("completionRate", self.completion_rate)
-        writer.write_float_value("totalWatchTimeMs", self.total_watch_time_ms)
-        writer.write_str_value("videoId", self.video_id)
+        writer.write_float_value("avg_watch_time_ms", self.avg_watch_time_ms)
+        writer.write_float_value("completion_rate", self.completion_rate)
+        writer.write_float_value("total_watch_time_ms", self.total_watch_time_ms)
+        writer.write_str_value("video_id", self.video_id)
     
 

@@ -6,7 +6,7 @@ from typing import Any, Optional, TYPE_CHECKING, Union
 
 @dataclass
 class GetPostStatsResponse(Parsable):
-    # The postId property
+    # The post_id property
     post_id: Optional[str] = None
     
     @staticmethod
@@ -26,7 +26,7 @@ class GetPostStatsResponse(Parsable):
         Returns: dict[str, Callable[[ParseNode], None]]
         """
         fields: dict[str, Callable[[Any], None]] = {
-            "postId": lambda n : setattr(self, 'post_id', n.get_str_value()),
+            "post_id": lambda n : setattr(self, 'post_id', n.get_str_value()),
         }
         return fields
     
@@ -38,6 +38,6 @@ class GetPostStatsResponse(Parsable):
         """
         if writer is None:
             raise TypeError("writer cannot be null.")
-        writer.write_str_value("postId", self.post_id)
+        writer.write_str_value("post_id", self.post_id)
     
 

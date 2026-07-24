@@ -11,6 +11,10 @@ if TYPE_CHECKING:
 class CompletePostRequestBody(Parsable):
     # The items property
     items: Optional[list[CompleteTrackUploadItem]] = None
+    # The project_id property
+    project_id: Optional[str] = None
+    # The video_id property
+    video_id: Optional[str] = None
     
     @staticmethod
     def create_from_discriminator_value(parse_node: ParseNode) -> CompletePostRequestBody:
@@ -34,6 +38,8 @@ class CompletePostRequestBody(Parsable):
 
         fields: dict[str, Callable[[Any], None]] = {
             "items": lambda n : setattr(self, 'items', n.get_collection_of_object_values(CompleteTrackUploadItem)),
+            "project_id": lambda n : setattr(self, 'project_id', n.get_str_value()),
+            "video_id": lambda n : setattr(self, 'video_id', n.get_str_value()),
         }
         return fields
     
@@ -46,5 +52,7 @@ class CompletePostRequestBody(Parsable):
         if writer is None:
             raise TypeError("writer cannot be null.")
         writer.write_collection_of_object_values("items", self.items)
+        writer.write_str_value("project_id", self.project_id)
+        writer.write_str_value("video_id", self.video_id)
     
 

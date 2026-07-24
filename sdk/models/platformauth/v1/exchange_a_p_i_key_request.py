@@ -6,7 +6,7 @@ from typing import Any, Optional, TYPE_CHECKING, Union
 
 @dataclass
 class ExchangeAPIKeyRequest(Parsable):
-    # The apiKey property
+    # The api_key property
     api_key: Optional[str] = None
     
     @staticmethod
@@ -26,7 +26,7 @@ class ExchangeAPIKeyRequest(Parsable):
         Returns: dict[str, Callable[[ParseNode], None]]
         """
         fields: dict[str, Callable[[Any], None]] = {
-            "apiKey": lambda n : setattr(self, 'api_key', n.get_str_value()),
+            "api_key": lambda n : setattr(self, 'api_key', n.get_str_value()),
         }
         return fields
     
@@ -38,6 +38,6 @@ class ExchangeAPIKeyRequest(Parsable):
         """
         if writer is None:
             raise TypeError("writer cannot be null.")
-        writer.write_str_value("apiKey", self.api_key)
+        writer.write_str_value("api_key", self.api_key)
     
 

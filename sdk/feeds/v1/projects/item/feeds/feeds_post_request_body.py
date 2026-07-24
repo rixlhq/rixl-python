@@ -6,20 +6,22 @@ from typing import Any, Optional, TYPE_CHECKING, Union
 
 @dataclass
 class FeedsPostRequestBody(Parsable):
-    # The allowImages property
+    # The allow_images property
     allow_images: Optional[bool] = None
-    # The allowVideos property
+    # The allow_videos property
     allow_videos: Optional[bool] = None
     # The description property
     description: Optional[str] = None
-    # The hasComments property
+    # The has_comments property
     has_comments: Optional[bool] = None
-    # The hasLikes property
+    # The has_likes property
     has_likes: Optional[bool] = None
-    # The hasShares property
+    # The has_shares property
     has_shares: Optional[bool] = None
     # The name property
     name: Optional[str] = None
+    # The project_id property
+    project_id: Optional[str] = None
     
     @staticmethod
     def create_from_discriminator_value(parse_node: ParseNode) -> FeedsPostRequestBody:
@@ -38,13 +40,14 @@ class FeedsPostRequestBody(Parsable):
         Returns: dict[str, Callable[[ParseNode], None]]
         """
         fields: dict[str, Callable[[Any], None]] = {
-            "allowImages": lambda n : setattr(self, 'allow_images', n.get_bool_value()),
-            "allowVideos": lambda n : setattr(self, 'allow_videos', n.get_bool_value()),
+            "allow_images": lambda n : setattr(self, 'allow_images', n.get_bool_value()),
+            "allow_videos": lambda n : setattr(self, 'allow_videos', n.get_bool_value()),
             "description": lambda n : setattr(self, 'description', n.get_str_value()),
-            "hasComments": lambda n : setattr(self, 'has_comments', n.get_bool_value()),
-            "hasLikes": lambda n : setattr(self, 'has_likes', n.get_bool_value()),
-            "hasShares": lambda n : setattr(self, 'has_shares', n.get_bool_value()),
+            "has_comments": lambda n : setattr(self, 'has_comments', n.get_bool_value()),
+            "has_likes": lambda n : setattr(self, 'has_likes', n.get_bool_value()),
+            "has_shares": lambda n : setattr(self, 'has_shares', n.get_bool_value()),
             "name": lambda n : setattr(self, 'name', n.get_str_value()),
+            "project_id": lambda n : setattr(self, 'project_id', n.get_str_value()),
         }
         return fields
     
@@ -56,12 +59,13 @@ class FeedsPostRequestBody(Parsable):
         """
         if writer is None:
             raise TypeError("writer cannot be null.")
-        writer.write_bool_value("allowImages", self.allow_images)
-        writer.write_bool_value("allowVideos", self.allow_videos)
+        writer.write_bool_value("allow_images", self.allow_images)
+        writer.write_bool_value("allow_videos", self.allow_videos)
         writer.write_str_value("description", self.description)
-        writer.write_bool_value("hasComments", self.has_comments)
-        writer.write_bool_value("hasLikes", self.has_likes)
-        writer.write_bool_value("hasShares", self.has_shares)
+        writer.write_bool_value("has_comments", self.has_comments)
+        writer.write_bool_value("has_likes", self.has_likes)
+        writer.write_bool_value("has_shares", self.has_shares)
         writer.write_str_value("name", self.name)
+        writer.write_str_value("project_id", self.project_id)
     
 

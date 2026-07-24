@@ -6,13 +6,13 @@ from typing import Any, Optional, TYPE_CHECKING, Union
 
 @dataclass
 class RefreshTokenRequest(Parsable):
-    # The countryCode property
+    # The country_code property
     country_code: Optional[str] = None
     # The origin property
     origin: Optional[str] = None
-    # The refreshToken property
+    # The refresh_token property
     refresh_token: Optional[str] = None
-    # The tokenType property
+    # The token_type property
     token_type: Optional[str] = None
     
     @staticmethod
@@ -32,10 +32,10 @@ class RefreshTokenRequest(Parsable):
         Returns: dict[str, Callable[[ParseNode], None]]
         """
         fields: dict[str, Callable[[Any], None]] = {
-            "countryCode": lambda n : setattr(self, 'country_code', n.get_str_value()),
+            "country_code": lambda n : setattr(self, 'country_code', n.get_str_value()),
             "origin": lambda n : setattr(self, 'origin', n.get_str_value()),
-            "refreshToken": lambda n : setattr(self, 'refresh_token', n.get_str_value()),
-            "tokenType": lambda n : setattr(self, 'token_type', n.get_str_value()),
+            "refresh_token": lambda n : setattr(self, 'refresh_token', n.get_str_value()),
+            "token_type": lambda n : setattr(self, 'token_type', n.get_str_value()),
         }
         return fields
     
@@ -47,9 +47,9 @@ class RefreshTokenRequest(Parsable):
         """
         if writer is None:
             raise TypeError("writer cannot be null.")
-        writer.write_str_value("countryCode", self.country_code)
+        writer.write_str_value("country_code", self.country_code)
         writer.write_str_value("origin", self.origin)
-        writer.write_str_value("refreshToken", self.refresh_token)
-        writer.write_str_value("tokenType", self.token_type)
+        writer.write_str_value("refresh_token", self.refresh_token)
+        writer.write_str_value("token_type", self.token_type)
     
 

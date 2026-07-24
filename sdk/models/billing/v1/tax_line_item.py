@@ -8,7 +8,7 @@ from typing import Any, Optional, TYPE_CHECKING, Union
 class TaxLineItem(Parsable):
     # The reference property
     reference: Optional[str] = None
-    # The taxCode property
+    # The tax_code property
     tax_code: Optional[str] = None
     
     @staticmethod
@@ -29,7 +29,7 @@ class TaxLineItem(Parsable):
         """
         fields: dict[str, Callable[[Any], None]] = {
             "reference": lambda n : setattr(self, 'reference', n.get_str_value()),
-            "taxCode": lambda n : setattr(self, 'tax_code', n.get_str_value()),
+            "tax_code": lambda n : setattr(self, 'tax_code', n.get_str_value()),
         }
         return fields
     
@@ -42,6 +42,6 @@ class TaxLineItem(Parsable):
         if writer is None:
             raise TypeError("writer cannot be null.")
         writer.write_str_value("reference", self.reference)
-        writer.write_str_value("taxCode", self.tax_code)
+        writer.write_str_value("tax_code", self.tax_code)
     
 

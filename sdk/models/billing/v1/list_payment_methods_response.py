@@ -9,7 +9,7 @@ if TYPE_CHECKING:
 
 @dataclass
 class ListPaymentMethodsResponse(Parsable):
-    # The paymentMethods property
+    # The payment_methods property
     payment_methods: Optional[list[PaymentMethod]] = None
     
     @staticmethod
@@ -33,7 +33,7 @@ class ListPaymentMethodsResponse(Parsable):
         from .payment_method import PaymentMethod
 
         fields: dict[str, Callable[[Any], None]] = {
-            "paymentMethods": lambda n : setattr(self, 'payment_methods', n.get_collection_of_object_values(PaymentMethod)),
+            "payment_methods": lambda n : setattr(self, 'payment_methods', n.get_collection_of_object_values(PaymentMethod)),
         }
         return fields
     
@@ -45,6 +45,6 @@ class ListPaymentMethodsResponse(Parsable):
         """
         if writer is None:
             raise TypeError("writer cannot be null.")
-        writer.write_collection_of_object_values("paymentMethods", self.payment_methods)
+        writer.write_collection_of_object_values("payment_methods", self.payment_methods)
     
 

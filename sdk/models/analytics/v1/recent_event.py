@@ -6,13 +6,13 @@ from typing import Any, Optional, TYPE_CHECKING, Union
 
 @dataclass
 class RecentEvent(Parsable):
-    # The contentId property
+    # The content_id property
     content_id: Optional[str] = None
-    # The eventType property
+    # The event_type property
     event_type: Optional[str] = None
     # The timestamp property
     timestamp: Optional[str] = None
-    # The userId property
+    # The user_id property
     user_id: Optional[str] = None
     
     @staticmethod
@@ -32,10 +32,10 @@ class RecentEvent(Parsable):
         Returns: dict[str, Callable[[ParseNode], None]]
         """
         fields: dict[str, Callable[[Any], None]] = {
-            "contentId": lambda n : setattr(self, 'content_id', n.get_str_value()),
-            "eventType": lambda n : setattr(self, 'event_type', n.get_str_value()),
+            "content_id": lambda n : setattr(self, 'content_id', n.get_str_value()),
+            "event_type": lambda n : setattr(self, 'event_type', n.get_str_value()),
             "timestamp": lambda n : setattr(self, 'timestamp', n.get_str_value()),
-            "userId": lambda n : setattr(self, 'user_id', n.get_str_value()),
+            "user_id": lambda n : setattr(self, 'user_id', n.get_str_value()),
         }
         return fields
     
@@ -47,9 +47,9 @@ class RecentEvent(Parsable):
         """
         if writer is None:
             raise TypeError("writer cannot be null.")
-        writer.write_str_value("contentId", self.content_id)
-        writer.write_str_value("eventType", self.event_type)
+        writer.write_str_value("content_id", self.content_id)
+        writer.write_str_value("event_type", self.event_type)
         writer.write_str_value("timestamp", self.timestamp)
-        writer.write_str_value("userId", self.user_id)
+        writer.write_str_value("user_id", self.user_id)
     
 

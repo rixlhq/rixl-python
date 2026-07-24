@@ -9,7 +9,7 @@ if TYPE_CHECKING:
 
 @dataclass
 class NamePatchRequestBody(Parsable):
-    # The fullName property
+    # The full_name property
     full_name: Optional[str] = None
     # The user property
     user: Optional[ActorOrgRequest] = None
@@ -35,7 +35,7 @@ class NamePatchRequestBody(Parsable):
         from ......models.auth.v1.actor_org_request import ActorOrgRequest
 
         fields: dict[str, Callable[[Any], None]] = {
-            "fullName": lambda n : setattr(self, 'full_name', n.get_str_value()),
+            "full_name": lambda n : setattr(self, 'full_name', n.get_str_value()),
             "user": lambda n : setattr(self, 'user', n.get_object_value(ActorOrgRequest)),
         }
         return fields
@@ -48,7 +48,7 @@ class NamePatchRequestBody(Parsable):
         """
         if writer is None:
             raise TypeError("writer cannot be null.")
-        writer.write_str_value("fullName", self.full_name)
+        writer.write_str_value("full_name", self.full_name)
         writer.write_object_value("user", self.user)
     
 

@@ -6,7 +6,7 @@ from typing import Any, Optional, TYPE_CHECKING, Union
 
 @dataclass
 class UpgradeSubscriptionResponse(Parsable):
-    # The clientSecret property
+    # The client_secret property
     client_secret: Optional[str] = None
     
     @staticmethod
@@ -26,7 +26,7 @@ class UpgradeSubscriptionResponse(Parsable):
         Returns: dict[str, Callable[[ParseNode], None]]
         """
         fields: dict[str, Callable[[Any], None]] = {
-            "clientSecret": lambda n : setattr(self, 'client_secret', n.get_str_value()),
+            "client_secret": lambda n : setattr(self, 'client_secret', n.get_str_value()),
         }
         return fields
     
@@ -38,6 +38,6 @@ class UpgradeSubscriptionResponse(Parsable):
         """
         if writer is None:
             raise TypeError("writer cannot be null.")
-        writer.write_str_value("clientSecret", self.client_secret)
+        writer.write_str_value("client_secret", self.client_secret)
     
 

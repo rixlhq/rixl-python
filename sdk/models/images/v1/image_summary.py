@@ -53,7 +53,7 @@ class ImageSummary(Parsable):
         from ...common.v1.visibility import Visibility
 
         fields: dict[str, Callable[[Any], None]] = {
-            "createdAt": lambda n : setattr(self, 'created_at', n.get_datetime_value()),
+            "created_at": lambda n : setattr(self, 'created_at', n.get_datetime_value()),
             "format": lambda n : setattr(self, 'format', n.get_enum_value(ImageFormat)),
             "height": lambda n : setattr(self, 'height', n.get_int_value()),
             "id": lambda n : setattr(self, 'id', n.get_str_value()),
@@ -73,7 +73,7 @@ class ImageSummary(Parsable):
         """
         if writer is None:
             raise TypeError("writer cannot be null.")
-        writer.write_datetime_value("createdAt", self.created_at)
+        writer.write_datetime_value("created_at", self.created_at)
         writer.write_enum_value("format", self.format)
         writer.write_int_value("height", self.height)
         writer.write_str_value("id", self.id)

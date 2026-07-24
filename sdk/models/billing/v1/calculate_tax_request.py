@@ -14,21 +14,21 @@ if TYPE_CHECKING:
 class CalculateTaxRequest(Parsable):
     # The amount property
     amount: Optional[float] = None
-    # The billingAddress property
+    # The billing_address property
     billing_address: Optional[BillingAddress] = None
-    # The billingCycle property
+    # The billing_cycle property
     billing_cycle: Optional[BillingCycle] = None
     # The currency property
     currency: Optional[str] = None
-    # The lineItems property
+    # The line_items property
     line_items: Optional[list[TaxLineItem]] = None
     # The metadata property
     metadata: Optional[CalculateTaxRequest_metadata] = None
-    # The orgId property
+    # The org_id property
     org_id: Optional[str] = None
-    # The planId property
+    # The plan_id property
     plan_id: Optional[str] = None
-    # The planName property
+    # The plan_name property
     plan_name: Optional[str] = None
     
     @staticmethod
@@ -59,14 +59,14 @@ class CalculateTaxRequest(Parsable):
 
         fields: dict[str, Callable[[Any], None]] = {
             "amount": lambda n : setattr(self, 'amount', n.get_float_value()),
-            "billingAddress": lambda n : setattr(self, 'billing_address', n.get_object_value(BillingAddress)),
-            "billingCycle": lambda n : setattr(self, 'billing_cycle', n.get_enum_value(BillingCycle)),
+            "billing_address": lambda n : setattr(self, 'billing_address', n.get_object_value(BillingAddress)),
+            "billing_cycle": lambda n : setattr(self, 'billing_cycle', n.get_enum_value(BillingCycle)),
             "currency": lambda n : setattr(self, 'currency', n.get_str_value()),
-            "lineItems": lambda n : setattr(self, 'line_items', n.get_collection_of_object_values(TaxLineItem)),
+            "line_items": lambda n : setattr(self, 'line_items', n.get_collection_of_object_values(TaxLineItem)),
             "metadata": lambda n : setattr(self, 'metadata', n.get_object_value(CalculateTaxRequest_metadata)),
-            "orgId": lambda n : setattr(self, 'org_id', n.get_str_value()),
-            "planId": lambda n : setattr(self, 'plan_id', n.get_str_value()),
-            "planName": lambda n : setattr(self, 'plan_name', n.get_str_value()),
+            "org_id": lambda n : setattr(self, 'org_id', n.get_str_value()),
+            "plan_id": lambda n : setattr(self, 'plan_id', n.get_str_value()),
+            "plan_name": lambda n : setattr(self, 'plan_name', n.get_str_value()),
         }
         return fields
     
@@ -79,13 +79,13 @@ class CalculateTaxRequest(Parsable):
         if writer is None:
             raise TypeError("writer cannot be null.")
         writer.write_float_value("amount", self.amount)
-        writer.write_object_value("billingAddress", self.billing_address)
-        writer.write_enum_value("billingCycle", self.billing_cycle)
+        writer.write_object_value("billing_address", self.billing_address)
+        writer.write_enum_value("billing_cycle", self.billing_cycle)
         writer.write_str_value("currency", self.currency)
-        writer.write_collection_of_object_values("lineItems", self.line_items)
+        writer.write_collection_of_object_values("line_items", self.line_items)
         writer.write_object_value("metadata", self.metadata)
-        writer.write_str_value("orgId", self.org_id)
-        writer.write_str_value("planId", self.plan_id)
-        writer.write_str_value("planName", self.plan_name)
+        writer.write_str_value("org_id", self.org_id)
+        writer.write_str_value("plan_id", self.plan_id)
+        writer.write_str_value("plan_name", self.plan_name)
     
 

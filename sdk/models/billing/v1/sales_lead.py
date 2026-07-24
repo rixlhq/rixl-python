@@ -16,23 +16,23 @@ class SalesLead(Parsable):
     created_at: Optional[datetime.datetime] = None
     # The email property
     email: Optional[str] = None
-    # The firstName property
+    # The first_name property
     first_name: Optional[str] = None
     # The id property
     id: Optional[str] = None
-    # The jobTitle property
+    # The job_title property
     job_title: Optional[str] = None
-    # The lastName property
+    # The last_name property
     last_name: Optional[str] = None
     # The message property
     message: Optional[str] = None
-    # The orgId property
+    # The org_id property
     org_id: Optional[str] = None
     # The phone property
     phone: Optional[str] = None
     # The status property
     status: Optional[SalesLeadStatus] = None
-    # The userId property
+    # The user_id property
     user_id: Optional[str] = None
     # The website property
     website: Optional[str] = None
@@ -59,17 +59,17 @@ class SalesLead(Parsable):
 
         fields: dict[str, Callable[[Any], None]] = {
             "company": lambda n : setattr(self, 'company', n.get_str_value()),
-            "createdAt": lambda n : setattr(self, 'created_at', n.get_datetime_value()),
+            "created_at": lambda n : setattr(self, 'created_at', n.get_datetime_value()),
             "email": lambda n : setattr(self, 'email', n.get_str_value()),
-            "firstName": lambda n : setattr(self, 'first_name', n.get_str_value()),
+            "first_name": lambda n : setattr(self, 'first_name', n.get_str_value()),
             "id": lambda n : setattr(self, 'id', n.get_str_value()),
-            "jobTitle": lambda n : setattr(self, 'job_title', n.get_str_value()),
-            "lastName": lambda n : setattr(self, 'last_name', n.get_str_value()),
+            "job_title": lambda n : setattr(self, 'job_title', n.get_str_value()),
+            "last_name": lambda n : setattr(self, 'last_name', n.get_str_value()),
             "message": lambda n : setattr(self, 'message', n.get_str_value()),
-            "orgId": lambda n : setattr(self, 'org_id', n.get_str_value()),
+            "org_id": lambda n : setattr(self, 'org_id', n.get_str_value()),
             "phone": lambda n : setattr(self, 'phone', n.get_str_value()),
             "status": lambda n : setattr(self, 'status', n.get_enum_value(SalesLeadStatus)),
-            "userId": lambda n : setattr(self, 'user_id', n.get_str_value()),
+            "user_id": lambda n : setattr(self, 'user_id', n.get_str_value()),
             "website": lambda n : setattr(self, 'website', n.get_str_value()),
         }
         return fields
@@ -83,17 +83,17 @@ class SalesLead(Parsable):
         if writer is None:
             raise TypeError("writer cannot be null.")
         writer.write_str_value("company", self.company)
-        writer.write_datetime_value("createdAt", self.created_at)
+        writer.write_datetime_value("created_at", self.created_at)
         writer.write_str_value("email", self.email)
-        writer.write_str_value("firstName", self.first_name)
+        writer.write_str_value("first_name", self.first_name)
         writer.write_str_value("id", self.id)
-        writer.write_str_value("jobTitle", self.job_title)
-        writer.write_str_value("lastName", self.last_name)
+        writer.write_str_value("job_title", self.job_title)
+        writer.write_str_value("last_name", self.last_name)
         writer.write_str_value("message", self.message)
-        writer.write_str_value("orgId", self.org_id)
+        writer.write_str_value("org_id", self.org_id)
         writer.write_str_value("phone", self.phone)
         writer.write_enum_value("status", self.status)
-        writer.write_str_value("userId", self.user_id)
+        writer.write_str_value("user_id", self.user_id)
         writer.write_str_value("website", self.website)
     
 
