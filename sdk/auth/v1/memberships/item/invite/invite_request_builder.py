@@ -14,8 +14,9 @@ from typing import Any, Optional, TYPE_CHECKING, Union
 from warnings import warn
 
 if TYPE_CHECKING:
-    from ......models.auth.v1.membership_mutation import MembershipMutation
+    from ......models.auth.v1.membership_application import MembershipApplication
     from .invite_post_request_body import InvitePostRequestBody
+    from .item.with_user_item_request_builder import WithUser_ItemRequestBuilder
     from .resend.resend_request_builder import ResendRequestBuilder
 
 class InviteRequestBuilder(BaseRequestBuilder):
@@ -31,12 +32,26 @@ class InviteRequestBuilder(BaseRequestBuilder):
         """
         super().__init__(request_adapter, "{+baseurl}/auth/v1/memberships/{org_%2Did}/invite", path_parameters)
     
-    async def post(self,body: InvitePostRequestBody, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> Optional[MembershipMutation]:
+    def by_user_id(self,user_id: str) -> WithUser_ItemRequestBuilder:
+        """
+        Gets an item from the rixl_sdk.auth.v1.memberships.item.invite.item collection
+        param user_id: Unique identifier of the item
+        Returns: WithUser_ItemRequestBuilder
+        """
+        if user_id is None:
+            raise TypeError("user_id cannot be null.")
+        from .item.with_user_item_request_builder import WithUser_ItemRequestBuilder
+
+        url_tpl_params = get_path_parameters(self.path_parameters)
+        url_tpl_params["user_id"] = user_id
+        return WithUser_ItemRequestBuilder(self.request_adapter, url_tpl_params)
+    
+    async def post(self,body: InvitePostRequestBody, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> Optional[MembershipApplication]:
         """
         InviteMember
         param body: The request body
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
-        Returns: Optional[MembershipMutation]
+        Returns: Optional[MembershipApplication]
         """
         if body is None:
             raise TypeError("body cannot be null.")
@@ -45,9 +60,9 @@ class InviteRequestBuilder(BaseRequestBuilder):
         )
         if not self.request_adapter:
             raise Exception("Http core is null") 
-        from ......models.auth.v1.membership_mutation import MembershipMutation
+        from ......models.auth.v1.membership_application import MembershipApplication
 
-        return await self.request_adapter.send_async(request_info, MembershipMutation, None)
+        return await self.request_adapter.send_async(request_info, MembershipApplication, None)
     
     def to_post_request_information(self,body: InvitePostRequestBody, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> RequestInformation:
         """

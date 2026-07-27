@@ -15,27 +15,23 @@ from warnings import warn
 
 if TYPE_CHECKING:
     from .......models.google.protobuf.empty import Empty
-    from .policies.policies_request_builder import PoliciesRequestBuilder
-    from .reactivate.reactivate_request_builder import ReactivateRequestBuilder
-    from .role.role_request_builder import RoleRequestBuilder
-    from .suspend.suspend_request_builder import SuspendRequestBuilder
 
-class Member_ItemRequestBuilder(BaseRequestBuilder):
+class WithUser_ItemRequestBuilder(BaseRequestBuilder):
     """
-    Builds and executes requests for operations under /auth/v1/memberships/{org_-id}/members/{member_-id}
+    Builds and executes requests for operations under /auth/v1/memberships/{org_-id}/invite/{user_id}
     """
     def __init__(self,request_adapter: RequestAdapter, path_parameters: Union[str, dict[str, Any]]) -> None:
         """
-        Instantiates a new Member_ItemRequestBuilder and sets the default values.
+        Instantiates a new WithUser_ItemRequestBuilder and sets the default values.
         param path_parameters: The raw url or the url-template parameters for the request.
         param request_adapter: The request adapter to use to execute the requests.
         Returns: None
         """
-        super().__init__(request_adapter, "{+baseurl}/auth/v1/memberships/{org_%2Did}/members/{member_%2Did}{?user%2Eactor_id*}", path_parameters)
+        super().__init__(request_adapter, "{+baseurl}/auth/v1/memberships/{org_%2Did}/invite/{user_id}{?user%2Eactor_id*}", path_parameters)
     
-    async def delete(self,request_configuration: Optional[RequestConfiguration[Member_ItemRequestBuilderDeleteQueryParameters]] = None) -> Optional[Empty]:
+    async def delete(self,request_configuration: Optional[RequestConfiguration[WithUser_ItemRequestBuilderDeleteQueryParameters]] = None) -> Optional[Empty]:
         """
-        RemoveMember
+        CancelInvitation
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
         Returns: Optional[Empty]
         """
@@ -48,9 +44,9 @@ class Member_ItemRequestBuilder(BaseRequestBuilder):
 
         return await self.request_adapter.send_async(request_info, Empty, None)
     
-    def to_delete_request_information(self,request_configuration: Optional[RequestConfiguration[Member_ItemRequestBuilderDeleteQueryParameters]] = None) -> RequestInformation:
+    def to_delete_request_information(self,request_configuration: Optional[RequestConfiguration[WithUser_ItemRequestBuilderDeleteQueryParameters]] = None) -> RequestInformation:
         """
-        RemoveMember
+        CancelInvitation
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
         Returns: RequestInformation
         """
@@ -59,56 +55,20 @@ class Member_ItemRequestBuilder(BaseRequestBuilder):
         request_info.headers.try_add("Accept", "application/json")
         return request_info
     
-    def with_url(self,raw_url: str) -> Member_ItemRequestBuilder:
+    def with_url(self,raw_url: str) -> WithUser_ItemRequestBuilder:
         """
         Returns a request builder with the provided arbitrary URL. Using this method means any other path or query parameters are ignored.
         param raw_url: The raw URL to use for the request builder.
-        Returns: Member_ItemRequestBuilder
+        Returns: WithUser_ItemRequestBuilder
         """
         if raw_url is None:
             raise TypeError("raw_url cannot be null.")
-        return Member_ItemRequestBuilder(self.request_adapter, raw_url)
-    
-    @property
-    def policies(self) -> PoliciesRequestBuilder:
-        """
-        The policies property
-        """
-        from .policies.policies_request_builder import PoliciesRequestBuilder
-
-        return PoliciesRequestBuilder(self.request_adapter, self.path_parameters)
-    
-    @property
-    def reactivate(self) -> ReactivateRequestBuilder:
-        """
-        The reactivate property
-        """
-        from .reactivate.reactivate_request_builder import ReactivateRequestBuilder
-
-        return ReactivateRequestBuilder(self.request_adapter, self.path_parameters)
-    
-    @property
-    def role(self) -> RoleRequestBuilder:
-        """
-        The role property
-        """
-        from .role.role_request_builder import RoleRequestBuilder
-
-        return RoleRequestBuilder(self.request_adapter, self.path_parameters)
-    
-    @property
-    def suspend(self) -> SuspendRequestBuilder:
-        """
-        The suspend property
-        """
-        from .suspend.suspend_request_builder import SuspendRequestBuilder
-
-        return SuspendRequestBuilder(self.request_adapter, self.path_parameters)
+        return WithUser_ItemRequestBuilder(self.request_adapter, raw_url)
     
     @dataclass
-    class Member_ItemRequestBuilderDeleteQueryParameters():
+    class WithUser_ItemRequestBuilderDeleteQueryParameters():
         """
-        RemoveMember
+        CancelInvitation
         """
         def get_query_parameter(self,original_name: str) -> str:
             """
@@ -126,7 +86,7 @@ class Member_ItemRequestBuilder(BaseRequestBuilder):
 
     
     @dataclass
-    class Member_ItemRequestBuilderDeleteRequestConfiguration(RequestConfiguration[Member_ItemRequestBuilderDeleteQueryParameters]):
+    class WithUser_ItemRequestBuilderDeleteRequestConfiguration(RequestConfiguration[WithUser_ItemRequestBuilderDeleteQueryParameters]):
         """
         Configuration for the request such as headers, query parameters, and middleware options.
         """

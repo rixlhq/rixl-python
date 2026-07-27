@@ -14,101 +14,61 @@ from typing import Any, Optional, TYPE_CHECKING, Union
 from warnings import warn
 
 if TYPE_CHECKING:
-    from .......models.google.protobuf.empty import Empty
-    from .policies.policies_request_builder import PoliciesRequestBuilder
-    from .reactivate.reactivate_request_builder import ReactivateRequestBuilder
-    from .role.role_request_builder import RoleRequestBuilder
-    from .suspend.suspend_request_builder import SuspendRequestBuilder
+    from ........models.auth.v1.membership_mutation import MembershipMutation
 
-class Member_ItemRequestBuilder(BaseRequestBuilder):
+class ReactivateRequestBuilder(BaseRequestBuilder):
     """
-    Builds and executes requests for operations under /auth/v1/memberships/{org_-id}/members/{member_-id}
+    Builds and executes requests for operations under /auth/v1/memberships/{org_-id}/members/{member_-id}/reactivate
     """
     def __init__(self,request_adapter: RequestAdapter, path_parameters: Union[str, dict[str, Any]]) -> None:
         """
-        Instantiates a new Member_ItemRequestBuilder and sets the default values.
+        Instantiates a new ReactivateRequestBuilder and sets the default values.
         param path_parameters: The raw url or the url-template parameters for the request.
         param request_adapter: The request adapter to use to execute the requests.
         Returns: None
         """
-        super().__init__(request_adapter, "{+baseurl}/auth/v1/memberships/{org_%2Did}/members/{member_%2Did}{?user%2Eactor_id*}", path_parameters)
+        super().__init__(request_adapter, "{+baseurl}/auth/v1/memberships/{org_%2Did}/members/{member_%2Did}/reactivate{?user%2Eactor_id*}", path_parameters)
     
-    async def delete(self,request_configuration: Optional[RequestConfiguration[Member_ItemRequestBuilderDeleteQueryParameters]] = None) -> Optional[Empty]:
+    async def patch(self,request_configuration: Optional[RequestConfiguration[ReactivateRequestBuilderPatchQueryParameters]] = None) -> Optional[MembershipMutation]:
         """
-        RemoveMember
+        ReactivateMember
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
-        Returns: Optional[Empty]
+        Returns: Optional[MembershipMutation]
         """
-        request_info = self.to_delete_request_information(
+        request_info = self.to_patch_request_information(
             request_configuration
         )
         if not self.request_adapter:
             raise Exception("Http core is null") 
-        from .......models.google.protobuf.empty import Empty
+        from ........models.auth.v1.membership_mutation import MembershipMutation
 
-        return await self.request_adapter.send_async(request_info, Empty, None)
+        return await self.request_adapter.send_async(request_info, MembershipMutation, None)
     
-    def to_delete_request_information(self,request_configuration: Optional[RequestConfiguration[Member_ItemRequestBuilderDeleteQueryParameters]] = None) -> RequestInformation:
+    def to_patch_request_information(self,request_configuration: Optional[RequestConfiguration[ReactivateRequestBuilderPatchQueryParameters]] = None) -> RequestInformation:
         """
-        RemoveMember
+        ReactivateMember
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
         Returns: RequestInformation
         """
-        request_info = RequestInformation(Method.DELETE, self.url_template, self.path_parameters)
+        request_info = RequestInformation(Method.PATCH, self.url_template, self.path_parameters)
         request_info.configure(request_configuration)
         request_info.headers.try_add("Accept", "application/json")
         return request_info
     
-    def with_url(self,raw_url: str) -> Member_ItemRequestBuilder:
+    def with_url(self,raw_url: str) -> ReactivateRequestBuilder:
         """
         Returns a request builder with the provided arbitrary URL. Using this method means any other path or query parameters are ignored.
         param raw_url: The raw URL to use for the request builder.
-        Returns: Member_ItemRequestBuilder
+        Returns: ReactivateRequestBuilder
         """
         if raw_url is None:
             raise TypeError("raw_url cannot be null.")
-        return Member_ItemRequestBuilder(self.request_adapter, raw_url)
-    
-    @property
-    def policies(self) -> PoliciesRequestBuilder:
-        """
-        The policies property
-        """
-        from .policies.policies_request_builder import PoliciesRequestBuilder
-
-        return PoliciesRequestBuilder(self.request_adapter, self.path_parameters)
-    
-    @property
-    def reactivate(self) -> ReactivateRequestBuilder:
-        """
-        The reactivate property
-        """
-        from .reactivate.reactivate_request_builder import ReactivateRequestBuilder
-
-        return ReactivateRequestBuilder(self.request_adapter, self.path_parameters)
-    
-    @property
-    def role(self) -> RoleRequestBuilder:
-        """
-        The role property
-        """
-        from .role.role_request_builder import RoleRequestBuilder
-
-        return RoleRequestBuilder(self.request_adapter, self.path_parameters)
-    
-    @property
-    def suspend(self) -> SuspendRequestBuilder:
-        """
-        The suspend property
-        """
-        from .suspend.suspend_request_builder import SuspendRequestBuilder
-
-        return SuspendRequestBuilder(self.request_adapter, self.path_parameters)
+        return ReactivateRequestBuilder(self.request_adapter, raw_url)
     
     @dataclass
-    class Member_ItemRequestBuilderDeleteQueryParameters():
+    class ReactivateRequestBuilderPatchQueryParameters():
         """
-        RemoveMember
+        ReactivateMember
         """
         def get_query_parameter(self,original_name: str) -> str:
             """
@@ -126,7 +86,7 @@ class Member_ItemRequestBuilder(BaseRequestBuilder):
 
     
     @dataclass
-    class Member_ItemRequestBuilderDeleteRequestConfiguration(RequestConfiguration[Member_ItemRequestBuilderDeleteQueryParameters]):
+    class ReactivateRequestBuilderPatchRequestConfiguration(RequestConfiguration[ReactivateRequestBuilderPatchQueryParameters]):
         """
         Configuration for the request such as headers, query parameters, and middleware options.
         """
