@@ -14,7 +14,7 @@ from typing import Any, Optional, TYPE_CHECKING, Union
 from warnings import warn
 
 if TYPE_CHECKING:
-    from .......models.images.v1.image_upload_init import ImageUploadInit
+    from .......models.images.v1.image_upload import ImageUpload
     from .upload_post_request_body import UploadPostRequestBody
 
 class UploadRequestBuilder(BaseRequestBuilder):
@@ -30,12 +30,12 @@ class UploadRequestBuilder(BaseRequestBuilder):
         """
         super().__init__(request_adapter, "{+baseurl}/media/v1/projects/{project_id}/images/upload", path_parameters)
     
-    async def post(self,body: UploadPostRequestBody, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> Optional[ImageUploadInit]:
+    async def post(self,body: UploadPostRequestBody, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> Optional[ImageUpload]:
         """
         CreateImageUpload
         param body: The request body
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
-        Returns: Optional[ImageUploadInit]
+        Returns: Optional[ImageUpload]
         """
         if body is None:
             raise TypeError("body cannot be null.")
@@ -44,9 +44,9 @@ class UploadRequestBuilder(BaseRequestBuilder):
         )
         if not self.request_adapter:
             raise Exception("Http core is null") 
-        from .......models.images.v1.image_upload_init import ImageUploadInit
+        from .......models.images.v1.image_upload import ImageUpload
 
-        return await self.request_adapter.send_async(request_info, ImageUploadInit, None)
+        return await self.request_adapter.send_async(request_info, ImageUpload, None)
     
     def to_post_request_information(self,body: UploadPostRequestBody, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> RequestInformation:
         """

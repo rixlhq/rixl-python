@@ -15,7 +15,6 @@ from warnings import warn
 
 if TYPE_CHECKING:
     from .......models.google.protobuf.empty import Empty
-    from .upload.upload_request_builder import UploadRequestBuilder
     from .visibility.visibility_request_builder import VisibilityRequestBuilder
 
 class WithImage_ItemRequestBuilder(BaseRequestBuilder):
@@ -66,15 +65,6 @@ class WithImage_ItemRequestBuilder(BaseRequestBuilder):
         if raw_url is None:
             raise TypeError("raw_url cannot be null.")
         return WithImage_ItemRequestBuilder(self.request_adapter, raw_url)
-    
-    @property
-    def upload(self) -> UploadRequestBuilder:
-        """
-        The upload property
-        """
-        from .upload.upload_request_builder import UploadRequestBuilder
-
-        return UploadRequestBuilder(self.request_adapter, self.path_parameters)
     
     @property
     def visibility(self) -> VisibilityRequestBuilder:

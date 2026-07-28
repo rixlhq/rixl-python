@@ -5,12 +5,12 @@ from kiota_abstractions.serialization import Parsable, ParseNode, SerializationW
 from typing import Any, Optional, TYPE_CHECKING, Union
 
 if TYPE_CHECKING:
-    from ..........models.common.v1.image_format import ImageFormat
-    from ..........models.common.v1.media_type import MediaType
-    from ..........models.common.v1.video_quality import VideoQuality
+    from .........models.common.v1.image_format import ImageFormat
+    from .........models.common.v1.media_type import MediaType
+    from .........models.common.v1.video_quality import VideoQuality
 
 @dataclass
-class InitPostRequestBody(Parsable):
+class UploadPostRequestBody(Parsable):
     # The content_type property
     content_type: Optional[MediaType] = None
     # The creator_id property
@@ -33,28 +33,28 @@ class InitPostRequestBody(Parsable):
     video_quality: Optional[VideoQuality] = None
     
     @staticmethod
-    def create_from_discriminator_value(parse_node: ParseNode) -> InitPostRequestBody:
+    def create_from_discriminator_value(parse_node: ParseNode) -> UploadPostRequestBody:
         """
         Creates a new instance of the appropriate class based on discriminator value
         param parse_node: The parse node to use to read the discriminator value and create the object
-        Returns: InitPostRequestBody
+        Returns: UploadPostRequestBody
         """
         if parse_node is None:
             raise TypeError("parse_node cannot be null.")
-        return InitPostRequestBody()
+        return UploadPostRequestBody()
     
     def get_field_deserializers(self,) -> dict[str, Callable[[ParseNode], None]]:
         """
         The deserialization information for the current model
         Returns: dict[str, Callable[[ParseNode], None]]
         """
-        from ..........models.common.v1.image_format import ImageFormat
-        from ..........models.common.v1.media_type import MediaType
-        from ..........models.common.v1.video_quality import VideoQuality
+        from .........models.common.v1.image_format import ImageFormat
+        from .........models.common.v1.media_type import MediaType
+        from .........models.common.v1.video_quality import VideoQuality
 
-        from ..........models.common.v1.image_format import ImageFormat
-        from ..........models.common.v1.media_type import MediaType
-        from ..........models.common.v1.video_quality import VideoQuality
+        from .........models.common.v1.image_format import ImageFormat
+        from .........models.common.v1.media_type import MediaType
+        from .........models.common.v1.video_quality import VideoQuality
 
         fields: dict[str, Callable[[Any], None]] = {
             "content_type": lambda n : setattr(self, 'content_type', n.get_enum_value(MediaType)),

@@ -18,7 +18,6 @@ if TYPE_CHECKING:
     from .audio_tracks.audio_tracks_request_builder import AudioTracksRequestBuilder
     from .chapters.chapters_request_builder import ChaptersRequestBuilder
     from .subtitles.subtitles_request_builder import SubtitlesRequestBuilder
-    from .upload.upload_request_builder import UploadRequestBuilder
     from .visibility.visibility_request_builder import VisibilityRequestBuilder
 
 class WithVideo_ItemRequestBuilder(BaseRequestBuilder):
@@ -96,15 +95,6 @@ class WithVideo_ItemRequestBuilder(BaseRequestBuilder):
         from .subtitles.subtitles_request_builder import SubtitlesRequestBuilder
 
         return SubtitlesRequestBuilder(self.request_adapter, self.path_parameters)
-    
-    @property
-    def upload(self) -> UploadRequestBuilder:
-        """
-        The upload property
-        """
-        from .upload.upload_request_builder import UploadRequestBuilder
-
-        return UploadRequestBuilder(self.request_adapter, self.path_parameters)
     
     @property
     def visibility(self) -> VisibilityRequestBuilder:
