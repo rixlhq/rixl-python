@@ -14,8 +14,8 @@ from typing import Any, Optional, TYPE_CHECKING, Union
 from warnings import warn
 
 if TYPE_CHECKING:
+    from ........models.posts.v1.create_post_response import CreatePostResponse
     from ........models.posts.v1.list_posts_response import ListPostsResponse
-    from ........models.posts.v1.post import Post
     from .creators.creators_request_builder import CreatorsRequestBuilder
     from .item.with_post_item_request_builder import WithPost_ItemRequestBuilder
     from .posts_post_request_body import PostsPostRequestBody
@@ -63,12 +63,12 @@ class PostsRequestBuilder(BaseRequestBuilder):
 
         return await self.request_adapter.send_async(request_info, ListPostsResponse, None)
     
-    async def post(self,body: PostsPostRequestBody, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> Optional[Post]:
+    async def post(self,body: PostsPostRequestBody, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> Optional[CreatePostResponse]:
         """
         CreatePost
         param body: The request body
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
-        Returns: Optional[Post]
+        Returns: Optional[CreatePostResponse]
         """
         if body is None:
             raise TypeError("body cannot be null.")
@@ -77,9 +77,9 @@ class PostsRequestBuilder(BaseRequestBuilder):
         )
         if not self.request_adapter:
             raise Exception("Http core is null") 
-        from ........models.posts.v1.post import Post
+        from ........models.posts.v1.create_post_response import CreatePostResponse
 
-        return await self.request_adapter.send_async(request_info, Post, None)
+        return await self.request_adapter.send_async(request_info, CreatePostResponse, None)
     
     def to_get_request_information(self,request_configuration: Optional[RequestConfiguration[PostsRequestBuilderGetQueryParameters]] = None) -> RequestInformation:
         """

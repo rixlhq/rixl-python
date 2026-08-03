@@ -5,7 +5,6 @@ from kiota_abstractions.serialization import Parsable, ParseNode, SerializationW
 from typing import Any, Optional, TYPE_CHECKING, Union
 
 if TYPE_CHECKING:
-    from .........models.common.v1.image_format import ImageFormat
     from .........models.common.v1.media_type import MediaType
     from .........models.common.v1.video_quality import VideoQuality
 
@@ -21,10 +20,6 @@ class UploadPostRequestBody(Parsable):
     feed_id: Optional[str] = None
     # The file_name property
     file_name: Optional[str] = None
-    # The format property
-    format: Optional[str] = None
-    # The image_format property
-    image_format: Optional[ImageFormat] = None
     # The org_id property
     org_id: Optional[str] = None
     # The project_id property
@@ -48,11 +43,9 @@ class UploadPostRequestBody(Parsable):
         The deserialization information for the current model
         Returns: dict[str, Callable[[ParseNode], None]]
         """
-        from .........models.common.v1.image_format import ImageFormat
         from .........models.common.v1.media_type import MediaType
         from .........models.common.v1.video_quality import VideoQuality
 
-        from .........models.common.v1.image_format import ImageFormat
         from .........models.common.v1.media_type import MediaType
         from .........models.common.v1.video_quality import VideoQuality
 
@@ -62,8 +55,6 @@ class UploadPostRequestBody(Parsable):
             "description": lambda n : setattr(self, 'description', n.get_str_value()),
             "feed_id": lambda n : setattr(self, 'feed_id', n.get_str_value()),
             "file_name": lambda n : setattr(self, 'file_name', n.get_str_value()),
-            "format": lambda n : setattr(self, 'format', n.get_str_value()),
-            "image_format": lambda n : setattr(self, 'image_format', n.get_enum_value(ImageFormat)),
             "org_id": lambda n : setattr(self, 'org_id', n.get_str_value()),
             "project_id": lambda n : setattr(self, 'project_id', n.get_str_value()),
             "video_quality": lambda n : setattr(self, 'video_quality', n.get_enum_value(VideoQuality)),
@@ -83,8 +74,6 @@ class UploadPostRequestBody(Parsable):
         writer.write_str_value("description", self.description)
         writer.write_str_value("feed_id", self.feed_id)
         writer.write_str_value("file_name", self.file_name)
-        writer.write_str_value("format", self.format)
-        writer.write_enum_value("image_format", self.image_format)
         writer.write_str_value("org_id", self.org_id)
         writer.write_str_value("project_id", self.project_id)
         writer.write_enum_value("video_quality", self.video_quality)

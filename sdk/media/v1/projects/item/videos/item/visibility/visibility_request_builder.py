@@ -14,7 +14,7 @@ from typing import Any, Optional, TYPE_CHECKING, Union
 from warnings import warn
 
 if TYPE_CHECKING:
-    from ........models.videos.v1.get_video_response import GetVideoResponse
+    from ........models.videos.v1.update_video_visibility_response import UpdateVideoVisibilityResponse
     from .visibility_patch_request_body import VisibilityPatchRequestBody
 
 class VisibilityRequestBuilder(BaseRequestBuilder):
@@ -30,12 +30,12 @@ class VisibilityRequestBuilder(BaseRequestBuilder):
         """
         super().__init__(request_adapter, "{+baseurl}/media/v1/projects/{project_id}/videos/{video_id}/visibility", path_parameters)
     
-    async def patch(self,body: VisibilityPatchRequestBody, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> Optional[GetVideoResponse]:
+    async def patch(self,body: VisibilityPatchRequestBody, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> Optional[UpdateVideoVisibilityResponse]:
         """
         UpdateVideoVisibility
         param body: The request body
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
-        Returns: Optional[GetVideoResponse]
+        Returns: Optional[UpdateVideoVisibilityResponse]
         """
         if body is None:
             raise TypeError("body cannot be null.")
@@ -44,9 +44,9 @@ class VisibilityRequestBuilder(BaseRequestBuilder):
         )
         if not self.request_adapter:
             raise Exception("Http core is null") 
-        from ........models.videos.v1.get_video_response import GetVideoResponse
+        from ........models.videos.v1.update_video_visibility_response import UpdateVideoVisibilityResponse
 
-        return await self.request_adapter.send_async(request_info, GetVideoResponse, None)
+        return await self.request_adapter.send_async(request_info, UpdateVideoVisibilityResponse, None)
     
     def to_patch_request_information(self,body: VisibilityPatchRequestBody, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> RequestInformation:
         """

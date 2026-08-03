@@ -15,7 +15,7 @@ from warnings import warn
 
 if TYPE_CHECKING:
     from .........models.google.protobuf.empty import Empty
-    from .........models.posts.v1.post import Post
+    from .........models.posts.v1.get_post_response import GetPostResponse
 
 class WithPost_ItemRequestBuilder(BaseRequestBuilder):
     """
@@ -45,20 +45,20 @@ class WithPost_ItemRequestBuilder(BaseRequestBuilder):
 
         return await self.request_adapter.send_async(request_info, Empty, None)
     
-    async def get(self,request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> Optional[Post]:
+    async def get(self,request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> Optional[GetPostResponse]:
         """
         GetPost
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
-        Returns: Optional[Post]
+        Returns: Optional[GetPostResponse]
         """
         request_info = self.to_get_request_information(
             request_configuration
         )
         if not self.request_adapter:
             raise Exception("Http core is null") 
-        from .........models.posts.v1.post import Post
+        from .........models.posts.v1.get_post_response import GetPostResponse
 
-        return await self.request_adapter.send_async(request_info, Post, None)
+        return await self.request_adapter.send_async(request_info, GetPostResponse, None)
     
     def to_delete_request_information(self,request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> RequestInformation:
         """

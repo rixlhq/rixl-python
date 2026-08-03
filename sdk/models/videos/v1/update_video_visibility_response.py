@@ -5,41 +5,35 @@ from kiota_abstractions.serialization import Parsable, ParseNode, SerializationW
 from typing import Any, Optional, TYPE_CHECKING, Union
 
 if TYPE_CHECKING:
-    from .post import Post
+    from .video import Video
 
 @dataclass
-class ListPostsResponse(Parsable):
-    # Maximum number of items returned.
-    limit: Optional[int] = None
-    # Number of items skipped before this page.
-    offset: Optional[int] = None
-    # The posts property
-    posts: Optional[list[Post]] = None
+class UpdateVideoVisibilityResponse(Parsable):
+    # The video property
+    video: Optional[Video] = None
     
     @staticmethod
-    def create_from_discriminator_value(parse_node: ParseNode) -> ListPostsResponse:
+    def create_from_discriminator_value(parse_node: ParseNode) -> UpdateVideoVisibilityResponse:
         """
         Creates a new instance of the appropriate class based on discriminator value
         param parse_node: The parse node to use to read the discriminator value and create the object
-        Returns: ListPostsResponse
+        Returns: UpdateVideoVisibilityResponse
         """
         if parse_node is None:
             raise TypeError("parse_node cannot be null.")
-        return ListPostsResponse()
+        return UpdateVideoVisibilityResponse()
     
     def get_field_deserializers(self,) -> dict[str, Callable[[ParseNode], None]]:
         """
         The deserialization information for the current model
         Returns: dict[str, Callable[[ParseNode], None]]
         """
-        from .post import Post
+        from .video import Video
 
-        from .post import Post
+        from .video import Video
 
         fields: dict[str, Callable[[Any], None]] = {
-            "limit": lambda n : setattr(self, 'limit', n.get_int_value()),
-            "offset": lambda n : setattr(self, 'offset', n.get_int_value()),
-            "posts": lambda n : setattr(self, 'posts', n.get_collection_of_object_values(Post)),
+            "video": lambda n : setattr(self, 'video', n.get_object_value(Video)),
         }
         return fields
     
@@ -51,8 +45,6 @@ class ListPostsResponse(Parsable):
         """
         if writer is None:
             raise TypeError("writer cannot be null.")
-        writer.write_int_value("limit", self.limit)
-        writer.write_int_value("offset", self.offset)
-        writer.write_collection_of_object_values("posts", self.posts)
+        writer.write_object_value("video", self.video)
     
 

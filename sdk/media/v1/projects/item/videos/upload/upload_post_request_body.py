@@ -5,13 +5,10 @@ from kiota_abstractions.serialization import Parsable, ParseNode, SerializationW
 from typing import Any, Optional, TYPE_CHECKING, Union
 
 if TYPE_CHECKING:
-    from .......models.common.v1.image_format import ImageFormat
     from .......models.common.v1.video_quality import VideoQuality
 
 @dataclass
 class UploadPostRequestBody(Parsable):
-    # The image_format property
-    image_format: Optional[ImageFormat] = None
     # The name property
     name: Optional[str] = None
     # The org_id property
@@ -37,14 +34,11 @@ class UploadPostRequestBody(Parsable):
         The deserialization information for the current model
         Returns: dict[str, Callable[[ParseNode], None]]
         """
-        from .......models.common.v1.image_format import ImageFormat
         from .......models.common.v1.video_quality import VideoQuality
 
-        from .......models.common.v1.image_format import ImageFormat
         from .......models.common.v1.video_quality import VideoQuality
 
         fields: dict[str, Callable[[Any], None]] = {
-            "image_format": lambda n : setattr(self, 'image_format', n.get_enum_value(ImageFormat)),
             "name": lambda n : setattr(self, 'name', n.get_str_value()),
             "org_id": lambda n : setattr(self, 'org_id', n.get_str_value()),
             "project_id": lambda n : setattr(self, 'project_id', n.get_str_value()),
@@ -60,7 +54,6 @@ class UploadPostRequestBody(Parsable):
         """
         if writer is None:
             raise TypeError("writer cannot be null.")
-        writer.write_enum_value("image_format", self.image_format)
         writer.write_str_value("name", self.name)
         writer.write_str_value("org_id", self.org_id)
         writer.write_str_value("project_id", self.project_id)

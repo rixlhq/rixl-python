@@ -5,25 +5,12 @@ from kiota_abstractions.serialization import Parsable, ParseNode, SerializationW
 from typing import Any, Optional, TYPE_CHECKING, Union
 
 if TYPE_CHECKING:
-    from ...common.v1.visibility import Visibility
-    from .image_file import ImageFile
+    from .image import Image
 
 @dataclass
 class GetImageResponse(Parsable):
-    # The attached_to_video property
-    attached_to_video: Optional[bool] = None
-    # The file property
-    file: Optional[ImageFile] = None
-    # The height property
-    height: Optional[int] = None
-    # The id property
-    id: Optional[str] = None
-    # The thumbhash property
-    thumbhash: Optional[str] = None
-    # The visibility property
-    visibility: Optional[Visibility] = None
-    # The width property
-    width: Optional[int] = None
+    # The image property
+    image: Optional[Image] = None
     
     @staticmethod
     def create_from_discriminator_value(parse_node: ParseNode) -> GetImageResponse:
@@ -41,20 +28,12 @@ class GetImageResponse(Parsable):
         The deserialization information for the current model
         Returns: dict[str, Callable[[ParseNode], None]]
         """
-        from ...common.v1.visibility import Visibility
-        from .image_file import ImageFile
+        from .image import Image
 
-        from ...common.v1.visibility import Visibility
-        from .image_file import ImageFile
+        from .image import Image
 
         fields: dict[str, Callable[[Any], None]] = {
-            "attached_to_video": lambda n : setattr(self, 'attached_to_video', n.get_bool_value()),
-            "file": lambda n : setattr(self, 'file', n.get_object_value(ImageFile)),
-            "height": lambda n : setattr(self, 'height', n.get_int_value()),
-            "id": lambda n : setattr(self, 'id', n.get_str_value()),
-            "thumbhash": lambda n : setattr(self, 'thumbhash', n.get_str_value()),
-            "visibility": lambda n : setattr(self, 'visibility', n.get_enum_value(Visibility)),
-            "width": lambda n : setattr(self, 'width', n.get_int_value()),
+            "image": lambda n : setattr(self, 'image', n.get_object_value(Image)),
         }
         return fields
     
@@ -66,12 +45,6 @@ class GetImageResponse(Parsable):
         """
         if writer is None:
             raise TypeError("writer cannot be null.")
-        writer.write_bool_value("attached_to_video", self.attached_to_video)
-        writer.write_object_value("file", self.file)
-        writer.write_int_value("height", self.height)
-        writer.write_str_value("id", self.id)
-        writer.write_str_value("thumbhash", self.thumbhash)
-        writer.write_enum_value("visibility", self.visibility)
-        writer.write_int_value("width", self.width)
+        writer.write_object_value("image", self.image)
     
 
