@@ -15,6 +15,9 @@ from warnings import warn
 
 if TYPE_CHECKING:
     from ....models.analytics.v1.dashboard_stats_response import DashboardStatsResponse
+    from .chart_query.chart_query_request_builder import ChartQueryRequestBuilder
+    from .datasets.datasets_request_builder import DatasetsRequestBuilder
+    from .filter_options.filter_options_request_builder import FilterOptionsRequestBuilder
 
 class DashboardRequestBuilder(BaseRequestBuilder):
     """
@@ -27,7 +30,7 @@ class DashboardRequestBuilder(BaseRequestBuilder):
         param request_adapter: The request adapter to use to execute the requests.
         Returns: None
         """
-        super().__init__(request_adapter, "{+baseurl}/analytics/v1/dashboard?time_end={time_end}&time_start={time_start}{&interval*}", path_parameters)
+        super().__init__(request_adapter, "{+baseurl}/analytics/v1/dashboard?time_end={time_end}&time_start={time_start}{&filter%2Ebrowsers*,filter%2Ecities*,filter%2Ecountries*,filter%2Edevices*,filter%2Elanguages*,filter%2Eos*,filter%2Eos_versions*,filter%2Eregions*,interval*}", path_parameters)
     
     async def get(self,request_configuration: Optional[RequestConfiguration[DashboardRequestBuilderGetQueryParameters]] = None) -> Optional[DashboardStatsResponse]:
         """
@@ -65,11 +68,86 @@ class DashboardRequestBuilder(BaseRequestBuilder):
             raise TypeError("raw_url cannot be null.")
         return DashboardRequestBuilder(self.request_adapter, raw_url)
     
+    @property
+    def chart_query(self) -> ChartQueryRequestBuilder:
+        """
+        The chartQuery property
+        """
+        from .chart_query.chart_query_request_builder import ChartQueryRequestBuilder
+
+        return ChartQueryRequestBuilder(self.request_adapter, self.path_parameters)
+    
+    @property
+    def datasets(self) -> DatasetsRequestBuilder:
+        """
+        The datasets property
+        """
+        from .datasets.datasets_request_builder import DatasetsRequestBuilder
+
+        return DatasetsRequestBuilder(self.request_adapter, self.path_parameters)
+    
+    @property
+    def filter_options(self) -> FilterOptionsRequestBuilder:
+        """
+        The filterOptions property
+        """
+        from .filter_options.filter_options_request_builder import FilterOptionsRequestBuilder
+
+        return FilterOptionsRequestBuilder(self.request_adapter, self.path_parameters)
+    
     @dataclass
     class DashboardRequestBuilderGetQueryParameters():
         """
         GetDashboardStats
         """
+        def get_query_parameter(self,original_name: str) -> str:
+            """
+            Maps the query parameters names to their encoded names for the URI template parsing.
+            param original_name: The original query parameter name in the class.
+            Returns: str
+            """
+            if original_name is None:
+                raise TypeError("original_name cannot be null.")
+            if original_name == "filter_browsers":
+                return "filter%2Ebrowsers"
+            if original_name == "filter_cities":
+                return "filter%2Ecities"
+            if original_name == "filter_countries":
+                return "filter%2Ecountries"
+            if original_name == "filter_devices":
+                return "filter%2Edevices"
+            if original_name == "filter_languages":
+                return "filter%2Elanguages"
+            if original_name == "filter_os":
+                return "filter%2Eos"
+            if original_name == "filter_os_versions":
+                return "filter%2Eos_versions"
+            if original_name == "filter_regions":
+                return "filter%2Eregions"
+            if original_name == "interval":
+                return "interval"
+            if original_name == "time_end":
+                return "time_end"
+            if original_name == "time_start":
+                return "time_start"
+            return original_name
+        
+        filter_browsers: Optional[list[str]] = None
+
+        filter_cities: Optional[list[str]] = None
+
+        filter_countries: Optional[list[str]] = None
+
+        filter_devices: Optional[list[str]] = None
+
+        filter_languages: Optional[list[str]] = None
+
+        filter_os: Optional[list[str]] = None
+
+        filter_os_versions: Optional[list[str]] = None
+
+        filter_regions: Optional[list[str]] = None
+
         interval: Optional[str] = None
 
         time_end: Optional[str] = None

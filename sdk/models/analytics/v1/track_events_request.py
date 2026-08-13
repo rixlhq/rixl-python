@@ -9,10 +9,24 @@ if TYPE_CHECKING:
 
 @dataclass
 class TrackEventsRequest(Parsable):
+    # The browser property
+    browser: Optional[str] = None
+    # The city property
+    city: Optional[str] = None
     # The country property
     country: Optional[str] = None
+    # The device property
+    device: Optional[str] = None
     # The events property
     events: Optional[list[AnalyticsEvent]] = None
+    # The language property
+    language: Optional[str] = None
+    # The os property
+    os: Optional[str] = None
+    # The os_version property
+    os_version: Optional[str] = None
+    # The region property
+    region: Optional[str] = None
     # The user_id property
     user_id: Optional[str] = None
     
@@ -37,8 +51,15 @@ class TrackEventsRequest(Parsable):
         from .analytics_event import AnalyticsEvent
 
         fields: dict[str, Callable[[Any], None]] = {
+            "browser": lambda n : setattr(self, 'browser', n.get_str_value()),
+            "city": lambda n : setattr(self, 'city', n.get_str_value()),
             "country": lambda n : setattr(self, 'country', n.get_str_value()),
+            "device": lambda n : setattr(self, 'device', n.get_str_value()),
             "events": lambda n : setattr(self, 'events', n.get_collection_of_object_values(AnalyticsEvent)),
+            "language": lambda n : setattr(self, 'language', n.get_str_value()),
+            "os": lambda n : setattr(self, 'os', n.get_str_value()),
+            "os_version": lambda n : setattr(self, 'os_version', n.get_str_value()),
+            "region": lambda n : setattr(self, 'region', n.get_str_value()),
             "user_id": lambda n : setattr(self, 'user_id', n.get_str_value()),
         }
         return fields
@@ -51,8 +72,15 @@ class TrackEventsRequest(Parsable):
         """
         if writer is None:
             raise TypeError("writer cannot be null.")
+        writer.write_str_value("browser", self.browser)
+        writer.write_str_value("city", self.city)
         writer.write_str_value("country", self.country)
+        writer.write_str_value("device", self.device)
         writer.write_collection_of_object_values("events", self.events)
+        writer.write_str_value("language", self.language)
+        writer.write_str_value("os", self.os)
+        writer.write_str_value("os_version", self.os_version)
+        writer.write_str_value("region", self.region)
         writer.write_str_value("user_id", self.user_id)
     
 
