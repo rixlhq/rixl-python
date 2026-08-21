@@ -14,61 +14,60 @@ from typing import Any, Optional, TYPE_CHECKING, Union
 from warnings import warn
 
 if TYPE_CHECKING:
-    from ......models.auth.v1.list_policies_response import ListPoliciesResponse
-    from ......models.auth.v1.policy import Policy
-    from .attachments.attachments_request_builder import AttachmentsRequestBuilder
-    from .item.with_policy_item_request_builder import WithPolicy_ItemRequestBuilder
-    from .permissions.permissions_request_builder import PermissionsRequestBuilder
-    from .policies_post_request_body import PoliciesPostRequestBody
+    from ....models.analytics.v1.create_dashboard_request import CreateDashboardRequest
+    from ....models.analytics.v1.dashboard import Dashboard
+    from ....models.analytics.v1.list_dashboards_response import ListDashboardsResponse
+    from .item.dashboard_item_request_builder import Dashboard_ItemRequestBuilder
+    from .widgets.widgets_request_builder import WidgetsRequestBuilder
 
-class PoliciesRequestBuilder(BaseRequestBuilder):
+class DashboardsRequestBuilder(BaseRequestBuilder):
     """
-    Builds and executes requests for operations under /auth/v1/memberships/{org_-id}/policies
+    Builds and executes requests for operations under /analytics/v1/dashboards
     """
     def __init__(self,request_adapter: RequestAdapter, path_parameters: Union[str, dict[str, Any]]) -> None:
         """
-        Instantiates a new PoliciesRequestBuilder and sets the default values.
+        Instantiates a new DashboardsRequestBuilder and sets the default values.
         param path_parameters: The raw url or the url-template parameters for the request.
         param request_adapter: The request adapter to use to execute the requests.
         Returns: None
         """
-        super().__init__(request_adapter, "{+baseurl}/auth/v1/memberships/{org_%2Did}/policies{?user_id*}", path_parameters)
+        super().__init__(request_adapter, "{+baseurl}/analytics/v1/dashboards{?page*,page_size*}", path_parameters)
     
-    def by_policy_id(self,policy_id: str) -> WithPolicy_ItemRequestBuilder:
+    def by_dashboard_id(self,dashboard_id: str) -> Dashboard_ItemRequestBuilder:
         """
-        Gets an item from the rixl_sdk.auth.v1.memberships.item.policies.item collection
-        param policy_id: Unique identifier of the item
-        Returns: WithPolicy_ItemRequestBuilder
+        Gets an item from the rixl_sdk.analytics.v1.dashboards.item collection
+        param dashboard_id: Unique identifier of the item
+        Returns: Dashboard_ItemRequestBuilder
         """
-        if policy_id is None:
-            raise TypeError("policy_id cannot be null.")
-        from .item.with_policy_item_request_builder import WithPolicy_ItemRequestBuilder
+        if dashboard_id is None:
+            raise TypeError("dashboard_id cannot be null.")
+        from .item.dashboard_item_request_builder import Dashboard_ItemRequestBuilder
 
         url_tpl_params = get_path_parameters(self.path_parameters)
-        url_tpl_params["policy_id"] = policy_id
-        return WithPolicy_ItemRequestBuilder(self.request_adapter, url_tpl_params)
+        url_tpl_params["dashboard_%2Did"] = dashboard_id
+        return Dashboard_ItemRequestBuilder(self.request_adapter, url_tpl_params)
     
-    async def get(self,request_configuration: Optional[RequestConfiguration[PoliciesRequestBuilderGetQueryParameters]] = None) -> Optional[ListPoliciesResponse]:
+    async def get(self,request_configuration: Optional[RequestConfiguration[DashboardsRequestBuilderGetQueryParameters]] = None) -> Optional[ListDashboardsResponse]:
         """
-        ListPolicies
+        ListDashboards
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
-        Returns: Optional[ListPoliciesResponse]
+        Returns: Optional[ListDashboardsResponse]
         """
         request_info = self.to_get_request_information(
             request_configuration
         )
         if not self.request_adapter:
             raise Exception("Http core is null") 
-        from ......models.auth.v1.list_policies_response import ListPoliciesResponse
+        from ....models.analytics.v1.list_dashboards_response import ListDashboardsResponse
 
-        return await self.request_adapter.send_async(request_info, ListPoliciesResponse, None)
+        return await self.request_adapter.send_async(request_info, ListDashboardsResponse, None)
     
-    async def post(self,body: PoliciesPostRequestBody, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> Optional[Policy]:
+    async def post(self,body: CreateDashboardRequest, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> Optional[Dashboard]:
         """
-        CreatePolicy
+        CreateDashboard
         param body: The request body
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
-        Returns: Optional[Policy]
+        Returns: Optional[Dashboard]
         """
         if body is None:
             raise TypeError("body cannot be null.")
@@ -77,13 +76,13 @@ class PoliciesRequestBuilder(BaseRequestBuilder):
         )
         if not self.request_adapter:
             raise Exception("Http core is null") 
-        from ......models.auth.v1.policy import Policy
+        from ....models.analytics.v1.dashboard import Dashboard
 
-        return await self.request_adapter.send_async(request_info, Policy, None)
+        return await self.request_adapter.send_async(request_info, Dashboard, None)
     
-    def to_get_request_information(self,request_configuration: Optional[RequestConfiguration[PoliciesRequestBuilderGetQueryParameters]] = None) -> RequestInformation:
+    def to_get_request_information(self,request_configuration: Optional[RequestConfiguration[DashboardsRequestBuilderGetQueryParameters]] = None) -> RequestInformation:
         """
-        ListPolicies
+        ListDashboards
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
         Returns: RequestInformation
         """
@@ -92,9 +91,9 @@ class PoliciesRequestBuilder(BaseRequestBuilder):
         request_info.headers.try_add("Accept", "application/json")
         return request_info
     
-    def to_post_request_information(self,body: PoliciesPostRequestBody, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> RequestInformation:
+    def to_post_request_information(self,body: CreateDashboardRequest, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> RequestInformation:
         """
-        CreatePolicy
+        CreateDashboard
         param body: The request body
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
         Returns: RequestInformation
@@ -107,51 +106,44 @@ class PoliciesRequestBuilder(BaseRequestBuilder):
         request_info.set_content_from_parsable(self.request_adapter, "application/json", body)
         return request_info
     
-    def with_url(self,raw_url: str) -> PoliciesRequestBuilder:
+    def with_url(self,raw_url: str) -> DashboardsRequestBuilder:
         """
         Returns a request builder with the provided arbitrary URL. Using this method means any other path or query parameters are ignored.
         param raw_url: The raw URL to use for the request builder.
-        Returns: PoliciesRequestBuilder
+        Returns: DashboardsRequestBuilder
         """
         if raw_url is None:
             raise TypeError("raw_url cannot be null.")
-        return PoliciesRequestBuilder(self.request_adapter, raw_url)
+        return DashboardsRequestBuilder(self.request_adapter, raw_url)
     
     @property
-    def attachments(self) -> AttachmentsRequestBuilder:
+    def widgets(self) -> WidgetsRequestBuilder:
         """
-        The attachments property
+        The widgets property
         """
-        from .attachments.attachments_request_builder import AttachmentsRequestBuilder
+        from .widgets.widgets_request_builder import WidgetsRequestBuilder
 
-        return AttachmentsRequestBuilder(self.request_adapter, self.path_parameters)
-    
-    @property
-    def permissions(self) -> PermissionsRequestBuilder:
-        """
-        The permissions property
-        """
-        from .permissions.permissions_request_builder import PermissionsRequestBuilder
-
-        return PermissionsRequestBuilder(self.request_adapter, self.path_parameters)
+        return WidgetsRequestBuilder(self.request_adapter, self.path_parameters)
     
     @dataclass
-    class PoliciesRequestBuilderGetQueryParameters():
+    class DashboardsRequestBuilderGetQueryParameters():
         """
-        ListPolicies
+        ListDashboards
         """
-        user_id: Optional[str] = None
+        page: Optional[int] = None
+
+        page_size: Optional[int] = None
 
     
     @dataclass
-    class PoliciesRequestBuilderGetRequestConfiguration(RequestConfiguration[PoliciesRequestBuilderGetQueryParameters]):
+    class DashboardsRequestBuilderGetRequestConfiguration(RequestConfiguration[DashboardsRequestBuilderGetQueryParameters]):
         """
         Configuration for the request such as headers, query parameters, and middleware options.
         """
         warn("This class is deprecated. Please use the generic RequestConfiguration class generated by the generator.", DeprecationWarning)
     
     @dataclass
-    class PoliciesRequestBuilderPostRequestConfiguration(RequestConfiguration[QueryParameters]):
+    class DashboardsRequestBuilderPostRequestConfiguration(RequestConfiguration[QueryParameters]):
         """
         Configuration for the request such as headers, query parameters, and middleware options.
         """

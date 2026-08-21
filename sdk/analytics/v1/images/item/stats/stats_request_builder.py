@@ -14,39 +14,39 @@ from typing import Any, Optional, TYPE_CHECKING, Union
 from warnings import warn
 
 if TYPE_CHECKING:
-    from .....models.auth.v1.permission_registry_response import PermissionRegistryResponse
+    from ......models.analytics.v1.image_stats import ImageStats
 
-class PermissionsRequestBuilder(BaseRequestBuilder):
+class StatsRequestBuilder(BaseRequestBuilder):
     """
-    Builds and executes requests for operations under /auth/v1/policies/permissions
+    Builds and executes requests for operations under /analytics/v1/images/{image_id}/stats
     """
     def __init__(self,request_adapter: RequestAdapter, path_parameters: Union[str, dict[str, Any]]) -> None:
         """
-        Instantiates a new PermissionsRequestBuilder and sets the default values.
+        Instantiates a new StatsRequestBuilder and sets the default values.
         param path_parameters: The raw url or the url-template parameters for the request.
         param request_adapter: The request adapter to use to execute the requests.
         Returns: None
         """
-        super().__init__(request_adapter, "{+baseurl}/auth/v1/policies/permissions", path_parameters)
+        super().__init__(request_adapter, "{+baseurl}/analytics/v1/images/{image_id}/stats{?range%2Eend*,range%2Estart*}", path_parameters)
     
-    async def get(self,request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> Optional[PermissionRegistryResponse]:
+    async def get(self,request_configuration: Optional[RequestConfiguration[StatsRequestBuilderGetQueryParameters]] = None) -> Optional[ImageStats]:
         """
-        ListPermissionRegistry
+        GetImageStats
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
-        Returns: Optional[PermissionRegistryResponse]
+        Returns: Optional[ImageStats]
         """
         request_info = self.to_get_request_information(
             request_configuration
         )
         if not self.request_adapter:
             raise Exception("Http core is null") 
-        from .....models.auth.v1.permission_registry_response import PermissionRegistryResponse
+        from ......models.analytics.v1.image_stats import ImageStats
 
-        return await self.request_adapter.send_async(request_info, PermissionRegistryResponse, None)
+        return await self.request_adapter.send_async(request_info, ImageStats, None)
     
-    def to_get_request_information(self,request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> RequestInformation:
+    def to_get_request_information(self,request_configuration: Optional[RequestConfiguration[StatsRequestBuilderGetQueryParameters]] = None) -> RequestInformation:
         """
-        ListPermissionRegistry
+        GetImageStats
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
         Returns: RequestInformation
         """
@@ -55,18 +55,42 @@ class PermissionsRequestBuilder(BaseRequestBuilder):
         request_info.headers.try_add("Accept", "application/json")
         return request_info
     
-    def with_url(self,raw_url: str) -> PermissionsRequestBuilder:
+    def with_url(self,raw_url: str) -> StatsRequestBuilder:
         """
         Returns a request builder with the provided arbitrary URL. Using this method means any other path or query parameters are ignored.
         param raw_url: The raw URL to use for the request builder.
-        Returns: PermissionsRequestBuilder
+        Returns: StatsRequestBuilder
         """
         if raw_url is None:
             raise TypeError("raw_url cannot be null.")
-        return PermissionsRequestBuilder(self.request_adapter, raw_url)
+        return StatsRequestBuilder(self.request_adapter, raw_url)
     
     @dataclass
-    class PermissionsRequestBuilderGetRequestConfiguration(RequestConfiguration[QueryParameters]):
+    class StatsRequestBuilderGetQueryParameters():
+        """
+        GetImageStats
+        """
+        def get_query_parameter(self,original_name: str) -> str:
+            """
+            Maps the query parameters names to their encoded names for the URI template parsing.
+            param original_name: The original query parameter name in the class.
+            Returns: str
+            """
+            if original_name is None:
+                raise TypeError("original_name cannot be null.")
+            if original_name == "range_end":
+                return "range%2Eend"
+            if original_name == "range_start":
+                return "range%2Estart"
+            return original_name
+        
+        range_end: Optional[str] = None
+
+        range_start: Optional[str] = None
+
+    
+    @dataclass
+    class StatsRequestBuilderGetRequestConfiguration(RequestConfiguration[StatsRequestBuilderGetQueryParameters]):
         """
         Configuration for the request such as headers, query parameters, and middleware options.
         """

@@ -7,9 +7,11 @@ from typing import Any, Optional, TYPE_CHECKING, Union
 
 if TYPE_CHECKING:
     from .dashboard.dashboard_request_builder import DashboardRequestBuilder
+    from .dashboards.dashboards_request_builder import DashboardsRequestBuilder
     from .events.events_request_builder import EventsRequestBuilder
     from .feeds.feeds_request_builder import FeedsRequestBuilder
     from .funnels.funnels_request_builder import FunnelsRequestBuilder
+    from .images.images_request_builder import ImagesRequestBuilder
     from .posts.posts_request_builder import PostsRequestBuilder
     from .realtime.realtime_request_builder import RealtimeRequestBuilder
     from .retention.retention_request_builder import RetentionRequestBuilder
@@ -39,6 +41,15 @@ class V1RequestBuilder(BaseRequestBuilder):
         return DashboardRequestBuilder(self.request_adapter, self.path_parameters)
     
     @property
+    def dashboards(self) -> DashboardsRequestBuilder:
+        """
+        The dashboards property
+        """
+        from .dashboards.dashboards_request_builder import DashboardsRequestBuilder
+
+        return DashboardsRequestBuilder(self.request_adapter, self.path_parameters)
+    
+    @property
     def events(self) -> EventsRequestBuilder:
         """
         The events property
@@ -64,6 +75,15 @@ class V1RequestBuilder(BaseRequestBuilder):
         from .funnels.funnels_request_builder import FunnelsRequestBuilder
 
         return FunnelsRequestBuilder(self.request_adapter, self.path_parameters)
+    
+    @property
+    def images(self) -> ImagesRequestBuilder:
+        """
+        The images property
+        """
+        from .images.images_request_builder import ImagesRequestBuilder
+
+        return ImagesRequestBuilder(self.request_adapter, self.path_parameters)
     
     @property
     def posts(self) -> PostsRequestBuilder:

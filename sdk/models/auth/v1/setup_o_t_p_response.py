@@ -6,6 +6,8 @@ from typing import Any, Optional, TYPE_CHECKING, Union
 
 @dataclass
 class SetupOTPResponse(Parsable):
+    # The backup_codes property
+    backup_codes: Optional[list[str]] = None
     # The qr_code_url property
     qr_code_url: Optional[str] = None
     # The secret property
@@ -28,6 +30,7 @@ class SetupOTPResponse(Parsable):
         Returns: dict[str, Callable[[ParseNode], None]]
         """
         fields: dict[str, Callable[[Any], None]] = {
+            "backup_codes": lambda n : setattr(self, 'backup_codes', n.get_collection_of_primitive_values(str)),
             "qr_code_url": lambda n : setattr(self, 'qr_code_url', n.get_str_value()),
             "secret": lambda n : setattr(self, 'secret', n.get_str_value()),
         }
@@ -41,6 +44,7 @@ class SetupOTPResponse(Parsable):
         """
         if writer is None:
             raise TypeError("writer cannot be null.")
+        writer.write_collection_of_primitive_values("backup_codes", self.backup_codes)
         writer.write_str_value("qr_code_url", self.qr_code_url)
         writer.write_str_value("secret", self.secret)
     

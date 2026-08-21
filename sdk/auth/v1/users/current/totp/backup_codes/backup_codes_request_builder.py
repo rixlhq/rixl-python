@@ -6,28 +6,28 @@ from kiota_abstractions.request_adapter import RequestAdapter
 from typing import Any, Optional, TYPE_CHECKING, Union
 
 if TYPE_CHECKING:
-    from .permissions.permissions_request_builder import PermissionsRequestBuilder
+    from .regenerate.regenerate_request_builder import RegenerateRequestBuilder
 
-class PoliciesRequestBuilder(BaseRequestBuilder):
+class BackupCodesRequestBuilder(BaseRequestBuilder):
     """
-    Builds and executes requests for operations under /auth/v1/policies
+    Builds and executes requests for operations under /auth/v1/users/current/totp/backup-codes
     """
     def __init__(self,request_adapter: RequestAdapter, path_parameters: Union[str, dict[str, Any]]) -> None:
         """
-        Instantiates a new PoliciesRequestBuilder and sets the default values.
+        Instantiates a new BackupCodesRequestBuilder and sets the default values.
         param path_parameters: The raw url or the url-template parameters for the request.
         param request_adapter: The request adapter to use to execute the requests.
         Returns: None
         """
-        super().__init__(request_adapter, "{+baseurl}/auth/v1/policies", path_parameters)
+        super().__init__(request_adapter, "{+baseurl}/auth/v1/users/current/totp/backup-codes", path_parameters)
     
     @property
-    def permissions(self) -> PermissionsRequestBuilder:
+    def regenerate(self) -> RegenerateRequestBuilder:
         """
-        The permissions property
+        The regenerate property
         """
-        from .permissions.permissions_request_builder import PermissionsRequestBuilder
+        from .regenerate.regenerate_request_builder import RegenerateRequestBuilder
 
-        return PermissionsRequestBuilder(self.request_adapter, self.path_parameters)
+        return RegenerateRequestBuilder(self.request_adapter, self.path_parameters)
     
 

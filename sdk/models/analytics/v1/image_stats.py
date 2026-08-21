@@ -4,39 +4,35 @@ from dataclasses import dataclass, field
 from kiota_abstractions.serialization import Parsable, ParseNode, SerializationWriter
 from typing import Any, Optional, TYPE_CHECKING, Union
 
-if TYPE_CHECKING:
-    from .permission_offset import PermissionOffset
-
 @dataclass
-class PermissionRegistryResponse(Parsable):
-    # The permissions property
-    permissions: Optional[list[PermissionOffset]] = None
-    # The total property
-    total: Optional[int] = None
+class ImageStats(Parsable):
+    # Dwell time; images have no playback.
+    avg_view_duration_ms: Optional[float] = None
+    # The image_id property
+    image_id: Optional[str] = None
+    # The total_view_duration_ms property
+    total_view_duration_ms: Optional[float] = None
     
     @staticmethod
-    def create_from_discriminator_value(parse_node: ParseNode) -> PermissionRegistryResponse:
+    def create_from_discriminator_value(parse_node: ParseNode) -> ImageStats:
         """
         Creates a new instance of the appropriate class based on discriminator value
         param parse_node: The parse node to use to read the discriminator value and create the object
-        Returns: PermissionRegistryResponse
+        Returns: ImageStats
         """
         if parse_node is None:
             raise TypeError("parse_node cannot be null.")
-        return PermissionRegistryResponse()
+        return ImageStats()
     
     def get_field_deserializers(self,) -> dict[str, Callable[[ParseNode], None]]:
         """
         The deserialization information for the current model
         Returns: dict[str, Callable[[ParseNode], None]]
         """
-        from .permission_offset import PermissionOffset
-
-        from .permission_offset import PermissionOffset
-
         fields: dict[str, Callable[[Any], None]] = {
-            "permissions": lambda n : setattr(self, 'permissions', n.get_collection_of_object_values(PermissionOffset)),
-            "total": lambda n : setattr(self, 'total', n.get_int_value()),
+            "avg_view_duration_ms": lambda n : setattr(self, 'avg_view_duration_ms', n.get_float_value()),
+            "image_id": lambda n : setattr(self, 'image_id', n.get_str_value()),
+            "total_view_duration_ms": lambda n : setattr(self, 'total_view_duration_ms', n.get_float_value()),
         }
         return fields
     
@@ -48,7 +44,8 @@ class PermissionRegistryResponse(Parsable):
         """
         if writer is None:
             raise TypeError("writer cannot be null.")
-        writer.write_collection_of_object_values("permissions", self.permissions)
-        writer.write_int_value("total", self.total)
+        writer.write_float_value("avg_view_duration_ms", self.avg_view_duration_ms)
+        writer.write_str_value("image_id", self.image_id)
+        writer.write_float_value("total_view_duration_ms", self.total_view_duration_ms)
     
 

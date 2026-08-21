@@ -7,6 +7,7 @@ from typing import Any, Optional, TYPE_CHECKING, Union
 
 if TYPE_CHECKING:
     from .feeds.feeds_request_builder import FeedsRequestBuilder
+    from .images.images_request_builder import ImagesRequestBuilder
     from .posts.posts_request_builder import PostsRequestBuilder
     from .videos.videos_request_builder import VideosRequestBuilder
 
@@ -31,6 +32,15 @@ class TopRequestBuilder(BaseRequestBuilder):
         from .feeds.feeds_request_builder import FeedsRequestBuilder
 
         return FeedsRequestBuilder(self.request_adapter, self.path_parameters)
+    
+    @property
+    def images(self) -> ImagesRequestBuilder:
+        """
+        The images property
+        """
+        from .images.images_request_builder import ImagesRequestBuilder
+
+        return ImagesRequestBuilder(self.request_adapter, self.path_parameters)
     
     @property
     def posts(self) -> PostsRequestBuilder:

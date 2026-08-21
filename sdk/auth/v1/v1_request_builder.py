@@ -15,7 +15,6 @@ if TYPE_CHECKING:
     from .membership_applications.membership_applications_request_builder import MembershipApplicationsRequestBuilder
     from .passkey.passkey_request_builder import PasskeyRequestBuilder
     from .password.password_request_builder import PasswordRequestBuilder
-    from .policies.policies_request_builder import PoliciesRequestBuilder
     from .providers.providers_request_builder import ProvidersRequestBuilder
     from .register.register_request_builder import RegisterRequestBuilder
     from .token.token_request_builder import TokenRequestBuilder
@@ -117,15 +116,6 @@ class V1RequestBuilder(BaseRequestBuilder):
         from .password.password_request_builder import PasswordRequestBuilder
 
         return PasswordRequestBuilder(self.request_adapter, self.path_parameters)
-    
-    @property
-    def policies(self) -> PoliciesRequestBuilder:
-        """
-        The policies property
-        """
-        from .policies.policies_request_builder import PoliciesRequestBuilder
-
-        return PoliciesRequestBuilder(self.request_adapter, self.path_parameters)
     
     @property
     def providers(self) -> ProvidersRequestBuilder:

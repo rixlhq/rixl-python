@@ -25,6 +25,8 @@ class TrackEventsRequest(Parsable):
     os: Optional[str] = None
     # The os_version property
     os_version: Optional[str] = None
+    # Project the events belong to (Organization > Project > Videos/Images/Posts/Feeds). Sent alongside the other envelope-level context because a client session is scoped to one project. org_id is still derived server-side from the credential and is never taken from the body, so a wrong project_id can only mis-attribute within the caller's own organization.
+    project_id: Optional[str] = None
     # The region property
     region: Optional[str] = None
     # The user_id property
@@ -59,6 +61,7 @@ class TrackEventsRequest(Parsable):
             "language": lambda n : setattr(self, 'language', n.get_str_value()),
             "os": lambda n : setattr(self, 'os', n.get_str_value()),
             "os_version": lambda n : setattr(self, 'os_version', n.get_str_value()),
+            "project_id": lambda n : setattr(self, 'project_id', n.get_str_value()),
             "region": lambda n : setattr(self, 'region', n.get_str_value()),
             "user_id": lambda n : setattr(self, 'user_id', n.get_str_value()),
         }
@@ -80,6 +83,7 @@ class TrackEventsRequest(Parsable):
         writer.write_str_value("language", self.language)
         writer.write_str_value("os", self.os)
         writer.write_str_value("os_version", self.os_version)
+        writer.write_str_value("project_id", self.project_id)
         writer.write_str_value("region", self.region)
         writer.write_str_value("user_id", self.user_id)
     

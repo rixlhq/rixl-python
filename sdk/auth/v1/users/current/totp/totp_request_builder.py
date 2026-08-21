@@ -6,6 +6,7 @@ from kiota_abstractions.request_adapter import RequestAdapter
 from typing import Any, Optional, TYPE_CHECKING, Union
 
 if TYPE_CHECKING:
+    from .backup_codes.backup_codes_request_builder import BackupCodesRequestBuilder
     from .delete.delete_request_builder import DeleteRequestBuilder
     from .setup.setup_request_builder import SetupRequestBuilder
     from .status.status_request_builder import StatusRequestBuilder
@@ -23,6 +24,15 @@ class TotpRequestBuilder(BaseRequestBuilder):
         Returns: None
         """
         super().__init__(request_adapter, "{+baseurl}/auth/v1/users/current/totp", path_parameters)
+    
+    @property
+    def backup_codes(self) -> BackupCodesRequestBuilder:
+        """
+        The backupCodes property
+        """
+        from .backup_codes.backup_codes_request_builder import BackupCodesRequestBuilder
+
+        return BackupCodesRequestBuilder(self.request_adapter, self.path_parameters)
     
     @property
     def delete_path(self) -> DeleteRequestBuilder:

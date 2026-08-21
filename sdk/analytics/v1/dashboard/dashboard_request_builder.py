@@ -18,6 +18,7 @@ if TYPE_CHECKING:
     from .chart_query.chart_query_request_builder import ChartQueryRequestBuilder
     from .datasets.datasets_request_builder import DatasetsRequestBuilder
     from .filter_options.filter_options_request_builder import FilterOptionsRequestBuilder
+    from .scope_tree.scope_tree_request_builder import ScopeTreeRequestBuilder
 
 class DashboardRequestBuilder(BaseRequestBuilder):
     """
@@ -94,6 +95,15 @@ class DashboardRequestBuilder(BaseRequestBuilder):
         from .filter_options.filter_options_request_builder import FilterOptionsRequestBuilder
 
         return FilterOptionsRequestBuilder(self.request_adapter, self.path_parameters)
+    
+    @property
+    def scope_tree(self) -> ScopeTreeRequestBuilder:
+        """
+        The scopeTree property
+        """
+        from .scope_tree.scope_tree_request_builder import ScopeTreeRequestBuilder
+
+        return ScopeTreeRequestBuilder(self.request_adapter, self.path_parameters)
     
     @dataclass
     class DashboardRequestBuilderGetQueryParameters():
