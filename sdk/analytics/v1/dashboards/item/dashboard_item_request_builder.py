@@ -18,6 +18,7 @@ if TYPE_CHECKING:
     from .....models.google.protobuf.empty import Empty
     from .dashboard_patch_request_body import Dashboard_PatchRequestBody
     from .default.default_request_builder import DefaultRequestBuilder
+    from .export.export_request_builder import ExportRequestBuilder
     from .layout.layout_request_builder import LayoutRequestBuilder
     from .widgets.widgets_request_builder import WidgetsRequestBuilder
 
@@ -137,6 +138,15 @@ class Dashboard_ItemRequestBuilder(BaseRequestBuilder):
         from .default.default_request_builder import DefaultRequestBuilder
 
         return DefaultRequestBuilder(self.request_adapter, self.path_parameters)
+    
+    @property
+    def export(self) -> ExportRequestBuilder:
+        """
+        The export property
+        """
+        from .export.export_request_builder import ExportRequestBuilder
+
+        return ExportRequestBuilder(self.request_adapter, self.path_parameters)
     
     @property
     def layout(self) -> LayoutRequestBuilder:
