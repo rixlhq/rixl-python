@@ -15,6 +15,7 @@ from warnings import warn
 
 if TYPE_CHECKING:
     from .....models.auth.v1.get_user_response import GetUserResponse
+    from .avatar.avatar_request_builder import AvatarRequestBuilder
     from .emails.emails_request_builder import EmailsRequestBuilder
     from .name.name_request_builder import NameRequestBuilder
     from .passkeys.passkeys_request_builder import PasskeysRequestBuilder
@@ -69,6 +70,15 @@ class CurrentRequestBuilder(BaseRequestBuilder):
         if raw_url is None:
             raise TypeError("raw_url cannot be null.")
         return CurrentRequestBuilder(self.request_adapter, raw_url)
+    
+    @property
+    def avatar(self) -> AvatarRequestBuilder:
+        """
+        The avatar property
+        """
+        from .avatar.avatar_request_builder import AvatarRequestBuilder
+
+        return AvatarRequestBuilder(self.request_adapter, self.path_parameters)
     
     @property
     def emails(self) -> EmailsRequestBuilder:

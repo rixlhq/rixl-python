@@ -18,6 +18,8 @@ class UserInfo(Parsable):
     first_name: Optional[str] = None
     # The id property
     id: Optional[str] = None
+    # The image_id property
+    image_id: Optional[str] = None
     # The image_url property
     image_url: Optional[str] = None
     # The language_code property
@@ -50,6 +52,7 @@ class UserInfo(Parsable):
             "email_verified": lambda n : setattr(self, 'email_verified', n.get_bool_value()),
             "first_name": lambda n : setattr(self, 'first_name', n.get_str_value()),
             "id": lambda n : setattr(self, 'id', n.get_str_value()),
+            "image_id": lambda n : setattr(self, 'image_id', n.get_str_value()),
             "image_url": lambda n : setattr(self, 'image_url', n.get_str_value()),
             "language_code": lambda n : setattr(self, 'language_code', n.get_str_value()),
             "last_name": lambda n : setattr(self, 'last_name', n.get_str_value()),
@@ -71,6 +74,7 @@ class UserInfo(Parsable):
         writer.write_bool_value("email_verified", self.email_verified)
         writer.write_str_value("first_name", self.first_name)
         writer.write_str_value("id", self.id)
+        writer.write_str_value("image_id", self.image_id)
         writer.write_str_value("image_url", self.image_url)
         writer.write_str_value("language_code", self.language_code)
         writer.write_str_value("last_name", self.last_name)
