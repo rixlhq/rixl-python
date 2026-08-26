@@ -24,6 +24,7 @@ if TYPE_CHECKING:
     from .organizations.organizations_request_builder import OrganizationsRequestBuilder
     from .platform.platform_request_builder import PlatformRequestBuilder
     from .posts.posts_request_builder import PostsRequestBuilder
+    from .support.support_request_builder import SupportRequestBuilder
 
 class RixlClient(BaseRequestBuilder):
     """
@@ -126,5 +127,14 @@ class RixlClient(BaseRequestBuilder):
         from .posts.posts_request_builder import PostsRequestBuilder
 
         return PostsRequestBuilder(self.request_adapter, self.path_parameters)
+    
+    @property
+    def support(self) -> SupportRequestBuilder:
+        """
+        The support property
+        """
+        from .support.support_request_builder import SupportRequestBuilder
+
+        return SupportRequestBuilder(self.request_adapter, self.path_parameters)
     
 
