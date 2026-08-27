@@ -13,6 +13,8 @@ class V1PostRequestBody(Parsable):
     name: Optional[str] = None
     # The org_id property
     org_id: Optional[str] = None
+    # The policy_ids property
+    policy_ids: Optional[list[str]] = None
     # The project_id property
     project_id: Optional[str] = None
     
@@ -36,6 +38,7 @@ class V1PostRequestBody(Parsable):
             "expiring_at": lambda n : setattr(self, 'expiring_at', n.get_datetime_value()),
             "name": lambda n : setattr(self, 'name', n.get_str_value()),
             "org_id": lambda n : setattr(self, 'org_id', n.get_str_value()),
+            "policy_ids": lambda n : setattr(self, 'policy_ids', n.get_collection_of_primitive_values(str)),
             "project_id": lambda n : setattr(self, 'project_id', n.get_str_value()),
         }
         return fields
@@ -51,6 +54,7 @@ class V1PostRequestBody(Parsable):
         writer.write_datetime_value("expiring_at", self.expiring_at)
         writer.write_str_value("name", self.name)
         writer.write_str_value("org_id", self.org_id)
+        writer.write_collection_of_primitive_values("policy_ids", self.policy_ids)
         writer.write_str_value("project_id", self.project_id)
     
 

@@ -19,6 +19,10 @@ class ApiKey(Parsable):
     name: Optional[str] = None
     # The org_id property
     org_id: Optional[str] = None
+    # The permissions property
+    permissions: Optional[list[str]] = None
+    # The policy_ids property
+    policy_ids: Optional[list[str]] = None
     # The project_id property
     project_id: Optional[str] = None
     # The project_name property
@@ -49,6 +53,8 @@ class ApiKey(Parsable):
             "last_used": lambda n : setattr(self, 'last_used', n.get_datetime_value()),
             "name": lambda n : setattr(self, 'name', n.get_str_value()),
             "org_id": lambda n : setattr(self, 'org_id', n.get_str_value()),
+            "permissions": lambda n : setattr(self, 'permissions', n.get_collection_of_primitive_values(str)),
+            "policy_ids": lambda n : setattr(self, 'policy_ids', n.get_collection_of_primitive_values(str)),
             "project_id": lambda n : setattr(self, 'project_id', n.get_str_value()),
             "project_name": lambda n : setattr(self, 'project_name', n.get_str_value()),
             "secret": lambda n : setattr(self, 'secret', n.get_str_value()),
@@ -69,6 +75,8 @@ class ApiKey(Parsable):
         writer.write_datetime_value("last_used", self.last_used)
         writer.write_str_value("name", self.name)
         writer.write_str_value("org_id", self.org_id)
+        writer.write_collection_of_primitive_values("permissions", self.permissions)
+        writer.write_collection_of_primitive_values("policy_ids", self.policy_ids)
         writer.write_str_value("project_id", self.project_id)
         writer.write_str_value("project_name", self.project_name)
         writer.write_str_value("secret", self.secret)
