@@ -4,6 +4,9 @@ from dataclasses import dataclass, field
 from kiota_abstractions.serialization import Parsable, ParseNode, SerializationWriter
 from typing import Any, Optional, TYPE_CHECKING, Union
 
+if TYPE_CHECKING:
+    from .policy import Policy
+
 @dataclass
 class UserInfo(Parsable):
     # The active_org_id property
@@ -26,6 +29,10 @@ class UserInfo(Parsable):
     language_code: Optional[str] = None
     # The last_name property
     last_name: Optional[str] = None
+    # The permissions property
+    permissions: Optional[list[str]] = None
+    # The policies property
+    policies: Optional[list[Policy]] = None
     # The username property
     username: Optional[str] = None
     
@@ -45,6 +52,10 @@ class UserInfo(Parsable):
         The deserialization information for the current model
         Returns: dict[str, Callable[[ParseNode], None]]
         """
+        from .policy import Policy
+
+        from .policy import Policy
+
         fields: dict[str, Callable[[Any], None]] = {
             "active_org_id": lambda n : setattr(self, 'active_org_id', n.get_str_value()),
             "country_code": lambda n : setattr(self, 'country_code', n.get_str_value()),
@@ -56,6 +67,8 @@ class UserInfo(Parsable):
             "image_url": lambda n : setattr(self, 'image_url', n.get_str_value()),
             "language_code": lambda n : setattr(self, 'language_code', n.get_str_value()),
             "last_name": lambda n : setattr(self, 'last_name', n.get_str_value()),
+            "permissions": lambda n : setattr(self, 'permissions', n.get_collection_of_primitive_values(str)),
+            "policies": lambda n : setattr(self, 'policies', n.get_collection_of_object_values(Policy)),
             "username": lambda n : setattr(self, 'username', n.get_str_value()),
         }
         return fields
@@ -78,6 +91,8 @@ class UserInfo(Parsable):
         writer.write_str_value("image_url", self.image_url)
         writer.write_str_value("language_code", self.language_code)
         writer.write_str_value("last_name", self.last_name)
+        writer.write_collection_of_primitive_values("permissions", self.permissions)
+        writer.write_collection_of_object_values("policies", self.policies)
         writer.write_str_value("username", self.username)
     
 
