@@ -6,6 +6,8 @@ from typing import Any, Optional, TYPE_CHECKING, Union
 
 @dataclass
 class CheckMembershipResponse(Parsable):
+    # The is_internal_org property
+    is_internal_org: Optional[bool] = None
     # The is_member property
     is_member: Optional[bool] = None
     
@@ -26,6 +28,7 @@ class CheckMembershipResponse(Parsable):
         Returns: dict[str, Callable[[ParseNode], None]]
         """
         fields: dict[str, Callable[[Any], None]] = {
+            "is_internal_org": lambda n : setattr(self, 'is_internal_org', n.get_bool_value()),
             "is_member": lambda n : setattr(self, 'is_member', n.get_bool_value()),
         }
         return fields
@@ -38,6 +41,7 @@ class CheckMembershipResponse(Parsable):
         """
         if writer is None:
             raise TypeError("writer cannot be null.")
+        writer.write_bool_value("is_internal_org", self.is_internal_org)
         writer.write_bool_value("is_member", self.is_member)
     
 
