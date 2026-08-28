@@ -14,77 +14,67 @@ from typing import Any, Optional, TYPE_CHECKING, Union
 from warnings import warn
 
 if TYPE_CHECKING:
-    from ......models.auth.v1.update_user_avatar_request import UpdateUserAvatarRequest
-    from ......models.auth.v1.update_user_avatar_response import UpdateUserAvatarResponse
-    from .upload.upload_request_builder import UploadRequestBuilder
+    from .......models.auth.v1.create_avatar_upload_response import CreateAvatarUploadResponse
 
-class AvatarRequestBuilder(BaseRequestBuilder):
+class UploadRequestBuilder(BaseRequestBuilder):
     """
-    Builds and executes requests for operations under /auth/v1/users/current/avatar
+    Builds and executes requests for operations under /auth/v1/users/current/avatar/upload
     """
     def __init__(self,request_adapter: RequestAdapter, path_parameters: Union[str, dict[str, Any]]) -> None:
         """
-        Instantiates a new AvatarRequestBuilder and sets the default values.
+        Instantiates a new UploadRequestBuilder and sets the default values.
         param path_parameters: The raw url or the url-template parameters for the request.
         param request_adapter: The request adapter to use to execute the requests.
         Returns: None
         """
-        super().__init__(request_adapter, "{+baseurl}/auth/v1/users/current/avatar", path_parameters)
+        super().__init__(request_adapter, "{+baseurl}/auth/v1/users/current/avatar/upload{?user_id*}", path_parameters)
     
-    async def patch(self,body: UpdateUserAvatarRequest, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> Optional[UpdateUserAvatarResponse]:
+    async def post(self,request_configuration: Optional[RequestConfiguration[UploadRequestBuilderPostQueryParameters]] = None) -> Optional[CreateAvatarUploadResponse]:
         """
-        UpdateUserAvatar
-        param body: The request body
+        CreateAvatarUpload
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
-        Returns: Optional[UpdateUserAvatarResponse]
+        Returns: Optional[CreateAvatarUploadResponse]
         """
-        if body is None:
-            raise TypeError("body cannot be null.")
-        request_info = self.to_patch_request_information(
-            body, request_configuration
+        request_info = self.to_post_request_information(
+            request_configuration
         )
         if not self.request_adapter:
             raise Exception("Http core is null") 
-        from ......models.auth.v1.update_user_avatar_response import UpdateUserAvatarResponse
+        from .......models.auth.v1.create_avatar_upload_response import CreateAvatarUploadResponse
 
-        return await self.request_adapter.send_async(request_info, UpdateUserAvatarResponse, None)
+        return await self.request_adapter.send_async(request_info, CreateAvatarUploadResponse, None)
     
-    def to_patch_request_information(self,body: UpdateUserAvatarRequest, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> RequestInformation:
+    def to_post_request_information(self,request_configuration: Optional[RequestConfiguration[UploadRequestBuilderPostQueryParameters]] = None) -> RequestInformation:
         """
-        UpdateUserAvatar
-        param body: The request body
+        CreateAvatarUpload
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
         Returns: RequestInformation
         """
-        if body is None:
-            raise TypeError("body cannot be null.")
-        request_info = RequestInformation(Method.PATCH, self.url_template, self.path_parameters)
+        request_info = RequestInformation(Method.POST, self.url_template, self.path_parameters)
         request_info.configure(request_configuration)
         request_info.headers.try_add("Accept", "application/json")
-        request_info.set_content_from_parsable(self.request_adapter, "application/json", body)
         return request_info
     
-    def with_url(self,raw_url: str) -> AvatarRequestBuilder:
+    def with_url(self,raw_url: str) -> UploadRequestBuilder:
         """
         Returns a request builder with the provided arbitrary URL. Using this method means any other path or query parameters are ignored.
         param raw_url: The raw URL to use for the request builder.
-        Returns: AvatarRequestBuilder
+        Returns: UploadRequestBuilder
         """
         if raw_url is None:
             raise TypeError("raw_url cannot be null.")
-        return AvatarRequestBuilder(self.request_adapter, raw_url)
-    
-    @property
-    def upload(self) -> UploadRequestBuilder:
-        """
-        The upload property
-        """
-        from .upload.upload_request_builder import UploadRequestBuilder
-
-        return UploadRequestBuilder(self.request_adapter, self.path_parameters)
+        return UploadRequestBuilder(self.request_adapter, raw_url)
     
     @dataclass
-    class AvatarRequestBuilderPatchRequestConfiguration(RequestConfiguration[QueryParameters]):
+    class UploadRequestBuilderPostQueryParameters():
+        """
+        CreateAvatarUpload
+        """
+        user_id: Optional[str] = None
+
+    
+    @dataclass
+    class UploadRequestBuilderPostRequestConfiguration(RequestConfiguration[UploadRequestBuilderPostQueryParameters]):
         """
         Configuration for the request such as headers, query parameters, and middleware options.
         """
