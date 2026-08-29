@@ -1,5 +1,39 @@
 # Changelog
 
+## [1.3.0](https://github.com/rixlhq/rixl-python/compare/v1.2.0...v1.3.0) (2026-08-29)
+
+
+### Features
+
+* **sdk:** regenerate based on latest OpenAPI spec ([0ccf6f8](https://github.com/rixlhq/rixl-python/commit/0ccf6f89a080a12a21510a971f0612362cddf8ce))
+* **sdk:** regenerate based on latest OpenAPI spec ([ff767e8](https://github.com/rixlhq/rixl-python/commit/ff767e8b177997b69d0e1701f646598ee49427b7))
+* **sdk:** regenerate based on latest OpenAPI spec ([c85cf64](https://github.com/rixlhq/rixl-python/commit/c85cf6487623726be5dec442a19df8a850e56e0d))
+* **sdk:** regenerate based on latest OpenAPI spec ([4113c13](https://github.com/rixlhq/rixl-python/commit/4113c13ace902886310605cc9cd948b2b43451fb))
+* **sdk:** regenerate based on latest OpenAPI spec ([8aed04b](https://github.com/rixlhq/rixl-python/commit/8aed04b71c531919720b649908888d8fc1347ee8))
+* **sdk:** regenerate based on latest OpenAPI spec ([3755eed](https://github.com/rixlhq/rixl-python/commit/3755eedeae6f5d778b73e01e2a895cc4413d3018))
+* **sdk:** regenerate based on latest OpenAPI spec ([3f91825](https://github.com/rixlhq/rixl-python/commit/3f9182542935dcf8028440c30b4e6b4676e45d5b))
+* **sdk:** regenerate based on latest OpenAPI spec ([50b431d](https://github.com/rixlhq/rixl-python/commit/50b431d41093cfc9e6701e15fb9a58ba39e575de))
+* **sdk:** regenerate based on latest OpenAPI spec ([e1bf014](https://github.com/rixlhq/rixl-python/commit/e1bf0145882af38625fd8fdb38717c5c01a526f9))
+* **sdk:** regenerate based on latest OpenAPI spec ([ce10e12](https://github.com/rixlhq/rixl-python/commit/ce10e121c0950c6d784937e12f233cedac7bb622))
+* **sdk:** regenerate based on latest OpenAPI spec ([38b5221](https://github.com/rixlhq/rixl-python/commit/38b522156dc01da5b2ec5372e458ca9109c9aa7b))
+* **sdk:** regenerate based on latest OpenAPI spec ([f4c77a2](https://github.com/rixlhq/rixl-python/commit/f4c77a214efd212e212d9cbee973d4f650b3c2b4))
+* **sdk:** regenerate based on latest OpenAPI spec ([7293879](https://github.com/rixlhq/rixl-python/commit/7293879f5ba62ec9b8934d8f892f840f19abab74))
+* **sdk:** regenerate based on latest OpenAPI spec ([2a63578](https://github.com/rixlhq/rixl-python/commit/2a6357812b5ee8fc9a356483ee493a3055910949))
+* **sdk:** regenerate based on latest OpenAPI spec ([0c1526a](https://github.com/rixlhq/rixl-python/commit/0c1526a1a883d76eea10be244c8d60fb46492e45))
+* **sdk:** regenerate based on latest OpenAPI spec ([c3f72e5](https://github.com/rixlhq/rixl-python/commit/c3f72e5ba458ce8a262eeca89185d15025ccf4b2))
+* **sdk:** regenerate based on latest OpenAPI spec ([128cdb6](https://github.com/rixlhq/rixl-python/commit/128cdb603e63eedb872ab2ea447e7557f4512c89))
+* **sdk:** regenerate based on latest OpenAPI spec ([f96207c](https://github.com/rixlhq/rixl-python/commit/f96207c511f145035c0a5f92c583c94a733bd540))
+* **sdk:** regenerate based on latest OpenAPI spec ([81c93ea](https://github.com/rixlhq/rixl-python/commit/81c93ea90a412ca2844110de9d0b7041bd909e57))
+* **sdk:** regenerate based on latest OpenAPI spec ([910f5ec](https://github.com/rixlhq/rixl-python/commit/910f5ecf5d3bab22ba45d0e3a85e4a04f5fe771f))
+* **sdk:** regenerate based on latest OpenAPI spec ([bd121e5](https://github.com/rixlhq/rixl-python/commit/bd121e54c7c2d04af25d2eadfb691dfe49067843))
+* **sdk:** regenerate based on latest OpenAPI spec ([5779130](https://github.com/rixlhq/rixl-python/commit/57791307efe4301facddc10d04a3d0f7201444e2))
+
+
+### Documentation
+
+* rewrite README for third-party developers ([93b8dd1](https://github.com/rixlhq/rixl-python/commit/93b8dd1f176566722b20bfca998655956e268772))
+* simplify punctuation and group resources by area ([521f957](https://github.com/rixlhq/rixl-python/commit/521f9579aa7a8d3670068f7464b25e8d1b498681))
+
 ## [1.2.0](https://github.com/rixlhq/rixl-python/compare/v1.1.1...v1.2.0) (2026-05-07)
 
 
