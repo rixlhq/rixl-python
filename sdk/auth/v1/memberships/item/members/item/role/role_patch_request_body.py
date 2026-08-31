@@ -5,15 +5,12 @@ from kiota_abstractions.serialization import Parsable, ParseNode, SerializationW
 from typing import Any, Optional, TYPE_CHECKING, Union
 
 if TYPE_CHECKING:
-    from ........models.auth.v1.actor_org_request import ActorOrgRequest
     from ........models.auth.v1.membership_role import MembershipRole
 
 @dataclass
 class RolePatchRequestBody(Parsable):
     # The role property
     role: Optional[MembershipRole] = None
-    # The user property
-    user: Optional[ActorOrgRequest] = None
     # The user_id property
     user_id: Optional[str] = None
     
@@ -33,15 +30,12 @@ class RolePatchRequestBody(Parsable):
         The deserialization information for the current model
         Returns: dict[str, Callable[[ParseNode], None]]
         """
-        from ........models.auth.v1.actor_org_request import ActorOrgRequest
         from ........models.auth.v1.membership_role import MembershipRole
 
-        from ........models.auth.v1.actor_org_request import ActorOrgRequest
         from ........models.auth.v1.membership_role import MembershipRole
 
         fields: dict[str, Callable[[Any], None]] = {
             "role": lambda n : setattr(self, 'role', n.get_enum_value(MembershipRole)),
-            "user": lambda n : setattr(self, 'user', n.get_object_value(ActorOrgRequest)),
             "user_id": lambda n : setattr(self, 'user_id', n.get_str_value()),
         }
         return fields
@@ -55,7 +49,6 @@ class RolePatchRequestBody(Parsable):
         if writer is None:
             raise TypeError("writer cannot be null.")
         writer.write_enum_value("role", self.role)
-        writer.write_object_value("user", self.user)
         writer.write_str_value("user_id", self.user_id)
     
 
