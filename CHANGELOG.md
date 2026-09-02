@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.4.0](https://github.com/rixlhq/rixl-python/compare/v1.3.0...v1.4.0) (2026-09-02)
+
+
+### Features
+
+* **sdk:** regenerate based on latest OpenAPI spec ([9005261](https://github.com/rixlhq/rixl-python/commit/9005261e73921d72a74de6b8ffc701898bafd76e))
+* **sdk:** regenerate based on latest OpenAPI spec ([c55e982](https://github.com/rixlhq/rixl-python/commit/c55e98238e48339a9614e81e20ecc7244813921d))
+* **sdk:** regenerate based on latest OpenAPI spec ([8d4d06d](https://github.com/rixlhq/rixl-python/commit/8d4d06d4fff223e66e3560e45eb05b96d51e53ab))
+
 ## [1.3.0](https://github.com/rixlhq/rixl-python/compare/v1.2.0...v1.3.0) (2026-08-29)
 
 
