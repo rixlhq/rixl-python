@@ -4,6 +4,9 @@ from dataclasses import dataclass, field
 from kiota_abstractions.serialization import Parsable, ParseNode, SerializationWriter
 from typing import Any, Optional, TYPE_CHECKING, Union
 
+if TYPE_CHECKING:
+    from .......models.auth.v1.user_org_request import UserOrgRequest
+
 @dataclass
 class WithPolicy_PutRequestBody(Parsable):
     # The description property
@@ -14,6 +17,8 @@ class WithPolicy_PutRequestBody(Parsable):
     permissions: Optional[list[str]] = None
     # The policy_id property
     policy_id: Optional[str] = None
+    # The user property
+    user: Optional[UserOrgRequest] = None
     
     @staticmethod
     def create_from_discriminator_value(parse_node: ParseNode) -> WithPolicy_PutRequestBody:
@@ -31,11 +36,16 @@ class WithPolicy_PutRequestBody(Parsable):
         The deserialization information for the current model
         Returns: dict[str, Callable[[ParseNode], None]]
         """
+        from .......models.auth.v1.user_org_request import UserOrgRequest
+
+        from .......models.auth.v1.user_org_request import UserOrgRequest
+
         fields: dict[str, Callable[[Any], None]] = {
             "description": lambda n : setattr(self, 'description', n.get_str_value()),
             "name": lambda n : setattr(self, 'name', n.get_str_value()),
             "permissions": lambda n : setattr(self, 'permissions', n.get_collection_of_primitive_values(str)),
             "policy_id": lambda n : setattr(self, 'policy_id', n.get_str_value()),
+            "user": lambda n : setattr(self, 'user', n.get_object_value(UserOrgRequest)),
         }
         return fields
     
@@ -51,5 +61,6 @@ class WithPolicy_PutRequestBody(Parsable):
         writer.write_str_value("name", self.name)
         writer.write_collection_of_primitive_values("permissions", self.permissions)
         writer.write_str_value("policy_id", self.policy_id)
+        writer.write_object_value("user", self.user)
     
 
