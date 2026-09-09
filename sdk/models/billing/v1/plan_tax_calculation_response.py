@@ -11,6 +11,10 @@ if TYPE_CHECKING:
 
 @dataclass
 class PlanTaxCalculationResponse(Parsable):
+    # The amount_total property
+    amount_total: Optional[int] = None
+    # The base_amount property
+    base_amount: Optional[int] = None
     # The billing_address property
     billing_address: Optional[BillingAddress] = None
     # The billing_cycle property
@@ -25,6 +29,10 @@ class PlanTaxCalculationResponse(Parsable):
     plan_id: Optional[str] = None
     # The plan_name property
     plan_name: Optional[str] = None
+    # The tax_amount_exclusive property
+    tax_amount_exclusive: Optional[int] = None
+    # The tax_amount_inclusive property
+    tax_amount_inclusive: Optional[int] = None
     # The tax_percentage property
     tax_percentage: Optional[float] = None
     
@@ -51,6 +59,8 @@ class PlanTaxCalculationResponse(Parsable):
         from .billing_cycle import BillingCycle
 
         fields: dict[str, Callable[[Any], None]] = {
+            "amount_total": lambda n : setattr(self, 'amount_total', n.get_int_value()),
+            "base_amount": lambda n : setattr(self, 'base_amount', n.get_int_value()),
             "billing_address": lambda n : setattr(self, 'billing_address', n.get_object_value(BillingAddress)),
             "billing_cycle": lambda n : setattr(self, 'billing_cycle', n.get_enum_value(BillingCycle)),
             "calculated_at": lambda n : setattr(self, 'calculated_at', n.get_datetime_value()),
@@ -58,6 +68,8 @@ class PlanTaxCalculationResponse(Parsable):
             "currency": lambda n : setattr(self, 'currency', n.get_str_value()),
             "plan_id": lambda n : setattr(self, 'plan_id', n.get_str_value()),
             "plan_name": lambda n : setattr(self, 'plan_name', n.get_str_value()),
+            "tax_amount_exclusive": lambda n : setattr(self, 'tax_amount_exclusive', n.get_int_value()),
+            "tax_amount_inclusive": lambda n : setattr(self, 'tax_amount_inclusive', n.get_int_value()),
             "tax_percentage": lambda n : setattr(self, 'tax_percentage', n.get_float_value()),
         }
         return fields
@@ -70,6 +82,8 @@ class PlanTaxCalculationResponse(Parsable):
         """
         if writer is None:
             raise TypeError("writer cannot be null.")
+        writer.write_int_value("amount_total", self.amount_total)
+        writer.write_int_value("base_amount", self.base_amount)
         writer.write_object_value("billing_address", self.billing_address)
         writer.write_enum_value("billing_cycle", self.billing_cycle)
         writer.write_datetime_value("calculated_at", self.calculated_at)
@@ -77,6 +91,8 @@ class PlanTaxCalculationResponse(Parsable):
         writer.write_str_value("currency", self.currency)
         writer.write_str_value("plan_id", self.plan_id)
         writer.write_str_value("plan_name", self.plan_name)
+        writer.write_int_value("tax_amount_exclusive", self.tax_amount_exclusive)
+        writer.write_int_value("tax_amount_inclusive", self.tax_amount_inclusive)
         writer.write_float_value("tax_percentage", self.tax_percentage)
     
 

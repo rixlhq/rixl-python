@@ -15,6 +15,8 @@ class LoginResponse(Parsable):
     authentication: Optional[list[AuthMethod]] = None
     # The email property
     email: Optional[str] = None
+    # The expires_in property
+    expires_in: Optional[int] = None
     # passkey_options is the WebAuthn PublicKeyCredentialRequestOptions as JSON, present only when "passkey" is one of the authentication methods.
     passkey_options: Optional[bytes] = None
     # The refresh_token property
@@ -52,6 +54,7 @@ class LoginResponse(Parsable):
             "access_token": lambda n : setattr(self, 'access_token', n.get_str_value()),
             "authentication": lambda n : setattr(self, 'authentication', n.get_collection_of_enum_values(AuthMethod)),
             "email": lambda n : setattr(self, 'email', n.get_str_value()),
+            "expires_in": lambda n : setattr(self, 'expires_in', n.get_int_value()),
             "passkey_options": lambda n : setattr(self, 'passkey_options', n.get_bytes_value()),
             "refresh_token": lambda n : setattr(self, 'refresh_token', n.get_str_value()),
             "requires_action": lambda n : setattr(self, 'requires_action', n.get_str_value()),
@@ -72,6 +75,7 @@ class LoginResponse(Parsable):
         writer.write_str_value("access_token", self.access_token)
         writer.write_collection_of_enum_values("authentication", self.authentication)
         writer.write_str_value("email", self.email)
+        writer.write_int_value("expires_in", self.expires_in)
         writer.write_bytes_value("passkey_options", self.passkey_options)
         writer.write_str_value("refresh_token", self.refresh_token)
         writer.write_str_value("requires_action", self.requires_action)

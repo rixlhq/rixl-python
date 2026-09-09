@@ -15,6 +15,8 @@ class ListDashboardsResponse(Parsable):
     page: Optional[int] = None
     # The page_size property
     page_size: Optional[int] = None
+    # The total property
+    total: Optional[int] = None
     
     @staticmethod
     def create_from_discriminator_value(parse_node: ParseNode) -> ListDashboardsResponse:
@@ -40,6 +42,7 @@ class ListDashboardsResponse(Parsable):
             "dashboards": lambda n : setattr(self, 'dashboards', n.get_collection_of_object_values(Dashboard)),
             "page": lambda n : setattr(self, 'page', n.get_int_value()),
             "page_size": lambda n : setattr(self, 'page_size', n.get_int_value()),
+            "total": lambda n : setattr(self, 'total', n.get_int_value()),
         }
         return fields
     
@@ -54,5 +57,6 @@ class ListDashboardsResponse(Parsable):
         writer.write_collection_of_object_values("dashboards", self.dashboards)
         writer.write_int_value("page", self.page)
         writer.write_int_value("page_size", self.page_size)
+        writer.write_int_value("total", self.total)
     
 

@@ -8,6 +8,8 @@ from typing import Any, Optional, TYPE_CHECKING, Union
 class TokenResponse(Parsable):
     # The access_token property
     access_token: Optional[str] = None
+    # The expires_in property
+    expires_in: Optional[int] = None
     # The refresh_token property
     refresh_token: Optional[str] = None
     # The requires_action property
@@ -33,6 +35,7 @@ class TokenResponse(Parsable):
         """
         fields: dict[str, Callable[[Any], None]] = {
             "access_token": lambda n : setattr(self, 'access_token', n.get_str_value()),
+            "expires_in": lambda n : setattr(self, 'expires_in', n.get_int_value()),
             "refresh_token": lambda n : setattr(self, 'refresh_token', n.get_str_value()),
             "requires_action": lambda n : setattr(self, 'requires_action', n.get_str_value()),
             "token_type": lambda n : setattr(self, 'token_type', n.get_str_value()),
@@ -48,6 +51,7 @@ class TokenResponse(Parsable):
         if writer is None:
             raise TypeError("writer cannot be null.")
         writer.write_str_value("access_token", self.access_token)
+        writer.write_int_value("expires_in", self.expires_in)
         writer.write_str_value("refresh_token", self.refresh_token)
         writer.write_str_value("requires_action", self.requires_action)
         writer.write_str_value("token_type", self.token_type)

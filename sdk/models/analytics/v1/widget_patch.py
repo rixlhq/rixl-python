@@ -5,8 +5,8 @@ from kiota_abstractions.serialization import Parsable, ParseNode, SerializationW
 from typing import Any, Optional, TYPE_CHECKING, Union
 
 if TYPE_CHECKING:
-    from .widget_patch_filters import WidgetPatch_filters
-    from .widget_patch_group_by import WidgetPatch_group_by
+    from .filters import Filters
+    from .group_by import GroupBy
 
 @dataclass
 class WidgetPatch(Parsable):
@@ -15,9 +15,9 @@ class WidgetPatch(Parsable):
     # The dataset property
     dataset: Optional[str] = None
     # The filters property
-    filters: Optional[WidgetPatch_filters] = None
+    filters: Optional[Filters] = None
     # The group_by property
-    group_by: Optional[WidgetPatch_group_by] = None
+    group_by: Optional[GroupBy] = None
     # The interval property
     interval: Optional[str] = None
     # The limit property
@@ -43,17 +43,17 @@ class WidgetPatch(Parsable):
         The deserialization information for the current model
         Returns: dict[str, Callable[[ParseNode], None]]
         """
-        from .widget_patch_filters import WidgetPatch_filters
-        from .widget_patch_group_by import WidgetPatch_group_by
+        from .filters import Filters
+        from .group_by import GroupBy
 
-        from .widget_patch_filters import WidgetPatch_filters
-        from .widget_patch_group_by import WidgetPatch_group_by
+        from .filters import Filters
+        from .group_by import GroupBy
 
         fields: dict[str, Callable[[Any], None]] = {
             "chart_type": lambda n : setattr(self, 'chart_type', n.get_str_value()),
             "dataset": lambda n : setattr(self, 'dataset', n.get_str_value()),
-            "filters": lambda n : setattr(self, 'filters', n.get_object_value(WidgetPatch_filters)),
-            "group_by": lambda n : setattr(self, 'group_by', n.get_object_value(WidgetPatch_group_by)),
+            "filters": lambda n : setattr(self, 'filters', n.get_object_value(Filters)),
+            "group_by": lambda n : setattr(self, 'group_by', n.get_object_value(GroupBy)),
             "interval": lambda n : setattr(self, 'interval', n.get_str_value()),
             "limit": lambda n : setattr(self, 'limit', n.get_int_value()),
             "metric": lambda n : setattr(self, 'metric', n.get_str_value()),

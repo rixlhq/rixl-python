@@ -13,8 +13,6 @@ class AttachmentsPostRequestBody(Parsable):
     identity_id: Optional[str] = None
     # The identity_type property
     identity_type: Optional[PolicyIdentityType] = None
-    # The policy_id property
-    policy_id: Optional[str] = None
     
     @staticmethod
     def create_from_discriminator_value(parse_node: ParseNode) -> AttachmentsPostRequestBody:
@@ -39,7 +37,6 @@ class AttachmentsPostRequestBody(Parsable):
         fields: dict[str, Callable[[Any], None]] = {
             "identity_id": lambda n : setattr(self, 'identity_id', n.get_str_value()),
             "identity_type": lambda n : setattr(self, 'identity_type', n.get_enum_value(PolicyIdentityType)),
-            "policy_id": lambda n : setattr(self, 'policy_id', n.get_str_value()),
         }
         return fields
     
@@ -53,6 +50,5 @@ class AttachmentsPostRequestBody(Parsable):
             raise TypeError("writer cannot be null.")
         writer.write_str_value("identity_id", self.identity_id)
         writer.write_enum_value("identity_type", self.identity_type)
-        writer.write_str_value("policy_id", self.policy_id)
     
 

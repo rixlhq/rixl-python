@@ -6,6 +6,8 @@ from typing import Any, Optional, TYPE_CHECKING, Union
 
 @dataclass
 class TaxLineItem(Parsable):
+    # The amount property
+    amount: Optional[int] = None
     # The reference property
     reference: Optional[str] = None
     # The tax_code property
@@ -28,6 +30,7 @@ class TaxLineItem(Parsable):
         Returns: dict[str, Callable[[ParseNode], None]]
         """
         fields: dict[str, Callable[[Any], None]] = {
+            "amount": lambda n : setattr(self, 'amount', n.get_int_value()),
             "reference": lambda n : setattr(self, 'reference', n.get_str_value()),
             "tax_code": lambda n : setattr(self, 'tax_code', n.get_str_value()),
         }
@@ -41,6 +44,7 @@ class TaxLineItem(Parsable):
         """
         if writer is None:
             raise TypeError("writer cannot be null.")
+        writer.write_int_value("amount", self.amount)
         writer.write_str_value("reference", self.reference)
         writer.write_str_value("tax_code", self.tax_code)
     

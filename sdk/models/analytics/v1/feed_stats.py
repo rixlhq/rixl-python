@@ -10,8 +10,14 @@ class FeedStats(Parsable):
     avg_time_per_visit_ms: Optional[float] = None
     # The feed_id property
     feed_id: Optional[str] = None
+    # The total_posts property
+    total_posts: Optional[int] = None
+    # The total_views property
+    total_views: Optional[int] = None
     # The total_watch_time_ms property
     total_watch_time_ms: Optional[float] = None
+    # The unique_viewers property
+    unique_viewers: Optional[int] = None
     
     @staticmethod
     def create_from_discriminator_value(parse_node: ParseNode) -> FeedStats:
@@ -32,7 +38,10 @@ class FeedStats(Parsable):
         fields: dict[str, Callable[[Any], None]] = {
             "avg_time_per_visit_ms": lambda n : setattr(self, 'avg_time_per_visit_ms', n.get_float_value()),
             "feed_id": lambda n : setattr(self, 'feed_id', n.get_str_value()),
+            "total_posts": lambda n : setattr(self, 'total_posts', n.get_int_value()),
+            "total_views": lambda n : setattr(self, 'total_views', n.get_int_value()),
             "total_watch_time_ms": lambda n : setattr(self, 'total_watch_time_ms', n.get_float_value()),
+            "unique_viewers": lambda n : setattr(self, 'unique_viewers', n.get_int_value()),
         }
         return fields
     
@@ -46,6 +55,9 @@ class FeedStats(Parsable):
             raise TypeError("writer cannot be null.")
         writer.write_float_value("avg_time_per_visit_ms", self.avg_time_per_visit_ms)
         writer.write_str_value("feed_id", self.feed_id)
+        writer.write_int_value("total_posts", self.total_posts)
+        writer.write_int_value("total_views", self.total_views)
         writer.write_float_value("total_watch_time_ms", self.total_watch_time_ms)
+        writer.write_int_value("unique_viewers", self.unique_viewers)
     
 

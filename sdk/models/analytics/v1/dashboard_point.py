@@ -8,6 +8,10 @@ from typing import Any, Optional, TYPE_CHECKING, Union
 class DashboardPoint(Parsable):
     # The timestamp property
     timestamp: Optional[str] = None
+    # The unique_users property
+    unique_users: Optional[int] = None
+    # The views property
+    views: Optional[int] = None
     
     @staticmethod
     def create_from_discriminator_value(parse_node: ParseNode) -> DashboardPoint:
@@ -27,6 +31,8 @@ class DashboardPoint(Parsable):
         """
         fields: dict[str, Callable[[Any], None]] = {
             "timestamp": lambda n : setattr(self, 'timestamp', n.get_str_value()),
+            "unique_users": lambda n : setattr(self, 'unique_users', n.get_int_value()),
+            "views": lambda n : setattr(self, 'views', n.get_int_value()),
         }
         return fields
     
@@ -39,5 +45,7 @@ class DashboardPoint(Parsable):
         if writer is None:
             raise TypeError("writer cannot be null.")
         writer.write_str_value("timestamp", self.timestamp)
+        writer.write_int_value("unique_users", self.unique_users)
+        writer.write_int_value("views", self.views)
     
 

@@ -15,6 +15,8 @@ class ListPostsResponse(Parsable):
     offset: Optional[int] = None
     # The posts property
     posts: Optional[list[Post]] = None
+    # The total property
+    total: Optional[int] = None
     
     @staticmethod
     def create_from_discriminator_value(parse_node: ParseNode) -> ListPostsResponse:
@@ -40,6 +42,7 @@ class ListPostsResponse(Parsable):
             "limit": lambda n : setattr(self, 'limit', n.get_int_value()),
             "offset": lambda n : setattr(self, 'offset', n.get_int_value()),
             "posts": lambda n : setattr(self, 'posts', n.get_collection_of_object_values(Post)),
+            "total": lambda n : setattr(self, 'total', n.get_int_value()),
         }
         return fields
     
@@ -54,5 +57,6 @@ class ListPostsResponse(Parsable):
         writer.write_int_value("limit", self.limit)
         writer.write_int_value("offset", self.offset)
         writer.write_collection_of_object_values("posts", self.posts)
+        writer.write_int_value("total", self.total)
     
 

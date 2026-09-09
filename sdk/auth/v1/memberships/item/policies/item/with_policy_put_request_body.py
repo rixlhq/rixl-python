@@ -12,8 +12,6 @@ class WithPolicy_PutRequestBody(Parsable):
     name: Optional[str] = None
     # The permissions property
     permissions: Optional[list[str]] = None
-    # The policy_id property
-    policy_id: Optional[str] = None
     
     @staticmethod
     def create_from_discriminator_value(parse_node: ParseNode) -> WithPolicy_PutRequestBody:
@@ -35,7 +33,6 @@ class WithPolicy_PutRequestBody(Parsable):
             "description": lambda n : setattr(self, 'description', n.get_str_value()),
             "name": lambda n : setattr(self, 'name', n.get_str_value()),
             "permissions": lambda n : setattr(self, 'permissions', n.get_collection_of_primitive_values(str)),
-            "policy_id": lambda n : setattr(self, 'policy_id', n.get_str_value()),
         }
         return fields
     
@@ -50,6 +47,5 @@ class WithPolicy_PutRequestBody(Parsable):
         writer.write_str_value("description", self.description)
         writer.write_str_value("name", self.name)
         writer.write_collection_of_primitive_values("permissions", self.permissions)
-        writer.write_str_value("policy_id", self.policy_id)
     
 

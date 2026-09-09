@@ -8,6 +8,8 @@ from typing import Any, Optional, TYPE_CHECKING, Union
 class MarkVideoProcessedRequest(Parsable):
     # The file_id property
     file_id: Optional[str] = None
+    # The size property
+    size: Optional[int] = None
     
     @staticmethod
     def create_from_discriminator_value(parse_node: ParseNode) -> MarkVideoProcessedRequest:
@@ -27,6 +29,7 @@ class MarkVideoProcessedRequest(Parsable):
         """
         fields: dict[str, Callable[[Any], None]] = {
             "file_id": lambda n : setattr(self, 'file_id', n.get_str_value()),
+            "size": lambda n : setattr(self, 'size', n.get_int_value()),
         }
         return fields
     
@@ -39,5 +42,6 @@ class MarkVideoProcessedRequest(Parsable):
         if writer is None:
             raise TypeError("writer cannot be null.")
         writer.write_str_value("file_id", self.file_id)
+        writer.write_int_value("size", self.size)
     
 

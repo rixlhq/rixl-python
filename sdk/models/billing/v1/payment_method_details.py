@@ -8,6 +8,10 @@ from typing import Any, Optional, TYPE_CHECKING, Union
 class PaymentMethodDetails(Parsable):
     # The brand property
     brand: Optional[str] = None
+    # The exp_month property
+    exp_month: Optional[int] = None
+    # The exp_year property
+    exp_year: Optional[int] = None
     # The id property
     id: Optional[str] = None
     # The is_default property
@@ -35,6 +39,8 @@ class PaymentMethodDetails(Parsable):
         """
         fields: dict[str, Callable[[Any], None]] = {
             "brand": lambda n : setattr(self, 'brand', n.get_str_value()),
+            "exp_month": lambda n : setattr(self, 'exp_month', n.get_int_value()),
+            "exp_year": lambda n : setattr(self, 'exp_year', n.get_int_value()),
             "id": lambda n : setattr(self, 'id', n.get_str_value()),
             "is_default": lambda n : setattr(self, 'is_default', n.get_bool_value()),
             "last4": lambda n : setattr(self, 'last4', n.get_str_value()),
@@ -51,6 +57,8 @@ class PaymentMethodDetails(Parsable):
         if writer is None:
             raise TypeError("writer cannot be null.")
         writer.write_str_value("brand", self.brand)
+        writer.write_int_value("exp_month", self.exp_month)
+        writer.write_int_value("exp_year", self.exp_year)
         writer.write_str_value("id", self.id)
         writer.write_bool_value("is_default", self.is_default)
         writer.write_str_value("last4", self.last4)

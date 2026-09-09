@@ -20,6 +20,8 @@ class CalculateTaxRequest(Parsable):
     billing_cycle: Optional[BillingCycle] = None
     # The currency property
     currency: Optional[str] = None
+    # The interval_count property
+    interval_count: Optional[int] = None
     # The line_items property
     line_items: Optional[list[TaxLineItem]] = None
     # The metadata property
@@ -62,6 +64,7 @@ class CalculateTaxRequest(Parsable):
             "billing_address": lambda n : setattr(self, 'billing_address', n.get_object_value(BillingAddress)),
             "billing_cycle": lambda n : setattr(self, 'billing_cycle', n.get_enum_value(BillingCycle)),
             "currency": lambda n : setattr(self, 'currency', n.get_str_value()),
+            "interval_count": lambda n : setattr(self, 'interval_count', n.get_int_value()),
             "line_items": lambda n : setattr(self, 'line_items', n.get_collection_of_object_values(TaxLineItem)),
             "metadata": lambda n : setattr(self, 'metadata', n.get_object_value(CalculateTaxRequest_metadata)),
             "org_id": lambda n : setattr(self, 'org_id', n.get_str_value()),
@@ -82,6 +85,7 @@ class CalculateTaxRequest(Parsable):
         writer.write_object_value("billing_address", self.billing_address)
         writer.write_enum_value("billing_cycle", self.billing_cycle)
         writer.write_str_value("currency", self.currency)
+        writer.write_int_value("interval_count", self.interval_count)
         writer.write_collection_of_object_values("line_items", self.line_items)
         writer.write_object_value("metadata", self.metadata)
         writer.write_str_value("org_id", self.org_id)
