@@ -1,14 +1,22 @@
 from __future__ import annotations
 from collections.abc import Callable
 from dataclasses import dataclass, field
-from kiota_abstractions.serialization import AdditionalDataHolder, Parsable, ParseNode, SerializationWriter
+from kiota_abstractions.serialization import ComposedTypeWrapper, Parsable, ParseNode, ParseNodeHelper, SerializationWriter
 from typing import Any, Optional, TYPE_CHECKING, Union
 
-@dataclass
-class DomainStatus(AdditionalDataHolder, Parsable):
-    # Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-    additional_data: dict[str, Any] = field(default_factory=dict)
+if TYPE_CHECKING:
+    from .domain_status_member1 import DomainStatusMember1
+    from .domain_status_member2 import DomainStatusMember2
 
+@dataclass
+class DomainStatus(ComposedTypeWrapper, Parsable):
+    """
+    Composed type wrapper for classes DomainStatusMember1, DomainStatusMember2
+    """
+    # Composed type representation for type DomainStatusMember1
+    domain_status_member1: Optional[DomainStatusMember1] = None
+    # Composed type representation for type DomainStatusMember2
+    domain_status_member2: Optional[DomainStatusMember2] = None
     
     @staticmethod
     def create_from_discriminator_value(parse_node: ParseNode) -> DomainStatus:
@@ -19,16 +27,26 @@ class DomainStatus(AdditionalDataHolder, Parsable):
         """
         if parse_node is None:
             raise TypeError("parse_node cannot be null.")
-        return DomainStatus()
+        result = DomainStatus()
+        from .domain_status_member1 import DomainStatusMember1
+
+        result.domain_status_member1 = DomainStatusMember1()
+        from .domain_status_member2 import DomainStatusMember2
+
+        result.domain_status_member2 = DomainStatusMember2()
+        return result
     
     def get_field_deserializers(self,) -> dict[str, Callable[[ParseNode], None]]:
         """
         The deserialization information for the current model
         Returns: dict[str, Callable[[ParseNode], None]]
         """
-        fields: dict[str, Callable[[Any], None]] = {
-        }
-        return fields
+        from .domain_status_member1 import DomainStatusMember1
+        from .domain_status_member2 import DomainStatusMember2
+
+        if self.domain_status_member1 or self.domain_status_member2:
+            return ParseNodeHelper.merge_deserializers_for_intersection_wrapper(self.domain_status_member1, self.domain_status_member2)
+        return {}
     
     def serialize(self,writer: SerializationWriter) -> None:
         """
@@ -38,6 +56,6 @@ class DomainStatus(AdditionalDataHolder, Parsable):
         """
         if writer is None:
             raise TypeError("writer cannot be null.")
-        writer.write_additional_data_value(self.additional_data)
+        writer.write_object_value(None, self.domain_status_member1, self.domain_status_member2)
     
 

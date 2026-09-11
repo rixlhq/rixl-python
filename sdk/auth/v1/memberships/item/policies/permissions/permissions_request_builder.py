@@ -70,10 +70,13 @@ class PermissionsRequestBuilder(BaseRequestBuilder):
         """
         ListPermissionRegistry
         """
+        # The limit query parameter.
         limit: Optional[int] = None
 
+        # The offset query parameter.
         offset: Optional[int] = None
 
+        # The types query parameter.
         types: Optional[list[str]] = None
 
     

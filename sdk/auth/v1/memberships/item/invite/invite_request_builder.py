@@ -35,7 +35,7 @@ class InviteRequestBuilder(BaseRequestBuilder):
     def by_user_id(self,user_id: str) -> WithUser_ItemRequestBuilder:
         """
         Gets an item from the rixl_sdk.auth.v1.memberships.item.invite.item collection
-        param user_id: Unique identifier of the item
+        param user_id: The user_id path parameter.
         Returns: WithUser_ItemRequestBuilder
         """
         if user_id is None:

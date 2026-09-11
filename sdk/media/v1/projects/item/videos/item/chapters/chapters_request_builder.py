@@ -31,10 +31,10 @@ class ChaptersRequestBuilder(BaseRequestBuilder):
         """
         super().__init__(request_adapter, "{+baseurl}/media/v1/projects/{project_id}/videos/{video_id}/chapters{?chapters%2Estart_time_sec*,chapters%2Etitle*}", path_parameters)
     
-    def by_start_time_sec(self,start_time_sec: int) -> WithStart_time_secItemRequestBuilder:
+    def by_start_time_sec(self,start_time_sec: str) -> WithStart_time_secItemRequestBuilder:
         """
         Gets an item from the rixl_sdk.media.v1.projects.item.videos.item.chapters.item collection
-        param start_time_sec: Unique identifier of the item
+        param start_time_sec: The start_time_sec path parameter.
         Returns: WithStart_time_secItemRequestBuilder
         """
         if start_time_sec is None:
@@ -159,8 +159,10 @@ class ChaptersRequestBuilder(BaseRequestBuilder):
                 return "chapters%2Etitle"
             return original_name
         
+        # The chapters.start_time_sec query parameter.
         chapters_start_time_sec: Optional[float] = None
 
+        # The chapters.title query parameter.
         chapters_title: Optional[str] = None
 
     

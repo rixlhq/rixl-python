@@ -24,7 +24,7 @@ class InvitationsRequestBuilder(BaseRequestBuilder):
     def by_token(self,token: str) -> WithTokenItemRequestBuilder:
         """
         Gets an item from the rixl_sdk.auth.v1.invitations.item collection
-        param token: Unique identifier of the item
+        param token: The token path parameter.
         Returns: WithTokenItemRequestBuilder
         """
         if token is None:

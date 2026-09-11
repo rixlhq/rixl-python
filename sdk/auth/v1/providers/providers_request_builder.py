@@ -34,7 +34,7 @@ class ProvidersRequestBuilder(BaseRequestBuilder):
     def by_provider(self,provider: str) -> WithProviderItemRequestBuilder:
         """
         Gets an item from the rixl_sdk.auth.v1.providers.item collection
-        param provider: Unique identifier of the item
+        param provider: The provider path parameter.
         Returns: WithProviderItemRequestBuilder
         """
         if provider is None:
@@ -95,6 +95,7 @@ class ProvidersRequestBuilder(BaseRequestBuilder):
         """
         ListProviders
         """
+        # The user_id query parameter.
         user_id: Optional[str] = None
 
     

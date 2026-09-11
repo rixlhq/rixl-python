@@ -35,7 +35,7 @@ class AudioTracksRequestBuilder(BaseRequestBuilder):
     def by_track_id(self,track_id: str) -> WithTrack_ItemRequestBuilder:
         """
         Gets an item from the rixl_sdk.media.v1.projects.item.videos.item.audioTracks.item collection
-        param track_id: Unique identifier of the item
+        param track_id: The track_id path parameter.
         Returns: WithTrack_ItemRequestBuilder
         """
         if track_id is None:

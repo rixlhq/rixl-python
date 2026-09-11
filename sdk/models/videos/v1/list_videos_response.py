@@ -18,7 +18,7 @@ class ListVideosResponse(Parsable):
     # The sort_field property
     sort_field: Optional[str] = None
     # The total property
-    total: Optional[int] = None
+    total: Optional[str] = None
     # The videos property
     videos: Optional[list[Video]] = None
     
@@ -47,7 +47,7 @@ class ListVideosResponse(Parsable):
             "offset": lambda n : setattr(self, 'offset', n.get_int_value()),
             "sort_direction": lambda n : setattr(self, 'sort_direction', n.get_str_value()),
             "sort_field": lambda n : setattr(self, 'sort_field', n.get_str_value()),
-            "total": lambda n : setattr(self, 'total', n.get_int_value()),
+            "total": lambda n : setattr(self, 'total', n.get_str_value()),
             "videos": lambda n : setattr(self, 'videos', n.get_collection_of_object_values(Video)),
         }
         return fields
@@ -64,7 +64,7 @@ class ListVideosResponse(Parsable):
         writer.write_int_value("offset", self.offset)
         writer.write_str_value("sort_direction", self.sort_direction)
         writer.write_str_value("sort_field", self.sort_field)
-        writer.write_int_value("total", self.total)
+        writer.write_str_value("total", self.total)
         writer.write_collection_of_object_values("videos", self.videos)
     
 

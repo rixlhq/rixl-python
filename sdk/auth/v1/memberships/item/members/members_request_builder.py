@@ -33,7 +33,7 @@ class MembersRequestBuilder(BaseRequestBuilder):
     def by_member_id(self,member_id: str) -> Member_ItemRequestBuilder:
         """
         Gets an item from the rixl_sdk.auth.v1.memberships.item.members.item collection
-        param member_id: Unique identifier of the item
+        param member_id: The user_id path parameter.
         Returns: Member_ItemRequestBuilder
         """
         if member_id is None:
@@ -85,8 +85,10 @@ class MembersRequestBuilder(BaseRequestBuilder):
         """
         ListOrganizationMembers
         """
+        # The limit query parameter.
         limit: Optional[int] = None
 
+        # The offset query parameter.
         offset: Optional[int] = None
 
     

@@ -11,7 +11,7 @@ if TYPE_CHECKING:
 @dataclass
 class CalculateGenericTaxRequest(Parsable):
     # The amount property
-    amount: Optional[int] = None
+    amount: Optional[str] = None
     # The billing_address property
     billing_address: Optional[BillingAddress] = None
     # The currency property
@@ -44,7 +44,7 @@ class CalculateGenericTaxRequest(Parsable):
         from .tax_line_item import TaxLineItem
 
         fields: dict[str, Callable[[Any], None]] = {
-            "amount": lambda n : setattr(self, 'amount', n.get_int_value()),
+            "amount": lambda n : setattr(self, 'amount', n.get_str_value()),
             "billing_address": lambda n : setattr(self, 'billing_address', n.get_object_value(BillingAddress)),
             "currency": lambda n : setattr(self, 'currency', n.get_str_value()),
             "line_items": lambda n : setattr(self, 'line_items', n.get_collection_of_object_values(TaxLineItem)),
@@ -60,7 +60,7 @@ class CalculateGenericTaxRequest(Parsable):
         """
         if writer is None:
             raise TypeError("writer cannot be null.")
-        writer.write_int_value("amount", self.amount)
+        writer.write_str_value("amount", self.amount)
         writer.write_object_value("billing_address", self.billing_address)
         writer.write_str_value("currency", self.currency)
         writer.write_collection_of_object_values("line_items", self.line_items)

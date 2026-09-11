@@ -151,6 +151,7 @@ class DomainRequestBuilder(BaseRequestBuilder):
         """
         RemoveDomain
         """
+        # The user_id query parameter.
         user_id: Optional[str] = None
 
     
@@ -166,6 +167,7 @@ class DomainRequestBuilder(BaseRequestBuilder):
         """
         GetDomainStatus
         """
+        # The user_id query parameter.
         user_id: Optional[str] = None
 
     
