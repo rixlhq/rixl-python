@@ -11,6 +11,8 @@ if TYPE_CHECKING:
 class StatePatchRequestBody(Parsable):
     # The state property
     state: Optional[MembershipApplicationState] = None
+    # The user_id property
+    user_id: Optional[str] = None
     
     @staticmethod
     def create_from_discriminator_value(parse_node: ParseNode) -> StatePatchRequestBody:
@@ -34,6 +36,7 @@ class StatePatchRequestBody(Parsable):
 
         fields: dict[str, Callable[[Any], None]] = {
             "state": lambda n : setattr(self, 'state', n.get_enum_value(MembershipApplicationState)),
+            "user_id": lambda n : setattr(self, 'user_id', n.get_str_value()),
         }
         return fields
     
@@ -46,5 +49,6 @@ class StatePatchRequestBody(Parsable):
         if writer is None:
             raise TypeError("writer cannot be null.")
         writer.write_enum_value("state", self.state)
+        writer.write_str_value("user_id", self.user_id)
     
 
