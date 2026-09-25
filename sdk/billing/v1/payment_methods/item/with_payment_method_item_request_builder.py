@@ -70,7 +70,6 @@ class WithPayment_method_ItemRequestBuilder(BaseRequestBuilder):
         """
         DeletePaymentMethod
         """
-        # The org_id query parameter.
         org_id: Optional[str] = None
 
     

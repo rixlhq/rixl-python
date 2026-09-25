@@ -20,6 +20,8 @@ class FeedsPostRequestBody(Parsable):
     has_shares: Optional[bool] = None
     # The name property
     name: Optional[str] = None
+    # The project_id property
+    project_id: Optional[str] = None
     
     @staticmethod
     def create_from_discriminator_value(parse_node: ParseNode) -> FeedsPostRequestBody:
@@ -45,6 +47,7 @@ class FeedsPostRequestBody(Parsable):
             "has_likes": lambda n : setattr(self, 'has_likes', n.get_bool_value()),
             "has_shares": lambda n : setattr(self, 'has_shares', n.get_bool_value()),
             "name": lambda n : setattr(self, 'name', n.get_str_value()),
+            "project_id": lambda n : setattr(self, 'project_id', n.get_str_value()),
         }
         return fields
     
@@ -63,5 +66,6 @@ class FeedsPostRequestBody(Parsable):
         writer.write_bool_value("has_likes", self.has_likes)
         writer.write_bool_value("has_shares", self.has_shares)
         writer.write_str_value("name", self.name)
+        writer.write_str_value("project_id", self.project_id)
     
 

@@ -15,6 +15,7 @@ from warnings import warn
 
 if TYPE_CHECKING:
     from ....models.auth.v1.list_membership_applications_response import ListMembershipApplicationsResponse
+    from ....models.auth.v1.membership_application_state import MembershipApplicationState
 
 class MembershipApplicationsRequestBuilder(BaseRequestBuilder):
     """
@@ -88,16 +89,12 @@ class MembershipApplicationsRequestBuilder(BaseRequestBuilder):
                 return "state"
             return original_name
         
-        # The limit query parameter.
         limit: Optional[int] = None
 
-        # The offset query parameter.
         offset: Optional[int] = None
 
-        # The state query parameter.
-        state: Optional[str] = None
+        state: Optional[MembershipApplicationState] = None
 
-        # The user.user_id query parameter.
         user_user_id: Optional[str] = None
 
     

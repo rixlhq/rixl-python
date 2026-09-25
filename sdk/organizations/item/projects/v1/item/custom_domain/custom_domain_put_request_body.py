@@ -8,6 +8,10 @@ from typing import Any, Optional, TYPE_CHECKING, Union
 class CustomDomainPutRequestBody(Parsable):
     # The custom_domain property
     custom_domain: Optional[str] = None
+    # The org_id property
+    org_id: Optional[str] = None
+    # The project_id property
+    project_id: Optional[str] = None
     
     @staticmethod
     def create_from_discriminator_value(parse_node: ParseNode) -> CustomDomainPutRequestBody:
@@ -27,6 +31,8 @@ class CustomDomainPutRequestBody(Parsable):
         """
         fields: dict[str, Callable[[Any], None]] = {
             "custom_domain": lambda n : setattr(self, 'custom_domain', n.get_str_value()),
+            "org_id": lambda n : setattr(self, 'org_id', n.get_str_value()),
+            "project_id": lambda n : setattr(self, 'project_id', n.get_str_value()),
         }
         return fields
     
@@ -39,5 +45,7 @@ class CustomDomainPutRequestBody(Parsable):
         if writer is None:
             raise TypeError("writer cannot be null.")
         writer.write_str_value("custom_domain", self.custom_domain)
+        writer.write_str_value("org_id", self.org_id)
+        writer.write_str_value("project_id", self.project_id)
     
 

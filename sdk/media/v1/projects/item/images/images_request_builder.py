@@ -34,7 +34,7 @@ class ImagesRequestBuilder(BaseRequestBuilder):
     def by_image_id(self,image_id: str) -> WithImage_ItemRequestBuilder:
         """
         Gets an item from the rixl_sdk.media.v1.projects.item.images.item collection
-        param image_id: The image_id path parameter.
+        param image_id: Unique identifier of the item
         Returns: WithImage_ItemRequestBuilder
         """
         if image_id is None:
@@ -119,10 +119,8 @@ class ImagesRequestBuilder(BaseRequestBuilder):
         # Number of items to skip before collecting the result set.
         pagination_offset: Optional[int] = None
 
-        # The sort_direction query parameter.
         sort_direction: Optional[str] = None
 
-        # The sort_field query parameter.
         sort_field: Optional[str] = None
 
     

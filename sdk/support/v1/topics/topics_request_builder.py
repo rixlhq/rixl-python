@@ -70,10 +70,8 @@ class TopicsRequestBuilder(BaseRequestBuilder):
         """
         ListTopics
         """
-        # The category_id query parameter.
         category_id: Optional[str] = None
 
-        # The query query parameter.
         query: Optional[str] = None
 
     

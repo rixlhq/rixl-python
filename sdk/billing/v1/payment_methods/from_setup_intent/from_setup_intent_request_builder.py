@@ -70,7 +70,6 @@ class FromSetupIntentRequestBuilder(BaseRequestBuilder):
         """
         GetPaymentMethodFromSetupIntent
         """
-        # The setup_intent_id query parameter.
         setup_intent_id: Optional[str] = None
 
     

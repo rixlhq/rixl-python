@@ -11,6 +11,8 @@ if TYPE_CHECKING:
 class V1PostRequestBody(Parsable):
     # The name property
     name: Optional[str] = None
+    # The org_id property
+    org_id: Optional[str] = None
     # The regions property
     regions: Optional[list[str]] = None
     # The video_quality property
@@ -38,6 +40,7 @@ class V1PostRequestBody(Parsable):
 
         fields: dict[str, Callable[[Any], None]] = {
             "name": lambda n : setattr(self, 'name', n.get_str_value()),
+            "org_id": lambda n : setattr(self, 'org_id', n.get_str_value()),
             "regions": lambda n : setattr(self, 'regions', n.get_collection_of_primitive_values(str)),
             "video_quality": lambda n : setattr(self, 'video_quality', n.get_enum_value(VideoQuality)),
         }
@@ -52,6 +55,7 @@ class V1PostRequestBody(Parsable):
         if writer is None:
             raise TypeError("writer cannot be null.")
         writer.write_str_value("name", self.name)
+        writer.write_str_value("org_id", self.org_id)
         writer.write_collection_of_primitive_values("regions", self.regions)
         writer.write_enum_value("video_quality", self.video_quality)
     

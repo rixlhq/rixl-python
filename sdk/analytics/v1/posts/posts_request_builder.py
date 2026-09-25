@@ -24,7 +24,7 @@ class PostsRequestBuilder(BaseRequestBuilder):
     def by_post_id(self,post_id: str) -> WithPost_ItemRequestBuilder:
         """
         Gets an item from the rixl_sdk.analytics.v1.posts.item collection
-        param post_id: The post_id path parameter.
+        param post_id: Unique identifier of the item
         Returns: WithPost_ItemRequestBuilder
         """
         if post_id is None:

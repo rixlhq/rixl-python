@@ -70,7 +70,6 @@ class WithPost_ItemRequestBuilder(BaseRequestBuilder):
         """
         GetPost
         """
-        # The project_id query parameter.
         project_id: Optional[str] = None
 
     

@@ -24,7 +24,7 @@ class WidgetsRequestBuilder(BaseRequestBuilder):
     def by_id(self,id: str) -> WidgetsItemRequestBuilder:
         """
         Gets an item from the rixl_sdk.analytics.v1.dashboards.widgets.item collection
-        param id: The id path parameter.
+        param id: Unique identifier of the item
         Returns: WidgetsItemRequestBuilder
         """
         if id is None:

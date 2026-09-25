@@ -15,6 +15,7 @@ from warnings import warn
 
 if TYPE_CHECKING:
     from ......models.support.v1.close_ticket_response import CloseTicketResponse
+    from .close_post_request_body import ClosePostRequestBody
 
 class CloseRequestBuilder(BaseRequestBuilder):
     """
@@ -29,14 +30,17 @@ class CloseRequestBuilder(BaseRequestBuilder):
         """
         super().__init__(request_adapter, "{+baseurl}/support/v1/tickets/{ticket_id}/close", path_parameters)
     
-    async def post(self,request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> Optional[CloseTicketResponse]:
+    async def post(self,body: ClosePostRequestBody, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> Optional[CloseTicketResponse]:
         """
         CloseTicket
+        param body: The request body
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
         Returns: Optional[CloseTicketResponse]
         """
+        if body is None:
+            raise TypeError("body cannot be null.")
         request_info = self.to_post_request_information(
-            request_configuration
+            body, request_configuration
         )
         if not self.request_adapter:
             raise Exception("Http core is null") 
@@ -44,15 +48,19 @@ class CloseRequestBuilder(BaseRequestBuilder):
 
         return await self.request_adapter.send_async(request_info, CloseTicketResponse, None)
     
-    def to_post_request_information(self,request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> RequestInformation:
+    def to_post_request_information(self,body: ClosePostRequestBody, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> RequestInformation:
         """
         CloseTicket
+        param body: The request body
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
         Returns: RequestInformation
         """
+        if body is None:
+            raise TypeError("body cannot be null.")
         request_info = RequestInformation(Method.POST, self.url_template, self.path_parameters)
         request_info.configure(request_configuration)
         request_info.headers.try_add("Accept", "application/json")
+        request_info.set_content_from_parsable(self.request_adapter, "application/json", body)
         return request_info
     
     def with_url(self,raw_url: str) -> CloseRequestBuilder:

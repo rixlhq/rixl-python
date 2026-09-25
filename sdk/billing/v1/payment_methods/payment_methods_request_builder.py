@@ -37,7 +37,7 @@ class PaymentMethodsRequestBuilder(BaseRequestBuilder):
     def by_payment_method_id(self,payment_method_id: str) -> WithPayment_method_ItemRequestBuilder:
         """
         Gets an item from the rixl_sdk.billing.v1.paymentMethods.item collection
-        param payment_method_id: The payment_method_id path parameter.
+        param payment_method_id: Unique identifier of the item
         Returns: WithPayment_method_ItemRequestBuilder
         """
         if payment_method_id is None:
@@ -140,10 +140,8 @@ class PaymentMethodsRequestBuilder(BaseRequestBuilder):
         """
         ListPaymentMethods
         """
-        # The org_id query parameter.
         org_id: Optional[str] = None
 
-        # The refresh query parameter.
         refresh: Optional[bool] = None
 
     

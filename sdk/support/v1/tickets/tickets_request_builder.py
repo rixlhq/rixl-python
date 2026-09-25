@@ -17,6 +17,7 @@ if TYPE_CHECKING:
     from ....models.support.v1.create_ticket_request import CreateTicketRequest
     from ....models.support.v1.create_ticket_response import CreateTicketResponse
     from ....models.support.v1.list_tickets_response import ListTicketsResponse
+    from ....models.support.v1.ticket_status import TicketStatus
     from .item.with_ticket_item_request_builder import WithTicket_ItemRequestBuilder
 
 class TicketsRequestBuilder(BaseRequestBuilder):
@@ -35,7 +36,7 @@ class TicketsRequestBuilder(BaseRequestBuilder):
     def by_ticket_id(self,ticket_id: str) -> WithTicket_ItemRequestBuilder:
         """
         Gets an item from the rixl_sdk.support.v1.tickets.item collection
-        param ticket_id: The ticket_id path parameter.
+        param ticket_id: Unique identifier of the item
         Returns: WithTicket_ItemRequestBuilder
         """
         if ticket_id is None:
@@ -142,8 +143,7 @@ class TicketsRequestBuilder(BaseRequestBuilder):
         # Number of items to skip before collecting the result set.
         pagination_offset: Optional[int] = None
 
-        # The status query parameter.
-        status: Optional[str] = None
+        status: Optional[TicketStatus] = None
 
     
     @dataclass
