@@ -70,6 +70,7 @@ class RefreshRequestBuilder(BaseRequestBuilder):
         """
         RefreshBandwidthUsage
         """
+        # The org_id query parameter.
         org_id: Optional[str] = None
 
     

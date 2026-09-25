@@ -4,15 +4,10 @@ from dataclasses import dataclass, field
 from kiota_abstractions.serialization import Parsable, ParseNode, SerializationWriter
 from typing import Any, Optional, TYPE_CHECKING, Union
 
-if TYPE_CHECKING:
-    from ......models.auth.v1.actor_org_request import ActorOrgRequest
-
 @dataclass
 class NamePatchRequestBody(Parsable):
     # The full_name property
     full_name: Optional[str] = None
-    # The user property
-    user: Optional[ActorOrgRequest] = None
     
     @staticmethod
     def create_from_discriminator_value(parse_node: ParseNode) -> NamePatchRequestBody:
@@ -30,13 +25,8 @@ class NamePatchRequestBody(Parsable):
         The deserialization information for the current model
         Returns: dict[str, Callable[[ParseNode], None]]
         """
-        from ......models.auth.v1.actor_org_request import ActorOrgRequest
-
-        from ......models.auth.v1.actor_org_request import ActorOrgRequest
-
         fields: dict[str, Callable[[Any], None]] = {
             "full_name": lambda n : setattr(self, 'full_name', n.get_str_value()),
-            "user": lambda n : setattr(self, 'user', n.get_object_value(ActorOrgRequest)),
         }
         return fields
     
@@ -49,6 +39,5 @@ class NamePatchRequestBody(Parsable):
         if writer is None:
             raise TypeError("writer cannot be null.")
         writer.write_str_value("full_name", self.full_name)
-        writer.write_object_value("user", self.user)
     
 

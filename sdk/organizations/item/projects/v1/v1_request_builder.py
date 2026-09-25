@@ -35,7 +35,7 @@ class V1RequestBuilder(BaseRequestBuilder):
     def by_project_id(self,project_id: str) -> WithProject_ItemRequestBuilder:
         """
         Gets an item from the rixl_sdk.organizations.item.projects.v1.item collection
-        param project_id: Unique identifier of the item
+        param project_id: The project_id path parameter.
         Returns: WithProject_ItemRequestBuilder
         """
         if project_id is None:

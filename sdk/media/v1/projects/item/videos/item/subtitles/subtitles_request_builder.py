@@ -35,7 +35,7 @@ class SubtitlesRequestBuilder(BaseRequestBuilder):
     def by_subtitle_id(self,subtitle_id: str) -> WithSubtitle_ItemRequestBuilder:
         """
         Gets an item from the rixl_sdk.media.v1.projects.item.videos.item.subtitles.item collection
-        param subtitle_id: Unique identifier of the item
+        param subtitle_id: The subtitle_id path parameter.
         Returns: WithSubtitle_ItemRequestBuilder
         """
         if subtitle_id is None:

@@ -24,7 +24,7 @@ class OrganizationsRequestBuilder(BaseRequestBuilder):
     def by_org_id(self,org_id: str) -> WithOrg_ItemRequestBuilder:
         """
         Gets an item from the rixl_sdk.organizations.item collection
-        param org_id: Unique identifier of the item
+        param org_id: The org_id path parameter.
         Returns: WithOrg_ItemRequestBuilder
         """
         if org_id is None:
