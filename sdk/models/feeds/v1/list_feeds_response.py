@@ -12,7 +12,7 @@ class ListFeedsResponse(Parsable):
     # The feeds property
     feeds: Optional[list[Feed]] = None
     # The total property
-    total: Optional[str] = None
+    total: Optional[int] = None
     
     @staticmethod
     def create_from_discriminator_value(parse_node: ParseNode) -> ListFeedsResponse:
@@ -36,7 +36,7 @@ class ListFeedsResponse(Parsable):
 
         fields: dict[str, Callable[[Any], None]] = {
             "feeds": lambda n : setattr(self, 'feeds', n.get_collection_of_object_values(Feed)),
-            "total": lambda n : setattr(self, 'total', n.get_str_value()),
+            "total": lambda n : setattr(self, 'total', n.get_int_value()),
         }
         return fields
     
@@ -49,6 +49,6 @@ class ListFeedsResponse(Parsable):
         if writer is None:
             raise TypeError("writer cannot be null.")
         writer.write_collection_of_object_values("feeds", self.feeds)
-        writer.write_str_value("total", self.total)
+        writer.write_int_value("total", self.total)
     
 

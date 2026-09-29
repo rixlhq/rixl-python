@@ -24,7 +24,7 @@ class FeedsRequestBuilder(BaseRequestBuilder):
     def by_feed_id(self,feed_id: str) -> WithFeed_ItemRequestBuilder:
         """
         Gets an item from the rixl_sdk.posts.v1.projects.item.feeds.item collection
-        param feed_id: The feed_id path parameter.
+        param feed_id: Unique identifier of the item
         Returns: WithFeed_ItemRequestBuilder
         """
         if feed_id is None:

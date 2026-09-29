@@ -36,7 +36,7 @@ class DashboardsRequestBuilder(BaseRequestBuilder):
     def by_dashboard_id(self,dashboard_id: str) -> Dashboard_ItemRequestBuilder:
         """
         Gets an item from the rixl_sdk.analytics.v1.dashboards.item collection
-        param dashboard_id: The id path parameter.
+        param dashboard_id: Unique identifier of the item
         Returns: Dashboard_ItemRequestBuilder
         """
         if dashboard_id is None:
@@ -130,10 +130,8 @@ class DashboardsRequestBuilder(BaseRequestBuilder):
         """
         ListDashboards
         """
-        # The page query parameter.
         page: Optional[int] = None
 
-        # The page_size query parameter.
         page_size: Optional[int] = None
 
     

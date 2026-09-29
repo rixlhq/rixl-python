@@ -34,7 +34,7 @@ class PasskeysRequestBuilder(BaseRequestBuilder):
     def by_id(self,id: str) -> PasskeysItemRequestBuilder:
         """
         Gets an item from the rixl_sdk.auth.v1.users.current.passkeys.item collection
-        param id: The id path parameter.
+        param id: Unique identifier of the item
         Returns: PasskeysItemRequestBuilder
         """
         if id is None:
@@ -95,7 +95,6 @@ class PasskeysRequestBuilder(BaseRequestBuilder):
         """
         ListPasskeys
         """
-        # The user_id query parameter.
         user_id: Optional[str] = None
 
     

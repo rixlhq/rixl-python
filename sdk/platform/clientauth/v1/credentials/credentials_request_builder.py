@@ -35,7 +35,7 @@ class CredentialsRequestBuilder(BaseRequestBuilder):
     def by_credential_id(self,credential_id: str) -> WithCredential_ItemRequestBuilder:
         """
         Gets an item from the rixl_sdk.platform.clientauth.v1.credentials.item collection
-        param credential_id: The credential_id path parameter.
+        param credential_id: Unique identifier of the item
         Returns: WithCredential_ItemRequestBuilder
         """
         if credential_id is None:
@@ -136,7 +136,6 @@ class CredentialsRequestBuilder(BaseRequestBuilder):
                 return "org_id"
             return original_name
         
-        # The org_id query parameter.
         org_id: Optional[str] = None
 
         # Maximum number of items to return.

@@ -15,7 +15,7 @@ class TrackUploadItem(Parsable):
     # The language_code property
     language_code: Optional[str] = None
     # The size property
-    size: Optional[str] = None
+    size: Optional[int] = None
     
     @staticmethod
     def create_from_discriminator_value(parse_node: ParseNode) -> TrackUploadItem:
@@ -38,7 +38,7 @@ class TrackUploadItem(Parsable):
             "format": lambda n : setattr(self, 'format', n.get_str_value()),
             "label": lambda n : setattr(self, 'label', n.get_str_value()),
             "language_code": lambda n : setattr(self, 'language_code', n.get_str_value()),
-            "size": lambda n : setattr(self, 'size', n.get_str_value()),
+            "size": lambda n : setattr(self, 'size', n.get_int_value()),
         }
         return fields
     
@@ -54,6 +54,6 @@ class TrackUploadItem(Parsable):
         writer.write_str_value("format", self.format)
         writer.write_str_value("label", self.label)
         writer.write_str_value("language_code", self.language_code)
-        writer.write_str_value("size", self.size)
+        writer.write_int_value("size", self.size)
     
 

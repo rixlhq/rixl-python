@@ -70,7 +70,6 @@ class UserinfoRequestBuilder(BaseRequestBuilder):
         """
         GetUserInfo
         """
-        # The user_id query parameter.
         user_id: Optional[str] = None
 
     

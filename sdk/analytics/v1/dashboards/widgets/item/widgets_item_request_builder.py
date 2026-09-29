@@ -105,7 +105,6 @@ class WidgetsItemRequestBuilder(BaseRequestBuilder):
         """
         DeleteWidget
         """
-        # The expected_revision query parameter.
         expected_revision: Optional[int] = None
 
     

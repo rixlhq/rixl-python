@@ -82,7 +82,6 @@ class WithProviderItemRequestBuilder(BaseRequestBuilder):
                 return "user%2Euser_id"
             return original_name
         
-        # The user.user_id query parameter.
         user_user_id: Optional[str] = None
 
     

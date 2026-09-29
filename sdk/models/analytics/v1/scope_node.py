@@ -20,7 +20,7 @@ class ScopeNode(Parsable):
     # The label property
     label: Optional[str] = None
     # The views property
-    views: Optional[str] = None
+    views: Optional[int] = None
     
     @staticmethod
     def create_from_discriminator_value(parse_node: ParseNode) -> ScopeNode:
@@ -48,7 +48,7 @@ class ScopeNode(Parsable):
             "id": lambda n : setattr(self, 'id', n.get_str_value()),
             "kind": lambda n : setattr(self, 'kind', n.get_str_value()),
             "label": lambda n : setattr(self, 'label', n.get_str_value()),
-            "views": lambda n : setattr(self, 'views', n.get_str_value()),
+            "views": lambda n : setattr(self, 'views', n.get_int_value()),
         }
         return fields
     
@@ -65,6 +65,6 @@ class ScopeNode(Parsable):
         writer.write_str_value("id", self.id)
         writer.write_str_value("kind", self.kind)
         writer.write_str_value("label", self.label)
-        writer.write_str_value("views", self.views)
+        writer.write_int_value("views", self.views)
     
 

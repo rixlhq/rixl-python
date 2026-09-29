@@ -86,13 +86,10 @@ class HeatmapRequestBuilder(BaseRequestBuilder):
                 return "buckets"
             return original_name
         
-        # The buckets query parameter.
         buckets: Optional[int] = None
 
-        # The range.end query parameter.
         range_end: Optional[str] = None
 
-        # The range.start query parameter.
         range_start: Optional[str] = None
 
     

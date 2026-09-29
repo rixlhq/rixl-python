@@ -7,15 +7,15 @@ from typing import Any, Optional, TYPE_CHECKING, Union
 @dataclass
 class TaxCalculationResponse(Parsable):
     # The amount_total property
-    amount_total: Optional[str] = None
+    amount_total: Optional[int] = None
     # The calculation_id property
     calculation_id: Optional[str] = None
     # The currency property
     currency: Optional[str] = None
     # The tax_amount_exclusive property
-    tax_amount_exclusive: Optional[str] = None
+    tax_amount_exclusive: Optional[int] = None
     # The tax_amount_inclusive property
-    tax_amount_inclusive: Optional[str] = None
+    tax_amount_inclusive: Optional[int] = None
     
     @staticmethod
     def create_from_discriminator_value(parse_node: ParseNode) -> TaxCalculationResponse:
@@ -34,11 +34,11 @@ class TaxCalculationResponse(Parsable):
         Returns: dict[str, Callable[[ParseNode], None]]
         """
         fields: dict[str, Callable[[Any], None]] = {
-            "amount_total": lambda n : setattr(self, 'amount_total', n.get_str_value()),
+            "amount_total": lambda n : setattr(self, 'amount_total', n.get_int_value()),
             "calculation_id": lambda n : setattr(self, 'calculation_id', n.get_str_value()),
             "currency": lambda n : setattr(self, 'currency', n.get_str_value()),
-            "tax_amount_exclusive": lambda n : setattr(self, 'tax_amount_exclusive', n.get_str_value()),
-            "tax_amount_inclusive": lambda n : setattr(self, 'tax_amount_inclusive', n.get_str_value()),
+            "tax_amount_exclusive": lambda n : setattr(self, 'tax_amount_exclusive', n.get_int_value()),
+            "tax_amount_inclusive": lambda n : setattr(self, 'tax_amount_inclusive', n.get_int_value()),
         }
         return fields
     
@@ -50,10 +50,10 @@ class TaxCalculationResponse(Parsable):
         """
         if writer is None:
             raise TypeError("writer cannot be null.")
-        writer.write_str_value("amount_total", self.amount_total)
+        writer.write_int_value("amount_total", self.amount_total)
         writer.write_str_value("calculation_id", self.calculation_id)
         writer.write_str_value("currency", self.currency)
-        writer.write_str_value("tax_amount_exclusive", self.tax_amount_exclusive)
-        writer.write_str_value("tax_amount_inclusive", self.tax_amount_inclusive)
+        writer.write_int_value("tax_amount_exclusive", self.tax_amount_exclusive)
+        writer.write_int_value("tax_amount_inclusive", self.tax_amount_inclusive)
     
 

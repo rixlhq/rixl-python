@@ -12,6 +12,8 @@ class WithFeed_PutRequestBody(Parsable):
     allow_videos: Optional[bool] = None
     # The description property
     description: Optional[str] = None
+    # The feed_id property
+    feed_id: Optional[str] = None
     # The has_comments property
     has_comments: Optional[bool] = None
     # The has_likes property
@@ -20,6 +22,8 @@ class WithFeed_PutRequestBody(Parsable):
     has_shares: Optional[bool] = None
     # The name property
     name: Optional[str] = None
+    # The project_id property
+    project_id: Optional[str] = None
     
     @staticmethod
     def create_from_discriminator_value(parse_node: ParseNode) -> WithFeed_PutRequestBody:
@@ -41,10 +45,12 @@ class WithFeed_PutRequestBody(Parsable):
             "allow_images": lambda n : setattr(self, 'allow_images', n.get_bool_value()),
             "allow_videos": lambda n : setattr(self, 'allow_videos', n.get_bool_value()),
             "description": lambda n : setattr(self, 'description', n.get_str_value()),
+            "feed_id": lambda n : setattr(self, 'feed_id', n.get_str_value()),
             "has_comments": lambda n : setattr(self, 'has_comments', n.get_bool_value()),
             "has_likes": lambda n : setattr(self, 'has_likes', n.get_bool_value()),
             "has_shares": lambda n : setattr(self, 'has_shares', n.get_bool_value()),
             "name": lambda n : setattr(self, 'name', n.get_str_value()),
+            "project_id": lambda n : setattr(self, 'project_id', n.get_str_value()),
         }
         return fields
     
@@ -59,9 +65,11 @@ class WithFeed_PutRequestBody(Parsable):
         writer.write_bool_value("allow_images", self.allow_images)
         writer.write_bool_value("allow_videos", self.allow_videos)
         writer.write_str_value("description", self.description)
+        writer.write_str_value("feed_id", self.feed_id)
         writer.write_bool_value("has_comments", self.has_comments)
         writer.write_bool_value("has_likes", self.has_likes)
         writer.write_bool_value("has_shares", self.has_shares)
         writer.write_str_value("name", self.name)
+        writer.write_str_value("project_id", self.project_id)
     
 

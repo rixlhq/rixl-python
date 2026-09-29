@@ -92,7 +92,6 @@ class WithCreator_ItemRequestBuilder(BaseRequestBuilder):
         # Number of items to skip before collecting the result set.
         pagination_offset: Optional[int] = None
 
-        # The project_id query parameter.
         project_id: Optional[str] = None
 
     

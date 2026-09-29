@@ -171,7 +171,6 @@ class Dashboard_ItemRequestBuilder(BaseRequestBuilder):
         """
         DeleteDashboard
         """
-        # The expected_revision query parameter.
         expected_revision: Optional[int] = None
 
     

@@ -86,13 +86,10 @@ class ImagesRequestBuilder(BaseRequestBuilder):
                 return "limit"
             return original_name
         
-        # The limit query parameter.
         limit: Optional[int] = None
 
-        # The range.end query parameter.
         range_end: Optional[str] = None
 
-        # The range.start query parameter.
         range_start: Optional[str] = None
 
     

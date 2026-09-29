@@ -70,7 +70,6 @@ class ReactivateRequestBuilder(BaseRequestBuilder):
         """
         ReactivateSubscription
         """
-        # The org_id query parameter.
         org_id: Optional[str] = None
 
     

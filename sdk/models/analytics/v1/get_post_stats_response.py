@@ -9,9 +9,9 @@ class GetPostStatsResponse(Parsable):
     # The post_id property
     post_id: Optional[str] = None
     # The total_views property
-    total_views: Optional[str] = None
+    total_views: Optional[int] = None
     # The unique_viewers property
-    unique_viewers: Optional[str] = None
+    unique_viewers: Optional[int] = None
     
     @staticmethod
     def create_from_discriminator_value(parse_node: ParseNode) -> GetPostStatsResponse:
@@ -31,8 +31,8 @@ class GetPostStatsResponse(Parsable):
         """
         fields: dict[str, Callable[[Any], None]] = {
             "post_id": lambda n : setattr(self, 'post_id', n.get_str_value()),
-            "total_views": lambda n : setattr(self, 'total_views', n.get_str_value()),
-            "unique_viewers": lambda n : setattr(self, 'unique_viewers', n.get_str_value()),
+            "total_views": lambda n : setattr(self, 'total_views', n.get_int_value()),
+            "unique_viewers": lambda n : setattr(self, 'unique_viewers', n.get_int_value()),
         }
         return fields
     
@@ -45,7 +45,7 @@ class GetPostStatsResponse(Parsable):
         if writer is None:
             raise TypeError("writer cannot be null.")
         writer.write_str_value("post_id", self.post_id)
-        writer.write_str_value("total_views", self.total_views)
-        writer.write_str_value("unique_viewers", self.unique_viewers)
+        writer.write_int_value("total_views", self.total_views)
+        writer.write_int_value("unique_viewers", self.unique_viewers)
     
 
