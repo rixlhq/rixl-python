@@ -8,8 +8,6 @@ from typing import Any, Optional, TYPE_CHECKING, Union
 class MessagesPostRequestBody(Parsable):
     # The body property
     body: Optional[str] = None
-    # The ticket_id property
-    ticket_id: Optional[str] = None
     
     @staticmethod
     def create_from_discriminator_value(parse_node: ParseNode) -> MessagesPostRequestBody:
@@ -29,7 +27,6 @@ class MessagesPostRequestBody(Parsable):
         """
         fields: dict[str, Callable[[Any], None]] = {
             "body": lambda n : setattr(self, 'body', n.get_str_value()),
-            "ticket_id": lambda n : setattr(self, 'ticket_id', n.get_str_value()),
         }
         return fields
     
@@ -42,6 +39,5 @@ class MessagesPostRequestBody(Parsable):
         if writer is None:
             raise TypeError("writer cannot be null.")
         writer.write_str_value("body", self.body)
-        writer.write_str_value("ticket_id", self.ticket_id)
     
 

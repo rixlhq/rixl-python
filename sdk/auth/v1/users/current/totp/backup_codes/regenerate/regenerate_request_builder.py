@@ -70,6 +70,7 @@ class RegenerateRequestBuilder(BaseRequestBuilder):
         """
         RegenerateBackupCodes
         """
+        # The user_id query parameter.
         user_id: Optional[str] = None
 
     

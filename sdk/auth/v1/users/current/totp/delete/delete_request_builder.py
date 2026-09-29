@@ -70,6 +70,7 @@ class DeleteRequestBuilder(BaseRequestBuilder):
         """
         DeleteOTP
         """
+        # The user_id query parameter.
         user_id: Optional[str] = None
 
     

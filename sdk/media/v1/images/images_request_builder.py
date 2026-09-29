@@ -24,7 +24,7 @@ class ImagesRequestBuilder(BaseRequestBuilder):
     def by_image_id(self,image_id: str) -> WithImage_ItemRequestBuilder:
         """
         Gets an item from the rixl_sdk.media.v1.images.item collection
-        param image_id: Unique identifier of the item
+        param image_id: The image_id path parameter.
         Returns: WithImage_ItemRequestBuilder
         """
         if image_id is None:

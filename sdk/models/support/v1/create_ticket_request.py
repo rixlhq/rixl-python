@@ -13,7 +13,7 @@ class CreateTicketRequest(Parsable):
     category_id: Optional[str] = None
     # The message property
     message: Optional[str] = None
-    # The priority property
+    # enum.defined_only = true
     priority: Optional[TicketPriority] = None
     # The project_id property
     project_id: Optional[str] = None

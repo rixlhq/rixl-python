@@ -37,7 +37,7 @@ class PoliciesRequestBuilder(BaseRequestBuilder):
     def by_policy_id(self,policy_id: str) -> WithPolicy_ItemRequestBuilder:
         """
         Gets an item from the rixl_sdk.auth.v1.memberships.item.policies.item collection
-        param policy_id: Unique identifier of the item
+        param policy_id: The policy_id path parameter.
         Returns: WithPolicy_ItemRequestBuilder
         """
         if policy_id is None:
@@ -140,6 +140,7 @@ class PoliciesRequestBuilder(BaseRequestBuilder):
         """
         ListPolicies
         """
+        # The user_id query parameter.
         user_id: Optional[str] = None
 
     

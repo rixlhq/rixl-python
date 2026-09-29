@@ -70,6 +70,7 @@ class SubscribeRequestBuilder(BaseRequestBuilder):
         """
         SubscribeBlog
         """
+        # The user_id query parameter.
         user_id: Optional[str] = None
 
     

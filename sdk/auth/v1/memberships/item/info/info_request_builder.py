@@ -70,6 +70,7 @@ class InfoRequestBuilder(BaseRequestBuilder):
         """
         GetInternalMembershipInfo
         """
+        # The user_id query parameter.
         user_id: Optional[str] = None
 
     

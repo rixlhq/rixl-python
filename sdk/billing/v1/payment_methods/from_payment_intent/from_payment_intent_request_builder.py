@@ -70,6 +70,7 @@ class FromPaymentIntentRequestBuilder(BaseRequestBuilder):
         """
         GetPaymentMethodFromPaymentIntent
         """
+        # The payment_intent_id query parameter.
         payment_intent_id: Optional[str] = None
 
     

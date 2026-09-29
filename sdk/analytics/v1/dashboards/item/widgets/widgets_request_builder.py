@@ -78,6 +78,7 @@ class WidgetsRequestBuilder(BaseRequestBuilder):
         """
         CreateWidget
         """
+        # The expected_revision query parameter.
         expected_revision: Optional[int] = None
 
     

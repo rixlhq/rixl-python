@@ -6,14 +6,11 @@ from typing import Any, Optional, TYPE_CHECKING, Union
 
 if TYPE_CHECKING:
     from ......models.auth.v1.membership_application_state import MembershipApplicationState
-    from ......models.auth.v1.user_org_request import UserOrgRequest
 
 @dataclass
 class StatePatchRequestBody(Parsable):
     # The state property
     state: Optional[MembershipApplicationState] = None
-    # The user property
-    user: Optional[UserOrgRequest] = None
     # The user_id property
     user_id: Optional[str] = None
     
@@ -34,14 +31,11 @@ class StatePatchRequestBody(Parsable):
         Returns: dict[str, Callable[[ParseNode], None]]
         """
         from ......models.auth.v1.membership_application_state import MembershipApplicationState
-        from ......models.auth.v1.user_org_request import UserOrgRequest
 
         from ......models.auth.v1.membership_application_state import MembershipApplicationState
-        from ......models.auth.v1.user_org_request import UserOrgRequest
 
         fields: dict[str, Callable[[Any], None]] = {
             "state": lambda n : setattr(self, 'state', n.get_enum_value(MembershipApplicationState)),
-            "user": lambda n : setattr(self, 'user', n.get_object_value(UserOrgRequest)),
             "user_id": lambda n : setattr(self, 'user_id', n.get_str_value()),
         }
         return fields
@@ -55,7 +49,6 @@ class StatePatchRequestBody(Parsable):
         if writer is None:
             raise TypeError("writer cannot be null.")
         writer.write_enum_value("state", self.state)
-        writer.write_object_value("user", self.user)
         writer.write_str_value("user_id", self.user_id)
     
 

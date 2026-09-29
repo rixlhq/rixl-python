@@ -7,7 +7,7 @@ from typing import Any, Optional, TYPE_CHECKING, Union
 @dataclass
 class CountryCount(Parsable):
     # The count property
-    count: Optional[int] = None
+    count: Optional[str] = None
     # The country property
     country: Optional[str] = None
     
@@ -28,7 +28,7 @@ class CountryCount(Parsable):
         Returns: dict[str, Callable[[ParseNode], None]]
         """
         fields: dict[str, Callable[[Any], None]] = {
-            "count": lambda n : setattr(self, 'count', n.get_int_value()),
+            "count": lambda n : setattr(self, 'count', n.get_str_value()),
             "country": lambda n : setattr(self, 'country', n.get_str_value()),
         }
         return fields
@@ -41,7 +41,7 @@ class CountryCount(Parsable):
         """
         if writer is None:
             raise TypeError("writer cannot be null.")
-        writer.write_int_value("count", self.count)
+        writer.write_str_value("count", self.count)
         writer.write_str_value("country", self.country)
     
 

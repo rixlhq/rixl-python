@@ -35,7 +35,7 @@ class V1RequestBuilder(BaseRequestBuilder):
     def by_key_id(self,key_id: str) -> WithKey_ItemRequestBuilder:
         """
         Gets an item from the rixl_sdk.organizations.item.apiKeys.v1.item collection
-        param key_id: Unique identifier of the item
+        param key_id: The key_id path parameter.
         Returns: WithKey_ItemRequestBuilder
         """
         if key_id is None:

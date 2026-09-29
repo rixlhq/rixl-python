@@ -20,7 +20,7 @@ class ListImagesResponse(Parsable):
     # The sort_field property
     sort_field: Optional[str] = None
     # The total property
-    total: Optional[int] = None
+    total: Optional[str] = None
     
     @staticmethod
     def create_from_discriminator_value(parse_node: ParseNode) -> ListImagesResponse:
@@ -48,7 +48,7 @@ class ListImagesResponse(Parsable):
             "offset": lambda n : setattr(self, 'offset', n.get_int_value()),
             "sort_direction": lambda n : setattr(self, 'sort_direction', n.get_str_value()),
             "sort_field": lambda n : setattr(self, 'sort_field', n.get_str_value()),
-            "total": lambda n : setattr(self, 'total', n.get_int_value()),
+            "total": lambda n : setattr(self, 'total', n.get_str_value()),
         }
         return fields
     
@@ -65,6 +65,6 @@ class ListImagesResponse(Parsable):
         writer.write_int_value("offset", self.offset)
         writer.write_str_value("sort_direction", self.sort_direction)
         writer.write_str_value("sort_field", self.sort_field)
-        writer.write_int_value("total", self.total)
+        writer.write_str_value("total", self.total)
     
 

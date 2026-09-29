@@ -24,7 +24,7 @@ class VideosRequestBuilder(BaseRequestBuilder):
     def by_video_id(self,video_id: str) -> WithVideo_ItemRequestBuilder:
         """
         Gets an item from the rixl_sdk.analytics.v1.videos.item collection
-        param video_id: Unique identifier of the item
+        param video_id: The video_id path parameter.
         Returns: WithVideo_ItemRequestBuilder
         """
         if video_id is None:
