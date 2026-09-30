@@ -15,6 +15,7 @@ from warnings import warn
 
 if TYPE_CHECKING:
     from ....models.auth.v1.list_membership_applications_response import ListMembershipApplicationsResponse
+    from .item.with_org_item_request_builder import WithOrg_ItemRequestBuilder
 
 class MembershipApplicationsRequestBuilder(BaseRequestBuilder):
     """
@@ -28,6 +29,20 @@ class MembershipApplicationsRequestBuilder(BaseRequestBuilder):
         Returns: None
         """
         super().__init__(request_adapter, "{+baseurl}/auth/v1/membership-applications{?limit*,offset*,state*,user%2Euser_id*}", path_parameters)
+    
+    def by_org_id(self,org_id: str) -> WithOrg_ItemRequestBuilder:
+        """
+        Gets an item from the rixl_sdk.auth.v1.membershipApplications.item collection
+        param org_id: The org_id path parameter.
+        Returns: WithOrg_ItemRequestBuilder
+        """
+        if org_id is None:
+            raise TypeError("org_id cannot be null.")
+        from .item.with_org_item_request_builder import WithOrg_ItemRequestBuilder
+
+        url_tpl_params = get_path_parameters(self.path_parameters)
+        url_tpl_params["org_id"] = org_id
+        return WithOrg_ItemRequestBuilder(self.request_adapter, url_tpl_params)
     
     async def get(self,request_configuration: Optional[RequestConfiguration[MembershipApplicationsRequestBuilderGetQueryParameters]] = None) -> Optional[ListMembershipApplicationsResponse]:
         """
