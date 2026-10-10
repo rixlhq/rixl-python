@@ -9,9 +9,7 @@ if TYPE_CHECKING:
 
 @dataclass
 class StatusPatchRequestBody(Parsable):
-    # The invoice_id property
-    invoice_id: Optional[str] = None
-    # The status property
+    # enum.defined_only = true
     status: Optional[InvoiceStatus] = None
     
     @staticmethod
@@ -35,7 +33,6 @@ class StatusPatchRequestBody(Parsable):
         from ......models.billing.v1.invoice_status import InvoiceStatus
 
         fields: dict[str, Callable[[Any], None]] = {
-            "invoice_id": lambda n : setattr(self, 'invoice_id', n.get_str_value()),
             "status": lambda n : setattr(self, 'status', n.get_enum_value(InvoiceStatus)),
         }
         return fields
@@ -48,7 +45,6 @@ class StatusPatchRequestBody(Parsable):
         """
         if writer is None:
             raise TypeError("writer cannot be null.")
-        writer.write_str_value("invoice_id", self.invoice_id)
         writer.write_enum_value("status", self.status)
     
 

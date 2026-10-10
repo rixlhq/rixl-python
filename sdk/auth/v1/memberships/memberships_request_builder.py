@@ -35,7 +35,7 @@ class MembershipsRequestBuilder(BaseRequestBuilder):
     def by_org_id(self,org_id: str) -> Org_ItemRequestBuilder:
         """
         Gets an item from the rixl_sdk.auth.v1.memberships.item collection
-        param org_id: Unique identifier of the item
+        param org_id: The org_id path parameter.
         Returns: Org_ItemRequestBuilder
         """
         if org_id is None:
@@ -114,12 +114,16 @@ class MembershipsRequestBuilder(BaseRequestBuilder):
                 return "state"
             return original_name
         
+        # The limit query parameter.
         limit: Optional[int] = None
 
+        # The offset query parameter.
         offset: Optional[int] = None
 
+        # The state query parameter.
         state: Optional[MembershipState] = None
 
+        # The user.user_id query parameter.
         user_user_id: Optional[str] = None
 
     

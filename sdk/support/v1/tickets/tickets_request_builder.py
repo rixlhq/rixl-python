@@ -36,7 +36,7 @@ class TicketsRequestBuilder(BaseRequestBuilder):
     def by_ticket_id(self,ticket_id: str) -> WithTicket_ItemRequestBuilder:
         """
         Gets an item from the rixl_sdk.support.v1.tickets.item collection
-        param ticket_id: Unique identifier of the item
+        param ticket_id: The ticket_id path parameter.
         Returns: WithTicket_ItemRequestBuilder
         """
         if ticket_id is None:
@@ -143,6 +143,7 @@ class TicketsRequestBuilder(BaseRequestBuilder):
         # Number of items to skip before collecting the result set.
         pagination_offset: Optional[int] = None
 
+        # enum.defined_only = true
         status: Optional[TicketStatus] = None
 
     

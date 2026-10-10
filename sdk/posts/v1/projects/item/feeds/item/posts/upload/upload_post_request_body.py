@@ -10,20 +10,16 @@ if TYPE_CHECKING:
 
 @dataclass
 class UploadPostRequestBody(Parsable):
-    # The content_type property
+    # enum.defined_only = true
     content_type: Optional[MediaType] = None
     # The creator_id property
     creator_id: Optional[str] = None
     # The description property
     description: Optional[str] = None
-    # The feed_id property
-    feed_id: Optional[str] = None
     # The file_name property
     file_name: Optional[str] = None
     # The org_id property
     org_id: Optional[str] = None
-    # The project_id property
-    project_id: Optional[str] = None
     # The video_quality property
     video_quality: Optional[VideoQuality] = None
     
@@ -53,10 +49,8 @@ class UploadPostRequestBody(Parsable):
             "content_type": lambda n : setattr(self, 'content_type', n.get_enum_value(MediaType)),
             "creator_id": lambda n : setattr(self, 'creator_id', n.get_str_value()),
             "description": lambda n : setattr(self, 'description', n.get_str_value()),
-            "feed_id": lambda n : setattr(self, 'feed_id', n.get_str_value()),
             "file_name": lambda n : setattr(self, 'file_name', n.get_str_value()),
             "org_id": lambda n : setattr(self, 'org_id', n.get_str_value()),
-            "project_id": lambda n : setattr(self, 'project_id', n.get_str_value()),
             "video_quality": lambda n : setattr(self, 'video_quality', n.get_enum_value(VideoQuality)),
         }
         return fields
@@ -72,10 +66,8 @@ class UploadPostRequestBody(Parsable):
         writer.write_enum_value("content_type", self.content_type)
         writer.write_str_value("creator_id", self.creator_id)
         writer.write_str_value("description", self.description)
-        writer.write_str_value("feed_id", self.feed_id)
         writer.write_str_value("file_name", self.file_name)
         writer.write_str_value("org_id", self.org_id)
-        writer.write_str_value("project_id", self.project_id)
         writer.write_enum_value("video_quality", self.video_quality)
     
 

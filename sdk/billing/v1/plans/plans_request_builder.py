@@ -85,10 +85,13 @@ class PlansRequestBuilder(BaseRequestBuilder):
         """
         ListPlans
         """
+        # The currency query parameter.
         currency: Optional[str] = None
 
+        # The free query parameter.
         free: Optional[str] = None
 
+        # The interval query parameter.
         interval: Optional[str] = None
 
     

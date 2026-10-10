@@ -70,8 +70,10 @@ class HistoryRequestBuilder(BaseRequestBuilder):
         """
         GetBandwidthUsageHistory
         """
+        # The days query parameter.
         days: Optional[int] = None
 
+        # The org_id query parameter.
         org_id: Optional[str] = None
 
     

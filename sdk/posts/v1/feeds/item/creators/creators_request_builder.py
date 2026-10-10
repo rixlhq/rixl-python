@@ -24,7 +24,7 @@ class CreatorsRequestBuilder(BaseRequestBuilder):
     def by_creator_id(self,creator_id: str) -> WithCreator_ItemRequestBuilder:
         """
         Gets an item from the rixl_sdk.posts.v1.feeds.item.creators.item collection
-        param creator_id: Unique identifier of the item
+        param creator_id: The creator_id path parameter.
         Returns: WithCreator_ItemRequestBuilder
         """
         if creator_id is None:

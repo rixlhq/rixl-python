@@ -9,8 +9,6 @@ if TYPE_CHECKING:
 
 @dataclass
 class LayoutPostRequestBody(Parsable):
-    # The dashboard_id property
-    dashboard_id: Optional[str] = None
     # The expected_revision property
     expected_revision: Optional[int] = None
     # The positions property
@@ -37,7 +35,6 @@ class LayoutPostRequestBody(Parsable):
         from ......models.analytics.v1.widget_position import WidgetPosition
 
         fields: dict[str, Callable[[Any], None]] = {
-            "dashboard_id": lambda n : setattr(self, 'dashboard_id', n.get_str_value()),
             "expected_revision": lambda n : setattr(self, 'expected_revision', n.get_int_value()),
             "positions": lambda n : setattr(self, 'positions', n.get_collection_of_object_values(WidgetPosition)),
         }
@@ -51,7 +48,6 @@ class LayoutPostRequestBody(Parsable):
         """
         if writer is None:
             raise TypeError("writer cannot be null.")
-        writer.write_str_value("dashboard_id", self.dashboard_id)
         writer.write_int_value("expected_revision", self.expected_revision)
         writer.write_collection_of_object_values("positions", self.positions)
     

@@ -12,7 +12,7 @@ class ListApiKeysResponse(Parsable):
     # The api_keys property
     api_keys: Optional[list[ApiKey]] = None
     # The total property
-    total: Optional[int] = None
+    total: Optional[str] = None
     
     @staticmethod
     def create_from_discriminator_value(parse_node: ParseNode) -> ListApiKeysResponse:
@@ -36,7 +36,7 @@ class ListApiKeysResponse(Parsable):
 
         fields: dict[str, Callable[[Any], None]] = {
             "api_keys": lambda n : setattr(self, 'api_keys', n.get_collection_of_object_values(ApiKey)),
-            "total": lambda n : setattr(self, 'total', n.get_int_value()),
+            "total": lambda n : setattr(self, 'total', n.get_str_value()),
         }
         return fields
     
@@ -49,6 +49,6 @@ class ListApiKeysResponse(Parsable):
         if writer is None:
             raise TypeError("writer cannot be null.")
         writer.write_collection_of_object_values("api_keys", self.api_keys)
-        writer.write_int_value("total", self.total)
+        writer.write_str_value("total", self.total)
     
 

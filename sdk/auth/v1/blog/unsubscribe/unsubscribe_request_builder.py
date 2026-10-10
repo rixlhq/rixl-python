@@ -80,6 +80,7 @@ class UnsubscribeRequestBuilder(BaseRequestBuilder):
         """
         UnsubscribeBlog
         """
+        # The user_id query parameter.
         user_id: Optional[str] = None
 
     

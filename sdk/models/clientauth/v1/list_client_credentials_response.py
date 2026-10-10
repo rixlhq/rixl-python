@@ -12,7 +12,7 @@ class ListClientCredentialsResponse(Parsable):
     # The credentials property
     credentials: Optional[list[ClientCredential]] = None
     # The total property
-    total: Optional[int] = None
+    total: Optional[str] = None
     
     @staticmethod
     def create_from_discriminator_value(parse_node: ParseNode) -> ListClientCredentialsResponse:
@@ -36,7 +36,7 @@ class ListClientCredentialsResponse(Parsable):
 
         fields: dict[str, Callable[[Any], None]] = {
             "credentials": lambda n : setattr(self, 'credentials', n.get_collection_of_object_values(ClientCredential)),
-            "total": lambda n : setattr(self, 'total', n.get_int_value()),
+            "total": lambda n : setattr(self, 'total', n.get_str_value()),
         }
         return fields
     
@@ -49,6 +49,6 @@ class ListClientCredentialsResponse(Parsable):
         if writer is None:
             raise TypeError("writer cannot be null.")
         writer.write_collection_of_object_values("credentials", self.credentials)
-        writer.write_int_value("total", self.total)
+        writer.write_str_value("total", self.total)
     
 

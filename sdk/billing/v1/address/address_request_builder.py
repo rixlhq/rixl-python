@@ -104,6 +104,7 @@ class AddressRequestBuilder(BaseRequestBuilder):
         """
         GetBillingAddress
         """
+        # The org_id query parameter.
         org_id: Optional[str] = None
 
     

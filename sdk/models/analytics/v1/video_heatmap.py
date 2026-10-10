@@ -9,7 +9,7 @@ class VideoHeatmap(Parsable):
     # The data property
     data: Optional[list[float]] = None
     # The total_duration_ms property
-    total_duration_ms: Optional[int] = None
+    total_duration_ms: Optional[str] = None
     # The video_id property
     video_id: Optional[str] = None
     
@@ -31,7 +31,7 @@ class VideoHeatmap(Parsable):
         """
         fields: dict[str, Callable[[Any], None]] = {
             "data": lambda n : setattr(self, 'data', n.get_collection_of_primitive_values(float)),
-            "total_duration_ms": lambda n : setattr(self, 'total_duration_ms', n.get_int_value()),
+            "total_duration_ms": lambda n : setattr(self, 'total_duration_ms', n.get_str_value()),
             "video_id": lambda n : setattr(self, 'video_id', n.get_str_value()),
         }
         return fields
@@ -45,7 +45,7 @@ class VideoHeatmap(Parsable):
         if writer is None:
             raise TypeError("writer cannot be null.")
         writer.write_collection_of_primitive_values("data", self.data)
-        writer.write_int_value("total_duration_ms", self.total_duration_ms)
+        writer.write_str_value("total_duration_ms", self.total_duration_ms)
         writer.write_str_value("video_id", self.video_id)
     
 

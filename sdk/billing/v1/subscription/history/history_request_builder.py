@@ -86,6 +86,7 @@ class HistoryRequestBuilder(BaseRequestBuilder):
                 return "org_id"
             return original_name
         
+        # The org_id query parameter.
         org_id: Optional[str] = None
 
         # Maximum number of items to return.

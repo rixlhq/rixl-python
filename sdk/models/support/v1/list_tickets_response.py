@@ -16,7 +16,7 @@ class ListTicketsResponse(Parsable):
     # The tickets property
     tickets: Optional[list[Ticket]] = None
     # The total property
-    total: Optional[int] = None
+    total: Optional[str] = None
     
     @staticmethod
     def create_from_discriminator_value(parse_node: ParseNode) -> ListTicketsResponse:
@@ -42,7 +42,7 @@ class ListTicketsResponse(Parsable):
             "limit": lambda n : setattr(self, 'limit', n.get_int_value()),
             "offset": lambda n : setattr(self, 'offset', n.get_int_value()),
             "tickets": lambda n : setattr(self, 'tickets', n.get_collection_of_object_values(Ticket)),
-            "total": lambda n : setattr(self, 'total', n.get_int_value()),
+            "total": lambda n : setattr(self, 'total', n.get_str_value()),
         }
         return fields
     
@@ -57,6 +57,6 @@ class ListTicketsResponse(Parsable):
         writer.write_int_value("limit", self.limit)
         writer.write_int_value("offset", self.offset)
         writer.write_collection_of_object_values("tickets", self.tickets)
-        writer.write_int_value("total", self.total)
+        writer.write_str_value("total", self.total)
     
 

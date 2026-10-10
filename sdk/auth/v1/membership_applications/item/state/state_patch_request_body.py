@@ -9,8 +9,6 @@ if TYPE_CHECKING:
 
 @dataclass
 class StatePatchRequestBody(Parsable):
-    # The org_id property
-    org_id: Optional[str] = None
     # The state property
     state: Optional[MembershipApplicationState] = None
     
@@ -35,7 +33,6 @@ class StatePatchRequestBody(Parsable):
         from ......models.auth.v1.membership_application_state import MembershipApplicationState
 
         fields: dict[str, Callable[[Any], None]] = {
-            "org_id": lambda n : setattr(self, 'org_id', n.get_str_value()),
             "state": lambda n : setattr(self, 'state', n.get_enum_value(MembershipApplicationState)),
         }
         return fields
@@ -48,7 +45,6 @@ class StatePatchRequestBody(Parsable):
         """
         if writer is None:
             raise TypeError("writer cannot be null.")
-        writer.write_str_value("org_id", self.org_id)
         writer.write_enum_value("state", self.state)
     
 

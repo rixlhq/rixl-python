@@ -33,7 +33,7 @@ class InvoicesRequestBuilder(BaseRequestBuilder):
     def by_invoice_id(self,invoice_id: str) -> WithInvoice_ItemRequestBuilder:
         """
         Gets an item from the rixl_sdk.billing.v1.invoices.item collection
-        param invoice_id: Unique identifier of the item
+        param invoice_id: The invoice_id path parameter.
         Returns: WithInvoice_ItemRequestBuilder
         """
         if invoice_id is None:
@@ -101,6 +101,7 @@ class InvoicesRequestBuilder(BaseRequestBuilder):
                 return "org_id"
             return original_name
         
+        # The org_id query parameter.
         org_id: Optional[str] = None
 
         # Maximum number of items to return.
