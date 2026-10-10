@@ -90,7 +90,6 @@ class StorageUsageRequestBuilder(BaseRequestBuilder):
         """
         GetStorageUsage
         """
-        # The org_id query parameter.
         org_id: Optional[str] = None
 
     

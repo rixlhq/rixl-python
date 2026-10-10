@@ -34,7 +34,7 @@ class WithFeed_ItemRequestBuilder(BaseRequestBuilder):
     def by_post_id(self,post_id: str) -> WithPost_ItemRequestBuilder:
         """
         Gets an item from the rixl_sdk.posts.v1.feeds.item.item collection
-        param post_id: The post_id path parameter.
+        param post_id: Unique identifier of the item
         Returns: WithPost_ItemRequestBuilder
         """
         if post_id is None:
@@ -113,7 +113,6 @@ class WithFeed_ItemRequestBuilder(BaseRequestBuilder):
                 return "project_id"
             return original_name
         
-        # The creator_id query parameter.
         creator_id: Optional[str] = None
 
         # Maximum number of items to return.
@@ -122,7 +121,6 @@ class WithFeed_ItemRequestBuilder(BaseRequestBuilder):
         # Number of items to skip before collecting the result set.
         pagination_offset: Optional[int] = None
 
-        # The project_id query parameter.
         project_id: Optional[str] = None
 
     

@@ -70,7 +70,6 @@ class SetupRequestBuilder(BaseRequestBuilder):
         """
         SetupOTP
         """
-        # The user_id query parameter.
         user_id: Optional[str] = None
 
     

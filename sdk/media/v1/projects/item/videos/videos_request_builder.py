@@ -34,7 +34,7 @@ class VideosRequestBuilder(BaseRequestBuilder):
     def by_video_id(self,video_id: str) -> WithVideo_ItemRequestBuilder:
         """
         Gets an item from the rixl_sdk.media.v1.projects.item.videos.item collection
-        param video_id: The video_id path parameter.
+        param video_id: Unique identifier of the item
         Returns: WithVideo_ItemRequestBuilder
         """
         if video_id is None:
@@ -119,10 +119,8 @@ class VideosRequestBuilder(BaseRequestBuilder):
         # Number of items to skip before collecting the result set.
         pagination_offset: Optional[int] = None
 
-        # The sort_direction query parameter.
         sort_direction: Optional[str] = None
 
-        # The sort_field query parameter.
         sort_field: Optional[str] = None
 
     

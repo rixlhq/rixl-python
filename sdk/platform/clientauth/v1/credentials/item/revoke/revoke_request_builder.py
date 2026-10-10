@@ -70,7 +70,6 @@ class RevokeRequestBuilder(BaseRequestBuilder):
         """
         RevokeClientCredential
         """
-        # The org_id query parameter.
         org_id: Optional[str] = None
 
     

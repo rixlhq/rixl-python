@@ -31,9 +31,9 @@ class Member_ItemRequestBuilder(BaseRequestBuilder):
         param request_adapter: The request adapter to use to execute the requests.
         Returns: None
         """
-        super().__init__(request_adapter, "{+baseurl}/auth/v1/memberships/{org_%2Did}/members/{member_%2Did}", path_parameters)
+        super().__init__(request_adapter, "{+baseurl}/auth/v1/memberships/{org_%2Did}/members/{member_%2Did}{?user%2Eactor_id*}", path_parameters)
     
-    async def delete(self,request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> Optional[Empty]:
+    async def delete(self,request_configuration: Optional[RequestConfiguration[Member_ItemRequestBuilderDeleteQueryParameters]] = None) -> Optional[Empty]:
         """
         RemoveMember
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
@@ -48,7 +48,7 @@ class Member_ItemRequestBuilder(BaseRequestBuilder):
 
         return await self.request_adapter.send_async(request_info, Empty, None)
     
-    def to_delete_request_information(self,request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> RequestInformation:
+    def to_delete_request_information(self,request_configuration: Optional[RequestConfiguration[Member_ItemRequestBuilderDeleteQueryParameters]] = None) -> RequestInformation:
         """
         RemoveMember
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
@@ -106,7 +106,27 @@ class Member_ItemRequestBuilder(BaseRequestBuilder):
         return SuspendRequestBuilder(self.request_adapter, self.path_parameters)
     
     @dataclass
-    class Member_ItemRequestBuilderDeleteRequestConfiguration(RequestConfiguration[QueryParameters]):
+    class Member_ItemRequestBuilderDeleteQueryParameters():
+        """
+        RemoveMember
+        """
+        def get_query_parameter(self,original_name: str) -> str:
+            """
+            Maps the query parameters names to their encoded names for the URI template parsing.
+            param original_name: The original query parameter name in the class.
+            Returns: str
+            """
+            if original_name is None:
+                raise TypeError("original_name cannot be null.")
+            if original_name == "user_actor_id":
+                return "user%2Eactor_id"
+            return original_name
+        
+        user_actor_id: Optional[str] = None
+
+    
+    @dataclass
+    class Member_ItemRequestBuilderDeleteRequestConfiguration(RequestConfiguration[Member_ItemRequestBuilderDeleteQueryParameters]):
         """
         Configuration for the request such as headers, query parameters, and middleware options.
         """

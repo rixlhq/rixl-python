@@ -84,10 +84,8 @@ class StatsRequestBuilder(BaseRequestBuilder):
                 return "range%2Estart"
             return original_name
         
-        # The range.end query parameter.
         range_end: Optional[str] = None
 
-        # The range.start query parameter.
         range_start: Optional[str] = None
 
     

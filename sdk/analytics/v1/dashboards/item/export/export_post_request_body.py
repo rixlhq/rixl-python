@@ -9,6 +9,8 @@ if TYPE_CHECKING:
 
 @dataclass
 class ExportPostRequestBody(Parsable):
+    # The dashboard_id property
+    dashboard_id: Optional[str] = None
     # The format property
     format: Optional[ExportFormat] = None
     # The time_end property
@@ -37,6 +39,7 @@ class ExportPostRequestBody(Parsable):
         from ......models.analytics.v1.export_format import ExportFormat
 
         fields: dict[str, Callable[[Any], None]] = {
+            "dashboard_id": lambda n : setattr(self, 'dashboard_id', n.get_str_value()),
             "format": lambda n : setattr(self, 'format', n.get_enum_value(ExportFormat)),
             "time_end": lambda n : setattr(self, 'time_end', n.get_str_value()),
             "time_start": lambda n : setattr(self, 'time_start', n.get_str_value()),
@@ -51,6 +54,7 @@ class ExportPostRequestBody(Parsable):
         """
         if writer is None:
             raise TypeError("writer cannot be null.")
+        writer.write_str_value("dashboard_id", self.dashboard_id)
         writer.write_enum_value("format", self.format)
         writer.write_str_value("time_end", self.time_end)
         writer.write_str_value("time_start", self.time_start)

@@ -27,9 +27,9 @@ class SuspendRequestBuilder(BaseRequestBuilder):
         param request_adapter: The request adapter to use to execute the requests.
         Returns: None
         """
-        super().__init__(request_adapter, "{+baseurl}/auth/v1/memberships/{org_%2Did}/members/{member_%2Did}/suspend", path_parameters)
+        super().__init__(request_adapter, "{+baseurl}/auth/v1/memberships/{org_%2Did}/members/{member_%2Did}/suspend{?user%2Eactor_id*}", path_parameters)
     
-    async def patch(self,request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> Optional[MembershipMutation]:
+    async def patch(self,request_configuration: Optional[RequestConfiguration[SuspendRequestBuilderPatchQueryParameters]] = None) -> Optional[MembershipMutation]:
         """
         SuspendMember
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
@@ -44,7 +44,7 @@ class SuspendRequestBuilder(BaseRequestBuilder):
 
         return await self.request_adapter.send_async(request_info, MembershipMutation, None)
     
-    def to_patch_request_information(self,request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> RequestInformation:
+    def to_patch_request_information(self,request_configuration: Optional[RequestConfiguration[SuspendRequestBuilderPatchQueryParameters]] = None) -> RequestInformation:
         """
         SuspendMember
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
@@ -66,7 +66,27 @@ class SuspendRequestBuilder(BaseRequestBuilder):
         return SuspendRequestBuilder(self.request_adapter, raw_url)
     
     @dataclass
-    class SuspendRequestBuilderPatchRequestConfiguration(RequestConfiguration[QueryParameters]):
+    class SuspendRequestBuilderPatchQueryParameters():
+        """
+        SuspendMember
+        """
+        def get_query_parameter(self,original_name: str) -> str:
+            """
+            Maps the query parameters names to their encoded names for the URI template parsing.
+            param original_name: The original query parameter name in the class.
+            Returns: str
+            """
+            if original_name is None:
+                raise TypeError("original_name cannot be null.")
+            if original_name == "user_actor_id":
+                return "user%2Eactor_id"
+            return original_name
+        
+        user_actor_id: Optional[str] = None
+
+    
+    @dataclass
+    class SuspendRequestBuilderPatchRequestConfiguration(RequestConfiguration[SuspendRequestBuilderPatchQueryParameters]):
         """
         Configuration for the request such as headers, query parameters, and middleware options.
         """

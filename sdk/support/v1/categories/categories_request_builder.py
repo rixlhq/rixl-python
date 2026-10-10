@@ -33,7 +33,7 @@ class CategoriesRequestBuilder(BaseRequestBuilder):
     def by_category_id(self,category_id: str) -> WithCategory_ItemRequestBuilder:
         """
         Gets an item from the rixl_sdk.support.v1.categories.item collection
-        param category_id: The category_id path parameter.
+        param category_id: Unique identifier of the item
         Returns: WithCategory_ItemRequestBuilder
         """
         if category_id is None:
