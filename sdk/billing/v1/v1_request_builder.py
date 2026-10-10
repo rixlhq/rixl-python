@@ -9,6 +9,7 @@ if TYPE_CHECKING:
     from .address.address_request_builder import AddressRequestBuilder
     from .bandwidth_usage.bandwidth_usage_request_builder import BandwidthUsageRequestBuilder
     from .checkout.checkout_request_builder import CheckoutRequestBuilder
+    from .config.config_request_builder import ConfigRequestBuilder
     from .contact_sales.contact_sales_request_builder import ContactSalesRequestBuilder
     from .invoices.invoices_request_builder import InvoicesRequestBuilder
     from .payment_methods.payment_methods_request_builder import PaymentMethodsRequestBuilder
@@ -57,6 +58,15 @@ class V1RequestBuilder(BaseRequestBuilder):
         from .checkout.checkout_request_builder import CheckoutRequestBuilder
 
         return CheckoutRequestBuilder(self.request_adapter, self.path_parameters)
+    
+    @property
+    def config(self) -> ConfigRequestBuilder:
+        """
+        The config property
+        """
+        from .config.config_request_builder import ConfigRequestBuilder
+
+        return ConfigRequestBuilder(self.request_adapter, self.path_parameters)
     
     @property
     def contact_sales(self) -> ContactSalesRequestBuilder:
