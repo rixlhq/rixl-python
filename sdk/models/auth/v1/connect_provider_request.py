@@ -10,12 +10,16 @@ if TYPE_CHECKING:
 
 @dataclass
 class ConnectProviderRequest(Parsable):
+    # The code_verifier property
+    code_verifier: Optional[str] = None
     # The country_code property
     country_code: Optional[str] = None
     # The origin property
     origin: Optional[str] = None
     # The provider property
     provider: Optional[ExternalAccountProvider] = None
+    # The redirect_uri property
+    redirect_uri: Optional[str] = None
     # The token property
     token: Optional[str] = None
     # The user property
@@ -44,9 +48,11 @@ class ConnectProviderRequest(Parsable):
         from .user_request import UserRequest
 
         fields: dict[str, Callable[[Any], None]] = {
+            "code_verifier": lambda n : setattr(self, 'code_verifier', n.get_str_value()),
             "country_code": lambda n : setattr(self, 'country_code', n.get_str_value()),
             "origin": lambda n : setattr(self, 'origin', n.get_str_value()),
             "provider": lambda n : setattr(self, 'provider', n.get_enum_value(ExternalAccountProvider)),
+            "redirect_uri": lambda n : setattr(self, 'redirect_uri', n.get_str_value()),
             "token": lambda n : setattr(self, 'token', n.get_str_value()),
             "user": lambda n : setattr(self, 'user', n.get_object_value(UserRequest)),
         }
@@ -60,9 +66,11 @@ class ConnectProviderRequest(Parsable):
         """
         if writer is None:
             raise TypeError("writer cannot be null.")
+        writer.write_str_value("code_verifier", self.code_verifier)
         writer.write_str_value("country_code", self.country_code)
         writer.write_str_value("origin", self.origin)
         writer.write_enum_value("provider", self.provider)
+        writer.write_str_value("redirect_uri", self.redirect_uri)
         writer.write_str_value("token", self.token)
         writer.write_object_value("user", self.user)
     

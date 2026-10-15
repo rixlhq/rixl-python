@@ -6,10 +6,14 @@ from typing import Any, Optional, TYPE_CHECKING, Union
 
 @dataclass
 class RefreshTokenRequest(Parsable):
+    # The code_verifier property
+    code_verifier: Optional[str] = None
     # The country_code property
     country_code: Optional[str] = None
     # The origin property
     origin: Optional[str] = None
+    # The redirect_uri property
+    redirect_uri: Optional[str] = None
     # The refresh_token property
     refresh_token: Optional[str] = None
     # The token_type property
@@ -32,8 +36,10 @@ class RefreshTokenRequest(Parsable):
         Returns: dict[str, Callable[[ParseNode], None]]
         """
         fields: dict[str, Callable[[Any], None]] = {
+            "code_verifier": lambda n : setattr(self, 'code_verifier', n.get_str_value()),
             "country_code": lambda n : setattr(self, 'country_code', n.get_str_value()),
             "origin": lambda n : setattr(self, 'origin', n.get_str_value()),
+            "redirect_uri": lambda n : setattr(self, 'redirect_uri', n.get_str_value()),
             "refresh_token": lambda n : setattr(self, 'refresh_token', n.get_str_value()),
             "token_type": lambda n : setattr(self, 'token_type', n.get_str_value()),
         }
@@ -47,8 +53,10 @@ class RefreshTokenRequest(Parsable):
         """
         if writer is None:
             raise TypeError("writer cannot be null.")
+        writer.write_str_value("code_verifier", self.code_verifier)
         writer.write_str_value("country_code", self.country_code)
         writer.write_str_value("origin", self.origin)
+        writer.write_str_value("redirect_uri", self.redirect_uri)
         writer.write_str_value("refresh_token", self.refresh_token)
         writer.write_str_value("token_type", self.token_type)
     
