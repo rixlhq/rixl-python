@@ -6,6 +6,8 @@ from typing import Any, Optional, TYPE_CHECKING, Union
 
 @dataclass
 class LogoutRequest(Parsable):
+    # The refresh_token property
+    refresh_token: Optional[str] = None
     # The token property
     token: Optional[str] = None
     
@@ -26,6 +28,7 @@ class LogoutRequest(Parsable):
         Returns: dict[str, Callable[[ParseNode], None]]
         """
         fields: dict[str, Callable[[Any], None]] = {
+            "refresh_token": lambda n : setattr(self, 'refresh_token', n.get_str_value()),
             "token": lambda n : setattr(self, 'token', n.get_str_value()),
         }
         return fields
@@ -38,6 +41,7 @@ class LogoutRequest(Parsable):
         """
         if writer is None:
             raise TypeError("writer cannot be null.")
+        writer.write_str_value("refresh_token", self.refresh_token)
         writer.write_str_value("token", self.token)
     
 
