@@ -25,6 +25,7 @@ if TYPE_CHECKING:
     from .platform.platform_request_builder import PlatformRequestBuilder
     from .posts.posts_request_builder import PostsRequestBuilder
     from .support.support_request_builder import SupportRequestBuilder
+    from .webhooks.webhooks_request_builder import WebhooksRequestBuilder
 
 class RixlClient(BaseRequestBuilder):
     """
@@ -136,5 +137,14 @@ class RixlClient(BaseRequestBuilder):
         from .support.support_request_builder import SupportRequestBuilder
 
         return SupportRequestBuilder(self.request_adapter, self.path_parameters)
+    
+    @property
+    def webhooks(self) -> WebhooksRequestBuilder:
+        """
+        The webhooks property
+        """
+        from .webhooks.webhooks_request_builder import WebhooksRequestBuilder
+
+        return WebhooksRequestBuilder(self.request_adapter, self.path_parameters)
     
 
