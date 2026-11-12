@@ -16,6 +16,7 @@ from warnings import warn
 if TYPE_CHECKING:
     from ....models.analytics.v1.funnel_analytics import FunnelAnalytics
     from ....models.analytics.v1.funnel_request import FunnelRequest
+    from ....models.google.rpc.status import Status
 
 class FunnelsRequestBuilder(BaseRequestBuilder):
     """
@@ -42,11 +43,16 @@ class FunnelsRequestBuilder(BaseRequestBuilder):
         request_info = self.to_post_request_information(
             body, request_configuration
         )
+        from ....models.google.rpc.status import Status
+
+        error_mapping: dict[str, type[ParsableFactory]] = {
+            "XXX": Status,
+        }
         if not self.request_adapter:
             raise Exception("Http core is null") 
         from ....models.analytics.v1.funnel_analytics import FunnelAnalytics
 
-        return await self.request_adapter.send_async(request_info, FunnelAnalytics, None)
+        return await self.request_adapter.send_async(request_info, FunnelAnalytics, error_mapping)
     
     def to_post_request_information(self,body: FunnelRequest, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> RequestInformation:
         """

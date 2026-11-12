@@ -15,6 +15,7 @@ from warnings import warn
 
 if TYPE_CHECKING:
     from .....models.billing.v1.storage_usage import StorageUsage
+    from .....models.google.rpc.status import Status
 
 class RefreshRequestBuilder(BaseRequestBuilder):
     """
@@ -38,11 +39,16 @@ class RefreshRequestBuilder(BaseRequestBuilder):
         request_info = self.to_post_request_information(
             request_configuration
         )
+        from .....models.google.rpc.status import Status
+
+        error_mapping: dict[str, type[ParsableFactory]] = {
+            "XXX": Status,
+        }
         if not self.request_adapter:
             raise Exception("Http core is null") 
         from .....models.billing.v1.storage_usage import StorageUsage
 
-        return await self.request_adapter.send_async(request_info, StorageUsage, None)
+        return await self.request_adapter.send_async(request_info, StorageUsage, error_mapping)
     
     def to_post_request_information(self,request_configuration: Optional[RequestConfiguration[RefreshRequestBuilderPostQueryParameters]] = None) -> RequestInformation:
         """
@@ -70,7 +76,6 @@ class RefreshRequestBuilder(BaseRequestBuilder):
         """
         RefreshStorageUsage
         """
-        # The org_id query parameter.
         org_id: Optional[str] = None
 
     

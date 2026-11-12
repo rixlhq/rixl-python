@@ -15,9 +15,9 @@ class OrgMember(Parsable):
     first_name: Optional[str] = None
     # The id property
     id: Optional[str] = None
-    # The invitation_expires_at property
+    # A point in time in RFC 3339 format, with up to nanosecond precision. Output uses UTC (`Z`); input may use an offset from UTC.
     invitation_expires_at: Optional[datetime.datetime] = None
-    # The joined_at property
+    # A point in time in RFC 3339 format, with up to nanosecond precision. Output uses UTC (`Z`); input may use an offset from UTC.
     joined_at: Optional[datetime.datetime] = None
     # The last_name property
     last_name: Optional[str] = None

@@ -9,7 +9,7 @@ if TYPE_CHECKING:
 
 @dataclass
 class VisibilityPatchRequestBody(Parsable):
-    # enum.defined_only = true
+    # The visibility property
     visibility: Optional[Visibility] = None
     
     @staticmethod

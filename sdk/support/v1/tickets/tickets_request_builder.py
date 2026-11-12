@@ -14,6 +14,7 @@ from typing import Any, Optional, TYPE_CHECKING, Union
 from warnings import warn
 
 if TYPE_CHECKING:
+    from ....models.google.rpc.status import Status
     from ....models.support.v1.create_ticket_request import CreateTicketRequest
     from ....models.support.v1.create_ticket_response import CreateTicketResponse
     from ....models.support.v1.list_tickets_response import ListTicketsResponse
@@ -36,7 +37,7 @@ class TicketsRequestBuilder(BaseRequestBuilder):
     def by_ticket_id(self,ticket_id: str) -> WithTicket_ItemRequestBuilder:
         """
         Gets an item from the rixl_sdk.support.v1.tickets.item collection
-        param ticket_id: The ticket_id path parameter.
+        param ticket_id: Unique identifier of the item
         Returns: WithTicket_ItemRequestBuilder
         """
         if ticket_id is None:
@@ -56,11 +57,16 @@ class TicketsRequestBuilder(BaseRequestBuilder):
         request_info = self.to_get_request_information(
             request_configuration
         )
+        from ....models.google.rpc.status import Status
+
+        error_mapping: dict[str, type[ParsableFactory]] = {
+            "XXX": Status,
+        }
         if not self.request_adapter:
             raise Exception("Http core is null") 
         from ....models.support.v1.list_tickets_response import ListTicketsResponse
 
-        return await self.request_adapter.send_async(request_info, ListTicketsResponse, None)
+        return await self.request_adapter.send_async(request_info, ListTicketsResponse, error_mapping)
     
     async def post(self,body: CreateTicketRequest, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> Optional[CreateTicketResponse]:
         """
@@ -74,11 +80,16 @@ class TicketsRequestBuilder(BaseRequestBuilder):
         request_info = self.to_post_request_information(
             body, request_configuration
         )
+        from ....models.google.rpc.status import Status
+
+        error_mapping: dict[str, type[ParsableFactory]] = {
+            "XXX": Status,
+        }
         if not self.request_adapter:
             raise Exception("Http core is null") 
         from ....models.support.v1.create_ticket_response import CreateTicketResponse
 
-        return await self.request_adapter.send_async(request_info, CreateTicketResponse, None)
+        return await self.request_adapter.send_async(request_info, CreateTicketResponse, error_mapping)
     
     def to_get_request_information(self,request_configuration: Optional[RequestConfiguration[TicketsRequestBuilderGetQueryParameters]] = None) -> RequestInformation:
         """
@@ -143,7 +154,6 @@ class TicketsRequestBuilder(BaseRequestBuilder):
         # Number of items to skip before collecting the result set.
         pagination_offset: Optional[int] = None
 
-        # enum.defined_only = true
         status: Optional[TicketStatus] = None
 
     

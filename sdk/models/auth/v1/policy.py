@@ -7,7 +7,7 @@ from typing import Any, Optional, TYPE_CHECKING, Union
 
 @dataclass
 class Policy(Parsable):
-    # The created_at property
+    # A point in time in RFC 3339 format, with up to nanosecond precision. Output uses UTC (`Z`); input may use an offset from UTC.
     created_at: Optional[datetime.datetime] = None
     # The created_by property
     created_by: Optional[str] = None
@@ -21,7 +21,7 @@ class Policy(Parsable):
     org_id: Optional[str] = None
     # The permissions property
     permissions: Optional[list[str]] = None
-    # The updated_at property
+    # A point in time in RFC 3339 format, with up to nanosecond precision. Output uses UTC (`Z`); input may use an offset from UTC.
     updated_at: Optional[datetime.datetime] = None
     
     @staticmethod

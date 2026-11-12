@@ -15,6 +15,7 @@ from warnings import warn
 
 if TYPE_CHECKING:
     from .......models.auth.v1.domain_response import DomainResponse
+    from .......models.google.rpc.status import Status
 
 class VerifyRequestBuilder(BaseRequestBuilder):
     """
@@ -38,11 +39,16 @@ class VerifyRequestBuilder(BaseRequestBuilder):
         request_info = self.to_post_request_information(
             request_configuration
         )
+        from .......models.google.rpc.status import Status
+
+        error_mapping: dict[str, type[ParsableFactory]] = {
+            "XXX": Status,
+        }
         if not self.request_adapter:
             raise Exception("Http core is null") 
         from .......models.auth.v1.domain_response import DomainResponse
 
-        return await self.request_adapter.send_async(request_info, DomainResponse, None)
+        return await self.request_adapter.send_async(request_info, DomainResponse, error_mapping)
     
     def to_post_request_information(self,request_configuration: Optional[RequestConfiguration[VerifyRequestBuilderPostQueryParameters]] = None) -> RequestInformation:
         """
@@ -70,7 +76,6 @@ class VerifyRequestBuilder(BaseRequestBuilder):
         """
         CheckDomainVerification
         """
-        # The user_id query parameter.
         user_id: Optional[str] = None
 
     

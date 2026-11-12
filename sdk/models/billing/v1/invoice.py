@@ -12,19 +12,19 @@ if TYPE_CHECKING:
 class Invoice(Parsable):
     # The amount property
     amount: Optional[str] = None
-    # The created_at property
+    # A point in time in RFC 3339 format, with up to nanosecond precision. Output uses UTC (`Z`); input may use an offset from UTC.
     created_at: Optional[datetime.datetime] = None
     # The currency property
     currency: Optional[str] = None
     # The description property
     description: Optional[str] = None
-    # The due_date property
+    # A point in time in RFC 3339 format, with up to nanosecond precision. Output uses UTC (`Z`); input may use an offset from UTC.
     due_date: Optional[datetime.datetime] = None
     # The id property
     id: Optional[str] = None
     # The org_id property
     org_id: Optional[str] = None
-    # The paid_at property
+    # A point in time in RFC 3339 format, with up to nanosecond precision. Output uses UTC (`Z`); input may use an offset from UTC.
     paid_at: Optional[datetime.datetime] = None
     # The status property
     status: Optional[InvoiceStatus] = None

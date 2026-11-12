@@ -16,6 +16,7 @@ from warnings import warn
 if TYPE_CHECKING:
     from ......models.apikeys.v1.update_api_key_response import UpdateApiKeyResponse
     from ......models.google.protobuf.empty import Empty
+    from ......models.google.rpc.status import Status
     from .rotate.rotate_request_builder import RotateRequestBuilder
     from .with_key_patch_request_body import WithKey_PatchRequestBody
 
@@ -41,11 +42,16 @@ class WithKey_ItemRequestBuilder(BaseRequestBuilder):
         request_info = self.to_delete_request_information(
             request_configuration
         )
+        from ......models.google.rpc.status import Status
+
+        error_mapping: dict[str, type[ParsableFactory]] = {
+            "XXX": Status,
+        }
         if not self.request_adapter:
             raise Exception("Http core is null") 
         from ......models.google.protobuf.empty import Empty
 
-        return await self.request_adapter.send_async(request_info, Empty, None)
+        return await self.request_adapter.send_async(request_info, Empty, error_mapping)
     
     async def patch(self,body: WithKey_PatchRequestBody, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> Optional[UpdateApiKeyResponse]:
         """
@@ -59,11 +65,16 @@ class WithKey_ItemRequestBuilder(BaseRequestBuilder):
         request_info = self.to_patch_request_information(
             body, request_configuration
         )
+        from ......models.google.rpc.status import Status
+
+        error_mapping: dict[str, type[ParsableFactory]] = {
+            "XXX": Status,
+        }
         if not self.request_adapter:
             raise Exception("Http core is null") 
         from ......models.apikeys.v1.update_api_key_response import UpdateApiKeyResponse
 
-        return await self.request_adapter.send_async(request_info, UpdateApiKeyResponse, None)
+        return await self.request_adapter.send_async(request_info, UpdateApiKeyResponse, error_mapping)
     
     def to_delete_request_information(self,request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> RequestInformation:
         """

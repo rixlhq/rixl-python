@@ -15,6 +15,7 @@ from warnings import warn
 
 if TYPE_CHECKING:
     from ....models.analytics.v1.dashboard_stats_response import DashboardStatsResponse
+    from ....models.google.rpc.status import Status
     from .chart_query.chart_query_request_builder import ChartQueryRequestBuilder
     from .datasets.datasets_request_builder import DatasetsRequestBuilder
     from .filter_options.filter_options_request_builder import FilterOptionsRequestBuilder
@@ -42,11 +43,16 @@ class DashboardRequestBuilder(BaseRequestBuilder):
         request_info = self.to_get_request_information(
             request_configuration
         )
+        from ....models.google.rpc.status import Status
+
+        error_mapping: dict[str, type[ParsableFactory]] = {
+            "XXX": Status,
+        }
         if not self.request_adapter:
             raise Exception("Http core is null") 
         from ....models.analytics.v1.dashboard_stats_response import DashboardStatsResponse
 
-        return await self.request_adapter.send_async(request_info, DashboardStatsResponse, None)
+        return await self.request_adapter.send_async(request_info, DashboardStatsResponse, error_mapping)
     
     def to_get_request_information(self,request_configuration: Optional[RequestConfiguration[DashboardRequestBuilderGetQueryParameters]] = None) -> RequestInformation:
         """
@@ -142,37 +148,26 @@ class DashboardRequestBuilder(BaseRequestBuilder):
                 return "time_start"
             return original_name
         
-        # The filter.browsers query parameter.
         filter_browsers: Optional[list[str]] = None
 
-        # The filter.cities query parameter.
         filter_cities: Optional[list[str]] = None
 
-        # The filter.countries query parameter.
         filter_countries: Optional[list[str]] = None
 
-        # The filter.devices query parameter.
         filter_devices: Optional[list[str]] = None
 
-        # The filter.languages query parameter.
         filter_languages: Optional[list[str]] = None
 
-        # The filter.os query parameter.
         filter_os: Optional[list[str]] = None
 
-        # The filter.os_versions query parameter.
         filter_os_versions: Optional[list[str]] = None
 
-        # The filter.regions query parameter.
         filter_regions: Optional[list[str]] = None
 
-        # The interval query parameter.
         interval: Optional[str] = None
 
-        # The time_end query parameter.
         time_end: Optional[str] = None
 
-        # The time_start query parameter.
         time_start: Optional[str] = None
 
     

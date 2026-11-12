@@ -16,6 +16,7 @@ from warnings import warn
 if TYPE_CHECKING:
     from ....models.billing.v1.create_setup_intent_request import CreateSetupIntentRequest
     from ....models.billing.v1.setup_intent_response import SetupIntentResponse
+    from ....models.google.rpc.status import Status
 
 class SetupIntentRequestBuilder(BaseRequestBuilder):
     """
@@ -42,11 +43,16 @@ class SetupIntentRequestBuilder(BaseRequestBuilder):
         request_info = self.to_post_request_information(
             body, request_configuration
         )
+        from ....models.google.rpc.status import Status
+
+        error_mapping: dict[str, type[ParsableFactory]] = {
+            "XXX": Status,
+        }
         if not self.request_adapter:
             raise Exception("Http core is null") 
         from ....models.billing.v1.setup_intent_response import SetupIntentResponse
 
-        return await self.request_adapter.send_async(request_info, SetupIntentResponse, None)
+        return await self.request_adapter.send_async(request_info, SetupIntentResponse, error_mapping)
     
     def to_post_request_information(self,body: CreateSetupIntentRequest, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> RequestInformation:
         """

@@ -16,6 +16,7 @@ from warnings import warn
 if TYPE_CHECKING:
     from .....models.apikeys.v1.create_api_key_response import CreateApiKeyResponse
     from .....models.apikeys.v1.list_api_keys_response import ListApiKeysResponse
+    from .....models.google.rpc.status import Status
     from .item.with_key_item_request_builder import WithKey_ItemRequestBuilder
     from .v1_post_request_body import V1PostRequestBody
 
@@ -35,7 +36,7 @@ class V1RequestBuilder(BaseRequestBuilder):
     def by_key_id(self,key_id: str) -> WithKey_ItemRequestBuilder:
         """
         Gets an item from the rixl_sdk.organizations.item.apiKeys.v1.item collection
-        param key_id: The key_id path parameter.
+        param key_id: Unique identifier of the item
         Returns: WithKey_ItemRequestBuilder
         """
         if key_id is None:
@@ -55,11 +56,16 @@ class V1RequestBuilder(BaseRequestBuilder):
         request_info = self.to_get_request_information(
             request_configuration
         )
+        from .....models.google.rpc.status import Status
+
+        error_mapping: dict[str, type[ParsableFactory]] = {
+            "XXX": Status,
+        }
         if not self.request_adapter:
             raise Exception("Http core is null") 
         from .....models.apikeys.v1.list_api_keys_response import ListApiKeysResponse
 
-        return await self.request_adapter.send_async(request_info, ListApiKeysResponse, None)
+        return await self.request_adapter.send_async(request_info, ListApiKeysResponse, error_mapping)
     
     async def post(self,body: V1PostRequestBody, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> Optional[CreateApiKeyResponse]:
         """
@@ -73,11 +79,16 @@ class V1RequestBuilder(BaseRequestBuilder):
         request_info = self.to_post_request_information(
             body, request_configuration
         )
+        from .....models.google.rpc.status import Status
+
+        error_mapping: dict[str, type[ParsableFactory]] = {
+            "XXX": Status,
+        }
         if not self.request_adapter:
             raise Exception("Http core is null") 
         from .....models.apikeys.v1.create_api_key_response import CreateApiKeyResponse
 
-        return await self.request_adapter.send_async(request_info, CreateApiKeyResponse, None)
+        return await self.request_adapter.send_async(request_info, CreateApiKeyResponse, error_mapping)
     
     def to_get_request_information(self,request_configuration: Optional[RequestConfiguration[V1RequestBuilderGetQueryParameters]] = None) -> RequestInformation:
         """

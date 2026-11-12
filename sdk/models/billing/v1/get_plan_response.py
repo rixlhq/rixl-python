@@ -16,7 +16,7 @@ class GetPlanResponse(Parsable):
     currency: Optional[str] = None
     # The description property
     description: Optional[str] = None
-    # The features property
+    # A JSON object whose property values may be any JSON value.
     features: Optional[Struct] = None
     # The id property
     id: Optional[str] = None

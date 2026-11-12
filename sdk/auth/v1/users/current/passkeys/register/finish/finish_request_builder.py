@@ -16,6 +16,7 @@ from warnings import warn
 if TYPE_CHECKING:
     from ........models.auth.v1.passkey_register_finish_request import PasskeyRegisterFinishRequest
     from ........models.auth.v1.passkey_register_finish_response import PasskeyRegisterFinishResponse
+    from ........models.google.rpc.status import Status
 
 class FinishRequestBuilder(BaseRequestBuilder):
     """
@@ -42,11 +43,16 @@ class FinishRequestBuilder(BaseRequestBuilder):
         request_info = self.to_post_request_information(
             body, request_configuration
         )
+        from ........models.google.rpc.status import Status
+
+        error_mapping: dict[str, type[ParsableFactory]] = {
+            "XXX": Status,
+        }
         if not self.request_adapter:
             raise Exception("Http core is null") 
         from ........models.auth.v1.passkey_register_finish_response import PasskeyRegisterFinishResponse
 
-        return await self.request_adapter.send_async(request_info, PasskeyRegisterFinishResponse, None)
+        return await self.request_adapter.send_async(request_info, PasskeyRegisterFinishResponse, error_mapping)
     
     def to_post_request_information(self,body: PasskeyRegisterFinishRequest, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> RequestInformation:
         """

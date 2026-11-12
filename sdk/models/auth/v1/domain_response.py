@@ -15,7 +15,7 @@ class DomainResponse(Parsable):
     id: Optional[str] = None
     # The present property
     present: Optional[bool] = None
-    # The status property
+    # At most one of `verified`, `pending` may be set.
     status: Optional[DomainStatus] = None
     
     @staticmethod

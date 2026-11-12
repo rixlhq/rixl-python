@@ -15,6 +15,7 @@ from warnings import warn
 
 if TYPE_CHECKING:
     from .......models.auth.v1.auto_join_setting import AutoJoinSetting
+    from .......models.google.rpc.status import Status
     from .auto_join_put_request_body import AutoJoinPutRequestBody
 
 class AutoJoinRequestBuilder(BaseRequestBuilder):
@@ -39,11 +40,16 @@ class AutoJoinRequestBuilder(BaseRequestBuilder):
         request_info = self.to_get_request_information(
             request_configuration
         )
+        from .......models.google.rpc.status import Status
+
+        error_mapping: dict[str, type[ParsableFactory]] = {
+            "XXX": Status,
+        }
         if not self.request_adapter:
             raise Exception("Http core is null") 
         from .......models.auth.v1.auto_join_setting import AutoJoinSetting
 
-        return await self.request_adapter.send_async(request_info, AutoJoinSetting, None)
+        return await self.request_adapter.send_async(request_info, AutoJoinSetting, error_mapping)
     
     async def put(self,body: AutoJoinPutRequestBody, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> Optional[AutoJoinSetting]:
         """
@@ -57,11 +63,16 @@ class AutoJoinRequestBuilder(BaseRequestBuilder):
         request_info = self.to_put_request_information(
             body, request_configuration
         )
+        from .......models.google.rpc.status import Status
+
+        error_mapping: dict[str, type[ParsableFactory]] = {
+            "XXX": Status,
+        }
         if not self.request_adapter:
             raise Exception("Http core is null") 
         from .......models.auth.v1.auto_join_setting import AutoJoinSetting
 
-        return await self.request_adapter.send_async(request_info, AutoJoinSetting, None)
+        return await self.request_adapter.send_async(request_info, AutoJoinSetting, error_mapping)
     
     def to_get_request_information(self,request_configuration: Optional[RequestConfiguration[AutoJoinRequestBuilderGetQueryParameters]] = None) -> RequestInformation:
         """
@@ -104,7 +115,6 @@ class AutoJoinRequestBuilder(BaseRequestBuilder):
         """
         GetDomainAutoJoin
         """
-        # The user_id query parameter.
         user_id: Optional[str] = None
 
     

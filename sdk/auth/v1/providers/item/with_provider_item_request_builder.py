@@ -15,6 +15,7 @@ from warnings import warn
 
 if TYPE_CHECKING:
     from .....models.google.protobuf.empty import Empty
+    from .....models.google.rpc.status import Status
 
 class WithProviderItemRequestBuilder(BaseRequestBuilder):
     """
@@ -38,11 +39,16 @@ class WithProviderItemRequestBuilder(BaseRequestBuilder):
         request_info = self.to_delete_request_information(
             request_configuration
         )
+        from .....models.google.rpc.status import Status
+
+        error_mapping: dict[str, type[ParsableFactory]] = {
+            "XXX": Status,
+        }
         if not self.request_adapter:
             raise Exception("Http core is null") 
         from .....models.google.protobuf.empty import Empty
 
-        return await self.request_adapter.send_async(request_info, Empty, None)
+        return await self.request_adapter.send_async(request_info, Empty, error_mapping)
     
     def to_delete_request_information(self,request_configuration: Optional[RequestConfiguration[WithProviderItemRequestBuilderDeleteQueryParameters]] = None) -> RequestInformation:
         """
@@ -82,7 +88,6 @@ class WithProviderItemRequestBuilder(BaseRequestBuilder):
                 return "user%2Euser_id"
             return original_name
         
-        # The user.user_id query parameter.
         user_user_id: Optional[str] = None
 
     

@@ -4,8 +4,13 @@ from dataclasses import dataclass, field
 from kiota_abstractions.serialization import Parsable, ParseNode, SerializationWriter
 from typing import Any, Optional, TYPE_CHECKING, Union
 
+if TYPE_CHECKING:
+    from .username_patch_request_body_user import UsernamePatchRequestBody_user
+
 @dataclass
 class UsernamePatchRequestBody(Parsable):
+    # The user property
+    user: Optional[UsernamePatchRequestBody_user] = None
     # The username property
     username: Optional[str] = None
     
@@ -25,7 +30,12 @@ class UsernamePatchRequestBody(Parsable):
         The deserialization information for the current model
         Returns: dict[str, Callable[[ParseNode], None]]
         """
+        from .username_patch_request_body_user import UsernamePatchRequestBody_user
+
+        from .username_patch_request_body_user import UsernamePatchRequestBody_user
+
         fields: dict[str, Callable[[Any], None]] = {
+            "user": lambda n : setattr(self, 'user', n.get_object_value(UsernamePatchRequestBody_user)),
             "username": lambda n : setattr(self, 'username', n.get_str_value()),
         }
         return fields
@@ -38,6 +48,7 @@ class UsernamePatchRequestBody(Parsable):
         """
         if writer is None:
             raise TypeError("writer cannot be null.")
+        writer.write_object_value("user", self.user)
         writer.write_str_value("username", self.username)
     
 

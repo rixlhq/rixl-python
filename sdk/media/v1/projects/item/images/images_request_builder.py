@@ -14,6 +14,7 @@ from typing import Any, Optional, TYPE_CHECKING, Union
 from warnings import warn
 
 if TYPE_CHECKING:
+    from ......models.google.rpc.status import Status
     from ......models.images.v1.list_images_response import ListImagesResponse
     from .item.with_image_item_request_builder import WithImage_ItemRequestBuilder
     from .upload.upload_request_builder import UploadRequestBuilder
@@ -34,7 +35,7 @@ class ImagesRequestBuilder(BaseRequestBuilder):
     def by_image_id(self,image_id: str) -> WithImage_ItemRequestBuilder:
         """
         Gets an item from the rixl_sdk.media.v1.projects.item.images.item collection
-        param image_id: The image_id path parameter.
+        param image_id: Unique identifier of the item
         Returns: WithImage_ItemRequestBuilder
         """
         if image_id is None:
@@ -54,11 +55,16 @@ class ImagesRequestBuilder(BaseRequestBuilder):
         request_info = self.to_get_request_information(
             request_configuration
         )
+        from ......models.google.rpc.status import Status
+
+        error_mapping: dict[str, type[ParsableFactory]] = {
+            "XXX": Status,
+        }
         if not self.request_adapter:
             raise Exception("Http core is null") 
         from ......models.images.v1.list_images_response import ListImagesResponse
 
-        return await self.request_adapter.send_async(request_info, ListImagesResponse, None)
+        return await self.request_adapter.send_async(request_info, ListImagesResponse, error_mapping)
     
     def to_get_request_information(self,request_configuration: Optional[RequestConfiguration[ImagesRequestBuilderGetQueryParameters]] = None) -> RequestInformation:
         """
@@ -119,10 +125,8 @@ class ImagesRequestBuilder(BaseRequestBuilder):
         # Number of items to skip before collecting the result set.
         pagination_offset: Optional[int] = None
 
-        # The sort_direction query parameter.
         sort_direction: Optional[str] = None
 
-        # The sort_field query parameter.
         sort_field: Optional[str] = None
 
     

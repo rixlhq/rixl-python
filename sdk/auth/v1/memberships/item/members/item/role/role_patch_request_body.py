@@ -6,11 +6,14 @@ from typing import Any, Optional, TYPE_CHECKING, Union
 
 if TYPE_CHECKING:
     from ........models.auth.v1.membership_role import MembershipRole
+    from .role_patch_request_body_user import RolePatchRequestBody_user
 
 @dataclass
 class RolePatchRequestBody(Parsable):
     # The role property
     role: Optional[MembershipRole] = None
+    # The user property
+    user: Optional[RolePatchRequestBody_user] = None
     
     @staticmethod
     def create_from_discriminator_value(parse_node: ParseNode) -> RolePatchRequestBody:
@@ -29,11 +32,14 @@ class RolePatchRequestBody(Parsable):
         Returns: dict[str, Callable[[ParseNode], None]]
         """
         from ........models.auth.v1.membership_role import MembershipRole
+        from .role_patch_request_body_user import RolePatchRequestBody_user
 
         from ........models.auth.v1.membership_role import MembershipRole
+        from .role_patch_request_body_user import RolePatchRequestBody_user
 
         fields: dict[str, Callable[[Any], None]] = {
             "role": lambda n : setattr(self, 'role', n.get_enum_value(MembershipRole)),
+            "user": lambda n : setattr(self, 'user', n.get_object_value(RolePatchRequestBody_user)),
         }
         return fields
     
@@ -46,5 +52,6 @@ class RolePatchRequestBody(Parsable):
         if writer is None:
             raise TypeError("writer cannot be null.")
         writer.write_enum_value("role", self.role)
+        writer.write_object_value("user", self.user)
     
 

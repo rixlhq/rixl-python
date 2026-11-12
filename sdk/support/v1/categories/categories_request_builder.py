@@ -14,6 +14,7 @@ from typing import Any, Optional, TYPE_CHECKING, Union
 from warnings import warn
 
 if TYPE_CHECKING:
+    from ....models.google.rpc.status import Status
     from ....models.support.v1.list_categories_response import ListCategoriesResponse
     from .item.with_category_item_request_builder import WithCategory_ItemRequestBuilder
 
@@ -33,7 +34,7 @@ class CategoriesRequestBuilder(BaseRequestBuilder):
     def by_category_id(self,category_id: str) -> WithCategory_ItemRequestBuilder:
         """
         Gets an item from the rixl_sdk.support.v1.categories.item collection
-        param category_id: The category_id path parameter.
+        param category_id: Unique identifier of the item
         Returns: WithCategory_ItemRequestBuilder
         """
         if category_id is None:
@@ -53,11 +54,16 @@ class CategoriesRequestBuilder(BaseRequestBuilder):
         request_info = self.to_get_request_information(
             request_configuration
         )
+        from ....models.google.rpc.status import Status
+
+        error_mapping: dict[str, type[ParsableFactory]] = {
+            "XXX": Status,
+        }
         if not self.request_adapter:
             raise Exception("Http core is null") 
         from ....models.support.v1.list_categories_response import ListCategoriesResponse
 
-        return await self.request_adapter.send_async(request_info, ListCategoriesResponse, None)
+        return await self.request_adapter.send_async(request_info, ListCategoriesResponse, error_mapping)
     
     def to_get_request_information(self,request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> RequestInformation:
         """

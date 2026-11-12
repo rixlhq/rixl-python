@@ -15,6 +15,7 @@ from warnings import warn
 
 if TYPE_CHECKING:
     from ....models.billing.v1.list_invoices_response import ListInvoicesResponse
+    from ....models.google.rpc.status import Status
     from .item.with_invoice_item_request_builder import WithInvoice_ItemRequestBuilder
 
 class InvoicesRequestBuilder(BaseRequestBuilder):
@@ -33,7 +34,7 @@ class InvoicesRequestBuilder(BaseRequestBuilder):
     def by_invoice_id(self,invoice_id: str) -> WithInvoice_ItemRequestBuilder:
         """
         Gets an item from the rixl_sdk.billing.v1.invoices.item collection
-        param invoice_id: The invoice_id path parameter.
+        param invoice_id: Unique identifier of the item
         Returns: WithInvoice_ItemRequestBuilder
         """
         if invoice_id is None:
@@ -53,11 +54,16 @@ class InvoicesRequestBuilder(BaseRequestBuilder):
         request_info = self.to_get_request_information(
             request_configuration
         )
+        from ....models.google.rpc.status import Status
+
+        error_mapping: dict[str, type[ParsableFactory]] = {
+            "XXX": Status,
+        }
         if not self.request_adapter:
             raise Exception("Http core is null") 
         from ....models.billing.v1.list_invoices_response import ListInvoicesResponse
 
-        return await self.request_adapter.send_async(request_info, ListInvoicesResponse, None)
+        return await self.request_adapter.send_async(request_info, ListInvoicesResponse, error_mapping)
     
     def to_get_request_information(self,request_configuration: Optional[RequestConfiguration[InvoicesRequestBuilderGetQueryParameters]] = None) -> RequestInformation:
         """
@@ -101,7 +107,6 @@ class InvoicesRequestBuilder(BaseRequestBuilder):
                 return "org_id"
             return original_name
         
-        # The org_id query parameter.
         org_id: Optional[str] = None
 
         # Maximum number of items to return.

@@ -12,13 +12,13 @@ if TYPE_CHECKING:
 class SubscriptionHistoryItem(Parsable):
     # The cancel_at_period_end property
     cancel_at_period_end: Optional[bool] = None
-    # The created_at property
+    # A point in time in RFC 3339 format, with up to nanosecond precision. Output uses UTC (`Z`); input may use an offset from UTC.
     created_at: Optional[datetime.datetime] = None
     # The currency property
     currency: Optional[str] = None
-    # The current_period_end property
+    # A point in time in RFC 3339 format, with up to nanosecond precision. Output uses UTC (`Z`); input may use an offset from UTC.
     current_period_end: Optional[datetime.datetime] = None
-    # The end_date property
+    # A point in time in RFC 3339 format, with up to nanosecond precision. Output uses UTC (`Z`); input may use an offset from UTC.
     end_date: Optional[datetime.datetime] = None
     # The id property
     id: Optional[str] = None
@@ -30,7 +30,7 @@ class SubscriptionHistoryItem(Parsable):
     plan_name: Optional[str] = None
     # The price property
     price: Optional[str] = None
-    # The start_date property
+    # A point in time in RFC 3339 format, with up to nanosecond precision. Output uses UTC (`Z`); input may use an offset from UTC.
     start_date: Optional[datetime.datetime] = None
     # The status property
     status: Optional[SubscriptionStatus] = None

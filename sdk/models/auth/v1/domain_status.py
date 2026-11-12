@@ -1,22 +1,24 @@
 from __future__ import annotations
 from collections.abc import Callable
 from dataclasses import dataclass, field
-from kiota_abstractions.serialization import ComposedTypeWrapper, Parsable, ParseNode, ParseNodeHelper, SerializationWriter
+from kiota_abstractions.serialization import Parsable, ParseNode, SerializationWriter
 from typing import Any, Optional, TYPE_CHECKING, Union
 
 if TYPE_CHECKING:
-    from .domain_status_member1 import DomainStatusMember1
-    from .domain_status_member2 import DomainStatusMember2
+    from .pending_domain import PendingDomain
+    from .verified_domain import VerifiedDomain
 
 @dataclass
-class DomainStatus(ComposedTypeWrapper, Parsable):
+class DomainStatus(Parsable):
     """
-    Composed type wrapper for classes DomainStatusMember1, DomainStatusMember2
+    At most one of `verified`, `pending` may be set.
     """
-    # Composed type representation for type DomainStatusMember1
-    domain_status_member1: Optional[DomainStatusMember1] = None
-    # Composed type representation for type DomainStatusMember2
-    domain_status_member2: Optional[DomainStatusMember2] = None
+    # The auto_join property
+    auto_join: Optional[bool] = None
+    # The pending property
+    pending: Optional[PendingDomain] = None
+    # The verified property
+    verified: Optional[VerifiedDomain] = None
     
     @staticmethod
     def create_from_discriminator_value(parse_node: ParseNode) -> DomainStatus:
@@ -27,26 +29,25 @@ class DomainStatus(ComposedTypeWrapper, Parsable):
         """
         if parse_node is None:
             raise TypeError("parse_node cannot be null.")
-        result = DomainStatus()
-        from .domain_status_member1 import DomainStatusMember1
-
-        result.domain_status_member1 = DomainStatusMember1()
-        from .domain_status_member2 import DomainStatusMember2
-
-        result.domain_status_member2 = DomainStatusMember2()
-        return result
+        return DomainStatus()
     
     def get_field_deserializers(self,) -> dict[str, Callable[[ParseNode], None]]:
         """
         The deserialization information for the current model
         Returns: dict[str, Callable[[ParseNode], None]]
         """
-        from .domain_status_member1 import DomainStatusMember1
-        from .domain_status_member2 import DomainStatusMember2
+        from .pending_domain import PendingDomain
+        from .verified_domain import VerifiedDomain
 
-        if self.domain_status_member1 or self.domain_status_member2:
-            return ParseNodeHelper.merge_deserializers_for_intersection_wrapper(self.domain_status_member1, self.domain_status_member2)
-        return {}
+        from .pending_domain import PendingDomain
+        from .verified_domain import VerifiedDomain
+
+        fields: dict[str, Callable[[Any], None]] = {
+            "auto_join": lambda n : setattr(self, 'auto_join', n.get_bool_value()),
+            "pending": lambda n : setattr(self, 'pending', n.get_object_value(PendingDomain)),
+            "verified": lambda n : setattr(self, 'verified', n.get_object_value(VerifiedDomain)),
+        }
+        return fields
     
     def serialize(self,writer: SerializationWriter) -> None:
         """
@@ -56,6 +57,8 @@ class DomainStatus(ComposedTypeWrapper, Parsable):
         """
         if writer is None:
             raise TypeError("writer cannot be null.")
-        writer.write_object_value(None, self.domain_status_member1, self.domain_status_member2)
+        writer.write_bool_value("auto_join", self.auto_join)
+        writer.write_object_value("pending", self.pending)
+        writer.write_object_value("verified", self.verified)
     
 

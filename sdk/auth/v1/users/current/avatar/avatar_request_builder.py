@@ -16,6 +16,7 @@ from warnings import warn
 if TYPE_CHECKING:
     from ......models.auth.v1.update_user_avatar_request import UpdateUserAvatarRequest
     from ......models.auth.v1.update_user_avatar_response import UpdateUserAvatarResponse
+    from ......models.google.rpc.status import Status
     from .upload.upload_request_builder import UploadRequestBuilder
 
 class AvatarRequestBuilder(BaseRequestBuilder):
@@ -43,11 +44,16 @@ class AvatarRequestBuilder(BaseRequestBuilder):
         request_info = self.to_patch_request_information(
             body, request_configuration
         )
+        from ......models.google.rpc.status import Status
+
+        error_mapping: dict[str, type[ParsableFactory]] = {
+            "XXX": Status,
+        }
         if not self.request_adapter:
             raise Exception("Http core is null") 
         from ......models.auth.v1.update_user_avatar_response import UpdateUserAvatarResponse
 
-        return await self.request_adapter.send_async(request_info, UpdateUserAvatarResponse, None)
+        return await self.request_adapter.send_async(request_info, UpdateUserAvatarResponse, error_mapping)
     
     def to_patch_request_information(self,body: UpdateUserAvatarRequest, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> RequestInformation:
         """

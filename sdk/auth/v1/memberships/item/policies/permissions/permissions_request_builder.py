@@ -15,6 +15,7 @@ from warnings import warn
 
 if TYPE_CHECKING:
     from .......models.auth.v1.permission_registry_response import PermissionRegistryResponse
+    from .......models.google.rpc.status import Status
 
 class PermissionsRequestBuilder(BaseRequestBuilder):
     """
@@ -27,7 +28,7 @@ class PermissionsRequestBuilder(BaseRequestBuilder):
         param request_adapter: The request adapter to use to execute the requests.
         Returns: None
         """
-        super().__init__(request_adapter, "{+baseurl}/auth/v1/memberships/{org_%2Did}/policies/permissions{?limit*,offset*,types*}", path_parameters)
+        super().__init__(request_adapter, "{+baseurl}/auth/v1/memberships/{org_%2Did}/policies/permissions{?limit*,offset*,types*,user%2Euser_id*}", path_parameters)
     
     async def get(self,request_configuration: Optional[RequestConfiguration[PermissionsRequestBuilderGetQueryParameters]] = None) -> Optional[PermissionRegistryResponse]:
         """
@@ -38,11 +39,16 @@ class PermissionsRequestBuilder(BaseRequestBuilder):
         request_info = self.to_get_request_information(
             request_configuration
         )
+        from .......models.google.rpc.status import Status
+
+        error_mapping: dict[str, type[ParsableFactory]] = {
+            "XXX": Status,
+        }
         if not self.request_adapter:
             raise Exception("Http core is null") 
         from .......models.auth.v1.permission_registry_response import PermissionRegistryResponse
 
-        return await self.request_adapter.send_async(request_info, PermissionRegistryResponse, None)
+        return await self.request_adapter.send_async(request_info, PermissionRegistryResponse, error_mapping)
     
     def to_get_request_information(self,request_configuration: Optional[RequestConfiguration[PermissionsRequestBuilderGetQueryParameters]] = None) -> RequestInformation:
         """
@@ -70,14 +76,31 @@ class PermissionsRequestBuilder(BaseRequestBuilder):
         """
         ListPermissionRegistry
         """
-        # The limit query parameter.
+        def get_query_parameter(self,original_name: str) -> str:
+            """
+            Maps the query parameters names to their encoded names for the URI template parsing.
+            param original_name: The original query parameter name in the class.
+            Returns: str
+            """
+            if original_name is None:
+                raise TypeError("original_name cannot be null.")
+            if original_name == "user_user_id":
+                return "user%2Euser_id"
+            if original_name == "limit":
+                return "limit"
+            if original_name == "offset":
+                return "offset"
+            if original_name == "types":
+                return "types"
+            return original_name
+        
         limit: Optional[int] = None
 
-        # The offset query parameter.
         offset: Optional[int] = None
 
-        # The types query parameter.
         types: Optional[list[str]] = None
+
+        user_user_id: Optional[str] = None
 
     
     @dataclass

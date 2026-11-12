@@ -10,7 +10,7 @@ if TYPE_CHECKING:
 
 @dataclass
 class Project(Parsable):
-    # The created_at property
+    # A point in time in RFC 3339 format, with up to nanosecond precision. Output uses UTC (`Z`); input may use an offset from UTC.
     created_at: Optional[datetime.datetime] = None
     # The custom_domain property
     custom_domain: Optional[str] = None
@@ -22,7 +22,7 @@ class Project(Parsable):
     org_id: Optional[str] = None
     # The regions property
     regions: Optional[list[str]] = None
-    # The updated_at property
+    # A point in time in RFC 3339 format, with up to nanosecond precision. Output uses UTC (`Z`); input may use an offset from UTC.
     updated_at: Optional[datetime.datetime] = None
     # The video_quality property
     video_quality: Optional[VideoQuality] = None

@@ -9,7 +9,7 @@ if TYPE_CHECKING:
 
 @dataclass
 class VideoQualityPatchRequestBody(Parsable):
-    # enum.defined_only = true
+    # The video_quality property
     video_quality: Optional[VideoQuality] = None
     
     @staticmethod

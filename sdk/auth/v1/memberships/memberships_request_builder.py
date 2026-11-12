@@ -16,6 +16,7 @@ from warnings import warn
 if TYPE_CHECKING:
     from ....models.auth.v1.list_memberships_response import ListMembershipsResponse
     from ....models.auth.v1.membership_state import MembershipState
+    from ....models.google.rpc.status import Status
     from .active.active_request_builder import ActiveRequestBuilder
     from .item.org_item_request_builder import Org_ItemRequestBuilder
 
@@ -35,7 +36,7 @@ class MembershipsRequestBuilder(BaseRequestBuilder):
     def by_org_id(self,org_id: str) -> Org_ItemRequestBuilder:
         """
         Gets an item from the rixl_sdk.auth.v1.memberships.item collection
-        param org_id: The org_id path parameter.
+        param org_id: Unique identifier of the item
         Returns: Org_ItemRequestBuilder
         """
         if org_id is None:
@@ -55,11 +56,16 @@ class MembershipsRequestBuilder(BaseRequestBuilder):
         request_info = self.to_get_request_information(
             request_configuration
         )
+        from ....models.google.rpc.status import Status
+
+        error_mapping: dict[str, type[ParsableFactory]] = {
+            "XXX": Status,
+        }
         if not self.request_adapter:
             raise Exception("Http core is null") 
         from ....models.auth.v1.list_memberships_response import ListMembershipsResponse
 
-        return await self.request_adapter.send_async(request_info, ListMembershipsResponse, None)
+        return await self.request_adapter.send_async(request_info, ListMembershipsResponse, error_mapping)
     
     def to_get_request_information(self,request_configuration: Optional[RequestConfiguration[MembershipsRequestBuilderGetQueryParameters]] = None) -> RequestInformation:
         """
@@ -114,16 +120,12 @@ class MembershipsRequestBuilder(BaseRequestBuilder):
                 return "state"
             return original_name
         
-        # The limit query parameter.
         limit: Optional[int] = None
 
-        # The offset query parameter.
         offset: Optional[int] = None
 
-        # The state query parameter.
         state: Optional[MembershipState] = None
 
-        # The user.user_id query parameter.
         user_user_id: Optional[str] = None
 
     

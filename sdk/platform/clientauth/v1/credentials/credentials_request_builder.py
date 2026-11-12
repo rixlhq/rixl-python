@@ -17,6 +17,7 @@ if TYPE_CHECKING:
     from .....models.clientauth.v1.create_client_credential_request import CreateClientCredentialRequest
     from .....models.clientauth.v1.create_client_credential_response import CreateClientCredentialResponse
     from .....models.clientauth.v1.list_client_credentials_response import ListClientCredentialsResponse
+    from .....models.google.rpc.status import Status
     from .item.with_credential_item_request_builder import WithCredential_ItemRequestBuilder
 
 class CredentialsRequestBuilder(BaseRequestBuilder):
@@ -35,7 +36,7 @@ class CredentialsRequestBuilder(BaseRequestBuilder):
     def by_credential_id(self,credential_id: str) -> WithCredential_ItemRequestBuilder:
         """
         Gets an item from the rixl_sdk.platform.clientauth.v1.credentials.item collection
-        param credential_id: The credential_id path parameter.
+        param credential_id: Unique identifier of the item
         Returns: WithCredential_ItemRequestBuilder
         """
         if credential_id is None:
@@ -55,11 +56,16 @@ class CredentialsRequestBuilder(BaseRequestBuilder):
         request_info = self.to_get_request_information(
             request_configuration
         )
+        from .....models.google.rpc.status import Status
+
+        error_mapping: dict[str, type[ParsableFactory]] = {
+            "XXX": Status,
+        }
         if not self.request_adapter:
             raise Exception("Http core is null") 
         from .....models.clientauth.v1.list_client_credentials_response import ListClientCredentialsResponse
 
-        return await self.request_adapter.send_async(request_info, ListClientCredentialsResponse, None)
+        return await self.request_adapter.send_async(request_info, ListClientCredentialsResponse, error_mapping)
     
     async def post(self,body: CreateClientCredentialRequest, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> Optional[CreateClientCredentialResponse]:
         """
@@ -73,11 +79,16 @@ class CredentialsRequestBuilder(BaseRequestBuilder):
         request_info = self.to_post_request_information(
             body, request_configuration
         )
+        from .....models.google.rpc.status import Status
+
+        error_mapping: dict[str, type[ParsableFactory]] = {
+            "XXX": Status,
+        }
         if not self.request_adapter:
             raise Exception("Http core is null") 
         from .....models.clientauth.v1.create_client_credential_response import CreateClientCredentialResponse
 
-        return await self.request_adapter.send_async(request_info, CreateClientCredentialResponse, None)
+        return await self.request_adapter.send_async(request_info, CreateClientCredentialResponse, error_mapping)
     
     def to_get_request_information(self,request_configuration: Optional[RequestConfiguration[CredentialsRequestBuilderGetQueryParameters]] = None) -> RequestInformation:
         """
@@ -136,7 +147,6 @@ class CredentialsRequestBuilder(BaseRequestBuilder):
                 return "org_id"
             return original_name
         
-        # The org_id query parameter.
         org_id: Optional[str] = None
 
         # Maximum number of items to return.

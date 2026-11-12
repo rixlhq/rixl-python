@@ -10,7 +10,7 @@ if TYPE_CHECKING:
 
 @dataclass
 class CalculateGenericTaxRequest(Parsable):
-    # The amount property
+    # int64.gt = 0
     amount: Optional[str] = None
     # The billing_address property
     billing_address: Optional[BillingAddress] = None

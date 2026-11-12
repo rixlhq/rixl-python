@@ -7,7 +7,7 @@ from typing import Any, Optional, TYPE_CHECKING, Union
 
 @dataclass
 class VerifiedDomain(Parsable):
-    # The verified_at property
+    # A point in time in RFC 3339 format, with up to nanosecond precision. Output uses UTC (`Z`); input may use an offset from UTC.
     verified_at: Optional[datetime.datetime] = None
     
     @staticmethod

@@ -15,6 +15,7 @@ from warnings import warn
 
 if TYPE_CHECKING:
     from .......models.auth.v1.email_status_response import EmailStatusResponse
+    from .......models.google.rpc.status import Status
 
 class StatusRequestBuilder(BaseRequestBuilder):
     """
@@ -38,11 +39,16 @@ class StatusRequestBuilder(BaseRequestBuilder):
         request_info = self.to_get_request_information(
             request_configuration
         )
+        from .......models.google.rpc.status import Status
+
+        error_mapping: dict[str, type[ParsableFactory]] = {
+            "XXX": Status,
+        }
         if not self.request_adapter:
             raise Exception("Http core is null") 
         from .......models.auth.v1.email_status_response import EmailStatusResponse
 
-        return await self.request_adapter.send_async(request_info, EmailStatusResponse, None)
+        return await self.request_adapter.send_async(request_info, EmailStatusResponse, error_mapping)
     
     def to_get_request_information(self,request_configuration: Optional[RequestConfiguration[StatusRequestBuilderGetQueryParameters]] = None) -> RequestInformation:
         """
@@ -70,7 +76,6 @@ class StatusRequestBuilder(BaseRequestBuilder):
         """
         GetUserEmailStatus
         """
-        # The user_id query parameter.
         user_id: Optional[str] = None
 
     

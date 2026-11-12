@@ -15,6 +15,7 @@ from warnings import warn
 
 if TYPE_CHECKING:
     from .....models.analytics.v1.top_feeds_response import TopFeedsResponse
+    from .....models.google.rpc.status import Status
 
 class FeedsRequestBuilder(BaseRequestBuilder):
     """
@@ -38,11 +39,16 @@ class FeedsRequestBuilder(BaseRequestBuilder):
         request_info = self.to_get_request_information(
             request_configuration
         )
+        from .....models.google.rpc.status import Status
+
+        error_mapping: dict[str, type[ParsableFactory]] = {
+            "XXX": Status,
+        }
         if not self.request_adapter:
             raise Exception("Http core is null") 
         from .....models.analytics.v1.top_feeds_response import TopFeedsResponse
 
-        return await self.request_adapter.send_async(request_info, TopFeedsResponse, None)
+        return await self.request_adapter.send_async(request_info, TopFeedsResponse, error_mapping)
     
     def to_get_request_information(self,request_configuration: Optional[RequestConfiguration[FeedsRequestBuilderGetQueryParameters]] = None) -> RequestInformation:
         """
@@ -86,13 +92,10 @@ class FeedsRequestBuilder(BaseRequestBuilder):
                 return "limit"
             return original_name
         
-        # The limit query parameter.
         limit: Optional[int] = None
 
-        # The range.end query parameter.
         range_end: Optional[str] = None
 
-        # The range.start query parameter.
         range_start: Optional[str] = None
 
     

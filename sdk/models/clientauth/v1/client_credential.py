@@ -14,13 +14,13 @@ class ClientCredential(Parsable):
     alg: Optional[str] = None
     # The client_id property
     client_id: Optional[str] = None
-    # The created_at property
+    # A point in time in RFC 3339 format, with up to nanosecond precision. Output uses UTC (`Z`); input may use an offset from UTC.
     created_at: Optional[datetime.datetime] = None
     # The id property
     id: Optional[str] = None
     # The kid property
     kid: Optional[str] = None
-    # The last_used_at property
+    # A point in time in RFC 3339 format, with up to nanosecond precision. Output uses UTC (`Z`); input may use an offset from UTC.
     last_used_at: Optional[datetime.datetime] = None
     # The name property
     name: Optional[str] = None

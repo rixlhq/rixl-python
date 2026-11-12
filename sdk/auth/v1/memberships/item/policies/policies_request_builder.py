@@ -16,6 +16,7 @@ from warnings import warn
 if TYPE_CHECKING:
     from ......models.auth.v1.list_policies_response import ListPoliciesResponse
     from ......models.auth.v1.policy import Policy
+    from ......models.google.rpc.status import Status
     from .attachments.attachments_request_builder import AttachmentsRequestBuilder
     from .item.with_policy_item_request_builder import WithPolicy_ItemRequestBuilder
     from .permissions.permissions_request_builder import PermissionsRequestBuilder
@@ -37,7 +38,7 @@ class PoliciesRequestBuilder(BaseRequestBuilder):
     def by_policy_id(self,policy_id: str) -> WithPolicy_ItemRequestBuilder:
         """
         Gets an item from the rixl_sdk.auth.v1.memberships.item.policies.item collection
-        param policy_id: The policy_id path parameter.
+        param policy_id: Unique identifier of the item
         Returns: WithPolicy_ItemRequestBuilder
         """
         if policy_id is None:
@@ -57,11 +58,16 @@ class PoliciesRequestBuilder(BaseRequestBuilder):
         request_info = self.to_get_request_information(
             request_configuration
         )
+        from ......models.google.rpc.status import Status
+
+        error_mapping: dict[str, type[ParsableFactory]] = {
+            "XXX": Status,
+        }
         if not self.request_adapter:
             raise Exception("Http core is null") 
         from ......models.auth.v1.list_policies_response import ListPoliciesResponse
 
-        return await self.request_adapter.send_async(request_info, ListPoliciesResponse, None)
+        return await self.request_adapter.send_async(request_info, ListPoliciesResponse, error_mapping)
     
     async def post(self,body: PoliciesPostRequestBody, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> Optional[Policy]:
         """
@@ -75,11 +81,16 @@ class PoliciesRequestBuilder(BaseRequestBuilder):
         request_info = self.to_post_request_information(
             body, request_configuration
         )
+        from ......models.google.rpc.status import Status
+
+        error_mapping: dict[str, type[ParsableFactory]] = {
+            "XXX": Status,
+        }
         if not self.request_adapter:
             raise Exception("Http core is null") 
         from ......models.auth.v1.policy import Policy
 
-        return await self.request_adapter.send_async(request_info, Policy, None)
+        return await self.request_adapter.send_async(request_info, Policy, error_mapping)
     
     def to_get_request_information(self,request_configuration: Optional[RequestConfiguration[PoliciesRequestBuilderGetQueryParameters]] = None) -> RequestInformation:
         """
@@ -140,7 +151,6 @@ class PoliciesRequestBuilder(BaseRequestBuilder):
         """
         ListPolicies
         """
-        # The user_id query parameter.
         user_id: Optional[str] = None
 
     

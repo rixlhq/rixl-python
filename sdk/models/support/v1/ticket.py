@@ -13,7 +13,7 @@ if TYPE_CHECKING:
 class Ticket(Parsable):
     # The category_id property
     category_id: Optional[str] = None
-    # The created_at property
+    # A point in time in RFC 3339 format, with up to nanosecond precision. Output uses UTC (`Z`); input may use an offset from UTC.
     created_at: Optional[datetime.datetime] = None
     # The id property
     id: Optional[str] = None
@@ -29,7 +29,7 @@ class Ticket(Parsable):
     subject: Optional[str] = None
     # The topic_id property
     topic_id: Optional[str] = None
-    # The updated_at property
+    # A point in time in RFC 3339 format, with up to nanosecond precision. Output uses UTC (`Z`); input may use an offset from UTC.
     updated_at: Optional[datetime.datetime] = None
     # The user_id property
     user_id: Optional[str] = None

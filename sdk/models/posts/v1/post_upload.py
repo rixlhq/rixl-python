@@ -17,7 +17,7 @@ class PostUpload(Parsable):
     poster_id: Optional[str] = None
     # The poster_upload_url property
     poster_upload_url: Optional[str] = None
-    # The upload_expires property
+    # A point in time in RFC 3339 format, with up to nanosecond precision. Output uses UTC (`Z`); input may use an offset from UTC.
     upload_expires: Optional[datetime.datetime] = None
     
     @staticmethod

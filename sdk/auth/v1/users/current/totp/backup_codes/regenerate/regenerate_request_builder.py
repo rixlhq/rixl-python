@@ -15,6 +15,7 @@ from warnings import warn
 
 if TYPE_CHECKING:
     from ........models.auth.v1.backup_codes_response import BackupCodesResponse
+    from ........models.google.rpc.status import Status
 
 class RegenerateRequestBuilder(BaseRequestBuilder):
     """
@@ -38,11 +39,16 @@ class RegenerateRequestBuilder(BaseRequestBuilder):
         request_info = self.to_post_request_information(
             request_configuration
         )
+        from ........models.google.rpc.status import Status
+
+        error_mapping: dict[str, type[ParsableFactory]] = {
+            "XXX": Status,
+        }
         if not self.request_adapter:
             raise Exception("Http core is null") 
         from ........models.auth.v1.backup_codes_response import BackupCodesResponse
 
-        return await self.request_adapter.send_async(request_info, BackupCodesResponse, None)
+        return await self.request_adapter.send_async(request_info, BackupCodesResponse, error_mapping)
     
     def to_post_request_information(self,request_configuration: Optional[RequestConfiguration[RegenerateRequestBuilderPostQueryParameters]] = None) -> RequestInformation:
         """
@@ -70,7 +76,6 @@ class RegenerateRequestBuilder(BaseRequestBuilder):
         """
         RegenerateBackupCodes
         """
-        # The user_id query parameter.
         user_id: Optional[str] = None
 
     

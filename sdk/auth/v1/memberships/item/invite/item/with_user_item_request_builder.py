@@ -15,6 +15,7 @@ from warnings import warn
 
 if TYPE_CHECKING:
     from .......models.google.protobuf.empty import Empty
+    from .......models.google.rpc.status import Status
 
 class WithUser_ItemRequestBuilder(BaseRequestBuilder):
     """
@@ -27,9 +28,9 @@ class WithUser_ItemRequestBuilder(BaseRequestBuilder):
         param request_adapter: The request adapter to use to execute the requests.
         Returns: None
         """
-        super().__init__(request_adapter, "{+baseurl}/auth/v1/memberships/{org_%2Did}/invite/{user_id}", path_parameters)
+        super().__init__(request_adapter, "{+baseurl}/auth/v1/memberships/{org_%2Did}/invite/{user_id}{?user%2Eactor_id*}", path_parameters)
     
-    async def delete(self,request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> Optional[Empty]:
+    async def delete(self,request_configuration: Optional[RequestConfiguration[WithUser_ItemRequestBuilderDeleteQueryParameters]] = None) -> Optional[Empty]:
         """
         CancelInvitation
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
@@ -38,13 +39,18 @@ class WithUser_ItemRequestBuilder(BaseRequestBuilder):
         request_info = self.to_delete_request_information(
             request_configuration
         )
+        from .......models.google.rpc.status import Status
+
+        error_mapping: dict[str, type[ParsableFactory]] = {
+            "XXX": Status,
+        }
         if not self.request_adapter:
             raise Exception("Http core is null") 
         from .......models.google.protobuf.empty import Empty
 
-        return await self.request_adapter.send_async(request_info, Empty, None)
+        return await self.request_adapter.send_async(request_info, Empty, error_mapping)
     
-    def to_delete_request_information(self,request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> RequestInformation:
+    def to_delete_request_information(self,request_configuration: Optional[RequestConfiguration[WithUser_ItemRequestBuilderDeleteQueryParameters]] = None) -> RequestInformation:
         """
         CancelInvitation
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
@@ -66,7 +72,27 @@ class WithUser_ItemRequestBuilder(BaseRequestBuilder):
         return WithUser_ItemRequestBuilder(self.request_adapter, raw_url)
     
     @dataclass
-    class WithUser_ItemRequestBuilderDeleteRequestConfiguration(RequestConfiguration[QueryParameters]):
+    class WithUser_ItemRequestBuilderDeleteQueryParameters():
+        """
+        CancelInvitation
+        """
+        def get_query_parameter(self,original_name: str) -> str:
+            """
+            Maps the query parameters names to their encoded names for the URI template parsing.
+            param original_name: The original query parameter name in the class.
+            Returns: str
+            """
+            if original_name is None:
+                raise TypeError("original_name cannot be null.")
+            if original_name == "user_actor_id":
+                return "user%2Eactor_id"
+            return original_name
+        
+        user_actor_id: Optional[str] = None
+
+    
+    @dataclass
+    class WithUser_ItemRequestBuilderDeleteRequestConfiguration(RequestConfiguration[WithUser_ItemRequestBuilderDeleteQueryParameters]):
         """
         Configuration for the request such as headers, query parameters, and middleware options.
         """

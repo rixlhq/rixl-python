@@ -16,6 +16,7 @@ from warnings import warn
 if TYPE_CHECKING:
     from ......models.auth.v1.update_username_request import UpdateUsernameRequest
     from ......models.auth.v1.update_username_response import UpdateUsernameResponse
+    from ......models.google.rpc.status import Status
 
 class UsernameRequestBuilder(BaseRequestBuilder):
     """
@@ -42,11 +43,16 @@ class UsernameRequestBuilder(BaseRequestBuilder):
         request_info = self.to_patch_request_information(
             body, request_configuration
         )
+        from ......models.google.rpc.status import Status
+
+        error_mapping: dict[str, type[ParsableFactory]] = {
+            "XXX": Status,
+        }
         if not self.request_adapter:
             raise Exception("Http core is null") 
         from ......models.auth.v1.update_username_response import UpdateUsernameResponse
 
-        return await self.request_adapter.send_async(request_info, UpdateUsernameResponse, None)
+        return await self.request_adapter.send_async(request_info, UpdateUsernameResponse, error_mapping)
     
     def to_patch_request_information(self,body: UpdateUsernameRequest, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> RequestInformation:
         """

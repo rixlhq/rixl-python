@@ -16,6 +16,7 @@ from warnings import warn
 if TYPE_CHECKING:
     from .....models.billing.v1.upgrade_subscription_request import UpgradeSubscriptionRequest
     from .....models.billing.v1.upgrade_subscription_response import UpgradeSubscriptionResponse
+    from .....models.google.rpc.status import Status
 
 class UpgradeRequestBuilder(BaseRequestBuilder):
     """
@@ -42,11 +43,16 @@ class UpgradeRequestBuilder(BaseRequestBuilder):
         request_info = self.to_post_request_information(
             body, request_configuration
         )
+        from .....models.google.rpc.status import Status
+
+        error_mapping: dict[str, type[ParsableFactory]] = {
+            "XXX": Status,
+        }
         if not self.request_adapter:
             raise Exception("Http core is null") 
         from .....models.billing.v1.upgrade_subscription_response import UpgradeSubscriptionResponse
 
-        return await self.request_adapter.send_async(request_info, UpgradeSubscriptionResponse, None)
+        return await self.request_adapter.send_async(request_info, UpgradeSubscriptionResponse, error_mapping)
     
     def to_post_request_information(self,body: UpgradeSubscriptionRequest, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> RequestInformation:
         """

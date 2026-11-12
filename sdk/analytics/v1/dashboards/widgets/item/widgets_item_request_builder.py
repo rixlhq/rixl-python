@@ -16,6 +16,7 @@ from warnings import warn
 if TYPE_CHECKING:
     from ......models.analytics.v1.delete_widget_response import DeleteWidgetResponse
     from ......models.analytics.v1.widget import Widget
+    from ......models.google.rpc.status import Status
     from .widgets_patch_request_body import WidgetsPatchRequestBody
 
 class WidgetsItemRequestBuilder(BaseRequestBuilder):
@@ -40,11 +41,16 @@ class WidgetsItemRequestBuilder(BaseRequestBuilder):
         request_info = self.to_delete_request_information(
             request_configuration
         )
+        from ......models.google.rpc.status import Status
+
+        error_mapping: dict[str, type[ParsableFactory]] = {
+            "XXX": Status,
+        }
         if not self.request_adapter:
             raise Exception("Http core is null") 
         from ......models.analytics.v1.delete_widget_response import DeleteWidgetResponse
 
-        return await self.request_adapter.send_async(request_info, DeleteWidgetResponse, None)
+        return await self.request_adapter.send_async(request_info, DeleteWidgetResponse, error_mapping)
     
     async def patch(self,body: WidgetsPatchRequestBody, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> Optional[Widget]:
         """
@@ -58,11 +64,16 @@ class WidgetsItemRequestBuilder(BaseRequestBuilder):
         request_info = self.to_patch_request_information(
             body, request_configuration
         )
+        from ......models.google.rpc.status import Status
+
+        error_mapping: dict[str, type[ParsableFactory]] = {
+            "XXX": Status,
+        }
         if not self.request_adapter:
             raise Exception("Http core is null") 
         from ......models.analytics.v1.widget import Widget
 
-        return await self.request_adapter.send_async(request_info, Widget, None)
+        return await self.request_adapter.send_async(request_info, Widget, error_mapping)
     
     def to_delete_request_information(self,request_configuration: Optional[RequestConfiguration[WidgetsItemRequestBuilderDeleteQueryParameters]] = None) -> RequestInformation:
         """
@@ -105,7 +116,6 @@ class WidgetsItemRequestBuilder(BaseRequestBuilder):
         """
         DeleteWidget
         """
-        # The expected_revision query parameter.
         expected_revision: Optional[int] = None
 
     

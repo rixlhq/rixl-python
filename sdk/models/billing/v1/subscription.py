@@ -15,7 +15,7 @@ class Subscription(Parsable):
     cancel_at_period_end: Optional[bool] = None
     # The currency property
     currency: Optional[str] = None
-    # The current_period_end property
+    # A point in time in RFC 3339 format, with up to nanosecond precision. Output uses UTC (`Z`); input may use an offset from UTC.
     current_period_end: Optional[datetime.datetime] = None
     # The expiring_soon property
     expiring_soon: Optional[bool] = None

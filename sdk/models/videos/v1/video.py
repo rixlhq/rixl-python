@@ -1,5 +1,4 @@
 from __future__ import annotations
-import datetime
 from collections.abc import Callable
 from dataclasses import dataclass, field
 from kiota_abstractions.serialization import Parsable, ParseNode, SerializationWriter
@@ -16,8 +15,8 @@ class Video(Parsable):
     bitrate: Optional[int] = None
     # The codec property
     codec: Optional[str] = None
-    # The duration property
-    duration: Optional[datetime.timedelta] = None
+    # A signed duration in seconds, with up to nine fractional digits and an `s` suffix (for example, `3s` or `-0.001s`).
+    duration: Optional[str] = None
     # The file property
     file: Optional[File] = None
     # The framerate property
@@ -62,7 +61,7 @@ class Video(Parsable):
         fields: dict[str, Callable[[Any], None]] = {
             "bitrate": lambda n : setattr(self, 'bitrate', n.get_int_value()),
             "codec": lambda n : setattr(self, 'codec', n.get_str_value()),
-            "duration": lambda n : setattr(self, 'duration', n.get_timedelta_value()),
+            "duration": lambda n : setattr(self, 'duration', n.get_str_value()),
             "file": lambda n : setattr(self, 'file', n.get_object_value(File)),
             "framerate": lambda n : setattr(self, 'framerate', n.get_str_value()),
             "hdr": lambda n : setattr(self, 'hdr', n.get_bool_value()),
@@ -84,7 +83,7 @@ class Video(Parsable):
             raise TypeError("writer cannot be null.")
         writer.write_int_value("bitrate", self.bitrate)
         writer.write_str_value("codec", self.codec)
-        writer.write_timedelta_value("duration", self.duration)
+        writer.write_str_value("duration", self.duration)
         writer.write_object_value("file", self.file)
         writer.write_str_value("framerate", self.framerate)
         writer.write_bool_value("hdr", self.hdr)

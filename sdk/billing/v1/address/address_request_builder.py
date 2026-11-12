@@ -16,6 +16,7 @@ from warnings import warn
 if TYPE_CHECKING:
     from ....models.billing.v1.billing_address import BillingAddress
     from ....models.billing.v1.upsert_billing_address_request import UpsertBillingAddressRequest
+    from ....models.google.rpc.status import Status
 
 class AddressRequestBuilder(BaseRequestBuilder):
     """
@@ -39,11 +40,16 @@ class AddressRequestBuilder(BaseRequestBuilder):
         request_info = self.to_get_request_information(
             request_configuration
         )
+        from ....models.google.rpc.status import Status
+
+        error_mapping: dict[str, type[ParsableFactory]] = {
+            "XXX": Status,
+        }
         if not self.request_adapter:
             raise Exception("Http core is null") 
         from ....models.billing.v1.billing_address import BillingAddress
 
-        return await self.request_adapter.send_async(request_info, BillingAddress, None)
+        return await self.request_adapter.send_async(request_info, BillingAddress, error_mapping)
     
     async def put(self,body: UpsertBillingAddressRequest, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> Optional[BillingAddress]:
         """
@@ -57,11 +63,16 @@ class AddressRequestBuilder(BaseRequestBuilder):
         request_info = self.to_put_request_information(
             body, request_configuration
         )
+        from ....models.google.rpc.status import Status
+
+        error_mapping: dict[str, type[ParsableFactory]] = {
+            "XXX": Status,
+        }
         if not self.request_adapter:
             raise Exception("Http core is null") 
         from ....models.billing.v1.billing_address import BillingAddress
 
-        return await self.request_adapter.send_async(request_info, BillingAddress, None)
+        return await self.request_adapter.send_async(request_info, BillingAddress, error_mapping)
     
     def to_get_request_information(self,request_configuration: Optional[RequestConfiguration[AddressRequestBuilderGetQueryParameters]] = None) -> RequestInformation:
         """
@@ -104,7 +115,6 @@ class AddressRequestBuilder(BaseRequestBuilder):
         """
         GetBillingAddress
         """
-        # The org_id query parameter.
         org_id: Optional[str] = None
 
     

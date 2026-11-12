@@ -10,7 +10,7 @@ if TYPE_CHECKING:
 
 @dataclass
 class UploadPostRequestBody(Parsable):
-    # enum.defined_only = true
+    # The content_type property
     content_type: Optional[MediaType] = None
     # The creator_id property
     creator_id: Optional[str] = None

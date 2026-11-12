@@ -16,6 +16,7 @@ from warnings import warn
 if TYPE_CHECKING:
     from ....models.auth.v1.token_response import TokenResponse
     from ....models.auth.v1.verify_t_o_t_p_for_login_request import VerifyTOTPForLoginRequest
+    from ....models.google.rpc.status import Status
 
 class VerifyTotpRequestBuilder(BaseRequestBuilder):
     """
@@ -42,11 +43,16 @@ class VerifyTotpRequestBuilder(BaseRequestBuilder):
         request_info = self.to_post_request_information(
             body, request_configuration
         )
+        from ....models.google.rpc.status import Status
+
+        error_mapping: dict[str, type[ParsableFactory]] = {
+            "XXX": Status,
+        }
         if not self.request_adapter:
             raise Exception("Http core is null") 
         from ....models.auth.v1.token_response import TokenResponse
 
-        return await self.request_adapter.send_async(request_info, TokenResponse, None)
+        return await self.request_adapter.send_async(request_info, TokenResponse, error_mapping)
     
     def to_post_request_information(self,body: VerifyTOTPForLoginRequest, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> RequestInformation:
         """

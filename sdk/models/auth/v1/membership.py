@@ -13,7 +13,7 @@ if TYPE_CHECKING:
 class Membership(Parsable):
     # The id property
     id: Optional[str] = None
-    # The joined_at property
+    # A point in time in RFC 3339 format, with up to nanosecond precision. Output uses UTC (`Z`); input may use an offset from UTC.
     joined_at: Optional[datetime.datetime] = None
     # The org_id property
     org_id: Optional[str] = None

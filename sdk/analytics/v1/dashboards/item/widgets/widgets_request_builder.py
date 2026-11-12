@@ -16,6 +16,7 @@ from warnings import warn
 if TYPE_CHECKING:
     from ......models.analytics.v1.widget import Widget
     from ......models.analytics.v1.widget_input import WidgetInput
+    from ......models.google.rpc.status import Status
 
 class WidgetsRequestBuilder(BaseRequestBuilder):
     """
@@ -42,11 +43,16 @@ class WidgetsRequestBuilder(BaseRequestBuilder):
         request_info = self.to_post_request_information(
             body, request_configuration
         )
+        from ......models.google.rpc.status import Status
+
+        error_mapping: dict[str, type[ParsableFactory]] = {
+            "XXX": Status,
+        }
         if not self.request_adapter:
             raise Exception("Http core is null") 
         from ......models.analytics.v1.widget import Widget
 
-        return await self.request_adapter.send_async(request_info, Widget, None)
+        return await self.request_adapter.send_async(request_info, Widget, error_mapping)
     
     def to_post_request_information(self,body: WidgetInput, request_configuration: Optional[RequestConfiguration[WidgetsRequestBuilderPostQueryParameters]] = None) -> RequestInformation:
         """
@@ -78,7 +84,6 @@ class WidgetsRequestBuilder(BaseRequestBuilder):
         """
         CreateWidget
         """
-        # The expected_revision query parameter.
         expected_revision: Optional[int] = None
 
     

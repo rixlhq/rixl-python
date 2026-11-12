@@ -14,6 +14,7 @@ from typing import Any, Optional, TYPE_CHECKING, Union
 from warnings import warn
 
 if TYPE_CHECKING:
+    from ......models.google.rpc.status import Status
     from ......models.webhooks.v1.create_endpoint_response import CreateEndpointResponse
     from ......models.webhooks.v1.list_endpoints_response import ListEndpointsResponse
     from .endpoints_post_request_body import EndpointsPostRequestBody
@@ -35,7 +36,7 @@ class EndpointsRequestBuilder(BaseRequestBuilder):
     def by_endpoint_id(self,endpoint_id: str) -> WithEndpoint_ItemRequestBuilder:
         """
         Gets an item from the rixl_sdk.webhooks.v1.projects.item.endpoints.item collection
-        param endpoint_id: The endpoint_id path parameter.
+        param endpoint_id: Unique identifier of the item
         Returns: WithEndpoint_ItemRequestBuilder
         """
         if endpoint_id is None:
@@ -55,11 +56,16 @@ class EndpointsRequestBuilder(BaseRequestBuilder):
         request_info = self.to_get_request_information(
             request_configuration
         )
+        from ......models.google.rpc.status import Status
+
+        error_mapping: dict[str, type[ParsableFactory]] = {
+            "XXX": Status,
+        }
         if not self.request_adapter:
             raise Exception("Http core is null") 
         from ......models.webhooks.v1.list_endpoints_response import ListEndpointsResponse
 
-        return await self.request_adapter.send_async(request_info, ListEndpointsResponse, None)
+        return await self.request_adapter.send_async(request_info, ListEndpointsResponse, error_mapping)
     
     async def post(self,body: EndpointsPostRequestBody, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> Optional[CreateEndpointResponse]:
         """
@@ -73,11 +79,16 @@ class EndpointsRequestBuilder(BaseRequestBuilder):
         request_info = self.to_post_request_information(
             body, request_configuration
         )
+        from ......models.google.rpc.status import Status
+
+        error_mapping: dict[str, type[ParsableFactory]] = {
+            "XXX": Status,
+        }
         if not self.request_adapter:
             raise Exception("Http core is null") 
         from ......models.webhooks.v1.create_endpoint_response import CreateEndpointResponse
 
-        return await self.request_adapter.send_async(request_info, CreateEndpointResponse, None)
+        return await self.request_adapter.send_async(request_info, CreateEndpointResponse, error_mapping)
     
     def to_get_request_information(self,request_configuration: Optional[RequestConfiguration[EndpointsRequestBuilderGetQueryParameters]] = None) -> RequestInformation:
         """

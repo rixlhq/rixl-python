@@ -12,7 +12,7 @@ if TYPE_CHECKING:
 class CreateSubscriptionResponse(Parsable):
     # The cancel_at_period_end property
     cancel_at_period_end: Optional[bool] = None
-    # The current_period_end property
+    # A point in time in RFC 3339 format, with up to nanosecond precision. Output uses UTC (`Z`); input may use an offset from UTC.
     current_period_end: Optional[datetime.datetime] = None
     # The id property
     id: Optional[str] = None

@@ -24,7 +24,7 @@ class AttachmentsRequestBuilder(BaseRequestBuilder):
     def by_attachment_id(self,attachment_id: str) -> WithAttachment_ItemRequestBuilder:
         """
         Gets an item from the rixl_sdk.auth.v1.memberships.item.policies.attachments.item collection
-        param attachment_id: The attachment_id path parameter.
+        param attachment_id: Unique identifier of the item
         Returns: WithAttachment_ItemRequestBuilder
         """
         if attachment_id is None:

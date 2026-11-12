@@ -17,6 +17,7 @@ if TYPE_CHECKING:
     from ....models.billing.v1.list_payment_methods_response import ListPaymentMethodsResponse
     from ....models.billing.v1.payment_method_details import PaymentMethodDetails
     from ....models.billing.v1.upsert_payment_method_request import UpsertPaymentMethodRequest
+    from ....models.google.rpc.status import Status
     from .from_payment_intent.from_payment_intent_request_builder import FromPaymentIntentRequestBuilder
     from .from_setup_intent.from_setup_intent_request_builder import FromSetupIntentRequestBuilder
     from .item.with_payment_method_item_request_builder import WithPayment_method_ItemRequestBuilder
@@ -37,7 +38,7 @@ class PaymentMethodsRequestBuilder(BaseRequestBuilder):
     def by_payment_method_id(self,payment_method_id: str) -> WithPayment_method_ItemRequestBuilder:
         """
         Gets an item from the rixl_sdk.billing.v1.paymentMethods.item collection
-        param payment_method_id: The payment_method_id path parameter.
+        param payment_method_id: Unique identifier of the item
         Returns: WithPayment_method_ItemRequestBuilder
         """
         if payment_method_id is None:
@@ -57,11 +58,16 @@ class PaymentMethodsRequestBuilder(BaseRequestBuilder):
         request_info = self.to_get_request_information(
             request_configuration
         )
+        from ....models.google.rpc.status import Status
+
+        error_mapping: dict[str, type[ParsableFactory]] = {
+            "XXX": Status,
+        }
         if not self.request_adapter:
             raise Exception("Http core is null") 
         from ....models.billing.v1.list_payment_methods_response import ListPaymentMethodsResponse
 
-        return await self.request_adapter.send_async(request_info, ListPaymentMethodsResponse, None)
+        return await self.request_adapter.send_async(request_info, ListPaymentMethodsResponse, error_mapping)
     
     async def put(self,body: UpsertPaymentMethodRequest, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> Optional[PaymentMethodDetails]:
         """
@@ -75,11 +81,16 @@ class PaymentMethodsRequestBuilder(BaseRequestBuilder):
         request_info = self.to_put_request_information(
             body, request_configuration
         )
+        from ....models.google.rpc.status import Status
+
+        error_mapping: dict[str, type[ParsableFactory]] = {
+            "XXX": Status,
+        }
         if not self.request_adapter:
             raise Exception("Http core is null") 
         from ....models.billing.v1.payment_method_details import PaymentMethodDetails
 
-        return await self.request_adapter.send_async(request_info, PaymentMethodDetails, None)
+        return await self.request_adapter.send_async(request_info, PaymentMethodDetails, error_mapping)
     
     def to_get_request_information(self,request_configuration: Optional[RequestConfiguration[PaymentMethodsRequestBuilderGetQueryParameters]] = None) -> RequestInformation:
         """
@@ -140,10 +151,8 @@ class PaymentMethodsRequestBuilder(BaseRequestBuilder):
         """
         ListPaymentMethods
         """
-        # The org_id query parameter.
         org_id: Optional[str] = None
 
-        # The refresh query parameter.
         refresh: Optional[bool] = None
 
     

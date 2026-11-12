@@ -8,6 +8,7 @@ from typing import Any, Optional, TYPE_CHECKING, Union
 if TYPE_CHECKING:
     from .billing_address import BillingAddress
     from .billing_cycle import BillingCycle
+    from .plan_tax_calculation_response_tax_percentage import PlanTaxCalculationResponse_tax_percentage
 
 @dataclass
 class PlanTaxCalculationResponse(Parsable):
@@ -19,7 +20,7 @@ class PlanTaxCalculationResponse(Parsable):
     billing_address: Optional[BillingAddress] = None
     # The billing_cycle property
     billing_cycle: Optional[BillingCycle] = None
-    # The calculated_at property
+    # A point in time in RFC 3339 format, with up to nanosecond precision. Output uses UTC (`Z`); input may use an offset from UTC.
     calculated_at: Optional[datetime.datetime] = None
     # The calculation_id property
     calculation_id: Optional[str] = None
@@ -34,7 +35,7 @@ class PlanTaxCalculationResponse(Parsable):
     # The tax_amount_inclusive property
     tax_amount_inclusive: Optional[str] = None
     # The tax_percentage property
-    tax_percentage: Optional[float] = None
+    tax_percentage: Optional[PlanTaxCalculationResponse_tax_percentage] = None
     
     @staticmethod
     def create_from_discriminator_value(parse_node: ParseNode) -> PlanTaxCalculationResponse:
@@ -54,9 +55,11 @@ class PlanTaxCalculationResponse(Parsable):
         """
         from .billing_address import BillingAddress
         from .billing_cycle import BillingCycle
+        from .plan_tax_calculation_response_tax_percentage import PlanTaxCalculationResponse_tax_percentage
 
         from .billing_address import BillingAddress
         from .billing_cycle import BillingCycle
+        from .plan_tax_calculation_response_tax_percentage import PlanTaxCalculationResponse_tax_percentage
 
         fields: dict[str, Callable[[Any], None]] = {
             "amount_total": lambda n : setattr(self, 'amount_total', n.get_str_value()),
@@ -70,7 +73,7 @@ class PlanTaxCalculationResponse(Parsable):
             "plan_name": lambda n : setattr(self, 'plan_name', n.get_str_value()),
             "tax_amount_exclusive": lambda n : setattr(self, 'tax_amount_exclusive', n.get_str_value()),
             "tax_amount_inclusive": lambda n : setattr(self, 'tax_amount_inclusive', n.get_str_value()),
-            "tax_percentage": lambda n : setattr(self, 'tax_percentage', n.get_float_value()),
+            "tax_percentage": lambda n : setattr(self, 'tax_percentage', n.get_object_value(PlanTaxCalculationResponse_tax_percentage)),
         }
         return fields
     
@@ -93,6 +96,6 @@ class PlanTaxCalculationResponse(Parsable):
         writer.write_str_value("plan_name", self.plan_name)
         writer.write_str_value("tax_amount_exclusive", self.tax_amount_exclusive)
         writer.write_str_value("tax_amount_inclusive", self.tax_amount_inclusive)
-        writer.write_float_value("tax_percentage", self.tax_percentage)
+        writer.write_object_value("tax_percentage", self.tax_percentage)
     
 

@@ -24,7 +24,7 @@ class LanguageRequestBuilder(BaseRequestBuilder):
     def by_language_code(self,language_code: str) -> WithLanguage_codeItemRequestBuilder:
         """
         Gets an item from the rixl_sdk.media.v1.projects.item.videos.item.audioTracks.language.item collection
-        param language_code: The language_code path parameter.
+        param language_code: Unique identifier of the item
         Returns: WithLanguage_codeItemRequestBuilder
         """
         if language_code is None:

@@ -14,6 +14,7 @@ from typing import Any, Optional, TYPE_CHECKING, Union
 from warnings import warn
 
 if TYPE_CHECKING:
+    from ........models.google.rpc.status import Status
     from ........models.posts.v1.create_post_response import CreatePostResponse
     from ........models.posts.v1.list_posts_response import ListPostsResponse
     from .creators.creators_request_builder import CreatorsRequestBuilder
@@ -37,7 +38,7 @@ class PostsRequestBuilder(BaseRequestBuilder):
     def by_post_id(self,post_id: str) -> WithPost_ItemRequestBuilder:
         """
         Gets an item from the rixl_sdk.posts.v1.projects.item.feeds.item.posts.item collection
-        param post_id: The post_id path parameter.
+        param post_id: Unique identifier of the item
         Returns: WithPost_ItemRequestBuilder
         """
         if post_id is None:
@@ -57,16 +58,21 @@ class PostsRequestBuilder(BaseRequestBuilder):
         request_info = self.to_get_request_information(
             request_configuration
         )
+        from ........models.google.rpc.status import Status
+
+        error_mapping: dict[str, type[ParsableFactory]] = {
+            "XXX": Status,
+        }
         if not self.request_adapter:
             raise Exception("Http core is null") 
         from ........models.posts.v1.list_posts_response import ListPostsResponse
 
-        return await self.request_adapter.send_async(request_info, ListPostsResponse, None)
+        return await self.request_adapter.send_async(request_info, ListPostsResponse, error_mapping)
     
     async def post(self,body: PostsPostRequestBody, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> Optional[CreatePostResponse]:
         """
         CreatePost
-        param body: The request body
+        param body: At most one of `image_id`, `video_id` may be set.
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
         Returns: Optional[CreatePostResponse]
         """
@@ -75,11 +81,16 @@ class PostsRequestBuilder(BaseRequestBuilder):
         request_info = self.to_post_request_information(
             body, request_configuration
         )
+        from ........models.google.rpc.status import Status
+
+        error_mapping: dict[str, type[ParsableFactory]] = {
+            "XXX": Status,
+        }
         if not self.request_adapter:
             raise Exception("Http core is null") 
         from ........models.posts.v1.create_post_response import CreatePostResponse
 
-        return await self.request_adapter.send_async(request_info, CreatePostResponse, None)
+        return await self.request_adapter.send_async(request_info, CreatePostResponse, error_mapping)
     
     def to_get_request_information(self,request_configuration: Optional[RequestConfiguration[PostsRequestBuilderGetQueryParameters]] = None) -> RequestInformation:
         """
@@ -95,7 +106,7 @@ class PostsRequestBuilder(BaseRequestBuilder):
     def to_post_request_information(self,body: PostsPostRequestBody, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> RequestInformation:
         """
         CreatePost
-        param body: The request body
+        param body: At most one of `image_id`, `video_id` may be set.
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
         Returns: RequestInformation
         """
@@ -156,7 +167,6 @@ class PostsRequestBuilder(BaseRequestBuilder):
                 return "creator_id"
             return original_name
         
-        # The creator_id query parameter.
         creator_id: Optional[str] = None
 
         # Maximum number of items to return.

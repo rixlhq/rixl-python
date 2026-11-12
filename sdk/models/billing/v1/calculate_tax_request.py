@@ -16,7 +16,7 @@ class CalculateTaxRequest(Parsable):
     amount: Optional[float] = None
     # The billing_address property
     billing_address: Optional[BillingAddress] = None
-    # enum.defined_only = true
+    # The billing_cycle property
     billing_cycle: Optional[BillingCycle] = None
     # The currency property
     currency: Optional[str] = None

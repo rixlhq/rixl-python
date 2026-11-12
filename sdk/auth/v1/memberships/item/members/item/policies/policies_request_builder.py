@@ -15,6 +15,7 @@ from warnings import warn
 
 if TYPE_CHECKING:
     from ........models.auth.v1.member_policies_response import MemberPoliciesResponse
+    from ........models.google.rpc.status import Status
 
 class PoliciesRequestBuilder(BaseRequestBuilder):
     """
@@ -27,9 +28,9 @@ class PoliciesRequestBuilder(BaseRequestBuilder):
         param request_adapter: The request adapter to use to execute the requests.
         Returns: None
         """
-        super().__init__(request_adapter, "{+baseurl}/auth/v1/memberships/{org_%2Did}/members/{member_%2Did}/policies", path_parameters)
+        super().__init__(request_adapter, "{+baseurl}/auth/v1/memberships/{org_%2Did}/members/{member_%2Did}/policies{?user%2Euser_id*}", path_parameters)
     
-    async def get(self,request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> Optional[MemberPoliciesResponse]:
+    async def get(self,request_configuration: Optional[RequestConfiguration[PoliciesRequestBuilderGetQueryParameters]] = None) -> Optional[MemberPoliciesResponse]:
         """
         ListUserPolicies
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
@@ -38,13 +39,18 @@ class PoliciesRequestBuilder(BaseRequestBuilder):
         request_info = self.to_get_request_information(
             request_configuration
         )
+        from ........models.google.rpc.status import Status
+
+        error_mapping: dict[str, type[ParsableFactory]] = {
+            "XXX": Status,
+        }
         if not self.request_adapter:
             raise Exception("Http core is null") 
         from ........models.auth.v1.member_policies_response import MemberPoliciesResponse
 
-        return await self.request_adapter.send_async(request_info, MemberPoliciesResponse, None)
+        return await self.request_adapter.send_async(request_info, MemberPoliciesResponse, error_mapping)
     
-    def to_get_request_information(self,request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> RequestInformation:
+    def to_get_request_information(self,request_configuration: Optional[RequestConfiguration[PoliciesRequestBuilderGetQueryParameters]] = None) -> RequestInformation:
         """
         ListUserPolicies
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
@@ -66,7 +72,27 @@ class PoliciesRequestBuilder(BaseRequestBuilder):
         return PoliciesRequestBuilder(self.request_adapter, raw_url)
     
     @dataclass
-    class PoliciesRequestBuilderGetRequestConfiguration(RequestConfiguration[QueryParameters]):
+    class PoliciesRequestBuilderGetQueryParameters():
+        """
+        ListUserPolicies
+        """
+        def get_query_parameter(self,original_name: str) -> str:
+            """
+            Maps the query parameters names to their encoded names for the URI template parsing.
+            param original_name: The original query parameter name in the class.
+            Returns: str
+            """
+            if original_name is None:
+                raise TypeError("original_name cannot be null.")
+            if original_name == "user_user_id":
+                return "user%2Euser_id"
+            return original_name
+        
+        user_user_id: Optional[str] = None
+
+    
+    @dataclass
+    class PoliciesRequestBuilderGetRequestConfiguration(RequestConfiguration[PoliciesRequestBuilderGetQueryParameters]):
         """
         Configuration for the request such as headers, query parameters, and middleware options.
         """

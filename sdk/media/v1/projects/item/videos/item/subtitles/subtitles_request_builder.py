@@ -15,6 +15,7 @@ from warnings import warn
 
 if TYPE_CHECKING:
     from ........models.google.protobuf.empty import Empty
+    from ........models.google.rpc.status import Status
     from .item.with_subtitle_item_request_builder import WithSubtitle_ItemRequestBuilder
     from .language.language_request_builder import LanguageRequestBuilder
     from .upload.upload_request_builder import UploadRequestBuilder
@@ -35,7 +36,7 @@ class SubtitlesRequestBuilder(BaseRequestBuilder):
     def by_subtitle_id(self,subtitle_id: str) -> WithSubtitle_ItemRequestBuilder:
         """
         Gets an item from the rixl_sdk.media.v1.projects.item.videos.item.subtitles.item collection
-        param subtitle_id: The subtitle_id path parameter.
+        param subtitle_id: Unique identifier of the item
         Returns: WithSubtitle_ItemRequestBuilder
         """
         if subtitle_id is None:
@@ -55,11 +56,16 @@ class SubtitlesRequestBuilder(BaseRequestBuilder):
         request_info = self.to_delete_request_information(
             request_configuration
         )
+        from ........models.google.rpc.status import Status
+
+        error_mapping: dict[str, type[ParsableFactory]] = {
+            "XXX": Status,
+        }
         if not self.request_adapter:
             raise Exception("Http core is null") 
         from ........models.google.protobuf.empty import Empty
 
-        return await self.request_adapter.send_async(request_info, Empty, None)
+        return await self.request_adapter.send_async(request_info, Empty, error_mapping)
     
     def to_delete_request_information(self,request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> RequestInformation:
         """

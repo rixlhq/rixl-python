@@ -7,13 +7,13 @@ from typing import Any, Optional, TYPE_CHECKING, Union
 
 @dataclass
 class ApiKey(Parsable):
-    # The created_at property
+    # A point in time in RFC 3339 format, with up to nanosecond precision. Output uses UTC (`Z`); input may use an offset from UTC.
     created_at: Optional[datetime.datetime] = None
-    # The expiring_at property
+    # A point in time in RFC 3339 format, with up to nanosecond precision. Output uses UTC (`Z`); input may use an offset from UTC.
     expiring_at: Optional[datetime.datetime] = None
     # The id property
     id: Optional[str] = None
-    # The last_used property
+    # A point in time in RFC 3339 format, with up to nanosecond precision. Output uses UTC (`Z`); input may use an offset from UTC.
     last_used: Optional[datetime.datetime] = None
     # The name property
     name: Optional[str] = None

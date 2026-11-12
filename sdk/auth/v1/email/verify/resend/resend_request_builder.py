@@ -16,6 +16,7 @@ from warnings import warn
 if TYPE_CHECKING:
     from ......models.auth.v1.resend_verification_request import ResendVerificationRequest
     from ......models.auth.v1.resend_verification_response import ResendVerificationResponse
+    from ......models.google.rpc.status import Status
 
 class ResendRequestBuilder(BaseRequestBuilder):
     """
@@ -42,11 +43,16 @@ class ResendRequestBuilder(BaseRequestBuilder):
         request_info = self.to_post_request_information(
             body, request_configuration
         )
+        from ......models.google.rpc.status import Status
+
+        error_mapping: dict[str, type[ParsableFactory]] = {
+            "XXX": Status,
+        }
         if not self.request_adapter:
             raise Exception("Http core is null") 
         from ......models.auth.v1.resend_verification_response import ResendVerificationResponse
 
-        return await self.request_adapter.send_async(request_info, ResendVerificationResponse, None)
+        return await self.request_adapter.send_async(request_info, ResendVerificationResponse, error_mapping)
     
     def to_post_request_information(self,body: ResendVerificationRequest, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> RequestInformation:
         """

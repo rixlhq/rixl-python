@@ -15,6 +15,7 @@ from warnings import warn
 
 if TYPE_CHECKING:
     from ......models.auth.v1.membership_application import MembershipApplication
+    from ......models.google.rpc.status import Status
     from .invite_post_request_body import InvitePostRequestBody
     from .item.with_user_item_request_builder import WithUser_ItemRequestBuilder
     from .resend.resend_request_builder import ResendRequestBuilder
@@ -35,7 +36,7 @@ class InviteRequestBuilder(BaseRequestBuilder):
     def by_user_id(self,user_id: str) -> WithUser_ItemRequestBuilder:
         """
         Gets an item from the rixl_sdk.auth.v1.memberships.item.invite.item collection
-        param user_id: The user_id path parameter.
+        param user_id: Unique identifier of the item
         Returns: WithUser_ItemRequestBuilder
         """
         if user_id is None:
@@ -58,11 +59,16 @@ class InviteRequestBuilder(BaseRequestBuilder):
         request_info = self.to_post_request_information(
             body, request_configuration
         )
+        from ......models.google.rpc.status import Status
+
+        error_mapping: dict[str, type[ParsableFactory]] = {
+            "XXX": Status,
+        }
         if not self.request_adapter:
             raise Exception("Http core is null") 
         from ......models.auth.v1.membership_application import MembershipApplication
 
-        return await self.request_adapter.send_async(request_info, MembershipApplication, None)
+        return await self.request_adapter.send_async(request_info, MembershipApplication, error_mapping)
     
     def to_post_request_information(self,body: InvitePostRequestBody, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> RequestInformation:
         """

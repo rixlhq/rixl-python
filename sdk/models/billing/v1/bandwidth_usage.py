@@ -7,7 +7,7 @@ from typing import Any, Optional, TYPE_CHECKING, Union
 
 @dataclass
 class BandwidthUsage(Parsable):
-    # The created_at property
+    # A point in time in RFC 3339 format, with up to nanosecond precision. Output uses UTC (`Z`); input may use an offset from UTC.
     created_at: Optional[datetime.datetime] = None
     # The data_source property
     data_source: Optional[str] = None
@@ -17,7 +17,7 @@ class BandwidthUsage(Parsable):
     image_requests: Optional[str] = None
     # The org_id property
     org_id: Optional[str] = None
-    # The snapshot_date property
+    # A point in time in RFC 3339 format, with up to nanosecond precision. Output uses UTC (`Z`); input may use an offset from UTC.
     snapshot_date: Optional[datetime.datetime] = None
     # The snapshot_type property
     snapshot_type: Optional[str] = None

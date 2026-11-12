@@ -11,7 +11,7 @@ class StorageUsage(Parsable):
     image_file_count: Optional[int] = None
     # The image_storage_bytes property
     image_storage_bytes: Optional[str] = None
-    # The last_updated property
+    # A point in time in RFC 3339 format, with up to nanosecond precision. Output uses UTC (`Z`); input may use an offset from UTC.
     last_updated: Optional[datetime.datetime] = None
     # The max_image_count property
     max_image_count: Optional[int] = None
@@ -23,7 +23,7 @@ class StorageUsage(Parsable):
     org_id: Optional[str] = None
     # The project_count property
     project_count: Optional[int] = None
-    # The snapshot_date property
+    # A point in time in RFC 3339 format, with up to nanosecond precision. Output uses UTC (`Z`); input may use an offset from UTC.
     snapshot_date: Optional[datetime.datetime] = None
     # The total_file_count property
     total_file_count: Optional[int] = None

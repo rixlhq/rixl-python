@@ -10,7 +10,7 @@ if TYPE_CHECKING:
 
 @dataclass
 class File(Parsable):
-    # The created_at property
+    # A point in time in RFC 3339 format, with up to nanosecond precision. Output uses UTC (`Z`); input may use an offset from UTC.
     created_at: Optional[datetime.datetime] = None
     # format describes the artifact currently served at url, not the uploaded source, and is only meaningful once status is FILE_STATUS_READY. Video flips from "mp4" to "hls" when packaging completes; that is the only signal for choosing a progressive player over an HLS one. Known values: jpg, png, webp, avif, gif, mp4, hls, srt, vtt.
     format: Optional[str] = None
@@ -24,7 +24,7 @@ class File(Parsable):
     size: Optional[str] = None
     # The status property
     status: Optional[FileStatus] = None
-    # The updated_at property
+    # A point in time in RFC 3339 format, with up to nanosecond precision. Output uses UTC (`Z`); input may use an offset from UTC.
     updated_at: Optional[datetime.datetime] = None
     # The url property
     url: Optional[str] = None

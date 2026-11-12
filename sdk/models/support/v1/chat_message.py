@@ -16,7 +16,7 @@ class ChatMessage(Parsable):
     author_type: Optional[MessageAuthor] = None
     # The body property
     body: Optional[str] = None
-    # The created_at property
+    # A point in time in RFC 3339 format, with up to nanosecond precision. Output uses UTC (`Z`); input may use an offset from UTC.
     created_at: Optional[datetime.datetime] = None
     # The id property
     id: Optional[str] = None

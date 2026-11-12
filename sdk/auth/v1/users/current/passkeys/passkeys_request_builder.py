@@ -15,6 +15,7 @@ from warnings import warn
 
 if TYPE_CHECKING:
     from ......models.auth.v1.list_passkeys_response import ListPasskeysResponse
+    from ......models.google.rpc.status import Status
     from .item.passkeys_item_request_builder import PasskeysItemRequestBuilder
     from .register.register_request_builder import RegisterRequestBuilder
 
@@ -34,7 +35,7 @@ class PasskeysRequestBuilder(BaseRequestBuilder):
     def by_id(self,id: str) -> PasskeysItemRequestBuilder:
         """
         Gets an item from the rixl_sdk.auth.v1.users.current.passkeys.item collection
-        param id: The id path parameter.
+        param id: Unique identifier of the item
         Returns: PasskeysItemRequestBuilder
         """
         if id is None:
@@ -54,11 +55,16 @@ class PasskeysRequestBuilder(BaseRequestBuilder):
         request_info = self.to_get_request_information(
             request_configuration
         )
+        from ......models.google.rpc.status import Status
+
+        error_mapping: dict[str, type[ParsableFactory]] = {
+            "XXX": Status,
+        }
         if not self.request_adapter:
             raise Exception("Http core is null") 
         from ......models.auth.v1.list_passkeys_response import ListPasskeysResponse
 
-        return await self.request_adapter.send_async(request_info, ListPasskeysResponse, None)
+        return await self.request_adapter.send_async(request_info, ListPasskeysResponse, error_mapping)
     
     def to_get_request_information(self,request_configuration: Optional[RequestConfiguration[PasskeysRequestBuilderGetQueryParameters]] = None) -> RequestInformation:
         """
@@ -95,7 +101,6 @@ class PasskeysRequestBuilder(BaseRequestBuilder):
         """
         ListPasskeys
         """
-        # The user_id query parameter.
         user_id: Optional[str] = None
 
     

@@ -11,13 +11,13 @@ if TYPE_CHECKING:
 
 @dataclass
 class MembershipApplication(Parsable):
-    # The created_at property
+    # A point in time in RFC 3339 format, with up to nanosecond precision. Output uses UTC (`Z`); input may use an offset from UTC.
     created_at: Optional[datetime.datetime] = None
-    # The decided_at property
+    # A point in time in RFC 3339 format, with up to nanosecond precision. Output uses UTC (`Z`); input may use an offset from UTC.
     decided_at: Optional[datetime.datetime] = None
     # The id property
     id: Optional[str] = None
-    # The invitation_expires_at property
+    # A point in time in RFC 3339 format, with up to nanosecond precision. Output uses UTC (`Z`); input may use an offset from UTC.
     invitation_expires_at: Optional[datetime.datetime] = None
     # The org_id property
     org_id: Optional[str] = None

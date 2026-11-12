@@ -15,6 +15,7 @@ from warnings import warn
 
 if TYPE_CHECKING:
     from ......models.auth.v1.get_internal_membership_info_response import GetInternalMembershipInfoResponse
+    from ......models.google.rpc.status import Status
 
 class InfoRequestBuilder(BaseRequestBuilder):
     """
@@ -38,11 +39,16 @@ class InfoRequestBuilder(BaseRequestBuilder):
         request_info = self.to_get_request_information(
             request_configuration
         )
+        from ......models.google.rpc.status import Status
+
+        error_mapping: dict[str, type[ParsableFactory]] = {
+            "XXX": Status,
+        }
         if not self.request_adapter:
             raise Exception("Http core is null") 
         from ......models.auth.v1.get_internal_membership_info_response import GetInternalMembershipInfoResponse
 
-        return await self.request_adapter.send_async(request_info, GetInternalMembershipInfoResponse, None)
+        return await self.request_adapter.send_async(request_info, GetInternalMembershipInfoResponse, error_mapping)
     
     def to_get_request_information(self,request_configuration: Optional[RequestConfiguration[InfoRequestBuilderGetQueryParameters]] = None) -> RequestInformation:
         """
@@ -70,7 +76,6 @@ class InfoRequestBuilder(BaseRequestBuilder):
         """
         GetInternalMembershipInfo
         """
-        # The user_id query parameter.
         user_id: Optional[str] = None
 
     

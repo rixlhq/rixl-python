@@ -17,6 +17,7 @@ if TYPE_CHECKING:
     from ....models.analytics.v1.create_dashboard_request import CreateDashboardRequest
     from ....models.analytics.v1.dashboard import Dashboard
     from ....models.analytics.v1.list_dashboards_response import ListDashboardsResponse
+    from ....models.google.rpc.status import Status
     from .item.dashboard_item_request_builder import Dashboard_ItemRequestBuilder
     from .widgets.widgets_request_builder import WidgetsRequestBuilder
 
@@ -36,7 +37,7 @@ class DashboardsRequestBuilder(BaseRequestBuilder):
     def by_dashboard_id(self,dashboard_id: str) -> Dashboard_ItemRequestBuilder:
         """
         Gets an item from the rixl_sdk.analytics.v1.dashboards.item collection
-        param dashboard_id: The id path parameter.
+        param dashboard_id: Unique identifier of the item
         Returns: Dashboard_ItemRequestBuilder
         """
         if dashboard_id is None:
@@ -56,11 +57,16 @@ class DashboardsRequestBuilder(BaseRequestBuilder):
         request_info = self.to_get_request_information(
             request_configuration
         )
+        from ....models.google.rpc.status import Status
+
+        error_mapping: dict[str, type[ParsableFactory]] = {
+            "XXX": Status,
+        }
         if not self.request_adapter:
             raise Exception("Http core is null") 
         from ....models.analytics.v1.list_dashboards_response import ListDashboardsResponse
 
-        return await self.request_adapter.send_async(request_info, ListDashboardsResponse, None)
+        return await self.request_adapter.send_async(request_info, ListDashboardsResponse, error_mapping)
     
     async def post(self,body: CreateDashboardRequest, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> Optional[Dashboard]:
         """
@@ -74,11 +80,16 @@ class DashboardsRequestBuilder(BaseRequestBuilder):
         request_info = self.to_post_request_information(
             body, request_configuration
         )
+        from ....models.google.rpc.status import Status
+
+        error_mapping: dict[str, type[ParsableFactory]] = {
+            "XXX": Status,
+        }
         if not self.request_adapter:
             raise Exception("Http core is null") 
         from ....models.analytics.v1.dashboard import Dashboard
 
-        return await self.request_adapter.send_async(request_info, Dashboard, None)
+        return await self.request_adapter.send_async(request_info, Dashboard, error_mapping)
     
     def to_get_request_information(self,request_configuration: Optional[RequestConfiguration[DashboardsRequestBuilderGetQueryParameters]] = None) -> RequestInformation:
         """
@@ -130,10 +141,8 @@ class DashboardsRequestBuilder(BaseRequestBuilder):
         """
         ListDashboards
         """
-        # The page query parameter.
         page: Optional[int] = None
 
-        # The page_size query parameter.
         page_size: Optional[int] = None
 
     

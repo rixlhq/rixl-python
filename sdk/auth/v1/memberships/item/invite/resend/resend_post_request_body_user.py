@@ -1,42 +1,32 @@
 from __future__ import annotations
 from collections.abc import Callable
 from dataclasses import dataclass, field
-from kiota_abstractions.serialization import AdditionalDataHolder, Parsable, ParseNode, SerializationWriter
+from kiota_abstractions.serialization import Parsable, ParseNode, SerializationWriter
 from typing import Any, Optional, TYPE_CHECKING, Union
 
-if TYPE_CHECKING:
-    from ...videos.v1.video import Video
-
 @dataclass
-class PostMember2(AdditionalDataHolder, Parsable):
-    # Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-    additional_data: dict[str, Any] = field(default_factory=dict)
-
-    # The video property
-    video: Optional[Video] = None
+class ResendPostRequestBody_user(Parsable):
+    # The actor_id property
+    actor_id: Optional[str] = None
     
     @staticmethod
-    def create_from_discriminator_value(parse_node: ParseNode) -> PostMember2:
+    def create_from_discriminator_value(parse_node: ParseNode) -> ResendPostRequestBody_user:
         """
         Creates a new instance of the appropriate class based on discriminator value
         param parse_node: The parse node to use to read the discriminator value and create the object
-        Returns: PostMember2
+        Returns: ResendPostRequestBody_user
         """
         if parse_node is None:
             raise TypeError("parse_node cannot be null.")
-        return PostMember2()
+        return ResendPostRequestBody_user()
     
     def get_field_deserializers(self,) -> dict[str, Callable[[ParseNode], None]]:
         """
         The deserialization information for the current model
         Returns: dict[str, Callable[[ParseNode], None]]
         """
-        from ...videos.v1.video import Video
-
-        from ...videos.v1.video import Video
-
         fields: dict[str, Callable[[Any], None]] = {
-            "video": lambda n : setattr(self, 'video', n.get_object_value(Video)),
+            "actor_id": lambda n : setattr(self, 'actor_id', n.get_str_value()),
         }
         return fields
     
@@ -48,7 +38,6 @@ class PostMember2(AdditionalDataHolder, Parsable):
         """
         if writer is None:
             raise TypeError("writer cannot be null.")
-        writer.write_object_value("video", self.video)
-        writer.write_additional_data_value(self.additional_data)
+        writer.write_str_value("actor_id", self.actor_id)
     
 

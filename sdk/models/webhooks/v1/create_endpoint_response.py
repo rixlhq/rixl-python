@@ -9,7 +9,7 @@ if TYPE_CHECKING:
 
 @dataclass
 class CreateEndpointResponse(Parsable):
-    # The endpoint property
+    # WebhookEndpoint is a delivery target. Secrets are never returned; they are only shown once on create and rotate.
     endpoint: Optional[WebhookEndpoint] = None
     # Signing secret in whsec_<base64> form. Returned only here.
     secret: Optional[str] = None

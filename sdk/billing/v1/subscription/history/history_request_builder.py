@@ -15,6 +15,7 @@ from warnings import warn
 
 if TYPE_CHECKING:
     from .....models.billing.v1.get_subscription_history_response import GetSubscriptionHistoryResponse
+    from .....models.google.rpc.status import Status
 
 class HistoryRequestBuilder(BaseRequestBuilder):
     """
@@ -38,11 +39,16 @@ class HistoryRequestBuilder(BaseRequestBuilder):
         request_info = self.to_get_request_information(
             request_configuration
         )
+        from .....models.google.rpc.status import Status
+
+        error_mapping: dict[str, type[ParsableFactory]] = {
+            "XXX": Status,
+        }
         if not self.request_adapter:
             raise Exception("Http core is null") 
         from .....models.billing.v1.get_subscription_history_response import GetSubscriptionHistoryResponse
 
-        return await self.request_adapter.send_async(request_info, GetSubscriptionHistoryResponse, None)
+        return await self.request_adapter.send_async(request_info, GetSubscriptionHistoryResponse, error_mapping)
     
     def to_get_request_information(self,request_configuration: Optional[RequestConfiguration[HistoryRequestBuilderGetQueryParameters]] = None) -> RequestInformation:
         """
@@ -86,7 +92,6 @@ class HistoryRequestBuilder(BaseRequestBuilder):
                 return "org_id"
             return original_name
         
-        # The org_id query parameter.
         org_id: Optional[str] = None
 
         # Maximum number of items to return.

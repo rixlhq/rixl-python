@@ -10,7 +10,7 @@ if TYPE_CHECKING:
 
 @dataclass
 class TrackUpload(Parsable):
-    # The expires_at property
+    # A point in time in RFC 3339 format, with up to nanosecond precision. Output uses UTC (`Z`); input may use an offset from UTC.
     expires_at: Optional[datetime.datetime] = None
     # The targets property
     targets: Optional[list[TrackUploadTarget]] = None

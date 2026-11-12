@@ -16,6 +16,7 @@ from warnings import warn
 if TYPE_CHECKING:
     from ......models.analytics.v1.batch_chart_query_request import BatchChartQueryRequest
     from ......models.analytics.v1.batch_chart_query_response import BatchChartQueryResponse
+    from ......models.google.rpc.status import Status
 
 class BatchRequestBuilder(BaseRequestBuilder):
     """
@@ -42,11 +43,16 @@ class BatchRequestBuilder(BaseRequestBuilder):
         request_info = self.to_post_request_information(
             body, request_configuration
         )
+        from ......models.google.rpc.status import Status
+
+        error_mapping: dict[str, type[ParsableFactory]] = {
+            "XXX": Status,
+        }
         if not self.request_adapter:
             raise Exception("Http core is null") 
         from ......models.analytics.v1.batch_chart_query_response import BatchChartQueryResponse
 
-        return await self.request_adapter.send_async(request_info, BatchChartQueryResponse, None)
+        return await self.request_adapter.send_async(request_info, BatchChartQueryResponse, error_mapping)
     
     def to_post_request_information(self,body: BatchChartQueryRequest, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> RequestInformation:
         """

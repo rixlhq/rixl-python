@@ -13,9 +13,9 @@ class WebhookEvent(Parsable):
     """
     WebhookEvent is a recorded outbound notification. `data` is the exact object embedded in the delivered payload envelope.
     """
-    # The created_at property
+    # A point in time in RFC 3339 format, with up to nanosecond precision. Output uses UTC (`Z`); input may use an offset from UTC.
     created_at: Optional[datetime.datetime] = None
-    # The data property
+    # A JSON object whose property values may be any JSON value.
     data: Optional[Struct] = None
     # The id property
     id: Optional[str] = None

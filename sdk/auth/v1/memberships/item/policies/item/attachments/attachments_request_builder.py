@@ -16,6 +16,7 @@ from warnings import warn
 if TYPE_CHECKING:
     from ........models.auth.v1.list_attachments_response import ListAttachmentsResponse
     from ........models.auth.v1.policy_attachment import PolicyAttachment
+    from ........models.google.rpc.status import Status
     from .attachments_post_request_body import AttachmentsPostRequestBody
 
 class AttachmentsRequestBuilder(BaseRequestBuilder):
@@ -29,9 +30,9 @@ class AttachmentsRequestBuilder(BaseRequestBuilder):
         param request_adapter: The request adapter to use to execute the requests.
         Returns: None
         """
-        super().__init__(request_adapter, "{+baseurl}/auth/v1/memberships/{org_%2Did}/policies/{policy_id}/attachments", path_parameters)
+        super().__init__(request_adapter, "{+baseurl}/auth/v1/memberships/{org_%2Did}/policies/{policy_id}/attachments{?user%2Euser_id*}", path_parameters)
     
-    async def get(self,request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> Optional[ListAttachmentsResponse]:
+    async def get(self,request_configuration: Optional[RequestConfiguration[AttachmentsRequestBuilderGetQueryParameters]] = None) -> Optional[ListAttachmentsResponse]:
         """
         ListPolicyAttachments
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
@@ -40,11 +41,16 @@ class AttachmentsRequestBuilder(BaseRequestBuilder):
         request_info = self.to_get_request_information(
             request_configuration
         )
+        from ........models.google.rpc.status import Status
+
+        error_mapping: dict[str, type[ParsableFactory]] = {
+            "XXX": Status,
+        }
         if not self.request_adapter:
             raise Exception("Http core is null") 
         from ........models.auth.v1.list_attachments_response import ListAttachmentsResponse
 
-        return await self.request_adapter.send_async(request_info, ListAttachmentsResponse, None)
+        return await self.request_adapter.send_async(request_info, ListAttachmentsResponse, error_mapping)
     
     async def post(self,body: AttachmentsPostRequestBody, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> Optional[PolicyAttachment]:
         """
@@ -58,13 +64,18 @@ class AttachmentsRequestBuilder(BaseRequestBuilder):
         request_info = self.to_post_request_information(
             body, request_configuration
         )
+        from ........models.google.rpc.status import Status
+
+        error_mapping: dict[str, type[ParsableFactory]] = {
+            "XXX": Status,
+        }
         if not self.request_adapter:
             raise Exception("Http core is null") 
         from ........models.auth.v1.policy_attachment import PolicyAttachment
 
-        return await self.request_adapter.send_async(request_info, PolicyAttachment, None)
+        return await self.request_adapter.send_async(request_info, PolicyAttachment, error_mapping)
     
-    def to_get_request_information(self,request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> RequestInformation:
+    def to_get_request_information(self,request_configuration: Optional[RequestConfiguration[AttachmentsRequestBuilderGetQueryParameters]] = None) -> RequestInformation:
         """
         ListPolicyAttachments
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
@@ -101,7 +112,27 @@ class AttachmentsRequestBuilder(BaseRequestBuilder):
         return AttachmentsRequestBuilder(self.request_adapter, raw_url)
     
     @dataclass
-    class AttachmentsRequestBuilderGetRequestConfiguration(RequestConfiguration[QueryParameters]):
+    class AttachmentsRequestBuilderGetQueryParameters():
+        """
+        ListPolicyAttachments
+        """
+        def get_query_parameter(self,original_name: str) -> str:
+            """
+            Maps the query parameters names to their encoded names for the URI template parsing.
+            param original_name: The original query parameter name in the class.
+            Returns: str
+            """
+            if original_name is None:
+                raise TypeError("original_name cannot be null.")
+            if original_name == "user_user_id":
+                return "user%2Euser_id"
+            return original_name
+        
+        user_user_id: Optional[str] = None
+
+    
+    @dataclass
+    class AttachmentsRequestBuilderGetRequestConfiguration(RequestConfiguration[AttachmentsRequestBuilderGetQueryParameters]):
         """
         Configuration for the request such as headers, query parameters, and middleware options.
         """

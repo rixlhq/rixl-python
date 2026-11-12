@@ -15,6 +15,7 @@ from warnings import warn
 
 if TYPE_CHECKING:
     from ....models.auth.v1.list_providers_response import ListProvidersResponse
+    from ....models.google.rpc.status import Status
     from .connect.connect_request_builder import ConnectRequestBuilder
     from .item.with_provider_item_request_builder import WithProviderItemRequestBuilder
 
@@ -34,7 +35,7 @@ class ProvidersRequestBuilder(BaseRequestBuilder):
     def by_provider(self,provider: str) -> WithProviderItemRequestBuilder:
         """
         Gets an item from the rixl_sdk.auth.v1.providers.item collection
-        param provider: The provider path parameter.
+        param provider: Unique identifier of the item
         Returns: WithProviderItemRequestBuilder
         """
         if provider is None:
@@ -54,11 +55,16 @@ class ProvidersRequestBuilder(BaseRequestBuilder):
         request_info = self.to_get_request_information(
             request_configuration
         )
+        from ....models.google.rpc.status import Status
+
+        error_mapping: dict[str, type[ParsableFactory]] = {
+            "XXX": Status,
+        }
         if not self.request_adapter:
             raise Exception("Http core is null") 
         from ....models.auth.v1.list_providers_response import ListProvidersResponse
 
-        return await self.request_adapter.send_async(request_info, ListProvidersResponse, None)
+        return await self.request_adapter.send_async(request_info, ListProvidersResponse, error_mapping)
     
     def to_get_request_information(self,request_configuration: Optional[RequestConfiguration[ProvidersRequestBuilderGetQueryParameters]] = None) -> RequestInformation:
         """
@@ -95,7 +101,6 @@ class ProvidersRequestBuilder(BaseRequestBuilder):
         """
         ListProviders
         """
-        # The user_id query parameter.
         user_id: Optional[str] = None
 
     

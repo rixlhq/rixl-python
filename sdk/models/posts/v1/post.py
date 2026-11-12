@@ -1,22 +1,36 @@
 from __future__ import annotations
+import datetime
 from collections.abc import Callable
 from dataclasses import dataclass, field
-from kiota_abstractions.serialization import ComposedTypeWrapper, Parsable, ParseNode, ParseNodeHelper, SerializationWriter
+from kiota_abstractions.serialization import Parsable, ParseNode, SerializationWriter
 from typing import Any, Optional, TYPE_CHECKING, Union
 
 if TYPE_CHECKING:
-    from .post_member1 import PostMember1
-    from .post_member2 import PostMember2
+    from ...common.v1.media_type import MediaType
+    from ...images.v1.image import Image
+    from ...videos.v1.video import Video
 
 @dataclass
-class Post(ComposedTypeWrapper, Parsable):
+class Post(Parsable):
     """
-    Composed type wrapper for classes PostMember1, PostMember2
+    At most one of `image`, `video` may be set.
     """
-    # Composed type representation for type PostMember1
-    post_member1: Optional[PostMember1] = None
-    # Composed type representation for type PostMember2
-    post_member2: Optional[PostMember2] = None
+    # A point in time in RFC 3339 format, with up to nanosecond precision. Output uses UTC (`Z`); input may use an offset from UTC.
+    created_at: Optional[datetime.datetime] = None
+    # The creator_id property
+    creator_id: Optional[str] = None
+    # The description property
+    description: Optional[str] = None
+    # The feed_id property
+    feed_id: Optional[str] = None
+    # The id property
+    id: Optional[str] = None
+    # The image property
+    image: Optional[Image] = None
+    # The type property
+    type: Optional[MediaType] = None
+    # The video property
+    video: Optional[Video] = None
     
     @staticmethod
     def create_from_discriminator_value(parse_node: ParseNode) -> Post:
@@ -27,26 +41,32 @@ class Post(ComposedTypeWrapper, Parsable):
         """
         if parse_node is None:
             raise TypeError("parse_node cannot be null.")
-        result = Post()
-        from .post_member1 import PostMember1
-
-        result.post_member1 = PostMember1()
-        from .post_member2 import PostMember2
-
-        result.post_member2 = PostMember2()
-        return result
+        return Post()
     
     def get_field_deserializers(self,) -> dict[str, Callable[[ParseNode], None]]:
         """
         The deserialization information for the current model
         Returns: dict[str, Callable[[ParseNode], None]]
         """
-        from .post_member1 import PostMember1
-        from .post_member2 import PostMember2
+        from ...common.v1.media_type import MediaType
+        from ...images.v1.image import Image
+        from ...videos.v1.video import Video
 
-        if self.post_member1 or self.post_member2:
-            return ParseNodeHelper.merge_deserializers_for_intersection_wrapper(self.post_member1, self.post_member2)
-        return {}
+        from ...common.v1.media_type import MediaType
+        from ...images.v1.image import Image
+        from ...videos.v1.video import Video
+
+        fields: dict[str, Callable[[Any], None]] = {
+            "created_at": lambda n : setattr(self, 'created_at', n.get_datetime_value()),
+            "creator_id": lambda n : setattr(self, 'creator_id', n.get_str_value()),
+            "description": lambda n : setattr(self, 'description', n.get_str_value()),
+            "feed_id": lambda n : setattr(self, 'feed_id', n.get_str_value()),
+            "id": lambda n : setattr(self, 'id', n.get_str_value()),
+            "image": lambda n : setattr(self, 'image', n.get_object_value(Image)),
+            "type": lambda n : setattr(self, 'type', n.get_enum_value(MediaType)),
+            "video": lambda n : setattr(self, 'video', n.get_object_value(Video)),
+        }
+        return fields
     
     def serialize(self,writer: SerializationWriter) -> None:
         """
@@ -56,6 +76,13 @@ class Post(ComposedTypeWrapper, Parsable):
         """
         if writer is None:
             raise TypeError("writer cannot be null.")
-        writer.write_object_value(None, self.post_member1, self.post_member2)
+        writer.write_datetime_value("created_at", self.created_at)
+        writer.write_str_value("creator_id", self.creator_id)
+        writer.write_str_value("description", self.description)
+        writer.write_str_value("feed_id", self.feed_id)
+        writer.write_str_value("id", self.id)
+        writer.write_object_value("image", self.image)
+        writer.write_enum_value("type", self.type)
+        writer.write_object_value("video", self.video)
     
 

@@ -9,7 +9,7 @@ if TYPE_CHECKING:
 
 @dataclass
 class GetPostResponse(Parsable):
-    # The post property
+    # At most one of `image`, `video` may be set.
     post: Optional[Post] = None
     
     @staticmethod

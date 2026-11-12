@@ -1,31 +1,34 @@
 from __future__ import annotations
+import datetime
 from collections.abc import Callable
 from dataclasses import dataclass, field
-from kiota_abstractions.serialization import ComposedTypeWrapper, Parsable, ParseNode, ParseNodeHelper, SerializationWriter
+from kiota_abstractions.serialization import Parsable, ParseNode, SerializationWriter
 from typing import Any, Optional, TYPE_CHECKING, Union
 
 if TYPE_CHECKING:
-    from .analytics_event_member1 import AnalyticsEventMember1
-    from .analytics_event_member2 import AnalyticsEventMember2
-    from .analytics_event_member3 import AnalyticsEventMember3
-    from .analytics_event_member4 import AnalyticsEventMember4
-    from .analytics_event_member5 import AnalyticsEventMember5
+    from .content_view_event import ContentViewEvent
+    from .engagement_event import EngagementEvent
+    from .error_event import ErrorEvent
+    from .interaction_event import InteractionEvent
+    from .session_start_event import SessionStartEvent
 
 @dataclass
-class AnalyticsEvent(ComposedTypeWrapper, Parsable):
+class AnalyticsEvent(Parsable):
     """
-    Composed type wrapper for classes AnalyticsEventMember1, AnalyticsEventMember2, AnalyticsEventMember3, AnalyticsEventMember4, AnalyticsEventMember5
+    At most one of `session_start`, `content_view`, `engagement`, `interaction`, `error` may be set.
     """
-    # Composed type representation for type AnalyticsEventMember1
-    analytics_event_member1: Optional[AnalyticsEventMember1] = None
-    # Composed type representation for type AnalyticsEventMember2
-    analytics_event_member2: Optional[AnalyticsEventMember2] = None
-    # Composed type representation for type AnalyticsEventMember3
-    analytics_event_member3: Optional[AnalyticsEventMember3] = None
-    # Composed type representation for type AnalyticsEventMember4
-    analytics_event_member4: Optional[AnalyticsEventMember4] = None
-    # Composed type representation for type AnalyticsEventMember5
-    analytics_event_member5: Optional[AnalyticsEventMember5] = None
+    # The content_view property
+    content_view: Optional[ContentViewEvent] = None
+    # The engagement property
+    engagement: Optional[EngagementEvent] = None
+    # The error property
+    error: Optional[ErrorEvent] = None
+    # The interaction property
+    interaction: Optional[InteractionEvent] = None
+    # The session_start property
+    session_start: Optional[SessionStartEvent] = None
+    # A point in time in RFC 3339 format, with up to nanosecond precision. Output uses UTC (`Z`); input may use an offset from UTC.
+    timestamp: Optional[datetime.datetime] = None
     
     @staticmethod
     def create_from_discriminator_value(parse_node: ParseNode) -> AnalyticsEvent:
@@ -36,38 +39,34 @@ class AnalyticsEvent(ComposedTypeWrapper, Parsable):
         """
         if parse_node is None:
             raise TypeError("parse_node cannot be null.")
-        result = AnalyticsEvent()
-        from .analytics_event_member1 import AnalyticsEventMember1
-
-        result.analytics_event_member1 = AnalyticsEventMember1()
-        from .analytics_event_member2 import AnalyticsEventMember2
-
-        result.analytics_event_member2 = AnalyticsEventMember2()
-        from .analytics_event_member3 import AnalyticsEventMember3
-
-        result.analytics_event_member3 = AnalyticsEventMember3()
-        from .analytics_event_member4 import AnalyticsEventMember4
-
-        result.analytics_event_member4 = AnalyticsEventMember4()
-        from .analytics_event_member5 import AnalyticsEventMember5
-
-        result.analytics_event_member5 = AnalyticsEventMember5()
-        return result
+        return AnalyticsEvent()
     
     def get_field_deserializers(self,) -> dict[str, Callable[[ParseNode], None]]:
         """
         The deserialization information for the current model
         Returns: dict[str, Callable[[ParseNode], None]]
         """
-        from .analytics_event_member1 import AnalyticsEventMember1
-        from .analytics_event_member2 import AnalyticsEventMember2
-        from .analytics_event_member3 import AnalyticsEventMember3
-        from .analytics_event_member4 import AnalyticsEventMember4
-        from .analytics_event_member5 import AnalyticsEventMember5
+        from .content_view_event import ContentViewEvent
+        from .engagement_event import EngagementEvent
+        from .error_event import ErrorEvent
+        from .interaction_event import InteractionEvent
+        from .session_start_event import SessionStartEvent
 
-        if self.analytics_event_member1 or self.analytics_event_member2 or self.analytics_event_member3 or self.analytics_event_member4 or self.analytics_event_member5:
-            return ParseNodeHelper.merge_deserializers_for_intersection_wrapper(self.analytics_event_member1, self.analytics_event_member2, self.analytics_event_member3, self.analytics_event_member4, self.analytics_event_member5)
-        return {}
+        from .content_view_event import ContentViewEvent
+        from .engagement_event import EngagementEvent
+        from .error_event import ErrorEvent
+        from .interaction_event import InteractionEvent
+        from .session_start_event import SessionStartEvent
+
+        fields: dict[str, Callable[[Any], None]] = {
+            "content_view": lambda n : setattr(self, 'content_view', n.get_object_value(ContentViewEvent)),
+            "engagement": lambda n : setattr(self, 'engagement', n.get_object_value(EngagementEvent)),
+            "error": lambda n : setattr(self, 'error', n.get_object_value(ErrorEvent)),
+            "interaction": lambda n : setattr(self, 'interaction', n.get_object_value(InteractionEvent)),
+            "session_start": lambda n : setattr(self, 'session_start', n.get_object_value(SessionStartEvent)),
+            "timestamp": lambda n : setattr(self, 'timestamp', n.get_datetime_value()),
+        }
+        return fields
     
     def serialize(self,writer: SerializationWriter) -> None:
         """
@@ -77,6 +76,11 @@ class AnalyticsEvent(ComposedTypeWrapper, Parsable):
         """
         if writer is None:
             raise TypeError("writer cannot be null.")
-        writer.write_object_value(None, self.analytics_event_member1, self.analytics_event_member2, self.analytics_event_member3, self.analytics_event_member4, self.analytics_event_member5)
+        writer.write_object_value("content_view", self.content_view)
+        writer.write_object_value("engagement", self.engagement)
+        writer.write_object_value("error", self.error)
+        writer.write_object_value("interaction", self.interaction)
+        writer.write_object_value("session_start", self.session_start)
+        writer.write_datetime_value("timestamp", self.timestamp)
     
 

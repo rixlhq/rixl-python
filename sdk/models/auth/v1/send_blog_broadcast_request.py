@@ -13,7 +13,7 @@ class SendBlogBroadcastRequest(Parsable):
     commit_sha: Optional[str] = None
     # The description property
     description: Optional[str] = None
-    # The published_at property
+    # A point in time in RFC 3339 format, with up to nanosecond precision. Output uses UTC (`Z`); input may use an offset from UTC.
     published_at: Optional[datetime.datetime] = None
     # The slug property
     slug: Optional[str] = None

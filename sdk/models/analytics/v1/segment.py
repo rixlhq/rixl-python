@@ -1,5 +1,4 @@
 from __future__ import annotations
-import datetime
 from collections.abc import Callable
 from dataclasses import dataclass, field
 from kiota_abstractions.serialization import Parsable, ParseNode, SerializationWriter
@@ -14,14 +13,14 @@ class Segment(Parsable):
     audio_language: Optional[str] = None
     # The chapter_title property
     chapter_title: Optional[str] = None
-    # The end_ms property
-    end_ms: Optional[datetime.timedelta] = None
-    # enum.defined_only = true
+    # A signed duration in seconds, with up to nine fractional digits and an `s` suffix (for example, `3s` or `-0.001s`).
+    end_ms: Optional[str] = None
+    # The quality property
     quality: Optional[VideoQuality] = None
     # The speed property
     speed: Optional[float] = None
-    # The start_ms property
-    start_ms: Optional[datetime.timedelta] = None
+    # A signed duration in seconds, with up to nine fractional digits and an `s` suffix (for example, `3s` or `-0.001s`).
+    start_ms: Optional[str] = None
     # Unset fields inherit the value the view was opened with.
     subtitle_language: Optional[str] = None
     
@@ -48,10 +47,10 @@ class Segment(Parsable):
         fields: dict[str, Callable[[Any], None]] = {
             "audio_language": lambda n : setattr(self, 'audio_language', n.get_str_value()),
             "chapter_title": lambda n : setattr(self, 'chapter_title', n.get_str_value()),
-            "end_ms": lambda n : setattr(self, 'end_ms', n.get_timedelta_value()),
+            "end_ms": lambda n : setattr(self, 'end_ms', n.get_str_value()),
             "quality": lambda n : setattr(self, 'quality', n.get_enum_value(VideoQuality)),
             "speed": lambda n : setattr(self, 'speed', n.get_float_value()),
-            "start_ms": lambda n : setattr(self, 'start_ms', n.get_timedelta_value()),
+            "start_ms": lambda n : setattr(self, 'start_ms', n.get_str_value()),
             "subtitle_language": lambda n : setattr(self, 'subtitle_language', n.get_str_value()),
         }
         return fields
@@ -66,10 +65,10 @@ class Segment(Parsable):
             raise TypeError("writer cannot be null.")
         writer.write_str_value("audio_language", self.audio_language)
         writer.write_str_value("chapter_title", self.chapter_title)
-        writer.write_timedelta_value("end_ms", self.end_ms)
+        writer.write_str_value("end_ms", self.end_ms)
         writer.write_enum_value("quality", self.quality)
         writer.write_float_value("speed", self.speed)
-        writer.write_timedelta_value("start_ms", self.start_ms)
+        writer.write_str_value("start_ms", self.start_ms)
         writer.write_str_value("subtitle_language", self.subtitle_language)
     
 

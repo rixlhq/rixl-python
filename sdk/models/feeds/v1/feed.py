@@ -11,7 +11,7 @@ class Feed(Parsable):
     allow_images: Optional[bool] = None
     # The allow_videos property
     allow_videos: Optional[bool] = None
-    # The created_at property
+    # A point in time in RFC 3339 format, with up to nanosecond precision. Output uses UTC (`Z`); input may use an offset from UTC.
     created_at: Optional[datetime.datetime] = None
     # The description property
     description: Optional[str] = None
@@ -27,7 +27,7 @@ class Feed(Parsable):
     name: Optional[str] = None
     # The project_id property
     project_id: Optional[str] = None
-    # The updated_at property
+    # A point in time in RFC 3339 format, with up to nanosecond precision. Output uses UTC (`Z`); input may use an offset from UTC.
     updated_at: Optional[datetime.datetime] = None
     
     @staticmethod

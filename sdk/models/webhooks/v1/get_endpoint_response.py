@@ -9,7 +9,7 @@ if TYPE_CHECKING:
 
 @dataclass
 class GetEndpointResponse(Parsable):
-    # The endpoint property
+    # WebhookEndpoint is a delivery target. Secrets are never returned; they are only shown once on create and rotate.
     endpoint: Optional[WebhookEndpoint] = None
     
     @staticmethod

@@ -24,7 +24,7 @@ class EventsRequestBuilder(BaseRequestBuilder):
     def by_event_id(self,event_id: str) -> WithEvent_ItemRequestBuilder:
         """
         Gets an item from the rixl_sdk.webhooks.v1.projects.item.endpoints.item.events.item collection
-        param event_id: The event_id path parameter.
+        param event_id: Unique identifier of the item
         Returns: WithEvent_ItemRequestBuilder
         """
         if event_id is None:

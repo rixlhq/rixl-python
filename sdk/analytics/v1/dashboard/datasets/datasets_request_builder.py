@@ -15,6 +15,7 @@ from warnings import warn
 
 if TYPE_CHECKING:
     from .....models.analytics.v1.list_datasets_response import ListDatasetsResponse
+    from .....models.google.rpc.status import Status
 
 class DatasetsRequestBuilder(BaseRequestBuilder):
     """
@@ -38,11 +39,16 @@ class DatasetsRequestBuilder(BaseRequestBuilder):
         request_info = self.to_get_request_information(
             request_configuration
         )
+        from .....models.google.rpc.status import Status
+
+        error_mapping: dict[str, type[ParsableFactory]] = {
+            "XXX": Status,
+        }
         if not self.request_adapter:
             raise Exception("Http core is null") 
         from .....models.analytics.v1.list_datasets_response import ListDatasetsResponse
 
-        return await self.request_adapter.send_async(request_info, ListDatasetsResponse, None)
+        return await self.request_adapter.send_async(request_info, ListDatasetsResponse, error_mapping)
     
     def to_get_request_information(self,request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> RequestInformation:
         """

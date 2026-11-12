@@ -4,39 +4,35 @@ from dataclasses import dataclass, field
 from kiota_abstractions.serialization import AdditionalDataHolder, Parsable, ParseNode, SerializationWriter
 from typing import Any, Optional, TYPE_CHECKING, Union
 
-if TYPE_CHECKING:
-    from ...images.v1.image import Image
-
 @dataclass
-class PostMember1(AdditionalDataHolder, Parsable):
+class Any(AdditionalDataHolder, Parsable):
+    """
+    Contains an arbitrary serialized message along with a @type that describes the type of the serialized message.
+    """
     # Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
     additional_data: dict[str, Any] = field(default_factory=dict)
 
-    # The image property
-    image: Optional[Image] = None
+    # A URL/resource name that uniquely identifies the type of the serialized message.
+    type: Optional[str] = None
     
     @staticmethod
-    def create_from_discriminator_value(parse_node: ParseNode) -> PostMember1:
+    def create_from_discriminator_value(parse_node: ParseNode) -> Any:
         """
         Creates a new instance of the appropriate class based on discriminator value
         param parse_node: The parse node to use to read the discriminator value and create the object
-        Returns: PostMember1
+        Returns: Any
         """
         if parse_node is None:
             raise TypeError("parse_node cannot be null.")
-        return PostMember1()
+        return Any()
     
     def get_field_deserializers(self,) -> dict[str, Callable[[ParseNode], None]]:
         """
         The deserialization information for the current model
         Returns: dict[str, Callable[[ParseNode], None]]
         """
-        from ...images.v1.image import Image
-
-        from ...images.v1.image import Image
-
         fields: dict[str, Callable[[Any], None]] = {
-            "image": lambda n : setattr(self, 'image', n.get_object_value(Image)),
+            "@type": lambda n : setattr(self, 'type', n.get_str_value()),
         }
         return fields
     
@@ -48,7 +44,7 @@ class PostMember1(AdditionalDataHolder, Parsable):
         """
         if writer is None:
             raise TypeError("writer cannot be null.")
-        writer.write_object_value("image", self.image)
+        writer.write_str_value("@type", self.type)
         writer.write_additional_data_value(self.additional_data)
     
 

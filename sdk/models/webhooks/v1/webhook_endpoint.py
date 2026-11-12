@@ -10,7 +10,7 @@ class WebhookEndpoint(Parsable):
     """
     WebhookEndpoint is a delivery target. Secrets are never returned; they are only shown once on create and rotate.
     """
-    # The created_at property
+    # A point in time in RFC 3339 format, with up to nanosecond precision. Output uses UTC (`Z`); input may use an offset from UTC.
     created_at: Optional[datetime.datetime] = None
     # The disabled_reason property
     disabled_reason: Optional[str] = None
@@ -22,7 +22,7 @@ class WebhookEndpoint(Parsable):
     id: Optional[str] = None
     # The project_id property
     project_id: Optional[str] = None
-    # The updated_at property
+    # A point in time in RFC 3339 format, with up to nanosecond precision. Output uses UTC (`Z`); input may use an offset from UTC.
     updated_at: Optional[datetime.datetime] = None
     # The url property
     url: Optional[str] = None

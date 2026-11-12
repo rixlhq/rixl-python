@@ -9,7 +9,7 @@ if TYPE_CHECKING:
 
 @dataclass
 class StatusPatchRequestBody(Parsable):
-    # enum.defined_only = true
+    # The status property
     status: Optional[InvoiceStatus] = None
     
     @staticmethod

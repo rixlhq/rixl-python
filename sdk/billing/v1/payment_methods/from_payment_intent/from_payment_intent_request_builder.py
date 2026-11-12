@@ -15,6 +15,7 @@ from warnings import warn
 
 if TYPE_CHECKING:
     from .....models.billing.v1.payment_method_id_response import PaymentMethodIdResponse
+    from .....models.google.rpc.status import Status
 
 class FromPaymentIntentRequestBuilder(BaseRequestBuilder):
     """
@@ -38,11 +39,16 @@ class FromPaymentIntentRequestBuilder(BaseRequestBuilder):
         request_info = self.to_get_request_information(
             request_configuration
         )
+        from .....models.google.rpc.status import Status
+
+        error_mapping: dict[str, type[ParsableFactory]] = {
+            "XXX": Status,
+        }
         if not self.request_adapter:
             raise Exception("Http core is null") 
         from .....models.billing.v1.payment_method_id_response import PaymentMethodIdResponse
 
-        return await self.request_adapter.send_async(request_info, PaymentMethodIdResponse, None)
+        return await self.request_adapter.send_async(request_info, PaymentMethodIdResponse, error_mapping)
     
     def to_get_request_information(self,request_configuration: Optional[RequestConfiguration[FromPaymentIntentRequestBuilderGetQueryParameters]] = None) -> RequestInformation:
         """
@@ -70,7 +76,6 @@ class FromPaymentIntentRequestBuilder(BaseRequestBuilder):
         """
         GetPaymentMethodFromPaymentIntent
         """
-        # The payment_intent_id query parameter.
         payment_intent_id: Optional[str] = None
 
     

@@ -16,6 +16,7 @@ from warnings import warn
 if TYPE_CHECKING:
     from ......models.feeds.v1.feed import Feed
     from ......models.feeds.v1.list_feeds_response import ListFeedsResponse
+    from ......models.google.rpc.status import Status
     from .feeds_post_request_body import FeedsPostRequestBody
     from .item.with_feed_item_request_builder import WithFeed_ItemRequestBuilder
 
@@ -35,7 +36,7 @@ class FeedsRequestBuilder(BaseRequestBuilder):
     def by_feed_id(self,feed_id: str) -> WithFeed_ItemRequestBuilder:
         """
         Gets an item from the rixl_sdk.feeds.v1.projects.item.feeds.item collection
-        param feed_id: The feed_id path parameter.
+        param feed_id: Unique identifier of the item
         Returns: WithFeed_ItemRequestBuilder
         """
         if feed_id is None:
@@ -55,11 +56,16 @@ class FeedsRequestBuilder(BaseRequestBuilder):
         request_info = self.to_get_request_information(
             request_configuration
         )
+        from ......models.google.rpc.status import Status
+
+        error_mapping: dict[str, type[ParsableFactory]] = {
+            "XXX": Status,
+        }
         if not self.request_adapter:
             raise Exception("Http core is null") 
         from ......models.feeds.v1.list_feeds_response import ListFeedsResponse
 
-        return await self.request_adapter.send_async(request_info, ListFeedsResponse, None)
+        return await self.request_adapter.send_async(request_info, ListFeedsResponse, error_mapping)
     
     async def post(self,body: FeedsPostRequestBody, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> Optional[Feed]:
         """
@@ -73,11 +79,16 @@ class FeedsRequestBuilder(BaseRequestBuilder):
         request_info = self.to_post_request_information(
             body, request_configuration
         )
+        from ......models.google.rpc.status import Status
+
+        error_mapping: dict[str, type[ParsableFactory]] = {
+            "XXX": Status,
+        }
         if not self.request_adapter:
             raise Exception("Http core is null") 
         from ......models.feeds.v1.feed import Feed
 
-        return await self.request_adapter.send_async(request_info, Feed, None)
+        return await self.request_adapter.send_async(request_info, Feed, error_mapping)
     
     def to_get_request_information(self,request_configuration: Optional[RequestConfiguration[FeedsRequestBuilderGetQueryParameters]] = None) -> RequestInformation:
         """

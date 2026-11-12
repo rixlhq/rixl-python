@@ -1,5 +1,4 @@
 from __future__ import annotations
-import datetime
 from collections.abc import Callable
 from dataclasses import dataclass, field
 from kiota_abstractions.serialization import Parsable, ParseNode, SerializationWriter
@@ -18,7 +17,7 @@ class ContentViewEvent(Parsable):
     audio_language: Optional[str] = None
     # The content_id property
     content_id: Optional[str] = None
-    # enum.defined_only = true
+    # The content_type property
     content_type: Optional[MediaType] = None
     # The country property
     country: Optional[str] = None
@@ -30,20 +29,20 @@ class ContentViewEvent(Parsable):
     page: Optional[ContentViewEvent_page] = None
     # The post_id property
     post_id: Optional[str] = None
-    # enum.defined_only = true
+    # The quality property
     quality: Optional[VideoQuality] = None
     # The segments property
     segments: Optional[list[Segment]] = None
     # The subtitle_language property
     subtitle_language: Optional[str] = None
-    # The video_position_ms property
-    video_position_ms: Optional[datetime.timedelta] = None
-    # The video_total_duration_ms property
-    video_total_duration_ms: Optional[datetime.timedelta] = None
+    # A signed duration in seconds, with up to nine fractional digits and an `s` suffix (for example, `3s` or `-0.001s`).
+    video_position_ms: Optional[str] = None
+    # A signed duration in seconds, with up to nine fractional digits and an `s` suffix (for example, `3s` or `-0.001s`).
+    video_total_duration_ms: Optional[str] = None
     # The view_type property
     view_type: Optional[ContentViewEvent_view_type] = None
-    # The watch_duration_ms property
-    watch_duration_ms: Optional[datetime.timedelta] = None
+    # A signed duration in seconds, with up to nine fractional digits and an `s` suffix (for example, `3s` or `-0.001s`).
+    watch_duration_ms: Optional[str] = None
     
     @staticmethod
     def create_from_discriminator_value(parse_node: ParseNode) -> ContentViewEvent:
@@ -85,10 +84,10 @@ class ContentViewEvent(Parsable):
             "quality": lambda n : setattr(self, 'quality', n.get_enum_value(VideoQuality)),
             "segments": lambda n : setattr(self, 'segments', n.get_collection_of_object_values(Segment)),
             "subtitle_language": lambda n : setattr(self, 'subtitle_language', n.get_str_value()),
-            "video_position_ms": lambda n : setattr(self, 'video_position_ms', n.get_timedelta_value()),
-            "video_total_duration_ms": lambda n : setattr(self, 'video_total_duration_ms', n.get_timedelta_value()),
+            "video_position_ms": lambda n : setattr(self, 'video_position_ms', n.get_str_value()),
+            "video_total_duration_ms": lambda n : setattr(self, 'video_total_duration_ms', n.get_str_value()),
             "view_type": lambda n : setattr(self, 'view_type', n.get_enum_value(ContentViewEvent_view_type)),
-            "watch_duration_ms": lambda n : setattr(self, 'watch_duration_ms', n.get_timedelta_value()),
+            "watch_duration_ms": lambda n : setattr(self, 'watch_duration_ms', n.get_str_value()),
         }
         return fields
     
@@ -111,9 +110,9 @@ class ContentViewEvent(Parsable):
         writer.write_enum_value("quality", self.quality)
         writer.write_collection_of_object_values("segments", self.segments)
         writer.write_str_value("subtitle_language", self.subtitle_language)
-        writer.write_timedelta_value("video_position_ms", self.video_position_ms)
-        writer.write_timedelta_value("video_total_duration_ms", self.video_total_duration_ms)
+        writer.write_str_value("video_position_ms", self.video_position_ms)
+        writer.write_str_value("video_total_duration_ms", self.video_total_duration_ms)
         writer.write_enum_value("view_type", self.view_type)
-        writer.write_timedelta_value("watch_duration_ms", self.watch_duration_ms)
+        writer.write_str_value("watch_duration_ms", self.watch_duration_ms)
     
 

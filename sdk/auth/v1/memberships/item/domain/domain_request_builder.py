@@ -16,6 +16,7 @@ from warnings import warn
 if TYPE_CHECKING:
     from ......models.auth.v1.domain_response import DomainResponse
     from ......models.google.protobuf.empty import Empty
+    from ......models.google.rpc.status import Status
     from .auto_join.auto_join_request_builder import AutoJoinRequestBuilder
     from .domain_post_request_body import DomainPostRequestBody
     from .verify.verify_request_builder import VerifyRequestBuilder
@@ -42,11 +43,16 @@ class DomainRequestBuilder(BaseRequestBuilder):
         request_info = self.to_delete_request_information(
             request_configuration
         )
+        from ......models.google.rpc.status import Status
+
+        error_mapping: dict[str, type[ParsableFactory]] = {
+            "XXX": Status,
+        }
         if not self.request_adapter:
             raise Exception("Http core is null") 
         from ......models.google.protobuf.empty import Empty
 
-        return await self.request_adapter.send_async(request_info, Empty, None)
+        return await self.request_adapter.send_async(request_info, Empty, error_mapping)
     
     async def get(self,request_configuration: Optional[RequestConfiguration[DomainRequestBuilderGetQueryParameters]] = None) -> Optional[DomainResponse]:
         """
@@ -57,11 +63,16 @@ class DomainRequestBuilder(BaseRequestBuilder):
         request_info = self.to_get_request_information(
             request_configuration
         )
+        from ......models.google.rpc.status import Status
+
+        error_mapping: dict[str, type[ParsableFactory]] = {
+            "XXX": Status,
+        }
         if not self.request_adapter:
             raise Exception("Http core is null") 
         from ......models.auth.v1.domain_response import DomainResponse
 
-        return await self.request_adapter.send_async(request_info, DomainResponse, None)
+        return await self.request_adapter.send_async(request_info, DomainResponse, error_mapping)
     
     async def post(self,body: DomainPostRequestBody, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> Optional[DomainResponse]:
         """
@@ -75,11 +86,16 @@ class DomainRequestBuilder(BaseRequestBuilder):
         request_info = self.to_post_request_information(
             body, request_configuration
         )
+        from ......models.google.rpc.status import Status
+
+        error_mapping: dict[str, type[ParsableFactory]] = {
+            "XXX": Status,
+        }
         if not self.request_adapter:
             raise Exception("Http core is null") 
         from ......models.auth.v1.domain_response import DomainResponse
 
-        return await self.request_adapter.send_async(request_info, DomainResponse, None)
+        return await self.request_adapter.send_async(request_info, DomainResponse, error_mapping)
     
     def to_delete_request_information(self,request_configuration: Optional[RequestConfiguration[DomainRequestBuilderDeleteQueryParameters]] = None) -> RequestInformation:
         """
@@ -151,7 +167,6 @@ class DomainRequestBuilder(BaseRequestBuilder):
         """
         RemoveDomain
         """
-        # The user_id query parameter.
         user_id: Optional[str] = None
 
     
@@ -167,7 +182,6 @@ class DomainRequestBuilder(BaseRequestBuilder):
         """
         GetDomainStatus
         """
-        # The user_id query parameter.
         user_id: Optional[str] = None
 
     

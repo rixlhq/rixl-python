@@ -1,22 +1,29 @@
 from __future__ import annotations
 from collections.abc import Callable
 from dataclasses import dataclass, field
-from kiota_abstractions.serialization import ComposedTypeWrapper, Parsable, ParseNode, ParseNodeHelper, SerializationWriter
+from kiota_abstractions.serialization import Parsable, ParseNode, SerializationWriter
 from typing import Any, Optional, TYPE_CHECKING, Union
 
 if TYPE_CHECKING:
-    from .posts_post_request_body_member1 import PostsPostRequestBodyMember1
-    from .posts_post_request_body_member2 import PostsPostRequestBodyMember2
+    from ........models.common.v1.media_type import MediaType
 
 @dataclass
-class PostsPostRequestBody(ComposedTypeWrapper, Parsable):
+class PostsPostRequestBody(Parsable):
     """
-    Composed type wrapper for classes PostsPostRequestBodyMember1, PostsPostRequestBodyMember2
+    At most one of `image_id`, `video_id` may be set.
     """
-    # Composed type representation for type PostsPostRequestBodyMember1
-    posts_post_request_body_member1: Optional[PostsPostRequestBodyMember1] = None
-    # Composed type representation for type PostsPostRequestBodyMember2
-    posts_post_request_body_member2: Optional[PostsPostRequestBodyMember2] = None
+    # The creator_id property
+    creator_id: Optional[str] = None
+    # The description property
+    description: Optional[str] = None
+    # The image_id property
+    image_id: Optional[str] = None
+    # The org_id property
+    org_id: Optional[str] = None
+    # The type property
+    type: Optional[MediaType] = None
+    # The video_id property
+    video_id: Optional[str] = None
     
     @staticmethod
     def create_from_discriminator_value(parse_node: ParseNode) -> PostsPostRequestBody:
@@ -27,26 +34,26 @@ class PostsPostRequestBody(ComposedTypeWrapper, Parsable):
         """
         if parse_node is None:
             raise TypeError("parse_node cannot be null.")
-        result = PostsPostRequestBody()
-        from .posts_post_request_body_member1 import PostsPostRequestBodyMember1
-
-        result.posts_post_request_body_member1 = PostsPostRequestBodyMember1()
-        from .posts_post_request_body_member2 import PostsPostRequestBodyMember2
-
-        result.posts_post_request_body_member2 = PostsPostRequestBodyMember2()
-        return result
+        return PostsPostRequestBody()
     
     def get_field_deserializers(self,) -> dict[str, Callable[[ParseNode], None]]:
         """
         The deserialization information for the current model
         Returns: dict[str, Callable[[ParseNode], None]]
         """
-        from .posts_post_request_body_member1 import PostsPostRequestBodyMember1
-        from .posts_post_request_body_member2 import PostsPostRequestBodyMember2
+        from ........models.common.v1.media_type import MediaType
 
-        if self.posts_post_request_body_member1 or self.posts_post_request_body_member2:
-            return ParseNodeHelper.merge_deserializers_for_intersection_wrapper(self.posts_post_request_body_member1, self.posts_post_request_body_member2)
-        return {}
+        from ........models.common.v1.media_type import MediaType
+
+        fields: dict[str, Callable[[Any], None]] = {
+            "creator_id": lambda n : setattr(self, 'creator_id', n.get_str_value()),
+            "description": lambda n : setattr(self, 'description', n.get_str_value()),
+            "image_id": lambda n : setattr(self, 'image_id', n.get_str_value()),
+            "org_id": lambda n : setattr(self, 'org_id', n.get_str_value()),
+            "type": lambda n : setattr(self, 'type', n.get_enum_value(MediaType)),
+            "video_id": lambda n : setattr(self, 'video_id', n.get_str_value()),
+        }
+        return fields
     
     def serialize(self,writer: SerializationWriter) -> None:
         """
@@ -56,6 +63,11 @@ class PostsPostRequestBody(ComposedTypeWrapper, Parsable):
         """
         if writer is None:
             raise TypeError("writer cannot be null.")
-        writer.write_object_value(None, self.posts_post_request_body_member1, self.posts_post_request_body_member2)
+        writer.write_str_value("creator_id", self.creator_id)
+        writer.write_str_value("description", self.description)
+        writer.write_str_value("image_id", self.image_id)
+        writer.write_str_value("org_id", self.org_id)
+        writer.write_enum_value("type", self.type)
+        writer.write_str_value("video_id", self.video_id)
     
 
