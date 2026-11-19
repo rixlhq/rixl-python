@@ -19,7 +19,6 @@ if TYPE_CHECKING:
     from .auth.auth_request_builder import AuthRequestBuilder
     from .billing.billing_request_builder import BillingRequestBuilder
     from .feeds.feeds_request_builder import FeedsRequestBuilder
-    from .internal.internal_request_builder import InternalRequestBuilder
     from .media.media_request_builder import MediaRequestBuilder
     from .organizations.organizations_request_builder import OrganizationsRequestBuilder
     from .platform.platform_request_builder import PlatformRequestBuilder
@@ -83,15 +82,6 @@ class RixlClient(BaseRequestBuilder):
         from .feeds.feeds_request_builder import FeedsRequestBuilder
 
         return FeedsRequestBuilder(self.request_adapter, self.path_parameters)
-    
-    @property
-    def internal(self) -> InternalRequestBuilder:
-        """
-        The internal property
-        """
-        from .internal.internal_request_builder import InternalRequestBuilder
-
-        return InternalRequestBuilder(self.request_adapter, self.path_parameters)
     
     @property
     def media(self) -> MediaRequestBuilder:
