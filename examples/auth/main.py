@@ -3,7 +3,7 @@
   - API key:    RIXL_API_KEY=...
   - Client JWT: RIXL_CLIENT_ID=..., RIXL_CLIENT_SECRET=..., RIXL_PROJECT_ID=..., RIXL_SUBJECT=...
 
-Copy the credentials from the RIXL dashboard.
+Copy the credentials from the Rixl dashboard.
 """
 import asyncio
 import os
