@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "rixl"
 version = "1.5.0"
-description = "Python client for the RIXL API."
+description = "Python client for the Rixl API."
 readme = "README.md"
 requires-python = ">=3.10"
 license = "MIT"

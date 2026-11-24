@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Regenerate the Python SDK from the upstream RIXL OpenAPI spec.
+# Regenerate the Python SDK from the upstream Rixl OpenAPI spec.
 set -euo pipefail
 
 kiota generate \
