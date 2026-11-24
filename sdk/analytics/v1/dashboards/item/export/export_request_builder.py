@@ -14,7 +14,7 @@ from typing import Any, Optional, TYPE_CHECKING, Union
 from warnings import warn
 
 if TYPE_CHECKING:
-    from ......models.google.api.http_body import HttpBody
+    from ......models.analytics.v1.export_dashboard_response import ExportDashboardResponse
     from ......models.google.rpc.status import Status
     from .export_post_request_body import ExportPostRequestBody
 
@@ -31,12 +31,12 @@ class ExportRequestBuilder(BaseRequestBuilder):
         """
         super().__init__(request_adapter, "{+baseurl}/analytics/v1/dashboards/{dashboard_%2Did}/export", path_parameters)
     
-    async def post(self,body: ExportPostRequestBody, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> Optional[HttpBody]:
+    async def post(self,body: ExportPostRequestBody, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> Optional[ExportDashboardResponse]:
         """
         ExportDashboard
         param body: The request body
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
-        Returns: Optional[HttpBody]
+        Returns: Optional[ExportDashboardResponse]
         """
         if body is None:
             raise TypeError("body cannot be null.")
@@ -50,9 +50,9 @@ class ExportRequestBuilder(BaseRequestBuilder):
         }
         if not self.request_adapter:
             raise Exception("Http core is null") 
-        from ......models.google.api.http_body import HttpBody
+        from ......models.analytics.v1.export_dashboard_response import ExportDashboardResponse
 
-        return await self.request_adapter.send_async(request_info, HttpBody, error_mapping)
+        return await self.request_adapter.send_async(request_info, ExportDashboardResponse, error_mapping)
     
     def to_post_request_information(self,body: ExportPostRequestBody, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> RequestInformation:
         """
