@@ -19,7 +19,7 @@ if TYPE_CHECKING:
 
 class UploadRequestBuilder(BaseRequestBuilder):
     """
-    Builds and executes requests for operations under /auth/v1/organizations/{org_-id}/avatar/upload
+    Builds and executes requests for operations under /auth/v1/organizations/{org_id}/avatar/upload
     """
     def __init__(self,request_adapter: RequestAdapter, path_parameters: Union[str, dict[str, Any]]) -> None:
         """
@@ -28,7 +28,7 @@ class UploadRequestBuilder(BaseRequestBuilder):
         param request_adapter: The request adapter to use to execute the requests.
         Returns: None
         """
-        super().__init__(request_adapter, "{+baseurl}/auth/v1/organizations/{org_%2Did}/avatar/upload", path_parameters)
+        super().__init__(request_adapter, "{+baseurl}/auth/v1/organizations/{org_id}/avatar/upload", path_parameters)
     
     async def post(self,request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> Optional[CreateAvatarUploadResponse]:
         """

@@ -19,7 +19,7 @@ if TYPE_CHECKING:
 
 class ConvertToTeamRequestBuilder(BaseRequestBuilder):
     """
-    Builds and executes requests for operations under /auth/v1/organizations/{org_-id}/convert-to-team
+    Builds and executes requests for operations under /auth/v1/organizations/{org_id}/convert-to-team
     """
     def __init__(self,request_adapter: RequestAdapter, path_parameters: Union[str, dict[str, Any]]) -> None:
         """
@@ -28,7 +28,7 @@ class ConvertToTeamRequestBuilder(BaseRequestBuilder):
         param request_adapter: The request adapter to use to execute the requests.
         Returns: None
         """
-        super().__init__(request_adapter, "{+baseurl}/auth/v1/organizations/{org_%2Did}/convert-to-team", path_parameters)
+        super().__init__(request_adapter, "{+baseurl}/auth/v1/organizations/{org_id}/convert-to-team", path_parameters)
     
     async def post(self,request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> Optional[ConvertToTeamOrganizationResponse]:
         """

@@ -20,7 +20,7 @@ if TYPE_CHECKING:
 
 class SuggestJoinRequestBuilder(BaseRequestBuilder):
     """
-    Builds and executes requests for operations under /auth/v1/organizations/{org_-id}/domain/suggest-join
+    Builds and executes requests for operations under /auth/v1/organizations/{org_id}/domain/suggest-join
     """
     def __init__(self,request_adapter: RequestAdapter, path_parameters: Union[str, dict[str, Any]]) -> None:
         """
@@ -29,7 +29,7 @@ class SuggestJoinRequestBuilder(BaseRequestBuilder):
         param request_adapter: The request adapter to use to execute the requests.
         Returns: None
         """
-        super().__init__(request_adapter, "{+baseurl}/auth/v1/organizations/{org_%2Did}/domain/suggest-join{?user_id*}", path_parameters)
+        super().__init__(request_adapter, "{+baseurl}/auth/v1/organizations/{org_id}/domain/suggest-join{?user_id*}", path_parameters)
     
     async def get(self,request_configuration: Optional[RequestConfiguration[SuggestJoinRequestBuilderGetQueryParameters]] = None) -> Optional[SuggestJoinSetting]:
         """

@@ -20,7 +20,7 @@ if TYPE_CHECKING:
 
 class CurrentRequestBuilder(BaseRequestBuilder):
     """
-    Builds and executes requests for operations under /auth/v1/organizations/{org_-id}/members/current
+    Builds and executes requests for operations under /auth/v1/organizations/{org_id}/members/current
     """
     def __init__(self,request_adapter: RequestAdapter, path_parameters: Union[str, dict[str, Any]]) -> None:
         """
@@ -29,7 +29,7 @@ class CurrentRequestBuilder(BaseRequestBuilder):
         param request_adapter: The request adapter to use to execute the requests.
         Returns: None
         """
-        super().__init__(request_adapter, "{+baseurl}/auth/v1/organizations/{org_%2Did}/members/current{?user_id*}", path_parameters)
+        super().__init__(request_adapter, "{+baseurl}/auth/v1/organizations/{org_id}/members/current{?user_id*}", path_parameters)
     
     async def delete(self,request_configuration: Optional[RequestConfiguration[CurrentRequestBuilderDeleteQueryParameters]] = None) -> Optional[Empty]:
         """
