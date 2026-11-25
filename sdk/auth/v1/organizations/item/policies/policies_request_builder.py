@@ -24,7 +24,7 @@ if TYPE_CHECKING:
 
 class PoliciesRequestBuilder(BaseRequestBuilder):
     """
-    Builds and executes requests for operations under /auth/v1/organizations/{org_-id}/policies
+    Builds and executes requests for operations under /auth/v1/organizations/{org_id}/policies
     """
     def __init__(self,request_adapter: RequestAdapter, path_parameters: Union[str, dict[str, Any]]) -> None:
         """
@@ -33,7 +33,7 @@ class PoliciesRequestBuilder(BaseRequestBuilder):
         param request_adapter: The request adapter to use to execute the requests.
         Returns: None
         """
-        super().__init__(request_adapter, "{+baseurl}/auth/v1/organizations/{org_%2Did}/policies{?user_id*}", path_parameters)
+        super().__init__(request_adapter, "{+baseurl}/auth/v1/organizations/{org_id}/policies{?user_id*}", path_parameters)
     
     def by_policy_id(self,policy_id: str) -> WithPolicy_ItemRequestBuilder:
         """

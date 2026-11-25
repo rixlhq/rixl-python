@@ -10,7 +10,7 @@ if TYPE_CHECKING:
 
 class AttachmentsRequestBuilder(BaseRequestBuilder):
     """
-    Builds and executes requests for operations under /auth/v1/organizations/{org_-id}/policies/attachments
+    Builds and executes requests for operations under /auth/v1/organizations/{org_id}/policies/attachments
     """
     def __init__(self,request_adapter: RequestAdapter, path_parameters: Union[str, dict[str, Any]]) -> None:
         """
@@ -19,7 +19,7 @@ class AttachmentsRequestBuilder(BaseRequestBuilder):
         param request_adapter: The request adapter to use to execute the requests.
         Returns: None
         """
-        super().__init__(request_adapter, "{+baseurl}/auth/v1/organizations/{org_%2Did}/policies/attachments", path_parameters)
+        super().__init__(request_adapter, "{+baseurl}/auth/v1/organizations/{org_id}/policies/attachments", path_parameters)
     
     def by_attachment_id(self,attachment_id: str) -> WithAttachment_ItemRequestBuilder:
         """

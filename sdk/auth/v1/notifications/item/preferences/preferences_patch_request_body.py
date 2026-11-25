@@ -6,7 +6,6 @@ from typing import Any, Optional, TYPE_CHECKING, Union
 
 if TYPE_CHECKING:
     from ......models.auth.v1.notification_category import NotificationCategory
-    from .preferences_patch_request_body_user import PreferencesPatchRequestBody_user
 
 @dataclass
 class PreferencesPatchRequestBody(Parsable):
@@ -14,8 +13,6 @@ class PreferencesPatchRequestBody(Parsable):
     category: Optional[NotificationCategory] = None
     # The email_enabled property
     email_enabled: Optional[bool] = None
-    # The user property
-    user: Optional[PreferencesPatchRequestBody_user] = None
     
     @staticmethod
     def create_from_discriminator_value(parse_node: ParseNode) -> PreferencesPatchRequestBody:
@@ -34,15 +31,12 @@ class PreferencesPatchRequestBody(Parsable):
         Returns: dict[str, Callable[[ParseNode], None]]
         """
         from ......models.auth.v1.notification_category import NotificationCategory
-        from .preferences_patch_request_body_user import PreferencesPatchRequestBody_user
 
         from ......models.auth.v1.notification_category import NotificationCategory
-        from .preferences_patch_request_body_user import PreferencesPatchRequestBody_user
 
         fields: dict[str, Callable[[Any], None]] = {
             "category": lambda n : setattr(self, 'category', n.get_enum_value(NotificationCategory)),
             "email_enabled": lambda n : setattr(self, 'email_enabled', n.get_bool_value()),
-            "user": lambda n : setattr(self, 'user', n.get_object_value(PreferencesPatchRequestBody_user)),
         }
         return fields
     
@@ -56,6 +50,5 @@ class PreferencesPatchRequestBody(Parsable):
             raise TypeError("writer cannot be null.")
         writer.write_enum_value("category", self.category)
         writer.write_bool_value("email_enabled", self.email_enabled)
-        writer.write_object_value("user", self.user)
     
 

@@ -20,7 +20,7 @@ if TYPE_CHECKING:
 
 class TransferOwnershipRequestBuilder(BaseRequestBuilder):
     """
-    Builds and executes requests for operations under /auth/v1/organizations/{org_-id}/transfer-ownership
+    Builds and executes requests for operations under /auth/v1/organizations/{org_id}/transfer-ownership
     """
     def __init__(self,request_adapter: RequestAdapter, path_parameters: Union[str, dict[str, Any]]) -> None:
         """
@@ -29,7 +29,7 @@ class TransferOwnershipRequestBuilder(BaseRequestBuilder):
         param request_adapter: The request adapter to use to execute the requests.
         Returns: None
         """
-        super().__init__(request_adapter, "{+baseurl}/auth/v1/organizations/{org_%2Did}/transfer-ownership", path_parameters)
+        super().__init__(request_adapter, "{+baseurl}/auth/v1/organizations/{org_id}/transfer-ownership", path_parameters)
     
     async def post(self,body: TransferOwnershipPostRequestBody, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> Optional[Organization]:
         """
