@@ -31,7 +31,7 @@ class LoginResponse(Parsable):
     requires_action: Optional[str] = None
     # The role property
     role: Optional[str] = None
-    # "ok" | "2fa_required" | "email_not_verified"
+    # "ok" | "2fa_required"
     status: Optional[str] = None
     # The token_type property
     token_type: Optional[str] = None

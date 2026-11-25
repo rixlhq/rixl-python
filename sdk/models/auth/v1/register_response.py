@@ -10,8 +10,6 @@ class RegisterResponse(Parsable):
     email_verification_sent: Optional[bool] = None
     # The message property
     message: Optional[str] = None
-    # The user_id property
-    user_id: Optional[str] = None
     # The verification_id property
     verification_id: Optional[str] = None
     
@@ -34,7 +32,6 @@ class RegisterResponse(Parsable):
         fields: dict[str, Callable[[Any], None]] = {
             "email_verification_sent": lambda n : setattr(self, 'email_verification_sent', n.get_bool_value()),
             "message": lambda n : setattr(self, 'message', n.get_str_value()),
-            "user_id": lambda n : setattr(self, 'user_id', n.get_str_value()),
             "verification_id": lambda n : setattr(self, 'verification_id', n.get_str_value()),
         }
         return fields
@@ -49,7 +46,6 @@ class RegisterResponse(Parsable):
             raise TypeError("writer cannot be null.")
         writer.write_bool_value("email_verification_sent", self.email_verification_sent)
         writer.write_str_value("message", self.message)
-        writer.write_str_value("user_id", self.user_id)
         writer.write_str_value("verification_id", self.verification_id)
     
 

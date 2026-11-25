@@ -28,9 +28,9 @@ class AllRequestBuilder(BaseRequestBuilder):
         param request_adapter: The request adapter to use to execute the requests.
         Returns: None
         """
-        super().__init__(request_adapter, "{+baseurl}/auth/v1/logout/all{?user_id*}", path_parameters)
+        super().__init__(request_adapter, "{+baseurl}/auth/v1/logout/all", path_parameters)
     
-    async def post(self,request_configuration: Optional[RequestConfiguration[AllRequestBuilderPostQueryParameters]] = None) -> Optional[Empty]:
+    async def post(self,request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> Optional[Empty]:
         """
         Revokes all of the caller's sign-ins and invalidates their tokens.
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
@@ -50,7 +50,7 @@ class AllRequestBuilder(BaseRequestBuilder):
 
         return await self.request_adapter.send_async(request_info, Empty, error_mapping)
     
-    def to_post_request_information(self,request_configuration: Optional[RequestConfiguration[AllRequestBuilderPostQueryParameters]] = None) -> RequestInformation:
+    def to_post_request_information(self,request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> RequestInformation:
         """
         Revokes all of the caller's sign-ins and invalidates their tokens.
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
@@ -72,15 +72,7 @@ class AllRequestBuilder(BaseRequestBuilder):
         return AllRequestBuilder(self.request_adapter, raw_url)
     
     @dataclass
-    class AllRequestBuilderPostQueryParameters():
-        """
-        Revokes all of the caller's sign-ins and invalidates their tokens.
-        """
-        user_id: Optional[str] = None
-
-    
-    @dataclass
-    class AllRequestBuilderPostRequestConfiguration(RequestConfiguration[AllRequestBuilderPostQueryParameters]):
+    class AllRequestBuilderPostRequestConfiguration(RequestConfiguration[QueryParameters]):
         """
         Configuration for the request such as headers, query parameters, and middleware options.
         """

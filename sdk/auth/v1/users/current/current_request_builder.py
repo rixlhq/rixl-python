@@ -17,8 +17,10 @@ if TYPE_CHECKING:
     from .....models.auth.v1.get_user_response import GetUserResponse
     from .....models.google.rpc.status import Status
     from .avatar.avatar_request_builder import AvatarRequestBuilder
+    from .deletion_preview.deletion_preview_request_builder import DeletionPreviewRequestBuilder
     from .domain_join_suggestions.domain_join_suggestions_request_builder import DomainJoinSuggestionsRequestBuilder
     from .emails.emails_request_builder import EmailsRequestBuilder
+    from .invitations.invitations_request_builder import InvitationsRequestBuilder
     from .memberships.memberships_request_builder import MembershipsRequestBuilder
     from .name.name_request_builder import NameRequestBuilder
     from .passkeys.passkeys_request_builder import PasskeysRequestBuilder
@@ -89,6 +91,15 @@ class CurrentRequestBuilder(BaseRequestBuilder):
         return AvatarRequestBuilder(self.request_adapter, self.path_parameters)
     
     @property
+    def deletion_preview(self) -> DeletionPreviewRequestBuilder:
+        """
+        The deletionPreview property
+        """
+        from .deletion_preview.deletion_preview_request_builder import DeletionPreviewRequestBuilder
+
+        return DeletionPreviewRequestBuilder(self.request_adapter, self.path_parameters)
+    
+    @property
     def domain_join_suggestions(self) -> DomainJoinSuggestionsRequestBuilder:
         """
         The domainJoinSuggestions property
@@ -105,6 +116,15 @@ class CurrentRequestBuilder(BaseRequestBuilder):
         from .emails.emails_request_builder import EmailsRequestBuilder
 
         return EmailsRequestBuilder(self.request_adapter, self.path_parameters)
+    
+    @property
+    def invitations(self) -> InvitationsRequestBuilder:
+        """
+        The invitations property
+        """
+        from .invitations.invitations_request_builder import InvitationsRequestBuilder
+
+        return InvitationsRequestBuilder(self.request_adapter, self.path_parameters)
     
     @property
     def memberships(self) -> MembershipsRequestBuilder:

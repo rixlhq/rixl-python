@@ -6,7 +6,9 @@ from kiota_abstractions.request_adapter import RequestAdapter
 from typing import Any, Optional, TYPE_CHECKING, Union
 
 if TYPE_CHECKING:
-    from .item.with_token_item_request_builder import WithTokenItemRequestBuilder
+    from .accept.accept_request_builder import AcceptRequestBuilder
+    from .decline.decline_request_builder import DeclineRequestBuilder
+    from .lookup.lookup_request_builder import LookupRequestBuilder
 
 class InvitationsRequestBuilder(BaseRequestBuilder):
     """
@@ -21,18 +23,31 @@ class InvitationsRequestBuilder(BaseRequestBuilder):
         """
         super().__init__(request_adapter, "{+baseurl}/auth/v1/invitations", path_parameters)
     
-    def by_token(self,token: str) -> WithTokenItemRequestBuilder:
+    @property
+    def accept(self) -> AcceptRequestBuilder:
         """
-        Gets an item from the rixl_sdk.auth.v1.invitations.item collection
-        param token: Unique identifier of the item
-        Returns: WithTokenItemRequestBuilder
+        The accept property
         """
-        if token is None:
-            raise TypeError("token cannot be null.")
-        from .item.with_token_item_request_builder import WithTokenItemRequestBuilder
+        from .accept.accept_request_builder import AcceptRequestBuilder
 
-        url_tpl_params = get_path_parameters(self.path_parameters)
-        url_tpl_params["token"] = token
-        return WithTokenItemRequestBuilder(self.request_adapter, url_tpl_params)
+        return AcceptRequestBuilder(self.request_adapter, self.path_parameters)
+    
+    @property
+    def decline(self) -> DeclineRequestBuilder:
+        """
+        The decline property
+        """
+        from .decline.decline_request_builder import DeclineRequestBuilder
+
+        return DeclineRequestBuilder(self.request_adapter, self.path_parameters)
+    
+    @property
+    def lookup(self) -> LookupRequestBuilder:
+        """
+        The lookup property
+        """
+        from .lookup.lookup_request_builder import LookupRequestBuilder
+
+        return LookupRequestBuilder(self.request_adapter, self.path_parameters)
     
 

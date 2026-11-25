@@ -16,8 +16,6 @@ class OrgMember(Parsable):
     # The id property
     id: Optional[str] = None
     # A point in time in RFC 3339 format, with up to nanosecond precision. Output uses UTC (`Z`); input may use an offset from UTC.
-    invitation_expires_at: Optional[datetime.datetime] = None
-    # A point in time in RFC 3339 format, with up to nanosecond precision. Output uses UTC (`Z`); input may use an offset from UTC.
     joined_at: Optional[datetime.datetime] = None
     # The last_name property
     last_name: Optional[str] = None
@@ -57,7 +55,6 @@ class OrgMember(Parsable):
         fields: dict[str, Callable[[Any], None]] = {
             "first_name": lambda n : setattr(self, 'first_name', n.get_str_value()),
             "id": lambda n : setattr(self, 'id', n.get_str_value()),
-            "invitation_expires_at": lambda n : setattr(self, 'invitation_expires_at', n.get_datetime_value()),
             "joined_at": lambda n : setattr(self, 'joined_at', n.get_datetime_value()),
             "last_name": lambda n : setattr(self, 'last_name', n.get_str_value()),
             "org_id": lambda n : setattr(self, 'org_id', n.get_str_value()),
@@ -78,7 +75,6 @@ class OrgMember(Parsable):
             raise TypeError("writer cannot be null.")
         writer.write_str_value("first_name", self.first_name)
         writer.write_str_value("id", self.id)
-        writer.write_datetime_value("invitation_expires_at", self.invitation_expires_at)
         writer.write_datetime_value("joined_at", self.joined_at)
         writer.write_str_value("last_name", self.last_name)
         writer.write_str_value("org_id", self.org_id)

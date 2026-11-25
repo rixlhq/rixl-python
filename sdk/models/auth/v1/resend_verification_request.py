@@ -8,6 +8,8 @@ from typing import Any, Optional, TYPE_CHECKING, Union
 class ResendVerificationRequest(Parsable):
     # The email property
     email: Optional[str] = None
+    # verification_id names the pending sign-up to resend, as returned by Register. A pending sign-up is never looked up by email alone.
+    verification_id: Optional[str] = None
     
     @staticmethod
     def create_from_discriminator_value(parse_node: ParseNode) -> ResendVerificationRequest:
@@ -27,6 +29,7 @@ class ResendVerificationRequest(Parsable):
         """
         fields: dict[str, Callable[[Any], None]] = {
             "email": lambda n : setattr(self, 'email', n.get_str_value()),
+            "verification_id": lambda n : setattr(self, 'verification_id', n.get_str_value()),
         }
         return fields
     
@@ -39,5 +42,6 @@ class ResendVerificationRequest(Parsable):
         if writer is None:
             raise TypeError("writer cannot be null.")
         writer.write_str_value("email", self.email)
+        writer.write_str_value("verification_id", self.verification_id)
     
 

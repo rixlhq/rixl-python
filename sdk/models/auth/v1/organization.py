@@ -5,10 +5,15 @@ from dataclasses import dataclass, field
 from kiota_abstractions.serialization import Parsable, ParseNode, SerializationWriter
 from typing import Any, Optional, TYPE_CHECKING, Union
 
+if TYPE_CHECKING:
+    from .organization_state import OrganizationState
+
 @dataclass
 class Organization(Parsable):
     # A point in time in RFC 3339 format, with up to nanosecond precision. Output uses UTC (`Z`); input may use an offset from UTC.
     created_at: Optional[datetime.datetime] = None
+    # A point in time in RFC 3339 format, with up to nanosecond precision. Output uses UTC (`Z`); input may use an offset from UTC.
+    delete_time: Optional[datetime.datetime] = None
     # The id property
     id: Optional[str] = None
     # The image_id property
@@ -19,8 +24,12 @@ class Organization(Parsable):
     name: Optional[str] = None
     # The personal property
     personal: Optional[bool] = None
+    # A point in time in RFC 3339 format, with up to nanosecond precision. Output uses UTC (`Z`); input may use an offset from UTC.
+    purge_time: Optional[datetime.datetime] = None
     # The slug property
     slug: Optional[str] = None
+    # The state property
+    state: Optional[OrganizationState] = None
     
     @staticmethod
     def create_from_discriminator_value(parse_node: ParseNode) -> Organization:
@@ -38,14 +47,21 @@ class Organization(Parsable):
         The deserialization information for the current model
         Returns: dict[str, Callable[[ParseNode], None]]
         """
+        from .organization_state import OrganizationState
+
+        from .organization_state import OrganizationState
+
         fields: dict[str, Callable[[Any], None]] = {
             "created_at": lambda n : setattr(self, 'created_at', n.get_datetime_value()),
+            "delete_time": lambda n : setattr(self, 'delete_time', n.get_datetime_value()),
             "id": lambda n : setattr(self, 'id', n.get_str_value()),
             "image_id": lambda n : setattr(self, 'image_id', n.get_str_value()),
             "internal": lambda n : setattr(self, 'internal', n.get_bool_value()),
             "name": lambda n : setattr(self, 'name', n.get_str_value()),
             "personal": lambda n : setattr(self, 'personal', n.get_bool_value()),
+            "purge_time": lambda n : setattr(self, 'purge_time', n.get_datetime_value()),
             "slug": lambda n : setattr(self, 'slug', n.get_str_value()),
+            "state": lambda n : setattr(self, 'state', n.get_enum_value(OrganizationState)),
         }
         return fields
     
@@ -58,11 +74,14 @@ class Organization(Parsable):
         if writer is None:
             raise TypeError("writer cannot be null.")
         writer.write_datetime_value("created_at", self.created_at)
+        writer.write_datetime_value("delete_time", self.delete_time)
         writer.write_str_value("id", self.id)
         writer.write_str_value("image_id", self.image_id)
         writer.write_bool_value("internal", self.internal)
         writer.write_str_value("name", self.name)
         writer.write_bool_value("personal", self.personal)
+        writer.write_datetime_value("purge_time", self.purge_time)
         writer.write_str_value("slug", self.slug)
+        writer.write_enum_value("state", self.state)
     
 

@@ -33,7 +33,7 @@ class ChangeRequestBuilder(BaseRequestBuilder):
     
     async def put(self,body: InitiateEmailChangeRequest, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> Optional[VerificationSentResponse]:
         """
-        InitiateEmailChange
+        Requests changing the email. The account keeps its address until the new one is verified with VerifyEmailChange.
         param body: The request body
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
         Returns: Optional[VerificationSentResponse]
@@ -56,7 +56,7 @@ class ChangeRequestBuilder(BaseRequestBuilder):
     
     def to_put_request_information(self,body: InitiateEmailChangeRequest, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> RequestInformation:
         """
-        InitiateEmailChange
+        Requests changing the email. The account keeps its address until the new one is verified with VerifyEmailChange.
         param body: The request body
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
         Returns: RequestInformation

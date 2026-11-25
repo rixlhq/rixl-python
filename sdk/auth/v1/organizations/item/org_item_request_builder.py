@@ -18,12 +18,13 @@ if TYPE_CHECKING:
     from .....models.google.rpc.status import Status
     from .audit_events.audit_events_request_builder import AuditEventsRequestBuilder
     from .avatar.avatar_request_builder import AvatarRequestBuilder
+    from .convert_to_team.convert_to_team_request_builder import ConvertToTeamRequestBuilder
     from .domain.domain_request_builder import DomainRequestBuilder
-    from .invite.invite_request_builder import InviteRequestBuilder
+    from .invitations.invitations_request_builder import InvitationsRequestBuilder
     from .members.members_request_builder import MembersRequestBuilder
-    from .membership_applications.membership_applications_request_builder import MembershipApplicationsRequestBuilder
     from .org_patch_request_body import Org_PatchRequestBody
     from .policies.policies_request_builder import PoliciesRequestBuilder
+    from .transfer_ownership.transfer_ownership_request_builder import TransferOwnershipRequestBuilder
 
 class Org_ItemRequestBuilder(BaseRequestBuilder):
     """
@@ -136,6 +137,15 @@ class Org_ItemRequestBuilder(BaseRequestBuilder):
         return AvatarRequestBuilder(self.request_adapter, self.path_parameters)
     
     @property
+    def convert_to_team(self) -> ConvertToTeamRequestBuilder:
+        """
+        The convertToTeam property
+        """
+        from .convert_to_team.convert_to_team_request_builder import ConvertToTeamRequestBuilder
+
+        return ConvertToTeamRequestBuilder(self.request_adapter, self.path_parameters)
+    
+    @property
     def domain(self) -> DomainRequestBuilder:
         """
         The domain property
@@ -145,13 +155,13 @@ class Org_ItemRequestBuilder(BaseRequestBuilder):
         return DomainRequestBuilder(self.request_adapter, self.path_parameters)
     
     @property
-    def invite(self) -> InviteRequestBuilder:
+    def invitations(self) -> InvitationsRequestBuilder:
         """
-        The invite property
+        The invitations property
         """
-        from .invite.invite_request_builder import InviteRequestBuilder
+        from .invitations.invitations_request_builder import InvitationsRequestBuilder
 
-        return InviteRequestBuilder(self.request_adapter, self.path_parameters)
+        return InvitationsRequestBuilder(self.request_adapter, self.path_parameters)
     
     @property
     def members(self) -> MembersRequestBuilder:
@@ -163,15 +173,6 @@ class Org_ItemRequestBuilder(BaseRequestBuilder):
         return MembersRequestBuilder(self.request_adapter, self.path_parameters)
     
     @property
-    def membership_applications(self) -> MembershipApplicationsRequestBuilder:
-        """
-        The membershipApplications property
-        """
-        from .membership_applications.membership_applications_request_builder import MembershipApplicationsRequestBuilder
-
-        return MembershipApplicationsRequestBuilder(self.request_adapter, self.path_parameters)
-    
-    @property
     def policies(self) -> PoliciesRequestBuilder:
         """
         The policies property
@@ -179,6 +180,15 @@ class Org_ItemRequestBuilder(BaseRequestBuilder):
         from .policies.policies_request_builder import PoliciesRequestBuilder
 
         return PoliciesRequestBuilder(self.request_adapter, self.path_parameters)
+    
+    @property
+    def transfer_ownership(self) -> TransferOwnershipRequestBuilder:
+        """
+        The transferOwnership property
+        """
+        from .transfer_ownership.transfer_ownership_request_builder import TransferOwnershipRequestBuilder
+
+        return TransferOwnershipRequestBuilder(self.request_adapter, self.path_parameters)
     
     @dataclass
     class Org_ItemRequestBuilderGetRequestConfiguration(RequestConfiguration[QueryParameters]):

@@ -30,7 +30,7 @@ class SignInsRequestBuilder(BaseRequestBuilder):
         param request_adapter: The request adapter to use to execute the requests.
         Returns: None
         """
-        super().__init__(request_adapter, "{+baseurl}/auth/v1/sign-ins{?user_id*}", path_parameters)
+        super().__init__(request_adapter, "{+baseurl}/auth/v1/sign-ins", path_parameters)
     
     def by_sign_in_id(self,sign_in_id: str) -> WithSign_in_ItemRequestBuilder:
         """
@@ -46,7 +46,7 @@ class SignInsRequestBuilder(BaseRequestBuilder):
         url_tpl_params["sign_in_id"] = sign_in_id
         return WithSign_in_ItemRequestBuilder(self.request_adapter, url_tpl_params)
     
-    async def get(self,request_configuration: Optional[RequestConfiguration[SignInsRequestBuilderGetQueryParameters]] = None) -> Optional[ListSignInsResponse]:
+    async def get(self,request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> Optional[ListSignInsResponse]:
         """
         Lists the caller's sign-ins, most recently used first.
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
@@ -66,7 +66,7 @@ class SignInsRequestBuilder(BaseRequestBuilder):
 
         return await self.request_adapter.send_async(request_info, ListSignInsResponse, error_mapping)
     
-    def to_get_request_information(self,request_configuration: Optional[RequestConfiguration[SignInsRequestBuilderGetQueryParameters]] = None) -> RequestInformation:
+    def to_get_request_information(self,request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> RequestInformation:
         """
         Lists the caller's sign-ins, most recently used first.
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
@@ -97,15 +97,7 @@ class SignInsRequestBuilder(BaseRequestBuilder):
         return RevokeOthersRequestBuilder(self.request_adapter, self.path_parameters)
     
     @dataclass
-    class SignInsRequestBuilderGetQueryParameters():
-        """
-        Lists the caller's sign-ins, most recently used first.
-        """
-        user_id: Optional[str] = None
-
-    
-    @dataclass
-    class SignInsRequestBuilderGetRequestConfiguration(RequestConfiguration[SignInsRequestBuilderGetQueryParameters]):
+    class SignInsRequestBuilderGetRequestConfiguration(RequestConfiguration[QueryParameters]):
         """
         Configuration for the request such as headers, query parameters, and middleware options.
         """

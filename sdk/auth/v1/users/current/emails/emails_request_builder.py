@@ -19,6 +19,7 @@ if TYPE_CHECKING:
     from ......models.google.rpc.status import Status
     from .change.change_request_builder import ChangeRequestBuilder
     from .status.status_request_builder import StatusRequestBuilder
+    from .verify.verify_request_builder import VerifyRequestBuilder
 
 class EmailsRequestBuilder(BaseRequestBuilder):
     """
@@ -35,7 +36,7 @@ class EmailsRequestBuilder(BaseRequestBuilder):
     
     async def post(self,body: AddEmailRequest, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> Optional[VerificationSentResponse]:
         """
-        AddEmail
+        Requests adding an email. Nothing is stored on the account until the address is verified with VerifyEmailChange.
         param body: The request body
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
         Returns: Optional[VerificationSentResponse]
@@ -58,7 +59,7 @@ class EmailsRequestBuilder(BaseRequestBuilder):
     
     def to_post_request_information(self,body: AddEmailRequest, request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> RequestInformation:
         """
-        AddEmail
+        Requests adding an email. Nothing is stored on the account until the address is verified with VerifyEmailChange.
         param body: The request body
         param request_configuration: Configuration for the request such as headers, query parameters, and middleware options.
         Returns: RequestInformation
@@ -98,6 +99,15 @@ class EmailsRequestBuilder(BaseRequestBuilder):
         from .status.status_request_builder import StatusRequestBuilder
 
         return StatusRequestBuilder(self.request_adapter, self.path_parameters)
+    
+    @property
+    def verify(self) -> VerifyRequestBuilder:
+        """
+        The verify property
+        """
+        from .verify.verify_request_builder import VerifyRequestBuilder
+
+        return VerifyRequestBuilder(self.request_adapter, self.path_parameters)
     
     @dataclass
     class EmailsRequestBuilderPostRequestConfiguration(RequestConfiguration[QueryParameters]):

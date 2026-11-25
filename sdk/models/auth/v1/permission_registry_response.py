@@ -5,12 +5,12 @@ from kiota_abstractions.serialization import Parsable, ParseNode, SerializationW
 from typing import Any, Optional, TYPE_CHECKING, Union
 
 if TYPE_CHECKING:
-    from .permission_offset import PermissionOffset
+    from .registered_permission import RegisteredPermission
 
 @dataclass
 class PermissionRegistryResponse(Parsable):
     # The permissions property
-    permissions: Optional[list[PermissionOffset]] = None
+    permissions: Optional[list[RegisteredPermission]] = None
     # The total property
     total: Optional[int] = None
     
@@ -30,12 +30,12 @@ class PermissionRegistryResponse(Parsable):
         The deserialization information for the current model
         Returns: dict[str, Callable[[ParseNode], None]]
         """
-        from .permission_offset import PermissionOffset
+        from .registered_permission import RegisteredPermission
 
-        from .permission_offset import PermissionOffset
+        from .registered_permission import RegisteredPermission
 
         fields: dict[str, Callable[[Any], None]] = {
-            "permissions": lambda n : setattr(self, 'permissions', n.get_collection_of_object_values(PermissionOffset)),
+            "permissions": lambda n : setattr(self, 'permissions', n.get_collection_of_object_values(RegisteredPermission)),
             "total": lambda n : setattr(self, 'total', n.get_int_value()),
         }
         return fields

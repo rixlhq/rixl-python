@@ -11,7 +11,6 @@ if TYPE_CHECKING:
     from .invitations.invitations_request_builder import InvitationsRequestBuilder
     from .login.login_request_builder import LoginRequestBuilder
     from .logout.logout_request_builder import LogoutRequestBuilder
-    from .membership_applications.membership_applications_request_builder import MembershipApplicationsRequestBuilder
     from .notifications.notifications_request_builder import NotificationsRequestBuilder
     from .organizations.organizations_request_builder import OrganizationsRequestBuilder
     from .passkey.passkey_request_builder import PasskeyRequestBuilder
@@ -82,15 +81,6 @@ class V1RequestBuilder(BaseRequestBuilder):
         from .logout.logout_request_builder import LogoutRequestBuilder
 
         return LogoutRequestBuilder(self.request_adapter, self.path_parameters)
-    
-    @property
-    def membership_applications(self) -> MembershipApplicationsRequestBuilder:
-        """
-        The membershipApplications property
-        """
-        from .membership_applications.membership_applications_request_builder import MembershipApplicationsRequestBuilder
-
-        return MembershipApplicationsRequestBuilder(self.request_adapter, self.path_parameters)
     
     @property
     def notifications(self) -> NotificationsRequestBuilder:
