@@ -19,7 +19,7 @@ if TYPE_CHECKING:
 
 class AuditEventsRequestBuilder(BaseRequestBuilder):
     """
-    Builds and executes requests for operations under /auth/v1/organizations/{org_id}/audit-events
+    Builds and executes requests for operations under /auth/v1/organizations/{org_-id}/audit-events
     """
     def __init__(self,request_adapter: RequestAdapter, path_parameters: Union[str, dict[str, Any]]) -> None:
         """
@@ -28,7 +28,7 @@ class AuditEventsRequestBuilder(BaseRequestBuilder):
         param request_adapter: The request adapter to use to execute the requests.
         Returns: None
         """
-        super().__init__(request_adapter, "{+baseurl}/auth/v1/organizations/{org_id}/audit-events{?page_size*,page_token*}", path_parameters)
+        super().__init__(request_adapter, "{+baseurl}/auth/v1/organizations/{org_%2Did}/audit-events{?page_size*,page_token*}", path_parameters)
     
     async def get(self,request_configuration: Optional[RequestConfiguration[AuditEventsRequestBuilderGetQueryParameters]] = None) -> Optional[ListOrganizationAuditEventsResponse]:
         """

@@ -10,7 +10,7 @@ if TYPE_CHECKING:
 
 class AvatarRequestBuilder(BaseRequestBuilder):
     """
-    Builds and executes requests for operations under /auth/v1/organizations/{org_id}/avatar
+    Builds and executes requests for operations under /auth/v1/organizations/{org_-id}/avatar
     """
     def __init__(self,request_adapter: RequestAdapter, path_parameters: Union[str, dict[str, Any]]) -> None:
         """
@@ -19,7 +19,7 @@ class AvatarRequestBuilder(BaseRequestBuilder):
         param request_adapter: The request adapter to use to execute the requests.
         Returns: None
         """
-        super().__init__(request_adapter, "{+baseurl}/auth/v1/organizations/{org_id}/avatar", path_parameters)
+        super().__init__(request_adapter, "{+baseurl}/auth/v1/organizations/{org_%2Did}/avatar", path_parameters)
     
     @property
     def upload(self) -> UploadRequestBuilder:

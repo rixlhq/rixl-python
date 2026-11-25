@@ -6,6 +6,7 @@ from typing import Any, Optional, TYPE_CHECKING, Union
 
 if TYPE_CHECKING:
     from ........models.auth.v1.policy_identity_type import PolicyIdentityType
+    from .attachments_post_request_body_user import AttachmentsPostRequestBody_user
 
 @dataclass
 class AttachmentsPostRequestBody(Parsable):
@@ -13,6 +14,8 @@ class AttachmentsPostRequestBody(Parsable):
     identity_id: Optional[str] = None
     # The identity_type property
     identity_type: Optional[PolicyIdentityType] = None
+    # The user property
+    user: Optional[AttachmentsPostRequestBody_user] = None
     
     @staticmethod
     def create_from_discriminator_value(parse_node: ParseNode) -> AttachmentsPostRequestBody:
@@ -31,12 +34,15 @@ class AttachmentsPostRequestBody(Parsable):
         Returns: dict[str, Callable[[ParseNode], None]]
         """
         from ........models.auth.v1.policy_identity_type import PolicyIdentityType
+        from .attachments_post_request_body_user import AttachmentsPostRequestBody_user
 
         from ........models.auth.v1.policy_identity_type import PolicyIdentityType
+        from .attachments_post_request_body_user import AttachmentsPostRequestBody_user
 
         fields: dict[str, Callable[[Any], None]] = {
             "identity_id": lambda n : setattr(self, 'identity_id', n.get_str_value()),
             "identity_type": lambda n : setattr(self, 'identity_type', n.get_enum_value(PolicyIdentityType)),
+            "user": lambda n : setattr(self, 'user', n.get_object_value(AttachmentsPostRequestBody_user)),
         }
         return fields
     
@@ -50,5 +56,6 @@ class AttachmentsPostRequestBody(Parsable):
             raise TypeError("writer cannot be null.")
         writer.write_str_value("identity_id", self.identity_id)
         writer.write_enum_value("identity_type", self.identity_type)
+        writer.write_object_value("user", self.user)
     
 
