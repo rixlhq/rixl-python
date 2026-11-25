@@ -19,7 +19,7 @@ if TYPE_CHECKING:
 
 class CheckRequestBuilder(BaseRequestBuilder):
     """
-    Builds and executes requests for operations under /auth/v1/organizations/{org_id}/members/current/check
+    Builds and executes requests for operations under /auth/v1/organizations/{org_-id}/members/current/check
     """
     def __init__(self,request_adapter: RequestAdapter, path_parameters: Union[str, dict[str, Any]]) -> None:
         """
@@ -28,7 +28,7 @@ class CheckRequestBuilder(BaseRequestBuilder):
         param request_adapter: The request adapter to use to execute the requests.
         Returns: None
         """
-        super().__init__(request_adapter, "{+baseurl}/auth/v1/organizations/{org_id}/members/current/check", path_parameters)
+        super().__init__(request_adapter, "{+baseurl}/auth/v1/organizations/{org_%2Did}/members/current/check", path_parameters)
     
     async def get(self,request_configuration: Optional[RequestConfiguration[QueryParameters]] = None) -> Optional[CheckMembershipResponse]:
         """

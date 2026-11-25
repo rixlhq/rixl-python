@@ -21,7 +21,7 @@ if TYPE_CHECKING:
 
 class PreferencesRequestBuilder(BaseRequestBuilder):
     """
-    Builds and executes requests for operations under /auth/v1/notifications/{org_id}/preferences
+    Builds and executes requests for operations under /auth/v1/notifications/{org_-id}/preferences
     """
     def __init__(self,request_adapter: RequestAdapter, path_parameters: Union[str, dict[str, Any]]) -> None:
         """
@@ -30,7 +30,7 @@ class PreferencesRequestBuilder(BaseRequestBuilder):
         param request_adapter: The request adapter to use to execute the requests.
         Returns: None
         """
-        super().__init__(request_adapter, "{+baseurl}/auth/v1/notifications/{org_id}/preferences{?user_id*}", path_parameters)
+        super().__init__(request_adapter, "{+baseurl}/auth/v1/notifications/{org_%2Did}/preferences{?user_id*}", path_parameters)
     
     async def get(self,request_configuration: Optional[RequestConfiguration[PreferencesRequestBuilderGetQueryParameters]] = None) -> Optional[NotificationPreferences]:
         """
