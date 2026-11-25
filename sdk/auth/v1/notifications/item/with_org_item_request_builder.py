@@ -8,18 +8,18 @@ from typing import Any, Optional, TYPE_CHECKING, Union
 if TYPE_CHECKING:
     from .preferences.preferences_request_builder import PreferencesRequestBuilder
 
-class Org_ItemRequestBuilder(BaseRequestBuilder):
+class WithOrg_ItemRequestBuilder(BaseRequestBuilder):
     """
-    Builds and executes requests for operations under /auth/v1/notifications/{org_-id}
+    Builds and executes requests for operations under /auth/v1/notifications/{org_id}
     """
     def __init__(self,request_adapter: RequestAdapter, path_parameters: Union[str, dict[str, Any]]) -> None:
         """
-        Instantiates a new Org_ItemRequestBuilder and sets the default values.
+        Instantiates a new WithOrg_ItemRequestBuilder and sets the default values.
         param path_parameters: The raw url or the url-template parameters for the request.
         param request_adapter: The request adapter to use to execute the requests.
         Returns: None
         """
-        super().__init__(request_adapter, "{+baseurl}/auth/v1/notifications/{org_%2Did}", path_parameters)
+        super().__init__(request_adapter, "{+baseurl}/auth/v1/notifications/{org_id}", path_parameters)
     
     @property
     def preferences(self) -> PreferencesRequestBuilder:

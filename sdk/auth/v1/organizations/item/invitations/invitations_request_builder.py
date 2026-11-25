@@ -23,7 +23,7 @@ if TYPE_CHECKING:
 
 class InvitationsRequestBuilder(BaseRequestBuilder):
     """
-    Builds and executes requests for operations under /auth/v1/organizations/{org_-id}/invitations
+    Builds and executes requests for operations under /auth/v1/organizations/{org_id}/invitations
     """
     def __init__(self,request_adapter: RequestAdapter, path_parameters: Union[str, dict[str, Any]]) -> None:
         """
@@ -32,7 +32,7 @@ class InvitationsRequestBuilder(BaseRequestBuilder):
         param request_adapter: The request adapter to use to execute the requests.
         Returns: None
         """
-        super().__init__(request_adapter, "{+baseurl}/auth/v1/organizations/{org_%2Did}/invitations{?page_size*,page_token*,state*}", path_parameters)
+        super().__init__(request_adapter, "{+baseurl}/auth/v1/organizations/{org_id}/invitations{?page_size*,page_token*,state*}", path_parameters)
     
     def by_invitation_id(self,invitation_id: str) -> WithInvitation_ItemRequestBuilder:
         """
