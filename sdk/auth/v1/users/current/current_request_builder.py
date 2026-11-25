@@ -17,7 +17,9 @@ if TYPE_CHECKING:
     from .....models.auth.v1.get_user_response import GetUserResponse
     from .....models.google.rpc.status import Status
     from .avatar.avatar_request_builder import AvatarRequestBuilder
+    from .domain_join_suggestions.domain_join_suggestions_request_builder import DomainJoinSuggestionsRequestBuilder
     from .emails.emails_request_builder import EmailsRequestBuilder
+    from .memberships.memberships_request_builder import MembershipsRequestBuilder
     from .name.name_request_builder import NameRequestBuilder
     from .passkeys.passkeys_request_builder import PasskeysRequestBuilder
     from .totp.totp_request_builder import TotpRequestBuilder
@@ -87,6 +89,15 @@ class CurrentRequestBuilder(BaseRequestBuilder):
         return AvatarRequestBuilder(self.request_adapter, self.path_parameters)
     
     @property
+    def domain_join_suggestions(self) -> DomainJoinSuggestionsRequestBuilder:
+        """
+        The domainJoinSuggestions property
+        """
+        from .domain_join_suggestions.domain_join_suggestions_request_builder import DomainJoinSuggestionsRequestBuilder
+
+        return DomainJoinSuggestionsRequestBuilder(self.request_adapter, self.path_parameters)
+    
+    @property
     def emails(self) -> EmailsRequestBuilder:
         """
         The emails property
@@ -94,6 +105,15 @@ class CurrentRequestBuilder(BaseRequestBuilder):
         from .emails.emails_request_builder import EmailsRequestBuilder
 
         return EmailsRequestBuilder(self.request_adapter, self.path_parameters)
+    
+    @property
+    def memberships(self) -> MembershipsRequestBuilder:
+        """
+        The memberships property
+        """
+        from .memberships.memberships_request_builder import MembershipsRequestBuilder
+
+        return MembershipsRequestBuilder(self.request_adapter, self.path_parameters)
     
     @property
     def name(self) -> NameRequestBuilder:

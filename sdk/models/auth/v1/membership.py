@@ -8,6 +8,7 @@ from typing import Any, Optional, TYPE_CHECKING, Union
 if TYPE_CHECKING:
     from .membership_role import MembershipRole
     from .membership_state import MembershipState
+    from .organization import Organization
 
 @dataclass
 class Membership(Parsable):
@@ -17,12 +18,8 @@ class Membership(Parsable):
     joined_at: Optional[datetime.datetime] = None
     # The org_id property
     org_id: Optional[str] = None
-    # The organization_first_name property
-    organization_first_name: Optional[str] = None
-    # The organization_last_name property
-    organization_last_name: Optional[str] = None
-    # The organization_username property
-    organization_username: Optional[str] = None
+    # The organization property
+    organization: Optional[Organization] = None
     # The role property
     role: Optional[MembershipRole] = None
     # The state property
@@ -48,17 +45,17 @@ class Membership(Parsable):
         """
         from .membership_role import MembershipRole
         from .membership_state import MembershipState
+        from .organization import Organization
 
         from .membership_role import MembershipRole
         from .membership_state import MembershipState
+        from .organization import Organization
 
         fields: dict[str, Callable[[Any], None]] = {
             "id": lambda n : setattr(self, 'id', n.get_str_value()),
             "joined_at": lambda n : setattr(self, 'joined_at', n.get_datetime_value()),
             "org_id": lambda n : setattr(self, 'org_id', n.get_str_value()),
-            "organization_first_name": lambda n : setattr(self, 'organization_first_name', n.get_str_value()),
-            "organization_last_name": lambda n : setattr(self, 'organization_last_name', n.get_str_value()),
-            "organization_username": lambda n : setattr(self, 'organization_username', n.get_str_value()),
+            "organization": lambda n : setattr(self, 'organization', n.get_object_value(Organization)),
             "role": lambda n : setattr(self, 'role', n.get_enum_value(MembershipRole)),
             "state": lambda n : setattr(self, 'state', n.get_enum_value(MembershipState)),
             "user_id": lambda n : setattr(self, 'user_id', n.get_str_value()),
@@ -76,9 +73,7 @@ class Membership(Parsable):
         writer.write_str_value("id", self.id)
         writer.write_datetime_value("joined_at", self.joined_at)
         writer.write_str_value("org_id", self.org_id)
-        writer.write_str_value("organization_first_name", self.organization_first_name)
-        writer.write_str_value("organization_last_name", self.organization_last_name)
-        writer.write_str_value("organization_username", self.organization_username)
+        writer.write_object_value("organization", self.organization)
         writer.write_enum_value("role", self.role)
         writer.write_enum_value("state", self.state)
         writer.write_str_value("user_id", self.user_id)

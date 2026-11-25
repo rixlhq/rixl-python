@@ -6,10 +6,10 @@ from typing import Any, Optional, TYPE_CHECKING, Union
 
 @dataclass
 class PasskeyBeginResponse(Parsable):
+    # The challenge_id property
+    challenge_id: Optional[str] = None
     # The options property
     options: Optional[bytes] = None
-    # The session_id property
-    session_id: Optional[str] = None
     
     @staticmethod
     def create_from_discriminator_value(parse_node: ParseNode) -> PasskeyBeginResponse:
@@ -28,8 +28,8 @@ class PasskeyBeginResponse(Parsable):
         Returns: dict[str, Callable[[ParseNode], None]]
         """
         fields: dict[str, Callable[[Any], None]] = {
+            "challenge_id": lambda n : setattr(self, 'challenge_id', n.get_str_value()),
             "options": lambda n : setattr(self, 'options', n.get_bytes_value()),
-            "session_id": lambda n : setattr(self, 'session_id', n.get_str_value()),
         }
         return fields
     
@@ -41,7 +41,7 @@ class PasskeyBeginResponse(Parsable):
         """
         if writer is None:
             raise TypeError("writer cannot be null.")
+        writer.write_str_value("challenge_id", self.challenge_id)
         writer.write_bytes_value("options", self.options)
-        writer.write_str_value("session_id", self.session_id)
     
 

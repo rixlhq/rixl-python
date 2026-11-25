@@ -11,12 +11,14 @@ if TYPE_CHECKING:
     from .invitations.invitations_request_builder import InvitationsRequestBuilder
     from .login.login_request_builder import LoginRequestBuilder
     from .logout.logout_request_builder import LogoutRequestBuilder
-    from .memberships.memberships_request_builder import MembershipsRequestBuilder
     from .membership_applications.membership_applications_request_builder import MembershipApplicationsRequestBuilder
+    from .notifications.notifications_request_builder import NotificationsRequestBuilder
+    from .organizations.organizations_request_builder import OrganizationsRequestBuilder
     from .passkey.passkey_request_builder import PasskeyRequestBuilder
     from .password.password_request_builder import PasswordRequestBuilder
     from .providers.providers_request_builder import ProvidersRequestBuilder
     from .register.register_request_builder import RegisterRequestBuilder
+    from .sign_ins.sign_ins_request_builder import SignInsRequestBuilder
     from .token.token_request_builder import TokenRequestBuilder
     from .userinfo.userinfo_request_builder import UserinfoRequestBuilder
     from .users.users_request_builder import UsersRequestBuilder
@@ -91,13 +93,22 @@ class V1RequestBuilder(BaseRequestBuilder):
         return MembershipApplicationsRequestBuilder(self.request_adapter, self.path_parameters)
     
     @property
-    def memberships(self) -> MembershipsRequestBuilder:
+    def notifications(self) -> NotificationsRequestBuilder:
         """
-        The memberships property
+        The notifications property
         """
-        from .memberships.memberships_request_builder import MembershipsRequestBuilder
+        from .notifications.notifications_request_builder import NotificationsRequestBuilder
 
-        return MembershipsRequestBuilder(self.request_adapter, self.path_parameters)
+        return NotificationsRequestBuilder(self.request_adapter, self.path_parameters)
+    
+    @property
+    def organizations(self) -> OrganizationsRequestBuilder:
+        """
+        The organizations property
+        """
+        from .organizations.organizations_request_builder import OrganizationsRequestBuilder
+
+        return OrganizationsRequestBuilder(self.request_adapter, self.path_parameters)
     
     @property
     def passkey(self) -> PasskeyRequestBuilder:
@@ -134,6 +145,15 @@ class V1RequestBuilder(BaseRequestBuilder):
         from .register.register_request_builder import RegisterRequestBuilder
 
         return RegisterRequestBuilder(self.request_adapter, self.path_parameters)
+    
+    @property
+    def sign_ins(self) -> SignInsRequestBuilder:
+        """
+        The signIns property
+        """
+        from .sign_ins.sign_ins_request_builder import SignInsRequestBuilder
+
+        return SignInsRequestBuilder(self.request_adapter, self.path_parameters)
     
     @property
     def token(self) -> TokenRequestBuilder:

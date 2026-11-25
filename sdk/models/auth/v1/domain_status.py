@@ -13,10 +13,10 @@ class DomainStatus(Parsable):
     """
     At most one of `verified`, `pending` may be set.
     """
-    # The auto_join property
-    auto_join: Optional[bool] = None
     # The pending property
     pending: Optional[PendingDomain] = None
+    # The suggest_join property
+    suggest_join: Optional[bool] = None
     # The verified property
     verified: Optional[VerifiedDomain] = None
     
@@ -43,8 +43,8 @@ class DomainStatus(Parsable):
         from .verified_domain import VerifiedDomain
 
         fields: dict[str, Callable[[Any], None]] = {
-            "auto_join": lambda n : setattr(self, 'auto_join', n.get_bool_value()),
             "pending": lambda n : setattr(self, 'pending', n.get_object_value(PendingDomain)),
+            "suggest_join": lambda n : setattr(self, 'suggest_join', n.get_bool_value()),
             "verified": lambda n : setattr(self, 'verified', n.get_object_value(VerifiedDomain)),
         }
         return fields
@@ -57,8 +57,8 @@ class DomainStatus(Parsable):
         """
         if writer is None:
             raise TypeError("writer cannot be null.")
-        writer.write_bool_value("auto_join", self.auto_join)
         writer.write_object_value("pending", self.pending)
+        writer.write_bool_value("suggest_join", self.suggest_join)
         writer.write_object_value("verified", self.verified)
     
 

@@ -17,6 +17,7 @@ if TYPE_CHECKING:
     from ....models.auth.v1.logout_request import LogoutRequest
     from ....models.google.protobuf.empty import Empty
     from ....models.google.rpc.status import Status
+    from .all.all_request_builder import AllRequestBuilder
 
 class LogoutRequestBuilder(BaseRequestBuilder):
     """
@@ -78,6 +79,15 @@ class LogoutRequestBuilder(BaseRequestBuilder):
         if raw_url is None:
             raise TypeError("raw_url cannot be null.")
         return LogoutRequestBuilder(self.request_adapter, raw_url)
+    
+    @property
+    def all(self) -> AllRequestBuilder:
+        """
+        The all property
+        """
+        from .all.all_request_builder import AllRequestBuilder
+
+        return AllRequestBuilder(self.request_adapter, self.path_parameters)
     
     @dataclass
     class LogoutRequestBuilderPostRequestConfiguration(RequestConfiguration[QueryParameters]):

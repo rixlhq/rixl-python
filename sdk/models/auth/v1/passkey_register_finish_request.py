@@ -6,12 +6,12 @@ from typing import Any, Optional, TYPE_CHECKING, Union
 
 @dataclass
 class PasskeyRegisterFinishRequest(Parsable):
+    # The challenge_id property
+    challenge_id: Optional[str] = None
     # The credential property
     credential: Optional[bytes] = None
     # The name property
     name: Optional[str] = None
-    # The session_id property
-    session_id: Optional[str] = None
     # The user_id property
     user_id: Optional[str] = None
     
@@ -32,9 +32,9 @@ class PasskeyRegisterFinishRequest(Parsable):
         Returns: dict[str, Callable[[ParseNode], None]]
         """
         fields: dict[str, Callable[[Any], None]] = {
+            "challenge_id": lambda n : setattr(self, 'challenge_id', n.get_str_value()),
             "credential": lambda n : setattr(self, 'credential', n.get_bytes_value()),
             "name": lambda n : setattr(self, 'name', n.get_str_value()),
-            "session_id": lambda n : setattr(self, 'session_id', n.get_str_value()),
             "user_id": lambda n : setattr(self, 'user_id', n.get_str_value()),
         }
         return fields
@@ -47,9 +47,9 @@ class PasskeyRegisterFinishRequest(Parsable):
         """
         if writer is None:
             raise TypeError("writer cannot be null.")
+        writer.write_str_value("challenge_id", self.challenge_id)
         writer.write_bytes_value("credential", self.credential)
         writer.write_str_value("name", self.name)
-        writer.write_str_value("session_id", self.session_id)
         writer.write_str_value("user_id", self.user_id)
     
 

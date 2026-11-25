@@ -9,8 +9,6 @@ if TYPE_CHECKING:
 
 @dataclass
 class UserInfo(Parsable):
-    # The active_org_id property
-    active_org_id: Optional[str] = None
     # The country_code property
     country_code: Optional[str] = None
     # The email property
@@ -27,6 +25,8 @@ class UserInfo(Parsable):
     image_url: Optional[str] = None
     # The language_code property
     language_code: Optional[str] = None
+    # The last_active_org_id property
+    last_active_org_id: Optional[str] = None
     # The last_name property
     last_name: Optional[str] = None
     # The permissions property
@@ -57,7 +57,6 @@ class UserInfo(Parsable):
         from .policy import Policy
 
         fields: dict[str, Callable[[Any], None]] = {
-            "active_org_id": lambda n : setattr(self, 'active_org_id', n.get_str_value()),
             "country_code": lambda n : setattr(self, 'country_code', n.get_str_value()),
             "email": lambda n : setattr(self, 'email', n.get_str_value()),
             "email_verified": lambda n : setattr(self, 'email_verified', n.get_bool_value()),
@@ -66,6 +65,7 @@ class UserInfo(Parsable):
             "image_id": lambda n : setattr(self, 'image_id', n.get_str_value()),
             "image_url": lambda n : setattr(self, 'image_url', n.get_str_value()),
             "language_code": lambda n : setattr(self, 'language_code', n.get_str_value()),
+            "last_active_org_id": lambda n : setattr(self, 'last_active_org_id', n.get_str_value()),
             "last_name": lambda n : setattr(self, 'last_name', n.get_str_value()),
             "permissions": lambda n : setattr(self, 'permissions', n.get_collection_of_primitive_values(str)),
             "policies": lambda n : setattr(self, 'policies', n.get_collection_of_object_values(Policy)),
@@ -81,7 +81,6 @@ class UserInfo(Parsable):
         """
         if writer is None:
             raise TypeError("writer cannot be null.")
-        writer.write_str_value("active_org_id", self.active_org_id)
         writer.write_str_value("country_code", self.country_code)
         writer.write_str_value("email", self.email)
         writer.write_bool_value("email_verified", self.email_verified)
@@ -90,6 +89,7 @@ class UserInfo(Parsable):
         writer.write_str_value("image_id", self.image_id)
         writer.write_str_value("image_url", self.image_url)
         writer.write_str_value("language_code", self.language_code)
+        writer.write_str_value("last_active_org_id", self.last_active_org_id)
         writer.write_str_value("last_name", self.last_name)
         writer.write_collection_of_primitive_values("permissions", self.permissions)
         writer.write_collection_of_object_values("policies", self.policies)

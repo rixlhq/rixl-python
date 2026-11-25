@@ -6,13 +6,14 @@ from typing import Any, Optional, TYPE_CHECKING, Union
 
 if TYPE_CHECKING:
     from .membership_role import MembershipRole
+    from .organization import Organization
 
 @dataclass
 class AcceptInvitationResponse(Parsable):
     # The org_id property
     org_id: Optional[str] = None
-    # The org_name property
-    org_name: Optional[str] = None
+    # The organization property
+    organization: Optional[Organization] = None
     # The role property
     role: Optional[MembershipRole] = None
     
@@ -33,12 +34,14 @@ class AcceptInvitationResponse(Parsable):
         Returns: dict[str, Callable[[ParseNode], None]]
         """
         from .membership_role import MembershipRole
+        from .organization import Organization
 
         from .membership_role import MembershipRole
+        from .organization import Organization
 
         fields: dict[str, Callable[[Any], None]] = {
             "org_id": lambda n : setattr(self, 'org_id', n.get_str_value()),
-            "org_name": lambda n : setattr(self, 'org_name', n.get_str_value()),
+            "organization": lambda n : setattr(self, 'organization', n.get_object_value(Organization)),
             "role": lambda n : setattr(self, 'role', n.get_enum_value(MembershipRole)),
         }
         return fields
@@ -52,7 +55,7 @@ class AcceptInvitationResponse(Parsable):
         if writer is None:
             raise TypeError("writer cannot be null.")
         writer.write_str_value("org_id", self.org_id)
-        writer.write_str_value("org_name", self.org_name)
+        writer.write_object_value("organization", self.organization)
         writer.write_enum_value("role", self.role)
     
 

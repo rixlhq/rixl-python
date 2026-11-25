@@ -10,6 +10,8 @@ class RefreshTokenRequest(Parsable):
     code_verifier: Optional[str] = None
     # The country_code property
     country_code: Optional[str] = None
+    # The org_id property
+    org_id: Optional[str] = None
     # The origin property
     origin: Optional[str] = None
     # The redirect_uri property
@@ -38,6 +40,7 @@ class RefreshTokenRequest(Parsable):
         fields: dict[str, Callable[[Any], None]] = {
             "code_verifier": lambda n : setattr(self, 'code_verifier', n.get_str_value()),
             "country_code": lambda n : setattr(self, 'country_code', n.get_str_value()),
+            "org_id": lambda n : setattr(self, 'org_id', n.get_str_value()),
             "origin": lambda n : setattr(self, 'origin', n.get_str_value()),
             "redirect_uri": lambda n : setattr(self, 'redirect_uri', n.get_str_value()),
             "refresh_token": lambda n : setattr(self, 'refresh_token', n.get_str_value()),
@@ -55,6 +58,7 @@ class RefreshTokenRequest(Parsable):
             raise TypeError("writer cannot be null.")
         writer.write_str_value("code_verifier", self.code_verifier)
         writer.write_str_value("country_code", self.country_code)
+        writer.write_str_value("org_id", self.org_id)
         writer.write_str_value("origin", self.origin)
         writer.write_str_value("redirect_uri", self.redirect_uri)
         writer.write_str_value("refresh_token", self.refresh_token)
