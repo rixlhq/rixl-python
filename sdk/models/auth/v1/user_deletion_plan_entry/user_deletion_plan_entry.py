@@ -9,10 +9,10 @@ if TYPE_CHECKING:
 
 @dataclass
 class UserDeletionPlanEntry(Parsable):
+    # The affected member's full name.
+    affected_name: Optional[str] = None
     # Set when another member will lose access to the personal org.
     affected_user_id: Optional[str] = None
-    # The affected_username property
-    affected_username: Optional[str] = None
     # The kind property
     kind: Optional[Kind] = None
     # The org_id property
@@ -41,8 +41,8 @@ class UserDeletionPlanEntry(Parsable):
         from .kind import Kind
 
         fields: dict[str, Callable[[Any], None]] = {
+            "affected_name": lambda n : setattr(self, 'affected_name', n.get_str_value()),
             "affected_user_id": lambda n : setattr(self, 'affected_user_id', n.get_str_value()),
-            "affected_username": lambda n : setattr(self, 'affected_username', n.get_str_value()),
             "kind": lambda n : setattr(self, 'kind', n.get_enum_value(Kind)),
             "org_id": lambda n : setattr(self, 'org_id', n.get_str_value()),
             "org_name": lambda n : setattr(self, 'org_name', n.get_str_value()),
@@ -57,8 +57,8 @@ class UserDeletionPlanEntry(Parsable):
         """
         if writer is None:
             raise TypeError("writer cannot be null.")
+        writer.write_str_value("affected_name", self.affected_name)
         writer.write_str_value("affected_user_id", self.affected_user_id)
-        writer.write_str_value("affected_username", self.affected_username)
         writer.write_enum_value("kind", self.kind)
         writer.write_str_value("org_id", self.org_id)
         writer.write_str_value("org_name", self.org_name)

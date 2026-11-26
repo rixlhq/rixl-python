@@ -11,6 +11,8 @@ if TYPE_CHECKING:
 
 @dataclass
 class OrgMember(Parsable):
+    # The email property
+    email: Optional[str] = None
     # The first_name property
     first_name: Optional[str] = None
     # The id property
@@ -27,8 +29,6 @@ class OrgMember(Parsable):
     state: Optional[MembershipState] = None
     # The user_id property
     user_id: Optional[str] = None
-    # The username property
-    username: Optional[str] = None
     
     @staticmethod
     def create_from_discriminator_value(parse_node: ParseNode) -> OrgMember:
@@ -53,6 +53,7 @@ class OrgMember(Parsable):
         from .membership_state import MembershipState
 
         fields: dict[str, Callable[[Any], None]] = {
+            "email": lambda n : setattr(self, 'email', n.get_str_value()),
             "first_name": lambda n : setattr(self, 'first_name', n.get_str_value()),
             "id": lambda n : setattr(self, 'id', n.get_str_value()),
             "joined_at": lambda n : setattr(self, 'joined_at', n.get_datetime_value()),
@@ -61,7 +62,6 @@ class OrgMember(Parsable):
             "role": lambda n : setattr(self, 'role', n.get_enum_value(MembershipRole)),
             "state": lambda n : setattr(self, 'state', n.get_enum_value(MembershipState)),
             "user_id": lambda n : setattr(self, 'user_id', n.get_str_value()),
-            "username": lambda n : setattr(self, 'username', n.get_str_value()),
         }
         return fields
     
@@ -73,6 +73,7 @@ class OrgMember(Parsable):
         """
         if writer is None:
             raise TypeError("writer cannot be null.")
+        writer.write_str_value("email", self.email)
         writer.write_str_value("first_name", self.first_name)
         writer.write_str_value("id", self.id)
         writer.write_datetime_value("joined_at", self.joined_at)
@@ -81,6 +82,5 @@ class OrgMember(Parsable):
         writer.write_enum_value("role", self.role)
         writer.write_enum_value("state", self.state)
         writer.write_str_value("user_id", self.user_id)
-        writer.write_str_value("username", self.username)
     
 

@@ -33,8 +33,6 @@ class UserInfo(Parsable):
     permissions: Optional[list[str]] = None
     # The policies property
     policies: Optional[list[Policy]] = None
-    # The username property
-    username: Optional[str] = None
     
     @staticmethod
     def create_from_discriminator_value(parse_node: ParseNode) -> UserInfo:
@@ -69,7 +67,6 @@ class UserInfo(Parsable):
             "last_name": lambda n : setattr(self, 'last_name', n.get_str_value()),
             "permissions": lambda n : setattr(self, 'permissions', n.get_collection_of_primitive_values(str)),
             "policies": lambda n : setattr(self, 'policies', n.get_collection_of_object_values(Policy)),
-            "username": lambda n : setattr(self, 'username', n.get_str_value()),
         }
         return fields
     
@@ -93,6 +90,5 @@ class UserInfo(Parsable):
         writer.write_str_value("last_name", self.last_name)
         writer.write_collection_of_primitive_values("permissions", self.permissions)
         writer.write_collection_of_object_values("policies", self.policies)
-        writer.write_str_value("username", self.username)
     
 

@@ -25,7 +25,6 @@ if TYPE_CHECKING:
     from .name.name_request_builder import NameRequestBuilder
     from .passkeys.passkeys_request_builder import PasskeysRequestBuilder
     from .totp.totp_request_builder import TotpRequestBuilder
-    from .username.username_request_builder import UsernameRequestBuilder
 
 class CurrentRequestBuilder(BaseRequestBuilder):
     """
@@ -161,15 +160,6 @@ class CurrentRequestBuilder(BaseRequestBuilder):
         from .totp.totp_request_builder import TotpRequestBuilder
 
         return TotpRequestBuilder(self.request_adapter, self.path_parameters)
-    
-    @property
-    def username(self) -> UsernameRequestBuilder:
-        """
-        The username property
-        """
-        from .username.username_request_builder import UsernameRequestBuilder
-
-        return UsernameRequestBuilder(self.request_adapter, self.path_parameters)
     
     @dataclass
     class CurrentRequestBuilderGetQueryParameters():
