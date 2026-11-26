@@ -6,7 +6,7 @@ from typing import Any, Optional, TYPE_CHECKING, Union
 
 @dataclass
 class PasskeyRegisterFinishResponse(Parsable):
-    # The name property
+    # At most 64 UTF-8 bytes.
     name: Optional[str] = None
     # The passkey_id property
     passkey_id: Optional[str] = None

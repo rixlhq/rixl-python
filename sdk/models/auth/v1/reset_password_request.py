@@ -6,7 +6,7 @@ from typing import Any, Optional, TYPE_CHECKING, Union
 
 @dataclass
 class ResetPasswordRequest(Parsable):
-    # The new_password property
+    # Must contain at least 8 UTF-8 bytes (not 8 characters).
     new_password: Optional[str] = None
     # The token property
     token: Optional[str] = None

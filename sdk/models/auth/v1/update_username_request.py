@@ -8,7 +8,7 @@ from typing import Any, Optional, TYPE_CHECKING, Union
 class UpdateUsernameRequest(Parsable):
     # The user_id property
     user_id: Optional[str] = None
-    # The username property
+    # Trimmed and lowercased before validation. The normalized value may contain at most 24 Unicode characters; an empty value is allowed.
     username: Optional[str] = None
     
     @staticmethod

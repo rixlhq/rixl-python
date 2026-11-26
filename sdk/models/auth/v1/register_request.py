@@ -10,7 +10,7 @@ class RegisterRequest(Parsable):
     country_code: Optional[str] = None
     # The email property
     email: Optional[str] = None
-    # The password property
+    # Must contain at least 8 UTF-8 bytes (not 8 characters).
     password: Optional[str] = None
     # The subscribe_to_blog property
     subscribe_to_blog: Optional[bool] = None

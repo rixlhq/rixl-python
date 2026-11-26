@@ -10,7 +10,7 @@ class PasskeyRegisterFinishRequest(Parsable):
     challenge_id: Optional[str] = None
     # The credential property
     credential: Optional[bytes] = None
-    # The name property
+    # At most 64 UTF-8 bytes. When renaming, whitespace is trimmed before validation and the result must be nonempty.
     name: Optional[str] = None
     # The user_id property
     user_id: Optional[str] = None

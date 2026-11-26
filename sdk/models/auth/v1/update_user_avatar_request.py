@@ -6,7 +6,7 @@ from typing import Any, Optional, TYPE_CHECKING, Union
 
 @dataclass
 class UpdateUserAvatarRequest(Parsable):
-    # The image_id property
+    # Trimmed before validation. Empty clears the avatar; otherwise must be a valid base62 image ID.
     image_id: Optional[str] = None
     # The user_id property
     user_id: Optional[str] = None

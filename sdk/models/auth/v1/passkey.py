@@ -18,7 +18,7 @@ class Passkey(Parsable):
     id: Optional[str] = None
     # The last_used_at property
     last_used_at: Optional[str] = None
-    # The name property
+    # At most 64 UTF-8 bytes.
     name: Optional[str] = None
     # The transports property
     transports: Optional[list[str]] = None
