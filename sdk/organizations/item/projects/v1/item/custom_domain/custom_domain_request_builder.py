@@ -14,7 +14,7 @@ from typing import Any, Optional, TYPE_CHECKING, Union
 from warnings import warn
 
 if TYPE_CHECKING:
-    from .......models.google.rpc.status import Status
+    from .......models.error import Error
     from .......models.project.v1.project import Project
     from .custom_domain_put_request_body import CustomDomainPutRequestBody
 
@@ -40,10 +40,10 @@ class CustomDomainRequestBuilder(BaseRequestBuilder):
         request_info = self.to_delete_request_information(
             request_configuration
         )
-        from .......models.google.rpc.status import Status
+        from .......models.error import Error
 
         error_mapping: dict[str, type[ParsableFactory]] = {
-            "XXX": Status,
+            "XXX": Error,
         }
         if not self.request_adapter:
             raise Exception("Http core is null") 
@@ -63,10 +63,10 @@ class CustomDomainRequestBuilder(BaseRequestBuilder):
         request_info = self.to_put_request_information(
             body, request_configuration
         )
-        from .......models.google.rpc.status import Status
+        from .......models.error import Error
 
         error_mapping: dict[str, type[ParsableFactory]] = {
-            "XXX": Status,
+            "XXX": Error,
         }
         if not self.request_adapter:
             raise Exception("Http core is null") 

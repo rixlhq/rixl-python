@@ -16,7 +16,7 @@ from warnings import warn
 if TYPE_CHECKING:
     from ....models.billing.v1.create_setup_intent_request import CreateSetupIntentRequest
     from ....models.billing.v1.setup_intent_response import SetupIntentResponse
-    from ....models.google.rpc.status import Status
+    from ....models.error import Error
 
 class SetupIntentRequestBuilder(BaseRequestBuilder):
     """
@@ -43,10 +43,10 @@ class SetupIntentRequestBuilder(BaseRequestBuilder):
         request_info = self.to_post_request_information(
             body, request_configuration
         )
-        from ....models.google.rpc.status import Status
+        from ....models.error import Error
 
         error_mapping: dict[str, type[ParsableFactory]] = {
-            "XXX": Status,
+            "XXX": Error,
         }
         if not self.request_adapter:
             raise Exception("Http core is null") 

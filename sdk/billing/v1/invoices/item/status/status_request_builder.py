@@ -15,7 +15,7 @@ from warnings import warn
 
 if TYPE_CHECKING:
     from ......models.billing.v1.invoice import Invoice
-    from ......models.google.rpc.status import Status
+    from ......models.error import Error
     from .status_patch_request_body import StatusPatchRequestBody
 
 class StatusRequestBuilder(BaseRequestBuilder):
@@ -43,10 +43,10 @@ class StatusRequestBuilder(BaseRequestBuilder):
         request_info = self.to_patch_request_information(
             body, request_configuration
         )
-        from ......models.google.rpc.status import Status
+        from ......models.error import Error
 
         error_mapping: dict[str, type[ParsableFactory]] = {
-            "XXX": Status,
+            "XXX": Error,
         }
         if not self.request_adapter:
             raise Exception("Http core is null") 

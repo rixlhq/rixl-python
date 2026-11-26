@@ -16,7 +16,7 @@ from warnings import warn
 if TYPE_CHECKING:
     from ......models.auth.v1.add_email_request import AddEmailRequest
     from ......models.auth.v1.verification_sent_response import VerificationSentResponse
-    from ......models.google.rpc.status import Status
+    from ......models.error import Error
     from .change.change_request_builder import ChangeRequestBuilder
     from .status.status_request_builder import StatusRequestBuilder
     from .verify.verify_request_builder import VerifyRequestBuilder
@@ -46,10 +46,10 @@ class EmailsRequestBuilder(BaseRequestBuilder):
         request_info = self.to_post_request_information(
             body, request_configuration
         )
-        from ......models.google.rpc.status import Status
+        from ......models.error import Error
 
         error_mapping: dict[str, type[ParsableFactory]] = {
-            "XXX": Status,
+            "XXX": Error,
         }
         if not self.request_adapter:
             raise Exception("Http core is null") 

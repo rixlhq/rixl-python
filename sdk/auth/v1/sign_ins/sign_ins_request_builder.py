@@ -15,7 +15,7 @@ from warnings import warn
 
 if TYPE_CHECKING:
     from ....models.auth.v1.list_sign_ins_response import ListSignInsResponse
-    from ....models.google.rpc.status import Status
+    from ....models.error import Error
     from .item.with_sign_in_item_request_builder import WithSign_in_ItemRequestBuilder
     from .revoke_others.revoke_others_request_builder import RevokeOthersRequestBuilder
 
@@ -55,10 +55,10 @@ class SignInsRequestBuilder(BaseRequestBuilder):
         request_info = self.to_get_request_information(
             request_configuration
         )
-        from ....models.google.rpc.status import Status
+        from ....models.error import Error
 
         error_mapping: dict[str, type[ParsableFactory]] = {
-            "XXX": Status,
+            "XXX": Error,
         }
         if not self.request_adapter:
             raise Exception("Http core is null") 

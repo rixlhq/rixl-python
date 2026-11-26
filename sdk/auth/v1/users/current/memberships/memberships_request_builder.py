@@ -16,7 +16,7 @@ from warnings import warn
 if TYPE_CHECKING:
     from ......models.auth.v1.list_memberships_response import ListMembershipsResponse
     from ......models.auth.v1.membership_state import MembershipState
-    from ......models.google.rpc.status import Status
+    from ......models.error import Error
 
 class MembershipsRequestBuilder(BaseRequestBuilder):
     """
@@ -40,10 +40,10 @@ class MembershipsRequestBuilder(BaseRequestBuilder):
         request_info = self.to_get_request_information(
             request_configuration
         )
-        from ......models.google.rpc.status import Status
+        from ......models.error import Error
 
         error_mapping: dict[str, type[ParsableFactory]] = {
-            "XXX": Status,
+            "XXX": Error,
         }
         if not self.request_adapter:
             raise Exception("Http core is null") 

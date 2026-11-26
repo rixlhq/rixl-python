@@ -15,7 +15,7 @@ from warnings import warn
 
 if TYPE_CHECKING:
     from ......models.auth.v1.organization import Organization
-    from ......models.google.rpc.status import Status
+    from ......models.error import Error
     from .transfer_ownership_post_request_body import TransferOwnershipPostRequestBody
 
 class TransferOwnershipRequestBuilder(BaseRequestBuilder):
@@ -43,10 +43,10 @@ class TransferOwnershipRequestBuilder(BaseRequestBuilder):
         request_info = self.to_post_request_information(
             body, request_configuration
         )
-        from ......models.google.rpc.status import Status
+        from ......models.error import Error
 
         error_mapping: dict[str, type[ParsableFactory]] = {
-            "XXX": Status,
+            "XXX": Error,
         }
         if not self.request_adapter:
             raise Exception("Http core is null") 

@@ -15,7 +15,7 @@ from warnings import warn
 
 if TYPE_CHECKING:
     from ....models.auth.v1.list_providers_response import ListProvidersResponse
-    from ....models.google.rpc.status import Status
+    from ....models.error import Error
     from .connect.connect_request_builder import ConnectRequestBuilder
     from .item.with_provider_item_request_builder import WithProviderItemRequestBuilder
 
@@ -55,10 +55,10 @@ class ProvidersRequestBuilder(BaseRequestBuilder):
         request_info = self.to_get_request_information(
             request_configuration
         )
-        from ....models.google.rpc.status import Status
+        from ....models.error import Error
 
         error_mapping: dict[str, type[ParsableFactory]] = {
-            "XXX": Status,
+            "XXX": Error,
         }
         if not self.request_adapter:
             raise Exception("Http core is null") 

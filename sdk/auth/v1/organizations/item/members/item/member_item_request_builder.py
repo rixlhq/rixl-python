@@ -15,8 +15,8 @@ from warnings import warn
 
 if TYPE_CHECKING:
     from .......models.auth.v1.membership_mutation import MembershipMutation
+    from .......models.error import Error
     from .......models.google.protobuf.empty import Empty
-    from .......models.google.rpc.status import Status
     from .member_patch_request_body import Member_PatchRequestBody
     from .policies.policies_request_builder import PoliciesRequestBuilder
 
@@ -42,10 +42,10 @@ class Member_ItemRequestBuilder(BaseRequestBuilder):
         request_info = self.to_delete_request_information(
             request_configuration
         )
-        from .......models.google.rpc.status import Status
+        from .......models.error import Error
 
         error_mapping: dict[str, type[ParsableFactory]] = {
-            "XXX": Status,
+            "XXX": Error,
         }
         if not self.request_adapter:
             raise Exception("Http core is null") 
@@ -65,10 +65,10 @@ class Member_ItemRequestBuilder(BaseRequestBuilder):
         request_info = self.to_patch_request_information(
             body, request_configuration
         )
-        from .......models.google.rpc.status import Status
+        from .......models.error import Error
 
         error_mapping: dict[str, type[ParsableFactory]] = {
-            "XXX": Status,
+            "XXX": Error,
         }
         if not self.request_adapter:
             raise Exception("Http core is null") 

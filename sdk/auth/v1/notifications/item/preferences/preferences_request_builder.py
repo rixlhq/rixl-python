@@ -16,7 +16,7 @@ from warnings import warn
 if TYPE_CHECKING:
     from ......models.auth.v1.notification_preference import NotificationPreference
     from ......models.auth.v1.notification_preferences import NotificationPreferences
-    from ......models.google.rpc.status import Status
+    from ......models.error import Error
     from .preferences_patch_request_body import PreferencesPatchRequestBody
 
 class PreferencesRequestBuilder(BaseRequestBuilder):
@@ -41,10 +41,10 @@ class PreferencesRequestBuilder(BaseRequestBuilder):
         request_info = self.to_get_request_information(
             request_configuration
         )
-        from ......models.google.rpc.status import Status
+        from ......models.error import Error
 
         error_mapping: dict[str, type[ParsableFactory]] = {
-            "XXX": Status,
+            "XXX": Error,
         }
         if not self.request_adapter:
             raise Exception("Http core is null") 
@@ -64,10 +64,10 @@ class PreferencesRequestBuilder(BaseRequestBuilder):
         request_info = self.to_patch_request_information(
             body, request_configuration
         )
-        from ......models.google.rpc.status import Status
+        from ......models.error import Error
 
         error_mapping: dict[str, type[ParsableFactory]] = {
-            "XXX": Status,
+            "XXX": Error,
         }
         if not self.request_adapter:
             raise Exception("Http core is null") 

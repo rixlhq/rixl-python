@@ -14,7 +14,7 @@ from typing import Any, Optional, TYPE_CHECKING, Union
 from warnings import warn
 
 if TYPE_CHECKING:
-    from .....models.google.rpc.status import Status
+    from .....models.error import Error
     from .....models.videos.v1.get_video_response import GetVideoResponse
     from .audio_tracks.audio_tracks_request_builder import AudioTracksRequestBuilder
     from .subtitles.subtitles_request_builder import SubtitlesRequestBuilder
@@ -41,10 +41,10 @@ class WithVideo_ItemRequestBuilder(BaseRequestBuilder):
         request_info = self.to_get_request_information(
             request_configuration
         )
-        from .....models.google.rpc.status import Status
+        from .....models.error import Error
 
         error_mapping: dict[str, type[ParsableFactory]] = {
-            "XXX": Status,
+            "XXX": Error,
         }
         if not self.request_adapter:
             raise Exception("Http core is null") 

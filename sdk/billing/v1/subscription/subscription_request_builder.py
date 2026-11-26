@@ -17,7 +17,7 @@ if TYPE_CHECKING:
     from ....models.billing.v1.create_subscription_request import CreateSubscriptionRequest
     from ....models.billing.v1.create_subscription_response import CreateSubscriptionResponse
     from ....models.billing.v1.subscription import Subscription
-    from ....models.google.rpc.status import Status
+    from ....models.error import Error
     from .cancel.cancel_request_builder import CancelRequestBuilder
     from .history.history_request_builder import HistoryRequestBuilder
     from .reactivate.reactivate_request_builder import ReactivateRequestBuilder
@@ -45,10 +45,10 @@ class SubscriptionRequestBuilder(BaseRequestBuilder):
         request_info = self.to_get_request_information(
             request_configuration
         )
-        from ....models.google.rpc.status import Status
+        from ....models.error import Error
 
         error_mapping: dict[str, type[ParsableFactory]] = {
-            "XXX": Status,
+            "XXX": Error,
         }
         if not self.request_adapter:
             raise Exception("Http core is null") 
@@ -68,10 +68,10 @@ class SubscriptionRequestBuilder(BaseRequestBuilder):
         request_info = self.to_post_request_information(
             body, request_configuration
         )
-        from ....models.google.rpc.status import Status
+        from ....models.error import Error
 
         error_mapping: dict[str, type[ParsableFactory]] = {
-            "XXX": Status,
+            "XXX": Error,
         }
         if not self.request_adapter:
             raise Exception("Http core is null") 

@@ -1,38 +1,49 @@
 from __future__ import annotations
 from collections.abc import Callable
 from dataclasses import dataclass, field
+from kiota_abstractions.api_error import APIError
 from kiota_abstractions.serialization import AdditionalDataHolder, Parsable, ParseNode, SerializationWriter
 from typing import Any, Optional, TYPE_CHECKING, Union
 
+if TYPE_CHECKING:
+    from .error_metadata import Error_metadata
+
 @dataclass
-class Any(AdditionalDataHolder, Parsable):
-    """
-    Contains an arbitrary serialized message along with a @type that describes the type of the serialized message.
-    """
+class Error(APIError, AdditionalDataHolder, Parsable):
     # Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
     additional_data: dict[str, Any] = field(default_factory=dict)
 
-    # A URL/resource name that uniquely identifies the type of the serialized message.
-    type: Optional[str] = None
+    # Human-readable message. Not stable; branch on the HTTP status.
+    error: Optional[str] = None
+    # Reason-specific details, such as `invitation_id` on `INVITATION_PENDING` or `max_age_seconds` on `STEP_UP_REQUIRED`. Absent when there is none.
+    metadata: Optional[Error_metadata] = None
+    # Machine-readable reason for some 4xx errors, such as `ORG_DELETED`, `MEMBERSHIP_SUSPENDED`, `NOT_A_MEMBER` or `STEP_UP_REQUIRED`. Absent when there is none, and always absent on 5xx.
+    reason: Optional[str] = None
     
     @staticmethod
-    def create_from_discriminator_value(parse_node: ParseNode) -> Any:
+    def create_from_discriminator_value(parse_node: ParseNode) -> Error:
         """
         Creates a new instance of the appropriate class based on discriminator value
         param parse_node: The parse node to use to read the discriminator value and create the object
-        Returns: Any
+        Returns: Error
         """
         if parse_node is None:
             raise TypeError("parse_node cannot be null.")
-        return Any()
+        return Error()
     
     def get_field_deserializers(self,) -> dict[str, Callable[[ParseNode], None]]:
         """
         The deserialization information for the current model
         Returns: dict[str, Callable[[ParseNode], None]]
         """
+        from .error_metadata import Error_metadata
+
+        from .error_metadata import Error_metadata
+
         fields: dict[str, Callable[[Any], None]] = {
-            "@type": lambda n : setattr(self, 'type', n.get_str_value()),
+            "error": lambda n : setattr(self, 'error', n.get_str_value()),
+            "metadata": lambda n : setattr(self, 'metadata', n.get_object_value(Error_metadata)),
+            "reason": lambda n : setattr(self, 'reason', n.get_str_value()),
         }
         return fields
     
@@ -44,7 +55,15 @@ class Any(AdditionalDataHolder, Parsable):
         """
         if writer is None:
             raise TypeError("writer cannot be null.")
-        writer.write_str_value("@type", self.type)
+        writer.write_str_value("error", self.error)
+        writer.write_object_value("metadata", self.metadata)
+        writer.write_str_value("reason", self.reason)
         writer.write_additional_data_value(self.additional_data)
     
+    @property
+    def primary_message(self) -> Optional[str]:
+        """
+        The primary error message.
+        """
+        return super().message
 

@@ -14,9 +14,9 @@ from typing import Any, Optional, TYPE_CHECKING, Union
 from warnings import warn
 
 if TYPE_CHECKING:
+    from .......models.error import Error
     from .......models.feeds.v1.feed import Feed
     from .......models.google.protobuf.empty import Empty
-    from .......models.google.rpc.status import Status
     from .with_feed_put_request_body import WithFeed_PutRequestBody
 
 class WithFeed_ItemRequestBuilder(BaseRequestBuilder):
@@ -41,10 +41,10 @@ class WithFeed_ItemRequestBuilder(BaseRequestBuilder):
         request_info = self.to_delete_request_information(
             request_configuration
         )
-        from .......models.google.rpc.status import Status
+        from .......models.error import Error
 
         error_mapping: dict[str, type[ParsableFactory]] = {
-            "XXX": Status,
+            "XXX": Error,
         }
         if not self.request_adapter:
             raise Exception("Http core is null") 
@@ -61,10 +61,10 @@ class WithFeed_ItemRequestBuilder(BaseRequestBuilder):
         request_info = self.to_get_request_information(
             request_configuration
         )
-        from .......models.google.rpc.status import Status
+        from .......models.error import Error
 
         error_mapping: dict[str, type[ParsableFactory]] = {
-            "XXX": Status,
+            "XXX": Error,
         }
         if not self.request_adapter:
             raise Exception("Http core is null") 
@@ -84,10 +84,10 @@ class WithFeed_ItemRequestBuilder(BaseRequestBuilder):
         request_info = self.to_put_request_information(
             body, request_configuration
         )
-        from .......models.google.rpc.status import Status
+        from .......models.error import Error
 
         error_mapping: dict[str, type[ParsableFactory]] = {
-            "XXX": Status,
+            "XXX": Error,
         }
         if not self.request_adapter:
             raise Exception("Http core is null") 

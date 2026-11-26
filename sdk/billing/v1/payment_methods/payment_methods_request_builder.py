@@ -17,7 +17,7 @@ if TYPE_CHECKING:
     from ....models.billing.v1.list_payment_methods_response import ListPaymentMethodsResponse
     from ....models.billing.v1.payment_method_details import PaymentMethodDetails
     from ....models.billing.v1.upsert_payment_method_request import UpsertPaymentMethodRequest
-    from ....models.google.rpc.status import Status
+    from ....models.error import Error
     from .from_payment_intent.from_payment_intent_request_builder import FromPaymentIntentRequestBuilder
     from .from_setup_intent.from_setup_intent_request_builder import FromSetupIntentRequestBuilder
     from .item.with_payment_method_item_request_builder import WithPayment_method_ItemRequestBuilder
@@ -58,10 +58,10 @@ class PaymentMethodsRequestBuilder(BaseRequestBuilder):
         request_info = self.to_get_request_information(
             request_configuration
         )
-        from ....models.google.rpc.status import Status
+        from ....models.error import Error
 
         error_mapping: dict[str, type[ParsableFactory]] = {
-            "XXX": Status,
+            "XXX": Error,
         }
         if not self.request_adapter:
             raise Exception("Http core is null") 
@@ -81,10 +81,10 @@ class PaymentMethodsRequestBuilder(BaseRequestBuilder):
         request_info = self.to_put_request_information(
             body, request_configuration
         )
-        from ....models.google.rpc.status import Status
+        from ....models.error import Error
 
         error_mapping: dict[str, type[ParsableFactory]] = {
-            "XXX": Status,
+            "XXX": Error,
         }
         if not self.request_adapter:
             raise Exception("Http core is null") 
